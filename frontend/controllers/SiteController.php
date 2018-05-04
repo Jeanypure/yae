@@ -13,6 +13,9 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 
+
+use frontend\models\SiteLoginForm;
+use frontend\models\User;
 /**
  * Site controller
  */
