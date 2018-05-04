@@ -2,7 +2,7 @@
 namespace backend\controllers;
 
 use Yii;
-use yii\web\Controller;
+//use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
@@ -29,6 +29,14 @@ class SiteController extends Controller
                         'actions' => ['logout', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['update'],
+                        // 自定义一个规则，返回true表示满足该规则，可以访问，false表示不满足规则，也就不可以访问actions里面的操作啦
+                        'matchCallback' => function ($rule, $action) {
+                            return Yii::$app->user->id == 1 ? true : false;
+                        },
+                        'allow' => true,
                     ],
                 ],
             ],
@@ -60,6 +68,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+//        echo 1112;
         return $this->render('index');
     }
 

@@ -33,6 +33,9 @@ return [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
+            'enableSession' => true,
+            'authTimeout' => 0,
+//            'loginUrl' => null,
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend
@@ -71,14 +74,14 @@ return [
     ],
     'as access' => [
         'class' => 'mdm\admin\components\AccessControl',
-//        'class' => 'common\components\AccessControl',
         'allowActions' => [
             //这里是允许访问的action
             //controller/action
-            'site/*',
-            'admin/*',
-            'user/*',
-            '/*',
+            '*',
+//            'site/*',
+//            'admin/*',
+//            'user/*',
+//            '/*',
         ]
     ],
 

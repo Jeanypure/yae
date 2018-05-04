@@ -30,7 +30,8 @@ use mdm\admin\components\MenuHelper;
         </form>
         <!-- /.search form -->
 
-        <?= dmstr\widgets\Menu::widget(
+        <?php
+        echo dmstr\widgets\Menu::widget(
             [
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [
@@ -67,26 +68,49 @@ use mdm\admin\components\MenuHelper;
                     ],
                 ],
             ]
-        );?>
+        );
+        ?>
+
         <?php
         echo Nav::widget(
             [
                 "encodeLabels" => false,
-                "options" => ["class" => "sidebar-menu tree", 'data-widget'=> 'tree'],
-                "items" => MenuHelper::getAssignedMenu(1),
+                "options" => ["class" => "sidebar-menu"],
+                "items" => MenuHelper::getAssignedMenu(Yii::$app->user->id),
             ]
         );
-
-
-
-        echo dmstr\widgets\Menu::widget( [
-            'options' => ['class' => 'sidebar-menu'],
-//            'items' => MenuHelper::getAssignedMenu(Yii::$app->user->id),
-            'items' => MenuHelper::getAssignedMenu(1),
-        ] );
         ?>
 
+<!--        <ul class="sidebar-menu">-->
+<!--            <li class="tree">-->
+<!--                <a href="#">-->
+<!--                    <i class="fa fa-gears"></i> <span>权限控制</span>-->
+<!--                    <i class="fa fa-angle-left pull-right"></i>-->
+<!--                </a>-->
+<!--                <ul class="tree-menu">-->
+<!--                    <li class="tree">-->
+<!--                        <a href="/admin">管理员</a>-->
+<!--                        <ul class="tree-menu">-->
+<!--                            <li><a href="/user"><i class="fa fa-circle-o"></i> 后台用户</a></li>-->
+<!--                            <li class="tree">-->
+<!--                                <a href="/admin/role">-->
+<!--                                    <i class="fa fa-circle-o"></i> 权限 <i class="fa fa-angle-left pull-right"></i>-->
+<!--                                </a>-->
+<!--                                <ul class="tree-menu">-->
+<!--                                    <li><a href="/admin/route"><i class="fa fa-circle-o"></i> 路由</a></li>-->
+<!--                                    <li><a href="/admin/permission"><i class="fa fa-circle-o"></i> 权限</a></li>-->
+<!--                                    <li><a href="/admin/role"><i class="fa fa-circle-o"></i> 角色</a></li>-->
+<!--                                    <li><a href="/admin/assignment"><i class="fa fa-circle-o"></i> 分配</a></li>-->
+<!--                                    <li><a href="/admin/menu"><i class="fa fa-circle-o"></i> 菜单</a></li>-->
+<!--                                </ul>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </li>-->
+<!--        </ul>-->
 
     </section>
+
 
 </aside>
