@@ -33,7 +33,7 @@ use yii\helpers\Html;
                                 <li><!-- start message -->
                                     <a href="#">
                                         <div class="pull-left">
-                                            <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle"
+                                            <img src="<?= $directoryAsset ?>/img/user7-128x128.jpg" class="img-circle"
                                                  alt="User Image"/>
                                         </div>
                                         <h4>
@@ -229,7 +229,7 @@ use yii\helpers\Html;
 
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                        <img src="<?= $directoryAsset ?>/img/user7-128x128.jpg" class="user-image" alt="User Image"/>
 <!--                        <span class="hidden-xs">Alexander Pierce</span>-->
                         <span class="hidden-xs"><?php echo Yii::$app->user->identity->username; ?></span>
 <!--                        Yii::$app->user->identity->username-->
@@ -237,7 +237,7 @@ use yii\helpers\Html;
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle"
+                            <img src="<?= $directoryAsset ?>/img/user7-128x128.jpg" class="img-circle"
                                  alt="User Image"/>
 
                             <p>
