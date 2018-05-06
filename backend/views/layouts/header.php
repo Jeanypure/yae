@@ -7,7 +7,10 @@ use yii\helpers\Html;
 
 <header class="main-header">
 
-    <?= Html::a('<span class="logo-mini">APP</span><span class="logo-lg">' . Yii::$app->name . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
+    <?php
+//    echo Html::a('<span class="logo-mini">APP</span><span class="logo-lg">' . Yii::$app->name . '</span>', Yii::$app->homeUrl, ['class' => 'logo']);
+    echo Html::a('<span class="logo-mini">APP</span><span class="logo-lg">' . 'Yae*mart '. '</span>', Yii::$app->homeUrl, ['class' => 'logo']);
+    ?>
 
     <nav class="navbar navbar-static-top" role="navigation">
 
