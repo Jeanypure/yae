@@ -25,25 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\ActionColumn'],
 
-
-
-
-           // 'product_id',
+            // 'product_id',
             'product_title_en',
             'product_title',
             'product_purchase_value',
-            [
-
-                'attribute' => 'ref_url1',
-                'value' => function ($model, $key, $index, $widget) {
-//                    return Html::a('Amazon-link',$model->ref_url1,['target'=>'_blank']);
-                    return parse_url($model->ref_url1)['host'];
-
-                },
-
-            ],
-
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
@@ -51,44 +38,45 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'header' => 'Amazon链接',
                 'content' => function ($model, $key, $index, $column){
-                    return "<a>".parse_url($model->ref_url1)['host']."</a>";
+                    return "<a href='$model->ref_url1' target='_blank'>".parse_url($model->ref_url1)['host']."</a>";
                 }
-            ], [
+            ],
+            [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
                     'width'=>'100'
                 ],
                 'header' => 'eBay链接',
                 'content' => function ($model, $key, $index, $column){
-                    return "<a>".parse_url($model->ref_url2)['host']."</a>";
+                    return "<a href='$model->ref_url2' target='_blank'>".parse_url($model->ref_url2)['host']."</a>";
+
                 }
-            ], [
+            ],
+            [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
                     'width'=>'100'
                 ],
                 'header' => '1688链接',
                 'content' => function ($model, $key, $index, $column){
-                    return "<a>".parse_url($model->ref_url3)['host']."</a>";
+                    return "<a href='$model->ref_url3' target='_blank'>".parse_url($model->ref_url3)['host']."</a>";
+
                 }
-            ], [
+            ],
+            [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
                     'width'=>'100'
                 ],
                 'header' => '其他链接',
                 'content' => function ($model, $key, $index, $column){
-                    return "<a>".parse_url($model->ref_url4)['host']."</a>";
+                    return "<a href='$model->ref_url4' target='_blank'>".parse_url($model->ref_url4)['host']."</a>";
+
                 }
             ],
-//            'ref_url1',
-//            'ref_url2',
-//            'ref_url3',
-//            'ref_url4',
-            'product_add_time',     
+            'product_add_time',
             'product_update_time',
             'purchaser',
-            ['class' => 'yii\grid\ActionColumn'],
 
 
         ],
