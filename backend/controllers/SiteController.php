@@ -2,7 +2,7 @@
 namespace backend\controllers;
 
 use Yii;
-//use yii\web\Controller;
+use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
@@ -96,7 +96,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Logout action.
+     * Logout action.x
      *
      * @return string
      */
