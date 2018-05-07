@@ -19,7 +19,7 @@ class ProductSearch extends Product
     {
         return [
             [['product_id'], 'integer'],
-            [['product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4', 'product_add_time', 'product_update_time', 'purchaser'], 'safe'],
+            [['product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4', 'product_add_time', 'product_update_time', 'purchaser','creator'], 'safe'],
             [['product_purchase_value'], 'number'],
         ];
     }
@@ -72,7 +72,8 @@ class ProductSearch extends Product
             ->andFilterWhere(['like', 'ref_url2', $this->ref_url2])
             ->andFilterWhere(['like', 'ref_url3', $this->ref_url3])
             ->andFilterWhere(['like', 'ref_url4', $this->ref_url4])
-            ->andFilterWhere(['like', 'purchaser', $this->purchaser]);
+            ->andFilterWhere(['like', 'purchaser', $this->purchaser])
+            ->andFilterWhere(['like', 'creator', $this->creator]);
 
         return $dataProvider;
     }

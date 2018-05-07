@@ -71,6 +71,14 @@ return [
                 "<controller:\w+>/<action:\w+>"=>"<controller>/<action>"
             ],
         ],
+
+        'formatter' => [
+            'dateFormat' => 'yyyy.MM.dd',
+//            'dateFormat' => 'dd.MM.yyyy',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ' ',
+            'currencyCode' => 'EUR',
+        ],
     ],
     'as access' => [
         'class' => 'mdm\admin\components\AccessControl',
