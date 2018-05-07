@@ -23,13 +23,32 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'options' => [
+            'style'=>'overflow: auto; word-wrap: break-word;'
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                    'class' => 'yii\grid\ActionColumn',
+                    'header' => '操作',
+            ],
+
 
             // 'product_id',
-            'product_title_en',
+            [
+                'class' => 'yii\grid\Column',
+                'headerOptions' => [
+                    'width'=>'100'
+                ],
+                'header' => '图片',
+                'content' => function ($model, $key, $index, $column){
+                    return "<img src='" .$model->pd_pic_url. "' width='100' height='100'>";
+
+
+                }
+            ],
             'product_title',
+            'product_title_en',
             'product_purchase_value',
             [
                 'class' => 'yii\grid\Column',
@@ -38,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'header' => 'Amazon链接',
                 'content' => function ($model, $key, $index, $column){
-                    return "<a href='$model->ref_url1' target='_blank'>".parse_url($model->ref_url1)['host']."</a>";
+                    if (!empty($model->ref_url1)) return "<a href='$model->ref_url1' target='_blank'>".parse_url($model->ref_url1)['host'] ?? ' '."</a>";
                 }
             ],
             [
@@ -48,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'header' => 'eBay链接',
                 'content' => function ($model, $key, $index, $column){
-                    return "<a href='$model->ref_url2' target='_blank'>".parse_url($model->ref_url2)['host']."</a>";
+                    if (!empty($model->ref_url2))  return "<a href='$model->ref_url2' target='_blank'>".parse_url($model->ref_url2)['host']."</a>";
 
                 }
             ],
@@ -59,24 +78,35 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'header' => '1688链接',
                 'content' => function ($model, $key, $index, $column){
-                    return "<a href='$model->ref_url3' target='_blank'>".parse_url($model->ref_url3)['host']."</a>";
+                    if (!empty($model->ref_url3))  return "<a href='$model->ref_url3' target='_blank'>".parse_url($model->ref_url3)['host']."</a>";
 
                 }
             ],
+//            [
+//                'class' => 'yii\grid\Column',
+//                'headerOptions' => [
+//                    'width'=>'100'
+//                ],
+//                'header' => '其他链接',
+//                'content' => function ($model, $key, $index, $column){
+//                    if (!empty($model->ref_url4))  return "<a href='$model->ref_url4' target='_blank'>".parse_url($model->ref_url4)['host'] ."</a>";
+//
+//
+//
+//                }
+//            ],
+            'product_add_time:date',
+//            'product_update_time:date',
+            'purchaser',
+            'creator',
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
-                    'width'=>'100'
+                    'width'=>'50'
                 ],
-                'header' => '其他链接',
-                'content' => function ($model, $key, $index, $column){
-                    return "<a href='$model->ref_url4' target='_blank'>".parse_url($model->ref_url4)['host']."</a>";
-
-                }
+                'header' => '状态',
+                'content' => function ($model){return $model->product_status;}
             ],
-            'product_add_time',
-            'product_update_time',
-            'purchaser',
 
 
         ],

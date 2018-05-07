@@ -66,7 +66,12 @@ class ProductController extends Controller
     {
         $model = new Product();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+
+            $model->creator = Yii::$app->user->identity->username;
+            $model->save();
+//            var_dump($model->creator);die;
+//            Yii::$app->user->identity->username
             return $this->redirect(['view', 'id' => $model->product_id]);
         }
 
@@ -87,6 +92,8 @@ class ProductController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->creator = Yii::$app->user->identity->username;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->product_id]);
         }
 
