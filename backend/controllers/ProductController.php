@@ -70,8 +70,6 @@ class ProductController extends Controller
 
             $model->creator = Yii::$app->user->identity->username;
             $model->save();
-//            var_dump($model->creator);die;
-//            Yii::$app->user->identity->username
             return $this->redirect(['view', 'id' => $model->product_id]);
         }
 
