@@ -28,7 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'preview_mark',
             'product_id',
             'product_title_en',
             'product_title',
@@ -40,7 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'product_add_time',
             'product_update_time',
             'purchaser',
-            'creator'
+            'creator',
+            'product_status',
+            'pd_pic_url:url',
+            'preview_time',
+            'preview_mark',
+            'sub_commpany_id',
+            'sub_commpany',
         ],
     ]) ?>
 

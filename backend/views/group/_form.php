@@ -12,11 +12,10 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'pd_pic_url')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'sub_company')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'product_title_en')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'product_title')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'product_title_en')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'product_purchase_value')->textInput(['maxlength' => true]) ?>
 
@@ -28,7 +27,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'ref_url4')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'product_add_time')->textInput() ?>
+
+    <?= $form->field($model, 'product_update_time')->textInput() ?>
+
     <?= $form->field($model, 'purchaser')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'pd_pic_url')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'preview_mark')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

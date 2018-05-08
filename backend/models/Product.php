@@ -38,8 +38,8 @@ class Product extends \yii\db\ActiveRecord
             [['product_purchase_value'], 'number'],
             [['product_add_time', 'product_update_time'], 'safe'],
             [['purchaser'], 'required'],
-            [['product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4','pd_pic_url'], 'string', 'max' => 255],
-            [['purchaser'], 'string', 'max' => 32],
+            [['preview_mark','product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4','pd_pic_url'], 'string', 'max' => 255],
+            [['sub_company','purchaser'], 'string', 'max' => 32],
         ];
     }
 
@@ -63,6 +63,9 @@ class Product extends \yii\db\ActiveRecord
             'creator' => '推荐人',
             'pd_pic_url' => '图片地址',
             'product_status' => '状态',
+            'preview_mark' => '评审记录',
+            'sub_company' => '组别',
+//            'sub_company_id' => '组别ID',
         ];
     }
 }

@@ -3,14 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\ProductSearch;
-use backend\models\Product;
+use backend\models\Company;
+use backend\models\CompanySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-
-class PreviewController extends Controller
+/**
+ * CompanyController implements the CRUD actions for Company model.
+ */
+class CompanyController extends Controller
 {
     /**
      * @inheritdoc
@@ -27,15 +29,13 @@ class PreviewController extends Controller
         ];
     }
 
-
-
     /**
-     * Lists all Product models.
+     * Lists all Company models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ProductSearch();
+        $searchModel = new CompanySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class PreviewController extends Controller
     }
 
     /**
-     * Displays a single Product model.
+     * Displays a single Company model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,19 +58,16 @@ class PreviewController extends Controller
     }
 
     /**
-     * Creates a new Product model.
+     * Creates a new Company model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Product();
+        $model = new Company();
 
-        if ($model->load(Yii::$app->request->post()) ) {
-
-            $model->creator = Yii::$app->user->identity->username;
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->product_id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -79,7 +76,7 @@ class PreviewController extends Controller
     }
 
     /**
-     * Updates an existing Product model.
+     * Updates an existing Company model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -90,9 +87,7 @@ class PreviewController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $model->creator = Yii::$app->user->identity->username;
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->product_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -101,7 +96,7 @@ class PreviewController extends Controller
     }
 
     /**
-     * Deletes an existing Product model.
+     * Deletes an existing Company model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -115,39 +110,18 @@ class PreviewController extends Controller
     }
 
     /**
-     * Finds the Product model based on its primary key value.
+     * Finds the Company model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Product the loaded model
+     * @return Company the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Product::findOne($id)) !== null) {
+        if (($model = Company::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
-
-    /**
-     * Check  pass then mark pass and return pass reason.
-     * @param  integer $id
-     * @return mixed
-     *
-     */
-
-    public function actionCheck($id){
-
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->product_id]);
-        }
-
-        return $this->render('preview-mark', [
-            'model' => $model,
-        ]);
-    }
-
 }

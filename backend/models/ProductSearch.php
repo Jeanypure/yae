@@ -18,8 +18,8 @@ class ProductSearch extends Product
     public function rules()
     {
         return [
-            [['product_id'], 'integer'],
-            [['product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4', 'product_add_time', 'product_update_time', 'purchaser','creator'], 'safe'],
+            [['sub_company_id','product_id'], 'integer'],
+            [['sub_company','product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4', 'product_add_time', 'product_update_time', 'purchaser','creator'], 'safe'],
             [['product_purchase_value'], 'number'],
         ];
     }
@@ -61,6 +61,7 @@ class ProductSearch extends Product
         // grid filtering conditions
         $query->andFilterWhere([
             'product_id' => $this->product_id,
+            'sub_company_id' => $this->sub_company_id,
             'product_purchase_value' => $this->product_purchase_value,
             'product_add_time' => $this->product_add_time,
             'product_update_time' => $this->product_update_time,
@@ -73,7 +74,8 @@ class ProductSearch extends Product
             ->andFilterWhere(['like', 'ref_url3', $this->ref_url3])
             ->andFilterWhere(['like', 'ref_url4', $this->ref_url4])
             ->andFilterWhere(['like', 'purchaser', $this->purchaser])
-            ->andFilterWhere(['like', 'creator', $this->creator]);
+            ->andFilterWhere(['like', 'creator', $this->creator])
+            ->andFilterWhere(['like', 'sub_company', $this->sub_company]);
 
         return $dataProvider;
     }

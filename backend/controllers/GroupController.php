@@ -3,14 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\ProductSearch;
 use backend\models\Product;
+use backend\models\ProductSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-
-class PreviewController extends Controller
+/**
+ * GroupController implements the CRUD actions for Product model.
+ */
+class GroupController extends Controller
 {
     /**
      * @inheritdoc
@@ -26,8 +28,6 @@ class PreviewController extends Controller
             ],
         ];
     }
-
-
 
     /**
      * Lists all Product models.
@@ -66,10 +66,7 @@ class PreviewController extends Controller
     {
         $model = new Product();
 
-        if ($model->load(Yii::$app->request->post()) ) {
-
-            $model->creator = Yii::$app->user->identity->username;
-            $model->save();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->product_id]);
         }
 
@@ -90,8 +87,6 @@ class PreviewController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $model->creator = Yii::$app->user->identity->username;
-            $model->save();
             return $this->redirect(['view', 'id' => $model->product_id]);
         }
 
@@ -129,25 +124,4 @@ class PreviewController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
-
-    /**
-     * Check  pass then mark pass and return pass reason.
-     * @param  integer $id
-     * @return mixed
-     *
-     */
-
-    public function actionCheck($id){
-
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->product_id]);
-        }
-
-        return $this->render('preview-mark', [
-            'model' => $model,
-        ]);
-    }
-
 }
