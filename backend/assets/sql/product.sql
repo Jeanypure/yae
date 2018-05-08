@@ -14,3 +14,5 @@ CREATE TABLE `product` (
 `purchaser` varchar(32)  NOT NULL COMMENT '采购'
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+

@@ -17,8 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', '批量通过 '), ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('批量导入', "javascript:void(0);", ['title' => 'upload', 'class' => 'upload btn btn-info']) ?>
+        <?= Html::a(Yii::t('app', '创建产品 '), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', '评审通过 '), ['preview-mark'], ['class' => 'btn btn-info']) ?>
         <?= Html::a('批量删除', "javascript:void(0);", ['title' => 'deleteLots', 'class' => 'delete-lots btn btn-danger']) ?>
     </p>
 
@@ -26,7 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'options' => [
-//            'style'=>'overflow: auto; word-wrap: break-word;'
             'style'=>'overflow: auto; white-space:nowrap;'
         ],
         'options' => ['class' => 'grid-view','style'=>'overflow:auto', 'id' => 'grid'],
@@ -37,61 +36,68 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\CheckboxColumn',
                 'name' => 'id',
             ],
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'header' => '操作',
-            ],
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'header' => '操作',
-//                'template' => '{ok} {view} {update} {delete} ',
-                'template' => '{ok} {view} ',
-                'buttons' => [
-                    'delete' => function ($url, $model, $key) {
-                        $options = [
-                            'title' => '删除',
-                            'aria-label' => '删除',
-                            'data-id' => $key,
-                            'class' => 'index-delete',
-                        ];
-                        return Html::a('<span  class="glyphicon glyphicon-trash"></span>', '#', $options);
-                    },
-                    'view' => function ($url, $model, $key) {
-                        $options = [
-                            'title' => '查看',
-                            'aria-label' => '查看',
-                            'data-toggle' => 'modal',
-                            'data-target' => '#index-modal',
-                            'data-id' => $key,
-                            'class' => 'index-view',
-                        ];
-                        return Html::a('<span  class="glyphicon glyphicon-eye-open"></span>', '#', $options);
-                    },
-                    'update' => function ($url, $model, $key) {
-                        $options = [
-                            'title' => '更新',
-                            'aria-label' => '更新',
-                            'data-toggle' => 'modal',
-                            'data-target' => '#index-modal',
-                            'data-id' => $key,
-                            'class' => 'index-update',
-                        ];
-                        return Html::a('<span  class="glyphicon glyphicon-pencil"></span>', '#', $options);
-                    },
-                    'ok' => function ($url, $model, $key) {
-                        $options = [
-                            'title' => '评审',
-                            'aria-label' => '评审 ',
-                            'data-toggle' => 'modal',
-                            'data-target' => '#index-modal',
-                            'data-id' => $key,
-                            'class' => 'data-ok',
-                        ];
-                        return Html::a('<span  class="glyphicon glyphicon-ok"></span>', '#', $options);
-                    }
-                ],
 
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{check} {view} {update} {delete}',
+                'header' => '操作',
+                'buttons' => [
+                    'check' => function ($url, $model, $key) {
+                        return Html::a('<span  class="glyphicon glyphicon-check"></span>', $url, ['title' => '评审'] );
+                    },
+                ],
             ],
+//            [
+//                'class' => 'yii\grid\ActionColumn',
+//                'header' => '操作',
+////                'template' => '{ok} {view} {update} {delete} ',
+//                'template' => '{ok} {view} ',
+//                'buttons' => [
+//                    'delete' => function ($url, $model, $key) {
+//                        $options = [
+//                            'title' => '删除',
+//                            'aria-label' => '删除',
+//                            'data-id' => $key,
+//                            'class' => 'index-delete',
+//                        ];
+//                        return Html::a('<span  class="glyphicon glyphicon-trash"></span>', '#', $options);
+//                    },
+//                    'view' => function ($url, $model, $key) {
+//                        $options = [
+//                            'title' => '查看',
+//                            'aria-label' => '查看',
+//                            'data-toggle' => 'modal',
+//                            'data-target' => '#index-modal',
+//                            'data-id' => $key,
+//                            'class' => 'index-view',
+//                        ];
+//                        return Html::a('<span  class="glyphicon glyphicon-eye-open"></span>', '#', $options);
+//                    },
+//                    'update' => function ($url, $model, $key) {
+//                        $options = [
+//                            'title' => '更新',
+//                            'aria-label' => '更新',
+//                            'data-toggle' => 'modal',
+//                            'data-target' => '#index-modal',
+//                            'data-id' => $key,
+//                            'class' => 'index-update',
+//                        ];
+//                        return Html::a('<span  class="glyphicon glyphicon-pencil"></span>', '#', $options);
+//                    },
+//                    'ok' => function ($url, $model, $key) {
+//                        $options = [
+//                            'title' => '评审',
+//                            'aria-label' => '评审 ',
+//                            'data-toggle' => 'modal',
+//                            'data-target' => '#index-modal',
+//                            'data-id' => $key,
+//                            'class' => 'data-ok',
+//                        ];
+//                        return Html::a('<span  class="glyphicon glyphicon-ok"></span>', '#', $options);
+//                    }
+//                ],
+//
+//            ],
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
