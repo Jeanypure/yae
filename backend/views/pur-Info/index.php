@@ -28,7 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class' => 'yii\grid\ActionColumn',
                     'header' => '操作',
             ],
-//            'pd_pic_url:url',
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [

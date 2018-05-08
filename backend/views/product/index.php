@@ -24,7 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'options' => [
-            'style'=>'overflow: auto; word-wrap: break-word;'
+//            'style'=>'overflow: auto; word-wrap: break-word;',
+            'style'=>'overflow: auto;  white-space:nowrap;'
         ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -32,9 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class' => 'yii\grid\ActionColumn',
                     'header' => '操作',
             ],
-
-
-            // 'product_id',
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
@@ -82,32 +80,25 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-//            [
-//                'class' => 'yii\grid\Column',
-//                'headerOptions' => [
-//                    'width'=>'100'
-//                ],
-//                'header' => '其他链接',
-//                'content' => function ($model, $key, $index, $column){
-//                    if (!empty($model->ref_url4))  return "<a href='$model->ref_url4' target='_blank'>".parse_url($model->ref_url4)['host'] ."</a>";
-//
-//
-//
-//                }
-//            ],
-            'product_add_time:date',
-//            'product_update_time:date',
-            'purchaser',
-            'creator',
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
-                    'width'=>'50'
+                    'width'=>'100'
                 ],
-                'header' => '状态',
-                'content' => function ($model){return $model->product_status;}
-            ],
+                'header' => '其他链接',
+                'content' => function ($model, $key, $index, $column){
+                    if (!empty($model->ref_url4))  return "<a href='$model->ref_url4' target='_blank'>".parse_url($model->ref_url4)['host'] ."</a>";
 
+
+
+                }
+            ],
+            'product_add_time:date',
+            'product_update_time:date',
+            'purchaser',
+            'creator',
+            'product_status',
+            'ref_url1',
 
         ],
     ]); ?>
