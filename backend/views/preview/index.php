@@ -26,7 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'options' => [
-            'style'=>'overflow: auto; word-wrap: break-word;'
+//            'style'=>'overflow: auto; word-wrap: break-word;'
+            'style'=>'overflow: auto; white-space:nowrap;'
         ],
         'options' => ['class' => 'grid-view','style'=>'overflow:auto', 'id' => 'grid'],
 
@@ -38,12 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'header' => '操作2'
+                'header' => '操作',
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'header' => '操作2',
-                'template' => '{view} {update} {delete} {ok}',
+                'header' => '操作',
+//                'template' => '{ok} {view} {update} {delete} ',
+                'template' => '{ok} {view} ',
                 'buttons' => [
                     'delete' => function ($url, $model, $key) {
                         $options = [
@@ -90,9 +92,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
 
             ],
-
-
-            // 'product_id',
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
@@ -115,7 +114,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'header' => 'Amazon链接',
                 'content' => function ($model, $key, $index, $column){
-                    if (!empty($model->ref_url1)) return "<a href='$model->ref_url1' target='_blank'>".parse_url($model->ref_url1)['host'] ?? ' '."</a>";
+                    if (!empty($model->ref_url1)) return "<a href='$model->ref_url1' target='_blank'>".parse_url($model->ref_url1)['host'] ."</a>";
                 }
             ],
             [
@@ -141,18 +140,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'product_add_time:date',
-//            'product_update_time:date',
             'purchaser',
             'creator',
-            [
-                'class' => 'yii\grid\Column',
-                'headerOptions' => [
-                    'width'=>'50'
-                ],
-                'header' => '状态',
-                'content' => function ($model){return $model->product_status;}
-            ],
-
+            'product_status',
 
         ],
     ]);

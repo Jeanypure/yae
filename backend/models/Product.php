@@ -62,7 +62,7 @@ class Product extends \yii\db\ActiveRecord
             'purchaser' => '采购者',
             'creator' => '推荐人',
             'pd_pic_url' => '图片地址',
-            'product_status' => '产品状态',
+            'product_status' => '状态',
         ];
     }
 }
