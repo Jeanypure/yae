@@ -52,6 +52,18 @@ version B between A and C, you need to follow the instructions
 for both A and B.
 
 
+Upgrade from Yii 2.0.15
+-----------------------
+
+* Updated dependency to `cebe/markdown` to version `1.2.x`.
+  If you need stick with 1.1.x, you can specify that in your `composer.json` by
+  adding the following line in the `require` section:
+
+  ```json
+  "cebe/markdown": "~1.1.0",
+  ```
+
+
 Upgrade from Yii 2.0.14
 -----------------------
 
@@ -141,6 +153,9 @@ Upgrade from Yii 2.0.13
   - Remove calls to `yii\BaseYii::powered()`.
   - If you are using XCache or Zend data cache, those are going away in 2.1 so you might want to start looking for an alternative.
 
+* In case you aren't using CSRF cookies (REST APIs etc.) you should turn them off explicitly by setting
+  `\yii\web\Request::$enableCsrfCookie` to `false` in your config file. 
+
 Upgrade from Yii 2.0.12
 -----------------------
 
@@ -221,7 +236,7 @@ Upgrade from Yii 2.0.12
   However, this change may affect your application if you have code that uses method `yii\base\Module::has()` in order
   to check existence of the component exactly in this specific module. In this case make sure the logic is not corrupted.
 
-* If you are using "asset" command to compress assets and your web applicaiton `assetManager` has `linkAssets` turned on,
+* If you are using "asset" command to compress assets and your web application `assetManager` has `linkAssets` turned on,
   make sure that "asset" command config has `linkAssets` turned on as well.
 
 
