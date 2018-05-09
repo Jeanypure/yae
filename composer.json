@@ -33,8 +33,6 @@
         "kartik-v/yii2-date-range": "dev-master",
         "yiisoft/yii2-redis": "^2.0",
         "hisune/echarts-php": "^1.0"
-
-
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
