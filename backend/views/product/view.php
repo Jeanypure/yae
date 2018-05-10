@@ -38,7 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'ref_url4',
             'product_add_time',
             'product_update_time',
-            'purchaser',
             'creator'
         ],
     ]) ?>

@@ -32,7 +32,6 @@ use yii\widgets\ActiveForm;
 
 <!--    --><?php //echo  $form->field($model, 'product_update_time')->textInput() ?>
 
-    <?= $form->field($model, 'purchaser')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

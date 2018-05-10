@@ -95,11 +95,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'product_add_time:date',
             'product_update_time:date',
-            'purchaser',
             'creator',
             'product_status',
-            'ref_url1',
-
         ],
     ]); ?>
 </div>
