@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php
-//        echo  Html::a(Yii::t('app', 'Create Product'), ['create'], ['class' => 'btn btn-success']);
+        echo  Html::a(Yii::t('app', ' 确认公示'), ['create'], ['class' => 'btn btn-success']);
         ?>
     </p>
 
@@ -29,6 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => 'yii\grid\CheckboxColumn',
+                'name' => 'id',
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => '操作',

@@ -90,7 +90,10 @@ class ProductController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $model->creator = Yii::$app->user->identity->username;
+            if(empty($model->creator)){
+                $model->creator = Yii::$app->user->identity->username;
+
+            }
             $model->save();
             return $this->redirect(['view', 'id' => $model->product_id]);
         }
