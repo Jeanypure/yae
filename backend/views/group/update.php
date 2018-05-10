@@ -19,11 +19,11 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', '分组产品'), 'url
 $this->params['breadcrumbs'][] = ['label' => $model->product_id, 'url' => ['view', 'id' => $model->product_id]];
 $this->params['breadcrumbs'][] = Yii::t('app', '更新');
 ?>
-<div class="product-update">
+<div class="group-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <div class="product-form">
+    <div class="group-form">
 
         <?php $form = ActiveForm::begin(); ?>
         <?php
