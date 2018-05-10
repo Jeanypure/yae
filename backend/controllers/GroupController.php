@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Product;
 use backend\models\ProductSearch;
+use backend\models\Company;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -89,9 +90,16 @@ class GroupController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->product_id]);
         }
+        $company = new Company();
+            $res =  $company->find()->select('id,sub_company')->asArray()->all();
+//       $res = $company->findBySql('select id, sub_company from company' )->asArray()->all();
 
+        foreach ($res as $value) {
+            $val[$value['id']]  = $value['sub_company'];
+        }
         return $this->render('update', [
             'model' => $model,
+            'data' => $val
         ]);
     }
 

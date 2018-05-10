@@ -63,6 +63,7 @@ class Product extends \yii\db\ActiveRecord
             'pd_pic_url' => '图片地址',
             'product_status' => '状态',
             'preview_mark' => '评审记录',
+            'group_mark' => '分组原因',
             'sub_company' => '组别',
 //            'sub_company_id' => '组别ID',
         ];
