@@ -239,17 +239,17 @@
     },
     {
         "name": "cebe/markdown",
-        "version": "1.1.2",
-        "version_normalized": "1.1.2.0",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/cebe/markdown.git",
-            "reference": "25b28bae8a6f185b5030673af77b32e1163d5c6e"
+            "reference": "7b158880b9c128de39d1102dc26e68082d1c4aa9"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/cebe/markdown/zipball/25b28bae8a6f185b5030673af77b32e1163d5c6e",
-            "reference": "25b28bae8a6f185b5030673af77b32e1163d5c6e",
+            "url": "https://api.github.com/repos/cebe/markdown/zipball/7b158880b9c128de39d1102dc26e68082d1c4aa9",
+            "reference": "7b158880b9c128de39d1102dc26e68082d1c4aa9",
             "shasum": ""
         },
         "require": {
@@ -261,17 +261,17 @@
             "facebook/xhprof": "*@dev",
             "phpunit/phpunit": "4.1.*"
         },
-        "time": "2017-07-16T21:13:23+00:00",
+        "time": "2018-03-26T11:25:22+00:00",
         "bin": [
             "bin/markdown"
         ],
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.1.x-dev"
+                "dev-master": "1.2.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "cebe\\markdown\\": ""
@@ -795,33 +795,36 @@
     },
     {
         "name": "doctrine/lexer",
-        "version": "v1.0.1",
-        "version_normalized": "1.0.1.0",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/lexer.git",
-            "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c"
+            "reference": "b4f2b2fe5d5726e08a7d46fe3149b577e738463a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/lexer/zipball/83893c552fd2045dd78aef794c31e694c37c0b8c",
-            "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c",
+            "url": "https://api.github.com/repos/doctrine/lexer/zipball/b4f2b2fe5d5726e08a7d46fe3149b577e738463a",
+            "reference": "b4f2b2fe5d5726e08a7d46fe3149b577e738463a",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.2"
         },
-        "time": "2014-09-09T13:34:57+00:00",
+        "require-dev": {
+            "phpunit/phpunit": "^4.5"
+        },
+        "time": "2018-04-24T03:37:48+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
                 "dev-master": "1.0.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
-            "psr-0": {
-                "Doctrine\\Common\\Lexer\\": "lib/"
+            "psr-4": {
+                "Doctrine\\Common\\Lexer\\": "lib/Doctrine/Common/Lexer"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -2802,17 +2805,17 @@
     },
     {
         "name": "swiftmailer/swiftmailer",
-        "version": "v6.0.2",
-        "version_normalized": "6.0.2.0",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/swiftmailer/swiftmailer.git",
-            "reference": "412333372fb6c8ffb65496a2bbd7321af75733fc"
+            "reference": "3a8402439f8cff66a83ed42bc562d2385b83c471"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/412333372fb6c8ffb65496a2bbd7321af75733fc",
-            "reference": "412333372fb6c8ffb65496a2bbd7321af75733fc",
+            "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/3a8402439f8cff66a83ed42bc562d2385b83c471",
+            "reference": "3a8402439f8cff66a83ed42bc562d2385b83c471",
             "shasum": ""
         },
         "require": {
@@ -2823,14 +2826,18 @@
             "mockery/mockery": "~0.9.1",
             "symfony/phpunit-bridge": "~3.3@dev"
         },
-        "time": "2017-09-30T22:39:41+00:00",
+        "suggest": {
+            "ext-intl": "Needed to support internationalized email addresses",
+            "true/punycode": "Needed to support internationalized email addresses, if ext-intl is not installed"
+        },
+        "time": "2018-04-20T06:13:15+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "6.0-dev"
+                "dev-master": "6.1-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "files": [
                 "lib/swift_required.php"
@@ -2850,7 +2857,7 @@
             }
         ],
         "description": "Swiftmailer, free feature-rich PHP mailer",
-        "homepage": "http://swiftmailer.symfony.com",
+        "homepage": "https://swiftmailer.symfony.com",
         "keywords": [
             "email",
             "mail",
@@ -3432,17 +3439,17 @@
     },
     {
         "name": "yiisoft/yii2",
-        "version": "2.0.15.1",
-        "version_normalized": "2.0.15.1",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/yiisoft/yii2-framework.git",
-            "reference": "ed3a9e1c4abe206e1c3ce48a6b3624119b79850d"
+            "reference": "2d3d0c73db5c5f18d607418a2485bd11c2a10887"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/ed3a9e1c4abe206e1c3ce48a6b3624119b79850d",
-            "reference": "ed3a9e1c4abe206e1c3ce48a6b3624119b79850d",
+            "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/2d3d0c73db5c5f18d607418a2485bd11c2a10887",
+            "reference": "2d3d0c73db5c5f18d607418a2485bd11c2a10887",
             "shasum": ""
         },
         "require": {
@@ -3450,7 +3457,7 @@
             "bower-asset/jquery": "3.2.*@stable | 3.1.*@stable | 2.2.*@stable | 2.1.*@stable | 1.11.*@stable | 1.12.*@stable",
             "bower-asset/punycode": "1.3.*",
             "bower-asset/yii2-pjax": "~2.0.1",
-            "cebe/markdown": "~1.0.0 | ~1.1.0",
+            "cebe/markdown": "~1.0.0 | ~1.1.0 | ~1.2.0",
             "ext-ctype": "*",
             "ext-mbstring": "*",
             "ezyang/htmlpurifier": "~4.6",
@@ -3458,7 +3465,7 @@
             "php": ">=5.4.0",
             "yiisoft/yii2-composer": "~2.0.4"
         },
-        "time": "2018-03-21T18:36:53+00:00",
+        "time": "2018-05-08T13:39:55+00:00",
         "bin": [
             "yii"
         ],
@@ -3468,7 +3475,7 @@
                 "dev-master": "2.0.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "yii\\": ""
@@ -3596,17 +3603,17 @@
     },
     {
         "name": "yiisoft/yii2-composer",
-        "version": "2.0.6",
-        "version_normalized": "2.0.6.0",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/yiisoft/yii2-composer.git",
-            "reference": "163419f1f197e02f015713b0d4f85598d8f8aa80"
+            "reference": "884efe0ba2c1619e345da3388dead094ccbea616"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/163419f1f197e02f015713b0d4f85598d8f8aa80",
-            "reference": "163419f1f197e02f015713b0d4f85598d8f8aa80",
+            "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/884efe0ba2c1619e345da3388dead094ccbea616",
+            "reference": "884efe0ba2c1619e345da3388dead094ccbea616",
             "shasum": ""
         },
         "require": {
@@ -3615,7 +3622,7 @@
         "require-dev": {
             "composer/composer": "^1.0"
         },
-        "time": "2018-03-21T16:15:55+00:00",
+        "time": "2018-05-04T21:18:11+00:00",
         "type": "composer-plugin",
         "extra": {
             "class": "yii\\composer\\Plugin",
@@ -3623,7 +3630,7 @@
                 "dev-master": "2.0.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "yii\\composer\\": ""

@@ -59,7 +59,6 @@ class Product extends \yii\db\ActiveRecord
             'ref_url4' => '其他链接',
             'product_add_time' => '添加时间',
             'product_update_time' => '更新时间',
-            'purchaser' => '采购者',
             'creator' => '推荐人',
             'pd_pic_url' => '图片地址',
             'product_status' => '状态',

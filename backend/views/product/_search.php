@@ -35,7 +35,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'product_update_time') ?>
 
-    <?php // echo $form->field($model, 'purchaser') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
