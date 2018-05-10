@@ -16,3 +16,14 @@ CREATE TABLE `product` (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+CREATE  TABLE `preview`(
+  `preview_id` int(11) not null  auto_increment primary key  comment '评审ID',
+  `member` varchar(500) default '' comment '评审人',
+  `user_id` tinyint(4)  comment '评审人ID',
+  `product_id` int(11) NOT NULL COMMENT '产品ID',
+  `content` varchar(500) default '' comment '评审建议',
+  `result` varchar(500) default '' comment '评审结果  0采样 1可开发  2拒绝（不合适不跟踪）',
+  `priview_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '评审时间'
+
+
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 comment '评审记录表';
