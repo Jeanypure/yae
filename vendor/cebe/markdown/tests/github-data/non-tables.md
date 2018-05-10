@@ -6,8 +6,4 @@ This line contains two pipes but is not a table. [[yii\widgets\DetailView|Detail
 the line above contains a space.
 
 looks | like | head
--:
-
-looks | like | head
--:
-a
+-:| 

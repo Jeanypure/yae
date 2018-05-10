@@ -9,7 +9,7 @@
  */
 
 /**
- * An ESMTP handler for AUTH support (RFC 5248).
+ * An ESMTP handler for AUTH support.
  *
  * @author Chris Corbyn
  */
@@ -20,7 +20,7 @@ class Swift_Transport_Esmtp_AuthHandler implements Swift_Transport_EsmtpHandler
      *
      * @var Swift_Transport_Esmtp_Authenticator[]
      */
-    private $authenticators = [];
+    private $authenticators = array();
 
     /**
      * The username for authentication.
@@ -48,7 +48,7 @@ class Swift_Transport_Esmtp_AuthHandler implements Swift_Transport_EsmtpHandler
      *
      * @var string[]
      */
-    private $esmtpParams = [];
+    private $esmtpParams = array();
 
     /**
      * Create a new AuthHandler with $authenticators for support.
@@ -143,7 +143,7 @@ class Swift_Transport_Esmtp_AuthHandler implements Swift_Transport_EsmtpHandler
     /**
      * Get the name of the ESMTP extension this handles.
      *
-     * @return string
+     * @return bool
      */
     public function getHandledKeyword()
     {
@@ -190,7 +190,7 @@ class Swift_Transport_Esmtp_AuthHandler implements Swift_Transport_EsmtpHandler
      */
     public function getMailParams()
     {
-        return [];
+        return array();
     }
 
     /**
@@ -198,13 +198,13 @@ class Swift_Transport_Esmtp_AuthHandler implements Swift_Transport_EsmtpHandler
      */
     public function getRcptParams()
     {
-        return [];
+        return array();
     }
 
     /**
      * Not used.
      */
-    public function onCommand(Swift_Transport_SmtpAgent $agent, $command, $codes = [], &$failedRecipients = null, &$stop = false)
+    public function onCommand(Swift_Transport_SmtpAgent $agent, $command, $codes = array(), &$failedRecipients = null, &$stop = false)
     {
     }
 
@@ -229,7 +229,7 @@ class Swift_Transport_Esmtp_AuthHandler implements Swift_Transport_EsmtpHandler
      */
     public function exposeMixinMethods()
     {
-        return ['setUsername', 'getUsername', 'setPassword', 'getPassword', 'setAuthMode', 'getAuthMode'];
+        return array('setUsername', 'getUsername', 'setPassword', 'getPassword', 'setAuthMode', 'getAuthMode');
     }
 
     /**
@@ -242,6 +242,8 @@ class Swift_Transport_Esmtp_AuthHandler implements Swift_Transport_EsmtpHandler
     /**
      * Returns the authenticator list for the given agent.
      *
+     * @param Swift_Transport_SmtpAgent $agent
+     *
      * @return array
      */
     protected function getAuthenticatorsForAgent()
@@ -252,7 +254,7 @@ class Swift_Transport_Esmtp_AuthHandler implements Swift_Transport_EsmtpHandler
 
         foreach ($this->authenticators as $authenticator) {
             if (strtolower($authenticator->getAuthKeyword()) == $mode) {
-                return [$authenticator];
+                return array($authenticator);
             }
         }
 
