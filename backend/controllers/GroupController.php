@@ -137,4 +137,31 @@ class GroupController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
+    /**To Brocast the Product model based on its primary key value.
+     * mark the status brocasting
+     * @param array $ids
+     */
+
+    public function actionBrocast($ids)
+    {
+        if($ids){
+            var_dump($ids);die;
+            foreach($ids as $val){
+            //第二种修改方
+                $model = Product::model()->findByPk($val);
+                $model->brocast_status = '公示中ing';
+                $count = $model->update(array('brocast_status'));
+                if($count>0) {
+                    echo '修改成功';
+                } else {
+                    echo '修改失败';
+                }
+
+
+            }
+        }
+        echo '请选择公示产品!';
+    }
+
 }
