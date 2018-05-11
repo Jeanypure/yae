@@ -1,26 +1,6 @@
 Yii Framework 2 Change Log
 ==========================
 
-2.0.16 under development
-------------------------
-
-- Bug #16193: Fixed `yii\filters\Cors` to not reflect origin header value when configured to wildcard origins (Jianjun Chen)
-- Bug #16068: Fixed `yii\web\CookieCollection::has` when an expiration param is set to 'until the browser is closed' (OndrejVasicek)
-- Bug #16006: Handle case when `X-Forwarded-Host` header have multiple hosts separated with a comma (pgaultier)
-- Bug #16010: Fixed `yii\filters\ContentNegotiator` behavior when GET parameters contain an array (rugabarbo)
-- Bug #14660: Fixed `yii\caching\DbCache` concurrency issue when set values with the same key (rugabarbo)
-- Bug #15988: Fixed bash completion (alekciy)
-- Bug #15798: Fixed render `yii\grid\RadioButtonColumn::$content` and `yii\grid\CheckboxColumn::$content` (lesha724)
-- Bug #15117: Fixed `yii\db\Schema::getTableMetadata` cache refreshing (boboldehampsink)
-- Bug #15875: afterSave for new models flushes unsaved data (shirase)
-- Bug #16073: Fixed regression in Oracle `IN` condition builder for more than 1000 items (cebe)
-- Bug #16120: FileCache: rebuild cache file before touch when different file owner (Slamdunk)
-- Bug #16091: Make `yii\test\InitDbFixture` work with non-SQL DBMS (cebe)
-- Bug #16184: Fixed `yii\base\Widget` to access `stack` property with `self` instead of `static` (yanggs07)
-- Bug #16039: Fixed implicit conversion from `char` to `varbinnary` in MSSQL (vsivsivsi)
-- Enh #16191: Enhanced `yii\helpers\Inflector` to work correctly with UTF-8 (silverfire)
-
-
 2.0.15.1 March 21, 2018
 -----------------------
 
@@ -45,7 +25,7 @@ Yii Framework 2 Change Log
 - Bug #15817: Fixed support of deprecated array format type casting in `yii\db\Command::bindValues()` (silverfire)
 - Bug #15822: Fixed `yii\base\Component::off()` not to throw an exception when handler does not exist (silverfire)
 - Bug #15829: Fixed JSONB support in PostgreSQL 9.4 (silverfire)
-- Bug #15836: Fixed nesting of `yii\db\ArrayExpression`, `yii\db\JsonExpression` (silverfire)
+- Bug #15836: Fixed nesting of `yii\db\ArrayExpresiion`, `yii\db\JsonExpression` (silverfire)
 - Bug #15839: Fixed `yii\db\mysql\JsonExpressionBuilder` to cast JSON explicitly (silverfire)
 - Bug #15840: Fixed regression on load fixture data file (leandrogehlen)
 - Bug #15858: Fixed `Undefined offset` error calling `yii\helpers\Html::errorSummary()` with the same error messages for different model attributes (FabrizioCaldarelli, silverfire)

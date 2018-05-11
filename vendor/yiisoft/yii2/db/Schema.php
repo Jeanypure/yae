@@ -737,10 +737,10 @@ abstract class Schema extends BaseObject
             }
         }
         $rawName = $this->getRawTableName($name);
-        if (!isset($this->_tableMetadata[$rawName])) {
+        if ($refresh || !isset($this->_tableMetadata[$rawName])) {
             $this->loadTableMetadataFromCache($cache, $rawName);
         }
-        if ($refresh || !array_key_exists($type, $this->_tableMetadata[$rawName])) {
+        if (!array_key_exists($type, $this->_tableMetadata[$rawName])) {
             $this->_tableMetadata[$rawName][$type] = $this->{'loadTable' . ucfirst($type)}($rawName);
             $this->saveTableMetadataToCache($cache, $rawName);
         }

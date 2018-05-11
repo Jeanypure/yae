@@ -10,7 +10,7 @@ namespace yii\filters;
 use Yii;
 use yii\base\ActionFilter;
 use yii\base\BootstrapInterface;
-use yii\web\BadRequestHttpException;
+use yii\base\InvalidConfigException;
 use yii\web\Request;
 use yii\web\Response;
 use yii\web\UnsupportedMediaTypeHttpException;
@@ -165,16 +165,12 @@ class ContentNegotiator extends ActionFilter implements BootstrapInterface
      * Negotiates the response format.
      * @param Request $request
      * @param Response $response
-     * @throws BadRequestHttpException if an array received for GET parameter [[formatParam]].
+     * @throws InvalidConfigException if [[formats]] is empty
      * @throws UnsupportedMediaTypeHttpException if none of the requested content types is accepted.
      */
     protected function negotiateContentType($request, $response)
     {
         if (!empty($this->formatParam) && ($format = $request->get($this->formatParam)) !== null) {
-            if (is_array($format)) {
-                throw new BadRequestHttpException("Invalid data received for GET parameter '{$this->formatParam}'.");
-            }
-
             if (in_array($format, $this->formats)) {
                 $response->format = $format;
                 $response->acceptMimeType = null;
@@ -221,10 +217,6 @@ class ContentNegotiator extends ActionFilter implements BootstrapInterface
     protected function negotiateLanguage($request)
     {
         if (!empty($this->languageParam) && ($language = $request->get($this->languageParam)) !== null) {
-            if (is_array($language)) {
-                // If an array received, then skip it and use the first of supported languages
-                return reset($this->languages);
-            }
             if (isset($this->languages[$language])) {
                 return $this->languages[$language];
             }
