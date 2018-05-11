@@ -86,12 +86,7 @@ class GroupController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-//            var_dump(Yii::$app->request->post());
-//            var_dump($model->save());
-//            die;
-            $model->save();
             return $this->redirect(['view', 'id' => $model->product_id]);
         }
 
@@ -140,28 +135,46 @@ class GroupController extends Controller
 
     /**To Brocast the Product model based on its primary key value.
      * mark the status brocasting
-     * @param array $ids
      */
 
-    public function actionBrocast($ids)
+    public function actionBrocast()
     {
+        $ids = $_POST['id'];
         if($ids){
-            var_dump($ids);die;
             foreach($ids as $val){
-            //第二种修改方
-                $model = Product::model()->findByPk($val);
-                $model->brocast_status = '公示中ing';
-                $count = $model->update(array('brocast_status'));
-                if($count>0) {
-                    echo '修改成功';
-                } else {
-                    echo '修改失败';
-                }
-
-
+                $model = $this->findModel($val);
+                $model->brocast_status = '公示中';
+                $model->save();
             }
+            echo '公示产品成功';
+
         }
-        echo '请选择公示产品!';
+        else{
+            echo '请选择公示产品!';
+
+        }
+    }
+
+    /**
+     * To end brocast the Product based on its primary key value
+     * @throws NotFoundHttpException
+     */
+    public function actionEndBrocast()
+    {
+        $ids = $_POST['id'];
+        if($ids){
+            foreach($ids as $val){
+                $model = $this->findModel($val);
+                $model->brocast_status = '结束公示';
+                $model->save();
+            }
+            echo '产品公示结束!';
+
+        }
+        else{
+            echo '请选择产品!';
+
+        }
     }
 
 }

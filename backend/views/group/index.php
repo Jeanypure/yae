@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\ProductSearch */
@@ -16,9 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?php
-        echo  Html::a(Yii::t('app', ' 确认公示'), ['#'], ['class' => 'btn btn-success brocast']);
-        ?>
+        <?= Html::button('确认公示', ['id' => 'brocast', 'class' => 'btn btn-primary']) ;?>
+        <?=  Html::button('公示结束', ['id' => 'end-brocast', 'class' => 'btn btn-info']) ?>
+
     </p>
 
     <?= GridView::widget([
@@ -104,32 +105,47 @@ $this->params['breadcrumbs'][] = $this->title;
             'purchaser',
             'creator',
             'product_status',
+            'brocast_status',
 
         ],
     ]); ?>
 
 </div>
 <?php
-//$group_brocast = Url::toRoute(['group/brocast']);
+$group_brocast = Url::toRoute(['group/brocast']);
+$group_end_brocast = Url::toRoute(['group/end-brocast']);
+
 
 $js = <<<JS
-
     //批量公示
-    $('.brocast').on('click',function(){
+    $('#brocast').on('click',function(){
             var ids = $("#group").yiiGridView("getSelectedRows");
             console.log(ids);
-            var  self = $(this);
             if(ids.length ==0) return false;
             $.ajax({
-                url : '/group/brocast',
+                url:'{$group_brocast}',
                 type: 'post',
                 data:{id:ids},
                 success:function(res){
-                    if(res) alert('公示30min');
+                    if(res) alert(res);
                 }
             });
-            
+    });
 
+//批量结束公示
+    $('#end-brocast').on('click',function(){
+            var ids = $("#group").yiiGridView("getSelectedRows");
+            console.log(ids);
+            if(ids.length ==0) return false;
+            $.ajax({
+                url:'{$group_end_brocast}',
+                type: 'post',
+                data:{id:ids},
+                success:function(res){
+                    if(res) alert(res);
+                    location.reload();
+                }
+            });
     });
 
 JS;
