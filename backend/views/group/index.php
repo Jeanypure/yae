@@ -17,13 +17,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php
-        echo  Html::a(Yii::t('app', ' 确认公示'), ['create'], ['class' => 'btn btn-success']);
+        echo  Html::a(Yii::t('app', ' 确认公示'), ['#'], ['class' => 'btn btn-success brocast']);
         ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'id' => 'group',
         'options' => [
             'style'=>'overflow: auto;  white-space:nowrap;'
         ],
@@ -108,3 +109,30 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
 </div>
+<?php
+//$group_brocast = Url::toRoute(['group/brocast']);
+
+$js = <<<JS
+
+    //批量公示
+    $('.brocast').on('click',function(){
+            var ids = $("#group").yiiGridView("getSelectedRows");
+            console.log(ids);
+            var  self = $(this);
+            if(ids.length ==0) return false;
+            $.ajax({
+                url : '/group/brocast',
+                type: 'post',
+                data:{id:ids},
+                success:function(res){
+                    if(res) alert('公示30min');
+                }
+            });
+            
+
+    });
+
+JS;
+$this->registerJs($js);
+
+?>
