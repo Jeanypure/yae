@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'header' => 'Amazon链接',
                 'content' => function ($model, $key, $index, $column){
-                    if (!empty($model->ref_url1)) return "<a href='$model->ref_url1' target='_blank'>".parse_url($model->ref_url1)['host'] ?? ' '."</a>";
+                    if (!empty($model->ref_url1)) return "<a href='$model->ref_url1' target='_blank'>".parse_url($model->ref_url1)['host']."</a>";
                 }
             ],
             [

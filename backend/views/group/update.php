@@ -30,7 +30,6 @@ $this->params['breadcrumbs'][] = Yii::t('app', '更新');
         // Usage with ActiveForm and model
         echo $form->field($model, 'sub_company')->widget(Select2::classname(), [
             'data' => $data,
-//            'data' => ['1'=>'分组1','2'=>'分组2','3'=>'分组3',],
             'options' => ['placeholder' => '选择分组.....'],
             'pluginOptions' => [
                 'allowClear' => true
@@ -54,6 +53,14 @@ $this->params['breadcrumbs'][] = Yii::t('app', '更新');
         <?= $form->field($model, 'ref_url3')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'ref_url4')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'ref_url_low1')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'ref_url_low2')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'ref_url_low3')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'ref_url_low4')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'product_add_time')->textInput() ?>
 
