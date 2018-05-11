@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-//use yii\widgets\ActiveForm;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 /* @var $this yii\web\View */
@@ -77,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'pd_pur_costprice'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'has_shipping_fee'=>[
                                         'type'=>Form::INPUT_RADIO_LIST,
-                                        'items'=>[true=>'是', false=>'否'],
+                                        'items'=>[1=>'是', 0=>'否'],
                                         'options'=>['placeholder'=>'']],
 
                 'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
@@ -132,15 +131,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ]
         ]);
 
-
-
-        ActiveForm::end();
         ?>
-
-        <?php $form = ActiveForm::begin(); ?>
-
-
-
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
         </div>
@@ -148,11 +139,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php ActiveForm::end(); ?>
 
     </div>
-    <?php
-//    $this->render('_form', [
-//        'model' => $model,
-//    ]);
-    ?>
+
 
 
 
