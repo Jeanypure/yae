@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\PurInfoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', '采购列表');
+$this->title = Yii::t('app', '产品开发汇总表');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pur-info-index">
