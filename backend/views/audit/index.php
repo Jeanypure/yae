@@ -17,7 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', '创建新品'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?php
+//        echo Html::a(Yii::t('app', '创建新品'), ['create'], ['class' => 'btn btn-success']);
+        ?>
     </p>
 
     <?= GridView::widget([
@@ -61,7 +63,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 //            'pur_info_id',
             'pur_responsible_id',
-
             'pur_group',
             'pd_title',
             'pd_title_en',
