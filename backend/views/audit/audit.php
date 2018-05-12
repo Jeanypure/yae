@@ -26,6 +26,9 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
         <?php $form = ActiveForm::begin(); ?>
 
+<!--        --><?//= $form->field($model, 'content')->textInput(['maxlength' => true]) ?>
+
+
         <?= $form->field($model, 'pur_responsible_id')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'pur_group')->textInput() ?>
@@ -45,6 +48,8 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
         <?= $form->field($model, 'pd_height')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'parent_product_id')->textInput() ?>
+
+
 
 
         <div class="form-group">
