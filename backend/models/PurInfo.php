@@ -3,9 +3,6 @@
 namespace backend\models;
 
 use Yii;
-//use backend\\;
-
-
 
 /**
  * This is the model class for table "pur_info".
@@ -115,6 +112,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'parent_product_id' => '父ID',
         ];
     }
+
 
 
 

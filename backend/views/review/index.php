@@ -2,36 +2,53 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\Pjax;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\ProductSearch */
+/* @var $searchModel backend\models\ReviewSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-//$this->title = Yii::t('app', 'Products');
-$this->title = '销售推荐';
+$this->title = Yii::t('app', '评审');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', '创建产品'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?php
+//        echo Html::a(Yii::t('app', 'Create Product'), ['create'], ['class' => 'btn btn-success']);
+        ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'options' => [
-//            'style'=>'overflow: auto; word-wrap: break-word;',
             'style'=>'overflow: auto;  white-space:nowrap;'
         ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
-                    'class' => 'yii\grid\ActionColumn',
-                    'header' => '操作',
+                'class' => 'yii\grid\ActionColumn',
+                'header' => '操作',
+//                'template' => '{audit} {view} {update} {delete}',
+                'template' => '{audit} {view}  {delete}',
+                'buttons' => [
+                    'audit' => function ($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-check"></span>', $url, [
+                                'title' => '评审',
+                                'data-toggle' => 'modal',
+                                'data-target' => '#audit-modal',
+                                'class' => 'data-audit',
+                                'data-id' => $key,
+                        ] );
+                    },
+                ],
+                'headerOptions' => ['width' => '80'],
             ],
             [
                 'class' => 'yii\grid\Column',
@@ -99,4 +116,35 @@ $this->params['breadcrumbs'][] = $this->title;
             'product_status',
         ],
     ]); ?>
+    <?php Pjax::end(); ?>
+
+    <?php
+    use yii\bootstrap\Modal;
+    // 评审操作
+    Modal::begin([
+        'id' => 'audit-modal',
+        'header' => '<h4 class="modal-title">评审产品</h4>',
+        'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>',
+        'options' => [
+            'tabindex' => false
+        ],
+    ]);
+    Modal::end();
+    ?>
 </div>
+
+
+<?php
+    $requestAuditUrl = Url::toRoute('audit');
+    $auditJs = <<<JS
+        $('.data-audit').on('click', function () {
+            $.get('{$requestAuditUrl}', { id: $(this).closest('tr').data('key') },
+                function (data) {
+                    $('.modal-body').html(data);
+                }  
+            );
+        });
+JS;
+    $this->registerJs($auditJs);
+
+?>

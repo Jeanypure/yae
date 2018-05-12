@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\Preview;
-use backend\models\PreviewSearch;
+use backend\models\Product;
+use backend\models\ReviewSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PreviewController implements the CRUD actions for Preview model.
+ * ReviewController implements the CRUD actions for Product model.
  */
-class PreviewController extends Controller
+class ReviewController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,13 +30,14 @@ class PreviewController extends Controller
     }
 
     /**
-     * Lists all Preview models.
+     * Lists all Product models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PreviewSearch();
+        $searchModel = new ReviewSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -44,7 +45,7 @@ class PreviewController extends Controller
     }
 
     /**
-     * Displays a single Preview model.
+     * Displays a single Product model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -57,16 +58,16 @@ class PreviewController extends Controller
     }
 
     /**
-     * Creates a new Preview model.
+     * Creates a new Product model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Preview();
+        $model = new Product();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->preview_id]);
+            return $this->redirect(['view', 'id' => $model->product_id]);
         }
 
         return $this->render('create', [
@@ -75,7 +76,7 @@ class PreviewController extends Controller
     }
 
     /**
-     * Updates an existing Preview model.
+     * Updates an existing Product model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -86,7 +87,7 @@ class PreviewController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->preview_id]);
+            return $this->redirect(['view', 'id' => $model->product_id]);
         }
 
         return $this->render('update', [
@@ -95,7 +96,7 @@ class PreviewController extends Controller
     }
 
     /**
-     * Deletes an existing Preview model.
+     * Deletes an existing Product model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -109,18 +110,45 @@ class PreviewController extends Controller
     }
 
     /**
-     * Finds the Preview model based on its primary key value.
+     * Finds the Product model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Preview the loaded model
+     * @return Product the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Preview::findOne($id)) !== null) {
+        if (($model = Product::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+
+    public  function actionAudit222($id){
+
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->product_id]);
+        }
+
+        return $this->renderAjax('update', [
+            'model' => $model,
+        ]);
+    }
+
+
+    public function actionAudit($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
+        } else {
+            return $this->renderAjax('audit', [
+                'model' => $model,
+            ]);
+        }
     }
 }

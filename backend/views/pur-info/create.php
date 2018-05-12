@@ -18,10 +18,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php
 
         $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL]);
+
         echo Form::widget([
             'model'=>$model,
             'form'=>$form,
             'columns'=>4,
+            'contentBefore'=>'<legend class="text-info"><small>Account Info</small></legend>',
             'attributes'=>[       // 2 column layout
                 'pur_responsible_id'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pur_group'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
@@ -35,6 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'model'=>$model,
             'form'=>$form,
             'columns'=>2,
+            'contentBefore'=>'<legend class="text-info"><small>Profile Info</small></legend>',
             'attributes'=>[       // 2 column layout
                 'pd_pic_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_package'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']]

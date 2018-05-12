@@ -4,38 +4,30 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\ProductSearch */
+/* @var $model backend\models\PreviewSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="product-search">
+<div class="preview-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
+    <?= $form->field($model, 'preview_id') ?>
+
+    <?= $form->field($model, 'member') ?>
+
     <?= $form->field($model, 'product_id') ?>
 
-    <?= $form->field($model, 'product_title_en') ?>
+    <?= $form->field($model, 'content') ?>
 
-    <?= $form->field($model, 'product_title') ?>
+    <?= $form->field($model, 'result') ?>
 
-    <?= $form->field($model, 'product_purchase_value') ?>
+    <?php // echo $form->field($model, 'priview_time') ?>
 
-    <?= $form->field($model, 'ref_url1') ?>
-
-    <?php // echo $form->field($model, 'ref_url2') ?>
-
-    <?php // echo $form->field($model, 'ref_url3') ?>
-
-    <?php // echo $form->field($model, 'ref_url4') ?>
-
-    <?php // echo $form->field($model, 'product_add_time') ?>
-
-    <?php // echo $form->field($model, 'product_update_time') ?>
-
-    <?php // echo $form->field($model, 'purchaser') ?>
+    <?php // echo $form->field($model, 'member_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
