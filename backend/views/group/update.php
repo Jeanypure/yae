@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use kartik\select2\Select2;
-//use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -27,14 +26,14 @@ $this->params['breadcrumbs'][] = Yii::t('app', '更新');
 
         <?php $form = ActiveForm::begin(); ?>
         <?php
-        // Usage with ActiveForm and model
-        echo $form->field($model, 'sub_company')->widget(Select2::classname(), [
-            'data' => $data,
-            'options' => ['placeholder' => '选择分组.....'],
-            'pluginOptions' => [
-                'allowClear' => true
-            ],
-        ]);
+            // Usage with ActiveForm and model
+            echo $form->field($model, 'sub_company')->widget(Select2::classname(), [
+                'data' => $data,
+                'options' => ['placeholder' => '选择分组.....'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]);
 
         ?>
 

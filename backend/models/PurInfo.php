@@ -115,6 +115,7 @@ class PurInfo extends \yii\db\ActiveRecord
 
     /**
      * @return \yii\db\ActiveQuery
+     * 一个产品有多个评论
      */
     public function getPreview()
     {

@@ -1,6 +1,8 @@
 <?php
 
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
 
 
 /* @var $this yii\web\View */
@@ -14,8 +16,35 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+    <div class="preview-form">
+
+        <?php $form = ActiveForm::begin(); ?>
+
+        <?= $form->field($model, 'member')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'product_id')->textInput() ?>
+
+        <?= $form->field($model, 'content')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'result')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'priview_time')->textInput() ?>
+
+        <?= $form->field($model, 'member_id')->textInput() ?>
+
+        <div class="form-group">
+            <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>
+
+    </div>
+
+
+    <?php
+//    echo $this->render('_form', [
+//        'model' => $model,
+//    ]);
+    ?>
 
 </div>

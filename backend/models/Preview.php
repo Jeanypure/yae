@@ -45,11 +45,11 @@ class Preview extends \yii\db\ActiveRecord
     {
         return [
             'preview_id' => 'Preview ID',
-            'member' => 'Member',
+            'member' => '评审人',
             'product_id' => 'Product ID',
-            'content' => 'Content',
-            'result' => 'Result',
-            'priview_time' => 'Priview Time',
+            'content' => '备注',
+            'result' => '结果',
+            'priview_time' => '评审时间',
             'member_id' => 'Member ID',
         ];
     }

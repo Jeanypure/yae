@@ -116,7 +116,7 @@ Modal::end();
 
 
 <?php
-$requestAuditUrl = Url::toRoute('audit');
+$requestAuditUrl = Url::toRoute('create-audit');
 $auditJs = <<<JS
         $('.data-audit').on('click', function () {
             $.get('{$requestAuditUrl}', { id: $(this).closest('tr').data('key') },

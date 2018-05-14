@@ -1,56 +1,54 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jenny
- * Date: 2018/5/12
- * Time: 上午11:44
- */
 
 use yii\helpers\Html;
+use kartik\select2\Select2;
 use yii\widgets\ActiveForm;
 
+
+
 /* @var $this yii\web\View */
-/* @var $model backend\models\PurInfo */
+/* @var $model backend\models\Preview */
 
-$this->title = Yii::t('app', '评审: ' . $model->pur_info_id, [
-    'nameAttribute' => '' . $model->pur_info_id,
-]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', '评审信息'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->pur_info_id, 'url' => ['view', 'id' => $model->pur_info_id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->title = Yii::t('app', 'Create Preview');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Previews'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="pur-info-update">
+<div class="preview-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <div class="pur-info-form">
+
+    <div class="preview-form">
 
         <?php $form = ActiveForm::begin(); ?>
 
-<!--        --><?//= $form->field($model, 'content')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'member')->textInput(['maxlength' => true])
+            ->hiddenInput(['value'=>Yii::$app->user->identity->username])->label(false); ?>
+
+        <?= $form->field($model, 'product_id')->textInput(['value' => $id ])
+        ->hiddenInput(['value'=>$id])->label(false);?>
+
+        <?php
+        // Usage with ActiveForm and model
+        echo $form->field($model, 'result')->widget(Select2::classname(), [
+            'data' => [
+                    '采样'=>'采样',
+                    '拒绝'=>'拒绝',
+                    '可以开发'=>'可以开发',
+                ],
+            'options' => ['placeholder' => '选择结果.....'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);
+
+        ?>
+
+        <?= $form->field($model, 'content')->textInput(['maxlength' => true]) ?>
 
 
-        <?= $form->field($model, 'pur_responsible_id')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'priview_time')->textInput()->hiddenInput([])->label(false) ?>
 
-        <?= $form->field($model, 'pur_group')->textInput() ?>
-
-        <?= $form->field($model, 'pd_title')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'pd_title_en')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'pd_pic_url')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'pd_package')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'pd_length')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'pd_width')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'pd_height')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'parent_product_id')->textInput() ?>
-
-
-
+        <?= $form->field($model, 'member_id')->textInput()
+            ->hiddenInput(['value'=>Yii::$app->user->identity->id])->label(false); ?>
 
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
@@ -61,5 +59,10 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
     </div>
 
 
+    <?php
+    //    echo $this->render('_form', [
+    //        'model' => $model,
+    //    ]);
+    ?>
 
 </div>

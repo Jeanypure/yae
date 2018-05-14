@@ -25,6 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
       GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'options'=>[
+                'style'=>'overflow: auto; white-space:nowrap'
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -33,8 +36,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'product_id',
             'content',
             'result',
-            //'priview_time',
-            //'member_id',
+            'priview_time',
+            'member_id',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
