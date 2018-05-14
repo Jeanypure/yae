@@ -135,36 +135,37 @@ class AuditController extends Controller
 
     public function actionCreateAudit($id)
     {
-        $model = new Preview();
         $searchModel = new AuditSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
+        if(($model = Preview::findOne(['product_id'=>$id,
+            'member_id'=>Yii::$app->user->identity->getId()])))
+        {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                    return $this->render('index', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+            }
+            return $this->renderAjax('update_audit', [
+                'model' => $model,
             ]);
 
-        }
-        return  $this->renderAjax('audit', [
-                    'model' => $model,
-                    'id' =>$id,
+        }else {
+          $model =  new Preview();
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->render('index', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
                 ]);
+            }
+            return  $this->renderAjax('create_audit', [
+                'model' => $model,
+                'id' =>$id,
+            ]);
+        }
 
-//        $PurInfo = PurInfo::findOne($id);
-//        var_dump($PurInfo);
-//        $member = Yii::$app->user->identity->username;
-//        $model = $PurInfo->preview; // 通过在PurInfo中定义的关联方法（getPreview()）来获取这个产品的这个用户的评论。
-//        $model = $this->findModel($id);
-//        if ($model->load(Yii::$app->request->post()) && $model->save())
-//        {
-//            return $this->redirect(['index']);
-//        } else {
-//            return $this->renderAjax('audit', [
-//                'model' => $model,
-//            ]);
-//        }
+
     }
 
 
