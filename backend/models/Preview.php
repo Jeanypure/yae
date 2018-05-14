@@ -51,6 +51,8 @@ class Preview extends \yii\db\ActiveRecord
             'result' => '结果',
             'priview_time' => '评审时间',
             'member_id' => 'Member ID',
+            'pd_title' => '中文名',
+            'pd_title_en' => '英文全称',
         ];
     }
 }

@@ -7,13 +7,10 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\PurInfoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', '产品开发汇总表');
+$this->title = Yii::t('app', '自主开发');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pur-info-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a(Yii::t('app', '创建新品'), ['create'], ['class' => 'btn btn-success']) ?>
@@ -42,7 +39,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 //            'pur_info_id',
             'pur_responsible_id',
-
             'pur_group',
             'pd_title',
             'pd_title_en',

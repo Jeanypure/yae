@@ -106,9 +106,11 @@ Modal::begin([
     'id' => 'audit-modal',
     'header' => '<h4 class="modal-title">评审产品</h4>',
     'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>',
-    'options' => [
-        'tabindex' => false
+    'options'=>[
+        'data-backdrop'=>'static',//点击空白处不关闭弹窗
+        'data-keyboard'=>false,
     ],
+    'size'=> Modal::SIZE_LARGE
 ]);
 Modal::end();
 ?>

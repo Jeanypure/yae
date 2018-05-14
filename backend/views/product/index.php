@@ -13,9 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <p>
         <?= Html::a(Yii::t('app', '创建产品'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
@@ -24,7 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'options' => [
-//            'style'=>'overflow: auto; word-wrap: break-word;',
             'style'=>'overflow: auto;  white-space:nowrap;'
         ],
         'columns' => [
