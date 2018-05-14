@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         ?>
 
-        <?= $form->field($model, 'content')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'content')->textarea(['maxlength' => true]) ?>
 
 
         <?= $form->field($model, 'priview_time')->textInput()->hiddenInput([])->label(false) ?>

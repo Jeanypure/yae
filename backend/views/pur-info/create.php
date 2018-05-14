@@ -12,7 +12,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pur-info-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <div class="pur-info-form">
         <?php
@@ -23,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'model'=>$model,
             'form'=>$form,
             'columns'=>4,
-            'contentBefore'=>'<legend class="text-info"><small>Account Info</small></legend>',
+            'contentBefore'=>'<legend class="text-info"><small>1.基本信息</small></legend>',
             'attributes'=>[       // 2 column layout
                 'pur_responsible_id'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pur_group'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
@@ -31,13 +30,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 'pd_title_en'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']]
             ]
         ]);
-
+        echo Form::widget([
+            'model'=>$model,
+            'form'=>$form,
+            'columns'=>4,
+            'attributes'=>[       // 3 column layout
+                'ebay_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'amazon_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'url_1688'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'remark'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            ]
+        ]);
 
         echo Form::widget([
             'model'=>$model,
             'form'=>$form,
             'columns'=>2,
-            'contentBefore'=>'<legend class="text-info"><small>Profile Info</small></legend>',
+//            'contentBefore'=>'<legend class="text-info"><small>产品属性</small></legend>',
             'attributes'=>[       // 2 column layout
                 'pd_pic_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_package'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']]
@@ -49,6 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'model'=>$model,
             'form'=>$form,
             'columns'=>4,
+            'contentBefore'=>'<legend class="text-info"><small>2.尺寸重量</small></legend>',
             'attributes'=>[       // 2 column layout
                 'pd_length'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_width'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
@@ -61,6 +71,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'model'=>$model,
             'form'=>$form,
             'columns'=>4,
+//            'contentBefore'=>'<legend class="text-info"><small>申报信息</small></legend>',
+
             'attributes'=>[       // 2 column layout
                 'pd_weight'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_throw_weight'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
@@ -70,36 +82,40 @@ $this->params['breadcrumbs'][] = $this->title;
         ]);
 
 
-        echo Form::widget([
-            'model'=>$model,
-            'form'=>$form,
-            'columns'=>6,
-            'attributes'=>[       // 2 column layout
-                'pd_purchase_num'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'pd_pur_costprice'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'has_shipping_fee'=>[
-                                        'type'=>Form::INPUT_RADIO_LIST,
-                                        'items'=>[1=>'是', 0=>'否'],
-                                        'options'=>['placeholder'=>'']],
-
-                'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
-                                        'items'=>['普票'=>'普票', '专票'=>'专票'],
-                                        'options'=>['placeholder'=>'']],
-                'bill_tax_value'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'number little than 16 ...']],
-                'hs_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            ]
-        ]);
 
     echo Form::widget([
             'model'=>$model,
             'form'=>$form,
             'columns'=>4,
-            'attributes'=>[       // 2 column layout
+            'contentBefore'=>'<legend class="text-info"><small>3.附加信息</small></legend>',
+             'attributes'=>[       // 2 column layout
                 'bill_tax_rebate'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'bill_rebate_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'no_rebate_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'retail_price'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
+            ]
+        ]);
+
+        echo Form::widget([
+            'model'=>$model,
+            'form'=>$form,
+            'columns'=>6,
+//            'contentBefore'=>'<legend class="text-info"><small>其他信息</small></legend>',
+
+            'attributes'=>[       // 6 column layout
+                'pd_purchase_num'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'pd_pur_costprice'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'bill_tax_value'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'number little than 16 ...']],
+                'hs_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'has_shipping_fee'=>[
+                    'type'=>Form::INPUT_RADIO_LIST,
+                    'items'=>[1=>'是', 0=>'否'],
+                    'options'=>['placeholder'=>'']],
+
+                'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
+                    'items'=>['普票'=>'普票', '专票'=>'专票'],
+                    'options'=>['placeholder'=>'']],
             ]
         ]);
     echo Form::widget([
@@ -114,23 +130,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ]
         ]);
 
-        echo Form::widget([
-            'model'=>$model,
-            'form'=>$form,
-            'columns'=>3,
-            'attributes'=>[       // 3 column layout
-                'ebay_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'amazon_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'url_1688'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            ]
-        ]);
 
         echo Form::widget([
             'model'=>$model,
             'form'=>$form,
             'columns'=>1,
-            'attributes'=>[       // 3 column layout
-                'remark'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']]
+            'attributes'=>[       // 1 column layout
+                'remark'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'']]
             ]
         ]);
 
