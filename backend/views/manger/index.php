@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\MangerSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -26,6 +27,25 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header'=> '操作',
+                'template' => '{audit} {view}  {delete}',
+                'buttons' => [
+                    'audit' => function ($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-check"></span>', $url, [
+                            'title' => '评审',
+                            'data-toggle' => 'modal',
+                            'data-target' => '#audit-modal',
+                            'class' => 'data-audit',
+                            'data-id' => $key,
+                        ] );
+                    },
+                ],
+                'headerOptions' => ['width' => '80'],
+
+            ],
+
 
 //            'product_id',
 //            'pd_pic_url',
@@ -54,13 +74,41 @@ $this->params['breadcrumbs'][] = $this->title;
             'Max',
             'Heidi',
 
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'header'=> '操作'
-
-            ],
-
         ],
     ]); ?>
     <?php Pjax::end(); ?>
 </div>
+
+<?php
+use yii\bootstrap\Modal;
+// 评审操作
+Modal::begin([
+    'id' => 'audit-modal',
+    'header' => '<h4 class="modal-title">评审产品</h4>',
+    'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>',
+    'options'=>[
+        'data-backdrop'=>'static',//点击空白处不关闭弹窗
+        'data-keyboard'=>false,
+    ],
+    'size'=> Modal::SIZE_LARGE
+]);
+Modal::end();
+?>
+
+
+
+<?php
+$requestAuditUrl = Url::toRoute('manger-audit');
+$auditJs = <<<JS
+        $('.data-audit').on('click', function () {
+            console.log(999);
+            $.get('{$requestAuditUrl}', { id: $(this).closest('tr').data('key') },
+                function (data) {
+                    $('.modal-body').html(data);
+                }  
+            );
+        });
+JS;
+$this->registerJs($auditJs);
+
+?>

@@ -14,6 +14,7 @@ return [
     'modules' => [
         "admin" => [
             "class" => "mdm\admin\Module",
+            'layout' => 'top-menu',
         ],
     ],
     "aliases" => [

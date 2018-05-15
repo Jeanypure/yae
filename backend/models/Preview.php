@@ -17,6 +17,15 @@ use Yii;
  */
 class Preview extends \yii\db\ActiveRecord
 {
+//    public  $product_id;
+    public  $pd_pic_url;
+    public  $pd_title;
+    public  $pd_title_en;
+    public  $Jenny;
+    public  $admin;
+    public  $Max;
+    public  $Heidi;
+
     /**
      * {@inheritdoc}
      */
@@ -53,6 +62,8 @@ class Preview extends \yii\db\ActiveRecord
             'member_id' => 'Member ID',
             'pd_title' => '中文名',
             'pd_title_en' => '英文全称',
+            'Jenny' => '静静',
+            'admin' => '管理员',
         ];
     }
 }

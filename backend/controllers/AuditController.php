@@ -135,17 +135,12 @@ class AuditController extends Controller
 
     public function actionCreateAudit($id)
     {
-        $searchModel = new AuditSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         if(($model = Preview::findOne(['product_id'=>$id,
             'member_id'=>Yii::$app->user->identity->getId()])))
         {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                    return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-                ]);
+                    return $this->redirect('index');
             }
             return $this->renderAjax('update_audit', [
                 'model' => $model,
@@ -154,10 +149,8 @@ class AuditController extends Controller
         }else {
           $model =  new Preview();
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-                ]);
+                return $this->redirect('index');
+
             }
             return  $this->renderAjax('create_audit', [
                 'model' => $model,

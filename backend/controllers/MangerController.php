@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Preview;
 use backend\models\MangerSearch;
+use backend\models\PreviewSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -93,6 +94,8 @@ class MangerController extends Controller
 
             // get the user records in the current page
         $models = $dataProvider->getModels();
+        $ids = array_column($models,'product_id');
+            $dataProvider->setKeys($ids);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -182,4 +185,39 @@ class MangerController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
+    /**
+     * Manger Audit is the  final determination  what the product status
+     */
+    public function actionMangerAudit( $id )
+    {
+
+        if(($model = Preview::findOne(['product_id'=>$id,
+            'member_id'=>Yii::$app->user->identity->getId()])))
+        {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect('index');
+            }
+            return $this->renderAjax('update_audit', [
+                'model' => $model,
+            ]);
+
+        }else {
+            $model =  new Preview();
+            if ($model->load(Yii::$app->request->post()) ) {
+               $model->product_id =  Yii::$app->request->post()['Preview']['product_id'];
+                $model->save();
+                return $this->redirect('index');
+
+            }
+            return  $this->renderAjax('create_audit', [
+                'model' => $model,
+                'id' =>$id,
+            ]);
+        }
+
+
+    }
+
+
 }
