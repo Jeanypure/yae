@@ -54,7 +54,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'pd_length'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_width'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_height'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'is_huge'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'pd_weight'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+
             ]
         ]);
 
@@ -63,10 +64,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'form'=>$form,
             'columns'=>4,
             'attributes'=>[       // 2 column layout
-                'pd_weight'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_throw_weight'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_count_weight'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_material'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'is_huge'=>[
+                    'type'=>Form::INPUT_RADIO_LIST,
+                    'items'=>[1=>'是', 0=>'否'],
+                    'options'=>['placeholder'=>'']
+                ],
             ],
             'contentAfter' => '<div ><br> <br></div>'
 
