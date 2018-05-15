@@ -12,7 +12,7 @@
         "irc": "irc://irc.freenode.net/yii",
         "source": "https://github.com/yiisoft/yii2"
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": "~2.0.6",
@@ -31,6 +31,7 @@
         "kartik-v/yii2-date-range": "dev-master",
         "yiisoft/yii2-redis": "^2.0",
         "hisune/echarts-php": "^1.0"
+
 
     },
     "require-dev": {

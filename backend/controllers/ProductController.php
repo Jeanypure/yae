@@ -8,6 +8,7 @@ use backend\models\ProductSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\SqlDataProvider;
 
 /**
  * ProductController implements the CRUD actions for Product model.
@@ -130,5 +131,59 @@ class ProductController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    /**
+     * can pick purchaser which hasn't full tasks
+     * the full tasks equal 3
+     */
+    public function actionPickPurchaser($id)
+    {
+
+        $model = $this->findModel($id);
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
+                return $this->redirect('index');
+        }
+       $pur_has = Yii::$app->db->createCommand(" 
+                            SELECT 
+                            p.`purchaser`,
+                            count(*) as num         
+                         from `product` p  WHERE  p.`complete_status`='未完成'
+                         GROUP BY p.`purchaser` 
+                         ")->queryAll();
+       $pur_non = Yii::$app->db->createCommand(" 
+                            SELECT 
+                            p.`purchaser`,
+                            0 as num         
+                         from `purchaser` p 
+                         GROUP BY p.`purchaser` 
+                         ")->queryAll();
+        $has_arr=[];
+        $non_arr=[];
+        $pur_set=[];
+       foreach ($pur_has as $key=>$val){
+           $has_arr[$val["purchaser"]] = $val['num'];
+       }
+        foreach ($pur_non as $key=>$val){
+            $non_arr[$val["purchaser"]] = $val['num'];
+        }
+//        $add_arr =  $has_arr+$non_arr;
+        $meg = array_merge($non_arr,$has_arr);
+           foreach($meg as $k=>$val){
+               if($val==3)   unset($meg[$k]) ; //任务数满 不可选
+           }
+
+           foreach($meg as $k=>$val){
+               $pur_set[$k] = $k;
+           }
+
+        return  $this->renderAjax('pick_purchaser', [
+                'model' => $model,
+                'id' =>$id,
+                'purset' =>$pur_set,
+            ]);
+
+
     }
 }

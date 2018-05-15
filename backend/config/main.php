@@ -16,6 +16,18 @@ return [
             "class" => "mdm\admin\Module",
             'layout' => 'top-menu',
         ],
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module'
+            // enter optional module parameters below - only if you need to
+            // use your own export download action or custom translation
+            // message source
+            // 'downloadAction' => 'gridview/export/download',
+            // 'i18n' => []
+        ],
+        'gridviewKrajee' =>  [
+        'class' => '\kartik\grid\Module',
+        // your other grid module settings
+         ]
     ],
     "aliases" => [
         "@mdm/admin" => "@vendor/mdmsoft/yii2-admin",
