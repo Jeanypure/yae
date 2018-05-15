@@ -39,7 +39,7 @@ class Product extends \yii\db\ActiveRecord
             [['product_add_time', 'product_update_time'], 'safe'],
             //[['purchaser'], 'required'],
             [['group_mark','preview_mark','product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4','pd_pic_url','ref_url_low1','ref_url_low2','ref_url_low3','ref_url_low4'], 'string', 'max' => 255],
-            [['brocast_status','sub_company','purchaser'], 'string', 'max' => 32],
+            [['complete_status','brocast_status','sub_company','purchaser'], 'string', 'max' => 32],
         ];
     }
 
@@ -71,6 +71,8 @@ class Product extends \yii\db\ActiveRecord
             'ref_url_low2' => 'eBay最低价链接',
             'ref_url_low3' => '1688最低价链接',
             'ref_url_low4' => '其他最低价链接',
+            'complete_status' => '完成状态',
+            'purchaser' => '采购',
 
         ];
     }
