@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Complete */
+/* @var $model backend\models\PurInfo */
 
-$this->title = Yii::t('app', 'Create Complete');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Completes'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Create Pur Info');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Pur Infos'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="complete-create">
+<div class="pur-info-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

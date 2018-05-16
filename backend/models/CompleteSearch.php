@@ -1,16 +1,16 @@
 <?php
 
-namespace backend\models;
+namespace app\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Complete;
+use backend\models\PurInfo;
 
 /**
- * CompleteSearch represents the model behind the search form of `backend\models\Complete`.
+ * CompleteSearch represents the model behind the search form of `backend\models\PurInfo`.
  */
-class CompleteSearch extends Complete
+class CompleteSearch extends PurInfo
 {
     /**
      * {@inheritdoc}
@@ -18,9 +18,9 @@ class CompleteSearch extends Complete
     public function rules()
     {
         return [
-            [['product_id', 'sub_company_id', 'creator_id'], 'integer'],
-            [['product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4', 'product_add_time', 'product_update_time', 'purchaser', 'creator', 'product_status', 'pd_pic_url', 'preview_time', 'preview_mark', 'sub_company', 'group_mark', 'group_time', 'group_update_time', 'group_status', 'brocast_status', 'ref_url_low1', 'ref_url_low2', 'ref_url_low3', 'ref_url_low4', 'complete_status'], 'safe'],
-            [['product_purchase_value'], 'number'],
+            [['pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_value', 'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
+            [['pur_responsible_id', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'source'], 'safe'],
+            [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice'], 'number'],
         ];
     }
 
@@ -42,7 +42,7 @@ class CompleteSearch extends Complete
      */
     public function search($params)
     {
-        $query = Complete::find();
+        $query = PurInfo::find();
 
         // add conditions that should always apply here
 
@@ -60,37 +60,43 @@ class CompleteSearch extends Complete
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'product_id' => $this->product_id,
-            'product_purchase_value' => $this->product_purchase_value,
-            'product_add_time' => $this->product_add_time,
-            'product_update_time' => $this->product_update_time,
-            'preview_time' => $this->preview_time,
-            'sub_company_id' => $this->sub_company_id,
-            'group_time' => $this->group_time,
-            'group_update_time' => $this->group_update_time,
-            'creator_id' => $this->creator_id,
+            'pur_info_id' => $this->pur_info_id,
+            'pur_group' => $this->pur_group,
+            'is_huge' => $this->is_huge,
+            'pd_weight' => $this->pd_weight,
+            'pd_throw_weight' => $this->pd_throw_weight,
+            'pd_count_weight' => $this->pd_count_weight,
+            'pd_purchase_num' => $this->pd_purchase_num,
+            'pd_pur_costprice' => $this->pd_pur_costprice,
+            'has_shipping_fee' => $this->has_shipping_fee,
+            'bill_tax_value' => $this->bill_tax_value,
+            'hs_code' => $this->hs_code,
+            'bill_tax_rebate' => $this->bill_tax_rebate,
+            'parent_product_id' => $this->parent_product_id,
         ]);
 
-        $query->andFilterWhere(['like', 'product_title_en', $this->product_title_en])
-            ->andFilterWhere(['like', 'product_title', $this->product_title])
-            ->andFilterWhere(['like', 'ref_url1', $this->ref_url1])
-            ->andFilterWhere(['like', 'ref_url2', $this->ref_url2])
-            ->andFilterWhere(['like', 'ref_url3', $this->ref_url3])
-            ->andFilterWhere(['like', 'ref_url4', $this->ref_url4])
-            ->andFilterWhere(['like', 'purchaser', Yii::$app->user->identity->username])
-            ->andFilterWhere(['like', 'creator', $this->creator])
-            ->andFilterWhere(['like', 'product_status', $this->product_status])
+        $query->andFilterWhere(['like', 'pur_responsible_id', $this->pur_responsible_id])
+            ->andFilterWhere(['like', 'pd_title', $this->pd_title])
+            ->andFilterWhere(['like', 'pd_title_en', $this->pd_title_en])
             ->andFilterWhere(['like', 'pd_pic_url', $this->pd_pic_url])
-            ->andFilterWhere(['like', 'preview_mark', $this->preview_mark])
-            ->andFilterWhere(['like', 'sub_company', $this->sub_company])
-            ->andFilterWhere(['like', 'group_mark', $this->group_mark])
-            ->andFilterWhere(['like', 'group_status', $this->group_status])
-            ->andFilterWhere(['like', 'brocast_status', $this->brocast_status])
-            ->andFilterWhere(['like', 'ref_url_low1', $this->ref_url_low1])
-            ->andFilterWhere(['like', 'ref_url_low2', $this->ref_url_low2])
-            ->andFilterWhere(['like', 'ref_url_low3', $this->ref_url_low3])
-            ->andFilterWhere(['like', 'ref_url_low4', $this->ref_url_low4])
-            ->andFilterWhere(['like', 'complete_status', $this->complete_status]);
+            ->andFilterWhere(['like', 'pd_package', $this->pd_package])
+            ->andFilterWhere(['like', 'pd_length', $this->pd_length])
+            ->andFilterWhere(['like', 'pd_width', $this->pd_width])
+            ->andFilterWhere(['like', 'pd_height', $this->pd_height])
+            ->andFilterWhere(['like', 'pd_material', $this->pd_material])
+            ->andFilterWhere(['like', 'bill_type', $this->bill_type])
+            ->andFilterWhere(['like', 'bill_rebate_amount', $this->bill_rebate_amount])
+            ->andFilterWhere(['like', 'no_rebate_amount', $this->no_rebate_amount])
+            ->andFilterWhere(['like', 'retail_price', $this->retail_price])
+            ->andFilterWhere(['like', 'ebay_url', $this->ebay_url])
+            ->andFilterWhere(['like', 'amazon_url', $this->amazon_url])
+            ->andFilterWhere(['like', 'url_1688', $this->url_1688])
+            ->andFilterWhere(['like', 'shipping_fee', $this->shipping_fee])
+            ->andFilterWhere(['like', 'oversea_shipping_fee', $this->oversea_shipping_fee])
+            ->andFilterWhere(['like', 'transaction_fee', $this->transaction_fee])
+            ->andFilterWhere(['like', 'gross_profit', $this->gross_profit])
+            ->andFilterWhere(['like', 'remark', $this->remark])
+            ->andFilterWhere(['like', 'source', '销售推荐']);
 
         return $dataProvider;
     }

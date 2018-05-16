@@ -4,69 +4,79 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Complete */
+/* @var $model backend\models\PurInfo */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="complete-form">
+<div class="pur-info-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'product_title_en')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'pur_responsible_id')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'product_title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'pur_group')->textInput() ?>
 
-    <?= $form->field($model, 'product_purchase_value')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'pd_title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'ref_url1')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'ref_url2')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'ref_url3')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'ref_url4')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'product_add_time')->textInput() ?>
-
-    <?= $form->field($model, 'product_update_time')->textInput() ?>
-
-    <?= $form->field($model, 'purchaser')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'creator')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'product_status')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'pd_title_en')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'pd_pic_url')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'preview_time')->textInput() ?>
+    <?= $form->field($model, 'pd_package')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'preview_mark')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'pd_length')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'sub_company')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'pd_width')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'sub_company_id')->textInput() ?>
+    <?= $form->field($model, 'pd_height')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'group_mark')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'is_huge')->textInput() ?>
 
-    <?= $form->field($model, 'group_time')->textInput() ?>
+    <?= $form->field($model, 'pd_weight')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'group_update_time')->textInput() ?>
+    <?= $form->field($model, 'pd_throw_weight')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'group_status')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'pd_count_weight')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'brocast_status')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'pd_material')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'ref_url_low1')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'pd_purchase_num')->textInput() ?>
 
-    <?= $form->field($model, 'ref_url_low2')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'pd_pur_costprice')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'ref_url_low3')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'has_shipping_fee')->textInput() ?>
 
-    <?= $form->field($model, 'ref_url_low4')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'bill_type')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'complete_status')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'bill_tax_value')->textInput() ?>
 
-    <?= $form->field($model, 'creator_id')->textInput() ?>
+    <?= $form->field($model, 'hs_code')->textInput() ?>
+
+    <?= $form->field($model, 'bill_tax_rebate')->textInput() ?>
+
+    <?= $form->field($model, 'bill_rebate_amount')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'no_rebate_amount')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'retail_price')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'ebay_url')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'amazon_url')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'url_1688')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'shipping_fee')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'oversea_shipping_fee')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'transaction_fee')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'gross_profit')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'remark')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'parent_product_id')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

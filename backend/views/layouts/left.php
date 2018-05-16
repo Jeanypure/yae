@@ -97,14 +97,29 @@ use mdm\admin\components\MenuHelper;
             return $return;
         };
 
+
+//        dmstr\widgets\Menu
         echo Nav::widget(
-            [
-                "encodeLabels" => false,
-                "options" => ["class" => "sidebar-menu"],
-                "items" => MenuHelper::getAssignedMenu(Yii::$app->user->id,null, $callback),
-            ]
-        );
+                    [
+//                        "encodeLabels" => false,
+                        "options" => ["class" => "sidebar-menu"],
+                        "items" => MenuHelper::getAssignedMenu(Yii::$app->user->id,null, $callback),
+                    ]
+                );
+
+
         ?>
+
+        <?php
+//         echo
+//         dmstr\widgets\Menu::widget(
+//            [
+//
+//                'options' => ['class' => 'sidebar-menu'],
+//                'items' => MenuHelper::getAssignedMenu(Yii::$app->user->id,null,$callback),
+//            ]
+//        );
+         ?>
 
 
 

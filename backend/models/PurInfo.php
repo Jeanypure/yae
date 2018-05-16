@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "pur_info".
  *
  * @property int $pur_info_id 主键
- * @property int $pur_responsible_id 开发负责人
+ * @property int $purchaser 负责人
  * @property int $pur_group 序号
  * @property string $pd_title 中文简称
  * @property string $pd_title_en 英文全称
@@ -63,7 +63,7 @@ class PurInfo extends \yii\db\ActiveRecord
             [['pd_title', 'pd_title_en', 'remark'], 'string', 'max' => 100],
             [['pd_pic_url', 'ebay_url', 'amazon_url', 'url_1688'], 'string', 'max' => 500],
             [['pd_package', 'pd_material'], 'string', 'max' => 1000],
-            [['pur_responsible_id', 'pd_length', 'pd_width', 'pd_height', 'bill_type'], 'string', 'max' => 10],
+            [['purchaser', 'pd_length', 'pd_width', 'pd_height', 'bill_type'], 'string', 'max' => 10],
             [['is_huge', 'has_shipping_fee'], 'string', 'max' => 1],
             [['bill_tax_value', 'bill_tax_rebate'], 'string', 'max' => 4],
             [['bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit'], 'string', 'max' => 30],
@@ -77,7 +77,7 @@ class PurInfo extends \yii\db\ActiveRecord
     {
         return [
             'pur_info_id' => 'ID',
-            'pur_responsible_id' => '负责人',
+            'purchaser' => '负责人',
             'pur_group' => '序号',
             'pd_title' => '中文简称',
             'pd_title_en' => '英文简称',

@@ -3,14 +3,14 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\Complete;
-use backend\models\CompleteSearch;
+use backend\models\PurInfo;
+use app\models\CompleteSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CompleteController implements the CRUD actions for Complete model.
+ * CompleteController implements the CRUD actions for PurInfo model.
  */
 class CompleteController extends Controller
 {
@@ -30,7 +30,7 @@ class CompleteController extends Controller
     }
 
     /**
-     * Lists all Complete models.
+     * Lists all PurInfo models.
      * @return mixed
      */
     public function actionIndex()
@@ -45,7 +45,7 @@ class CompleteController extends Controller
     }
 
     /**
-     * Displays a single Complete model.
+     * Displays a single PurInfo model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,16 +58,16 @@ class CompleteController extends Controller
     }
 
     /**
-     * Creates a new Complete model.
+     * Creates a new PurInfo model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Complete();
+        $model = new PurInfo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->product_id]);
+            return $this->redirect(['view', 'id' => $model->pur_info_id]);
         }
 
         return $this->render('create', [
@@ -76,7 +76,7 @@ class CompleteController extends Controller
     }
 
     /**
-     * Updates an existing Complete model.
+     * Updates an existing PurInfo model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -87,7 +87,7 @@ class CompleteController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->product_id]);
+            return $this->redirect(['view', 'id' => $model->pur_info_id]);
         }
 
         return $this->render('update', [
@@ -96,7 +96,7 @@ class CompleteController extends Controller
     }
 
     /**
-     * Deletes an existing Complete model.
+     * Deletes an existing PurInfo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class CompleteController extends Controller
     }
 
     /**
-     * Finds the Complete model based on its primary key value.
+     * Finds the PurInfo model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Complete the loaded model
+     * @return PurInfo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Complete::findOne($id)) !== null) {
+        if (($model = PurInfo::findOne($id)) !== null) {
             return $model;
         }
 

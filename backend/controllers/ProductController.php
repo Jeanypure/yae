@@ -141,8 +141,15 @@ class ProductController extends Controller
     {
 
         $model = $this->findModel($id);
+
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
+            $sql = "
+                    set @id = $id;
+                    call product_to_purinfo(@id)
+                    ";
+
+            Yii::$app->db->createCommand($sql)->execute();
                 return $this->redirect('index');
         }
 
@@ -200,6 +207,14 @@ class ProductController extends Controller
 
         }
          return $pur_set;
+    }
+
+
+    public function  actionDataTo($id)
+    {
+
+
+
     }
 
 
