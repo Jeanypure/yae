@@ -145,38 +145,9 @@ class ProductController extends Controller
         {
                 return $this->redirect('index');
         }
-       $pur_has = Yii::$app->db->createCommand(" 
-                            SELECT 
-                            p.`purchaser`,
-                            count(*) as num         
-                         from `product` p  WHERE  p.`complete_status`='未完成'
-                         GROUP BY p.`purchaser` 
-                         ")->queryAll();
-       $pur_non = Yii::$app->db->createCommand(" 
-                            SELECT 
-                            p.`purchaser`,
-                            0 as num         
-                         from `purchaser` p 
-                         GROUP BY p.`purchaser` 
-                         ")->queryAll();
-        $has_arr=[];
-        $non_arr=[];
-        $pur_set=[];
-       foreach ($pur_has as $key=>$val){
-           $has_arr[$val["purchaser"]] = $val['num'];
-       }
-        foreach ($pur_non as $key=>$val){
-            $non_arr[$val["purchaser"]] = $val['num'];
-        }
-//        $add_arr =  $has_arr+$non_arr;
-        $meg = array_merge($non_arr,$has_arr);
-           foreach($meg as $k=>$val){
-               if($val==3)   unset($meg[$k]) ; //任务数满 不可选
-           }
 
-           foreach($meg as $k=>$val){
-               $pur_set[$k] = $k;
-           }
+        $pur_set= $this->actionWhichPurchaser($model->purchaser);
+
 
         return  $this->renderAjax('pick_purchaser', [
                 'model' => $model,
@@ -186,4 +157,52 @@ class ProductController extends Controller
 
 
     }
+
+    public function actionWhichPurchaser($purchaser)
+    {
+        $pur_has = Yii::$app->db->createCommand(" 
+                            SELECT 
+                            p.`purchaser`,
+                            count(*) as num         
+                         from `product` p  WHERE  p.`complete_status`='未完成' and p.`purchaser` is not null 
+                         GROUP BY p.`purchaser` 
+                         ")->queryAll();
+        $pur_non = Yii::$app->db->createCommand(" 
+                            SELECT 
+                            p.`purchaser`,
+                            0 as num         
+                         from `purchaser` p 
+                         GROUP BY p.`purchaser` 
+                         ")->queryAll();
+
+        $has_arr=[];
+        $non_arr=[];
+        $pur_set=[];
+        foreach ($pur_has as $key=>$val){
+            $has_arr[$val["purchaser"]] = $val['num'];
+        }
+        foreach ($pur_non as $key=>$val){
+            $non_arr[$val["purchaser"]] = $val['num'];
+        }
+
+        $meg = array_merge($non_arr,$has_arr);
+
+        foreach($meg as $k=>$val){
+            if($val==3)   unset($meg[$k]) ; //任务数满 不可选
+        }
+        foreach($meg as $k=>$val){
+            $pur_set[$k] = $k;
+        }
+
+        if(!empty($purchaser))
+        {
+            $pur_set[$purchaser] = $purchaser;
+
+        }
+         return $pur_set;
+    }
+
+
+
+
 }
