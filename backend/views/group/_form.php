@@ -31,7 +31,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'product_update_time')->textInput() ?>
 
-    <?= $form->field($model, 'purchaser')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'pd_pic_url')->textInput(['maxlength' => true]) ?>
 

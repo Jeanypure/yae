@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 /* @var $model backend\models\Product */
 
 $this->title = Yii::t('app', '分组产品 : {nameAttribute}', [
-    'nameAttribute' => $model->product_id,
+    'nameAttribute' => $model->product_title,
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', '分组产品'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->product_id, 'url' => ['view', 'id' => $model->product_id]];
@@ -20,8 +20,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', '更新');
 ?>
 <div class="group-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
+    <img src="<?= Html::encode($model->pd_pic_url)?>" height="100" width="100"/>
     <div class="group-form">
 
         <?php $form = ActiveForm::begin(); ?>
@@ -65,10 +64,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', '更新');
 
         <?= $form->field($model, 'product_update_time')->textInput() ?>
 
-        <?= $form->field($model, 'purchaser')->textInput(['maxlength' => true]) ?>
-
         <?= $form->field($model, 'pd_pic_url')->textInput(['maxlength' => true]) ?>
-
 
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
@@ -78,10 +74,6 @@ $this->params['breadcrumbs'][] = Yii::t('app', '更新');
 
     </div>
 
-
-    <?php
-//    echo $this->render('_form', ['model' => $model,]) ;
-    ?>
 
 </div>
 

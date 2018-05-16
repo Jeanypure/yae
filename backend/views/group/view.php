@@ -6,13 +6,12 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Product */
 
-$this->title = $model->product_id;
+$this->title = $model->product_title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Products'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+    <img src="<?= Html::encode($model->pd_pic_url)?>" height="100" width="100"/>
 
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->product_id], ['class' => 'btn btn-primary']) ?>
@@ -29,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'sub_company',
+            'group_status',
             'group_mark',
             'product_id',
             'product_title_en',
@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'ref_url_low4:url',
             'product_add_time',
             'product_update_time',
-            'purchaser',
+//            'purchaser',
             'creator',
             'product_status',
             'pd_pic_url:url',

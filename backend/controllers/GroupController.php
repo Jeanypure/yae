@@ -86,7 +86,9 @@ class GroupController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->group_status = '已分组';
+            $model->save();
             return $this->redirect(['view', 'id' => $model->product_id]);
         }
 
