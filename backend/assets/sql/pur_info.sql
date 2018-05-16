@@ -2,7 +2,7 @@
 DROP TABLE IF EXISTS  `pur_info`;
 CREATE TABLE `pur_info` (
 `pur_info_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-`pur_responsible_id` int(11) DEFAULT '0' COMMENT '开发负责人',
+`purchaser` int(11) DEFAULT '0' COMMENT '开发负责人',
 `pur_group` int(11) DEFAULT '0' COMMENT '序号',
 `pd_title` varchar(100) DEFAULT NULL COMMENT '中文简称',
 `pd_title_en` varchar(100) DEFAULT NULL COMMENT '英文全称',
