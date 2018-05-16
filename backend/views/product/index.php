@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-//use yii\grid\GridView;
 use yii\helpers\Url;
 use kartik\grid\GridView;
 
@@ -36,7 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                     'class' => 'yii\grid\ActionColumn',
                     'header' => '操作',
-                    'template' => '{audit} {view}  {delete}',
+//                    'template' => '{audit} {view}  {delete}',
+                    'template' => ' {view} {update} {delete}',
                     'buttons' => [
                     'audit' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-send"></span>', $url, [
@@ -118,7 +118,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'creator',
 //            'product_status',
             'complete_status',
-            'purchaser',
+//            'purchaser',
         ],
     ]); ?>
 </div>

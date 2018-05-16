@@ -51,9 +51,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-            'sub_company',
             'product_title',
             'product_title_en',
+            'sub_company',
             'product_purchase_value',
             [
                 'class' => 'yii\grid\Column',
@@ -104,7 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'product_update_time:date',
             'purchaser',
             'creator',
-            'product_status',
+            'group_status',
             'brocast_status',
 
         ],
