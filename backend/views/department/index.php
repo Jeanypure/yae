@@ -118,7 +118,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'product_update_time:date',
             'creator',
 //            'product_status',
-            'complete_status',
+//            'complete_status',
+            'accept_status',
 //            'purchaser',
         ],
     ]); ?>

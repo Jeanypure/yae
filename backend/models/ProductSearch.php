@@ -19,7 +19,7 @@ class ProductSearch extends Product
     {
         return [
             [['sub_company_id','product_id'], 'integer'],
-            [['accept_status_status_status','group_status','complete_status','brocast_status','sub_company','product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4', 'product_add_time', 'product_update_time','creator'], 'safe'],
+            [['accept_status','group_status','complete_status','brocast_status','sub_company','product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4', 'product_add_time', 'product_update_time','creator'], 'safe'],
             [['product_purchase_value'], 'number'],
         ];
     }
@@ -40,9 +40,9 @@ class ProductSearch extends Product
      *
      * @return ActiveDataProvider
      */
-    public function search($params,$accept_status_status)
+    public function search($params,$accept_status)
     {
-        $this->accept_status_status = $accept_status_status;
+        $this->accept_status = $accept_status;
         $query = Product::find();
 
         // add conditions that should always apply here
@@ -78,7 +78,7 @@ class ProductSearch extends Product
             ->andFilterWhere(['like', 'creator', $this->creator])
             ->andFilterWhere(['like', 'sub_company', $this->sub_company])
             ->andFilterWhere(['like', 'sub_company', $this->group_status])
-            ->andFilterWhere(['like', 'accept_status_status', $this->accept_status_status])
+            ->andFilterWhere(['like', 'accept_status', $this->accept_status])
             ->andFilterWhere(['like', 'complete_status', $this->complete_status]);
 
         return $dataProvider;

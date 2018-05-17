@@ -144,7 +144,7 @@ class ProductController extends Controller
         $searchModel = new ProductSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'拒绝');
 
-        return $this->render('reject_lists  ', [
+        return $this->render('reject_lists', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

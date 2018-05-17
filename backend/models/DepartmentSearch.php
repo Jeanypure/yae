@@ -18,8 +18,8 @@ class DepartmentSearch extends Product
     public function rules()
     {
         return [
-            [['product_id', 'sub_company_id', 'creator_id', 'accept_status'], 'integer'],
-            [['product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4', 'product_add_time', 'product_update_time', 'purchaser', 'creator', 'product_status', 'pd_pic_url', 'preview_time', 'preview_mark', 'sub_company', 'group_mark', 'group_time', 'group_update_time', 'group_status', 'brocast_status', 'ref_url_low1', 'ref_url_low2', 'ref_url_low3', 'ref_url_low4', 'complete_status'], 'safe'],
+            [['product_id', 'sub_company_id', 'creator_id'], 'integer'],
+            [['accept_status','product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4', 'product_add_time', 'product_update_time', 'purchaser', 'creator', 'product_status', 'pd_pic_url', 'preview_time', 'preview_mark', 'sub_company', 'group_mark', 'group_time', 'group_update_time', 'group_status', 'brocast_status', 'ref_url_low1', 'ref_url_low2', 'ref_url_low3', 'ref_url_low4', 'complete_status'], 'safe'],
             [['product_purchase_value'], 'number'],
         ];
     }

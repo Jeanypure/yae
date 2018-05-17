@@ -41,7 +41,6 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                     'class' => 'yii\grid\ActionColumn',
                     'header' => '操作',
-//                    'template' => '{audit} {view}  {delete}',
                     'template' => ' {view} {update} {delete}',
                     'buttons' => [
                     'audit' => function ($url, $model, $key) {
@@ -73,6 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'product_title',
             'product_title_en',
+            'sub_company',
             'product_purchase_value',
             [
                 'class' => 'yii\grid\Column',
@@ -122,7 +122,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'product_add_time:date',
             'product_update_time:date',
             'creator',
-//            'product_status',
+            'accept_status',
             'complete_status',
 //            'purchaser',
         ],

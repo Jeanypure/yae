@@ -37,7 +37,7 @@ class GroupController extends Controller
     public function actionIndex()
     {
         $searchModel = new ProductSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'');
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -87,7 +87,7 @@ class GroupController extends Controller
     {
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post()) ) {
-            $model->group_status = '已分组';
+            isset($model->sub_company)?$model->group_status = '已分组':'';
             $model->save();
             return $this->redirect(['view', 'id' => $model->product_id]);
         }
@@ -97,7 +97,7 @@ class GroupController extends Controller
 //       $res = $company->findBySql('select id, sub_company from company' )->asArray()->all();
 
         foreach ($res as $value) {
-            $result[$value['id']]  = $value['sub_company'];
+            $result[$value['sub_company']]  = $value['sub_company'];
         }
         return $this->render('update', [
             'model' => $model,
