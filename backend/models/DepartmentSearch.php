@@ -8,24 +8,24 @@ use yii\data\ActiveDataProvider;
 use backend\models\Product;
 
 /**
- * ProductSearch represents the model behind the search form of `backend\models\Product`.
+ * DepartmentSearch represents the model behind the search form of `backend\models\Product`.
  */
-class ProductSearch extends Product
+class DepartmentSearch extends Product
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['sub_company_id','product_id'], 'integer'],
-            [['accept_status_status_status','group_status','complete_status','brocast_status','sub_company','product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4', 'product_add_time', 'product_update_time','creator'], 'safe'],
+            [['product_id', 'sub_company_id', 'creator_id', 'accept_status'], 'integer'],
+            [['product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4', 'product_add_time', 'product_update_time', 'purchaser', 'creator', 'product_status', 'pd_pic_url', 'preview_time', 'preview_mark', 'sub_company', 'group_mark', 'group_time', 'group_update_time', 'group_status', 'brocast_status', 'ref_url_low1', 'ref_url_low2', 'ref_url_low3', 'ref_url_low4', 'complete_status'], 'safe'],
             [['product_purchase_value'], 'number'],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -40,9 +40,8 @@ class ProductSearch extends Product
      *
      * @return ActiveDataProvider
      */
-    public function search($params,$accept_status_status)
+    public function search($params)
     {
-        $this->accept_status_status = $accept_status_status;
         $query = Product::find();
 
         // add conditions that should always apply here
@@ -62,10 +61,15 @@ class ProductSearch extends Product
         // grid filtering conditions
         $query->andFilterWhere([
             'product_id' => $this->product_id,
-            'sub_company_id' => $this->sub_company_id,
             'product_purchase_value' => $this->product_purchase_value,
             'product_add_time' => $this->product_add_time,
             'product_update_time' => $this->product_update_time,
+            'preview_time' => $this->preview_time,
+            'sub_company_id' => $this->sub_company_id,
+            'group_time' => $this->group_time,
+            'group_update_time' => $this->group_update_time,
+            'creator_id' => $this->creator_id,
+            'accept_status' => $this->accept_status,
         ]);
 
         $query->andFilterWhere(['like', 'product_title_en', $this->product_title_en])
@@ -74,11 +78,19 @@ class ProductSearch extends Product
             ->andFilterWhere(['like', 'ref_url2', $this->ref_url2])
             ->andFilterWhere(['like', 'ref_url3', $this->ref_url3])
             ->andFilterWhere(['like', 'ref_url4', $this->ref_url4])
-            ->andFilterWhere(['like', 'brocast_status', $this->brocast_status])
+            ->andFilterWhere(['like', 'purchaser', $this->purchaser])
             ->andFilterWhere(['like', 'creator', $this->creator])
-            ->andFilterWhere(['like', 'sub_company', $this->sub_company])
-            ->andFilterWhere(['like', 'sub_company', $this->group_status])
-            ->andFilterWhere(['like', 'accept_status_status', $this->accept_status_status])
+            ->andFilterWhere(['like', 'product_status', $this->product_status])
+            ->andFilterWhere(['like', 'pd_pic_url', $this->pd_pic_url])
+            ->andFilterWhere(['like', 'preview_mark', $this->preview_mark])
+            ->andFilterWhere(['like', 'sub_company', '2'])
+            ->andFilterWhere(['like', 'group_mark', $this->group_mark])
+            ->andFilterWhere(['like', 'group_status', $this->group_status])
+            ->andFilterWhere(['like', 'brocast_status', $this->brocast_status])
+            ->andFilterWhere(['like', 'ref_url_low1', $this->ref_url_low1])
+            ->andFilterWhere(['like', 'ref_url_low2', $this->ref_url_low2])
+            ->andFilterWhere(['like', 'ref_url_low3', $this->ref_url_low3])
+            ->andFilterWhere(['like', 'ref_url_low4', $this->ref_url_low4])
             ->andFilterWhere(['like', 'complete_status', $this->complete_status]);
 
         return $dataProvider;

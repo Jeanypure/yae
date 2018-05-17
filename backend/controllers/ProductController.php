@@ -37,7 +37,7 @@ class ProductController extends Controller
     public function actionIndex()
     {
         $searchModel = new ProductSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'');
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -134,86 +134,20 @@ class ProductController extends Controller
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
+
+
     /**
-     * can pick purchaser which hasn't full tasks
-     * the full tasks equal 3
+     * This is to show reject lists
      */
-    public function actionPickPurchaser($id)
+    public function  actionReject()
     {
+        $searchModel = new ProductSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'拒绝');
 
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save())
-        {
-            $sql = "
-                    set @id = $id;
-                    call product_to_purinfo(@id)
-                    ";
-
-            Yii::$app->db->createCommand($sql)->execute();
-                return $this->redirect('index');
-        }
-
-        $pur_set= $this->actionWhichPurchaser($model->purchaser);
-
-
-        return  $this->renderAjax('pick_purchaser', [
-                'model' => $model,
-                'id' =>$id,
-                'purset' =>$pur_set,
-            ]);
-
-
-    }
-
-    public function actionWhichPurchaser($purchaser)
-    {
-        $pur_has = Yii::$app->db->createCommand(" 
-                            SELECT 
-                            p.`purchaser`,
-                            count(*) as num         
-                         from `product` p  WHERE  p.`complete_status`='未完成' and p.`purchaser` is not null 
-                         GROUP BY p.`purchaser` 
-                         ")->queryAll();
-        $pur_non = Yii::$app->db->createCommand(" 
-                            SELECT 
-                            p.`purchaser`,
-                            0 as num         
-                         from `purchaser` p 
-                         GROUP BY p.`purchaser` 
-                         ")->queryAll();
-
-        $has_arr=[];
-        $non_arr=[];
-        $pur_set=[];
-        foreach ($pur_has as $key=>$val){
-            $has_arr[$val["purchaser"]] = $val['num'];
-        }
-        foreach ($pur_non as $key=>$val){
-            $non_arr[$val["purchaser"]] = $val['num'];
-        }
-
-        $meg = array_merge($non_arr,$has_arr);
-
-        foreach($meg as $k=>$val){
-            if($val==3)   unset($meg[$k]) ; //任务数满 不可选
-        }
-        foreach($meg as $k=>$val){
-            $pur_set[$k] = $k;
-        }
-
-        if(!empty($purchaser))
-        {
-            $pur_set[$purchaser] = $purchaser;
-
-        }
-         return $pur_set;
-    }
-
-
-    public function  actionDataTo($id)
-    {
-
+        return $this->render('reject_lists  ', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
 
 
     }

@@ -1,12 +1,12 @@
 <?php
-namespace frontend\tests\acceptance;
+namespace frontend\tests\accept_statusance;
 
-use frontend\tests\AcceptanceTester;
+use frontend\tests\accept_statusanceTester;
 use yii\helpers\Url;
 
 class HomeCest
 {
-    public function checkHome(AcceptanceTester $I)
+    public function checkHome(accept_statusanceTester $I)
     {
         $I->amOnPage(Url::toRoute('/site/index'));
         $I->see('My Application');

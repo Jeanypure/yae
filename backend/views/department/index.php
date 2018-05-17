@@ -1,43 +1,58 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
 use yii\helpers\Url;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', '分组');
+$this->title = Yii::t('app', '分到部门产品');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <p>
-        <?= Html::button('确认公示', ['id' => 'brocast', 'class' => 'btn btn-primary']) ;?>
-        <?=  Html::button('公示结束', ['id' => 'end-brocast', 'class' => 'btn btn-info']) ?>
-
+        <?= Html::a(Yii::t('app', '接受'), ['#'], ['class' => 'btn btn-success' ,'id'=>'accept' ]) ?>
+        <?= Html::a(Yii::t('app', '拒绝'), ['#'], ['class' => 'btn btn-danger','id'=>'reject' ]) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'id' => 'group',
+        'id' => 'department',
         'options' => [
             'style'=>'overflow: auto;  white-space:nowrap;'
         ],
+        'headerRowOptions' => ['class' => 'kartik-sheet-style'],
+        'filterRowOptions' => ['class' => 'kartik-sheet-style'],
+        'bordered' => 1,
+        'condensed' => 1,
+        'export' =>false,
         'columns' => [
+
             ['class' => 'yii\grid\SerialColumn'],
-            [
-                'class' => 'yii\grid\CheckboxColumn',
-                'name' => 'id',
-            ],
+            ['class' => 'yii\grid\CheckboxColumn'],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => '操作',
+                    'template' => '{audit} {view}  {update}  {delete}',
+//                'template' => ' {view} {update} {delete}',
+                'buttons' => [
+                    'audit' => function ($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-send"></span>', $url, [
+                            'title' => '发送采购',
+                            'data-toggle' => 'modal',
+                            'data-target' => '#audit-modal',
+                            'class' => 'data-audit',
+                            'data-id' => $key,
+                        ] );
+                    },
+                ],
+                'headerOptions' => ['width' => '80'],
+
+
+
             ],
             [
                 'class' => 'yii\grid\Column',
@@ -53,7 +68,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'product_title',
             'product_title_en',
-            'sub_company',
             'product_purchase_value',
             [
                 'class' => 'yii\grid\Column',
@@ -102,28 +116,61 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'product_add_time:date',
             'product_update_time:date',
-//            'purchaser',
             'creator',
-            'group_status',
-            'brocast_status',
-
+//            'product_status',
+            'complete_status',
+//            'purchaser',
         ],
     ]); ?>
-
 </div>
+
 <?php
-$group_brocast = Url::toRoute(['group/brocast']);
-$group_end_brocast = Url::toRoute(['group/end-brocast']);
+use yii\bootstrap\Modal;
+// 评审操作
+Modal::begin([
+    'id' => 'audit-modal',
+    'header' => '<h4 class="modal-title">可供选的采购</h4>',
+    'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>',
+    'options'=>[
+        'data-backdrop'=>'static',//点击空白处不关闭弹窗
+        'data-keyboard'=>false,
+    ],
+    'size'=> Modal::SIZE_LARGE
+]);
+Modal::end();
+?>
+<?php
+$requestAuditUrl = Url::toRoute('pick-purchaser');
+$auditJs = <<<JS
+        $('.data-audit').on('click', function () {
+            $.get('{$requestAuditUrl}', { id: $(this).closest('tr').data('key') },
+                function (data) {
+                    $('.modal-body').html(data);
+                }  
+            );
+        });
+JS;
+$this->registerJs($auditJs);
+
+?>
+
+
+
+
+
+<?php
+$accept = Url::toRoute(['department/accept']);
+$reject = Url::toRoute(['department/reject']);
 
 
 $js = <<<JS
-    //批量公示
-    $('#brocast').on('click',function(){
-            var ids = $("#group").yiiGridView("getSelectedRows");
+    //批量接受
+    $('#accept').on('click',function(){
+            var ids = $("#department").yiiGridView("getSelectedRows");
             console.log(ids);
             if(ids.length ==0) return false;
             $.ajax({
-                url:'{$group_brocast}',
+                url:'{$accept}',
                 type: 'post',
                 data:{id:ids},
                 success:function(res){
@@ -132,13 +179,13 @@ $js = <<<JS
             });
     });
 
-//批量结束公示
-    $('#end-brocast').on('click',function(){
-            var ids = $("#group").yiiGridView("getSelectedRows");
+//批量拒绝
+    $('#reject').on('click',function(){
+            var ids = $("#department").yiiGridView("getSelectedRows");
             console.log(ids);
             if(ids.length ==0) return false;
             $.ajax({
-                url:'{$group_end_brocast}',
+                url:'{$reject}',
                 type: 'post',
                 data:{id:ids},
                 success:function(res){
@@ -151,4 +198,10 @@ $js = <<<JS
 JS;
 $this->registerJs($js);
 
+
+
 ?>
+
+
+
+
