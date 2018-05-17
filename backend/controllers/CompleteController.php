@@ -124,4 +124,51 @@ class CompleteController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
+    public function  actionAccept()
+    {
+        $ids = $_POST['id'];
+        $pur_ids='';
+        foreach ($ids as $key=>$value){
+            $pur_ids.=$value.',';
+        }
+        $ids_str = rtrim($pur_ids,',');
+        if($ids_str){
+            $result =   Yii::$app->db->createCommand(" 
+                            update `pur_info` set `accept_status_pur`= '接受' where pur_info_id in ($ids_str)
+                         ")->execute();
+            if($result){
+                echo '接受此产品!';
+            }
+
+        }
+        else{
+            echo '请选择产品!';
+
+        }
+
+    }
+    public function  actionReject()
+    {
+        $ids = $_POST['id'];
+        $pur_ids='';
+        foreach ($ids as $key=>$value){
+            $pur_ids.=$value.',';
+        }
+        $ids_str = rtrim($pur_ids,',');
+        if($ids_str){
+            $result =   Yii::$app->db->createCommand(" 
+                            update `pur_info` set `accept_status_pur`= '拒绝' where pur_info_id in ($ids_str)
+                         ")->execute();
+
+            if($result){
+                echo '拒绝此产品!';
+            }
+        }
+        else{
+            echo '请选择产品!';
+
+        }
+
+    }
 }

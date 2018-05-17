@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CompleteSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -13,6 +14,10 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="pur-info-index">
 
     <?php Pjax::begin(); ?>
+    <p>
+        <?= Html::button('接受',['class' => 'btn btn-success' ,'id'=>'accept'])?>
+        <?= Html::button('拒绝',['class' => 'btn btn-danger' ,'id'=>'reject'])?>
+    </p>
     <?php
 //     echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -20,12 +25,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'id'=>'pur_complete',
         'options'=>[
             'style'=>'overflow:auto; white-space:nowrap'
         ],
 
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\CheckboxColumn'],
             [
                     'class' => 'yii\grid\ActionColumn',
                     'header'=> '操作'
@@ -48,6 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 //            'pur_info_id',
             'purchaser',
+            'accept_status_pur',
             'pur_group',
             'pd_title',
             'pd_title_en',
@@ -86,3 +94,47 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
     <?php Pjax::end(); ?>
 </div>
+
+<?php
+$accept = Url::toRoute(['accept']);
+$reject = Url::toRoute(['reject']);
+
+
+$js = <<<JS
+    //批量接受
+    $('#accept').on('click',function(){
+            var ids = $("#pur_complete").yiiGridView("getSelectedRows");
+            console.log(ids);
+            if(ids.length ==0) return false;
+            $.ajax({
+                url:'{$accept}',
+                type: 'post',
+                data:{id:ids},
+                success:function(res){
+                    if(res) alert(res);
+                }
+            });
+    });
+
+//批量拒绝
+    $('#reject').on('click',function(){
+            var ids = $("#pur_complete").yiiGridView("getSelectedRows");
+            console.log(ids);
+            if(ids.length ==0) return false;
+            $.ajax({
+                url:'{$reject}',
+                type: 'post',
+                data:{id:ids},
+                success:function(res){
+                    if(res) alert(res);
+                    location.reload();
+                }
+            });
+    });
+
+JS;
+$this->registerJs($js);
+
+
+
+?>

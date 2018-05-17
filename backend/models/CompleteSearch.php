@@ -19,7 +19,7 @@ class CompleteSearch extends PurInfo
     {
         return [
             [['pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_value', 'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
-            [['purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'source'], 'safe'],
+            [['accept_status_pur','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'source'], 'safe'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice'], 'number'],
         ];
     }
@@ -43,7 +43,11 @@ class CompleteSearch extends PurInfo
     public function search($params)
     {
         $query = PurInfo::find();
-
+        $username = Yii::$app->user->identity->username;
+        if($username!='Jenny'||$username !='admin'){
+            $this->purchaser = $username;
+//            $this->accept_status_pur = '接受' ;
+        }
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -76,6 +80,7 @@ class CompleteSearch extends PurInfo
         ]);
 
         $query->andFilterWhere(['like', 'purchaser', $this->purchaser])
+            ->andFilterWhere(['like', 'accept_status_pur', $this->accept_status_pur])
             ->andFilterWhere(['like', 'pd_title', $this->pd_title])
             ->andFilterWhere(['like', 'pd_title_en', $this->pd_title_en])
             ->andFilterWhere(['like', 'pd_pic_url', $this->pd_pic_url])

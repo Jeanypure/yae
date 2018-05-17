@@ -15,10 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::button('选择', ['id' => 'assign-task', 'class' => 'btn btn-success']) ?>
-
-        <?php
-//        echo Html::a('选择', ['#'], ['class' => 'btn btn-success','id'=>'assign-task']) ;
-        ?>
         <?= Html::a('<button class="btn btn-info">分配</button>', '#', [
             'title' => '评审任务分配',
             'data-toggle' => 'modal',

@@ -13,8 +13,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-index">
     <p>
-        <?= Html::a(Yii::t('app', '接受'), ['#'], ['class' => 'btn btn-success' ,'id'=>'accept' ]) ?>
-        <?= Html::a(Yii::t('app', '拒绝'), ['#'], ['class' => 'btn btn-danger','id'=>'reject' ]) ?>
+        <?= Html::button('接受',['class' => 'btn btn-success' ,'id'=>'accept'])?>
+        <?= Html::button('拒绝',['class' => 'btn btn-danger' ,'id'=>'reject'])?>
     </p>
 
     <?= GridView::widget([

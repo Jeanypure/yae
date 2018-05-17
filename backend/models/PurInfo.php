@@ -66,7 +66,7 @@ class PurInfo extends \yii\db\ActiveRecord
             [['member','purchaser', 'pd_length', 'pd_width', 'pd_height', 'bill_type'], 'string', 'max' => 10],
             [['is_huge', 'has_shipping_fee'], 'string', 'max' => 1],
             [['bill_tax_value', 'bill_tax_rebate'], 'string', 'max' => 4],
-            [['bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit'], 'string', 'max' => 30],
+            [['accept_status_pur','bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit'], 'string', 'max' => 30],
         ];
     }
 
@@ -111,6 +111,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'remark' => '备注',
             'parent_product_id' => '父ID',
             'member' => '评审人',
+            'accept_status_pur' => '接受状态',
         ];
     }
 
