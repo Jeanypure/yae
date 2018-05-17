@@ -19,7 +19,7 @@ class PurInfoSearch extends PurInfo
     {
         return [
             [['pur_info_id', 'pur_group', 'pd_purchase_num', 'hs_code', 'parent_product_id'], 'integer'],
-            [['purchaser','pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'is_huge', 'pd_material', 'has_shipping_fee', 'bill_type', 'bill_tax_value', 'bill_tax_rebate', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark'], 'safe'],
+            [['member','purchaser','pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'is_huge', 'pd_material', 'has_shipping_fee', 'bill_type', 'bill_tax_value', 'bill_tax_rebate', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark'], 'safe'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice'], 'number'],
         ];
     }
@@ -95,6 +95,7 @@ class PurInfoSearch extends PurInfo
             ->andFilterWhere(['like', 'oversea_shipping_fee', $this->oversea_shipping_fee])
             ->andFilterWhere(['like', 'transaction_fee', $this->transaction_fee])
             ->andFilterWhere(['like', 'gross_profit', $this->gross_profit])
+            ->andFilterWhere(['like', 'member', $this->member])
             ->andFilterWhere(['like', 'remark', $this->remark]);
 
         return $dataProvider;

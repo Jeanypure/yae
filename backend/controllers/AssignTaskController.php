@@ -125,4 +125,56 @@ class AssignTaskController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
+
+
+    public  function actionTask(){
+        $ids = $_POST['id'];
+        Yii::$app->session['ids']=$ids;
+        echo '选择了'.count($ids).'个产品请分配!';
+    }
+
+    public function actionPickMember()
+    {
+//        var_dump(Yii::$app->session['ids']);die;
+
+
+        $member = Yii::$app->db->createCommand(" 
+                            SELECT p.`purchaser` from `purchaser` p  WHERE  p.`role` =1
+                         ")->queryAll();
+
+        $model = new PurInfo();
+        if ($model->load(Yii::$app->request->post()) ) {
+           $member = Yii::$app->request->post()["PurInfo"]["member"];
+           $pur_info_ids =  Yii::$app->session['ids'];
+            $pur_ids = '';
+           foreach ($pur_info_ids as $key=>$value){
+               $pur_ids.=$value.',';
+           }
+           $ids_str = rtrim($pur_ids,',');
+
+          $result =   Yii::$app->db->createCommand(" 
+                            update `pur_info` set `member`= '$member' where pur_info_id in ($ids_str)
+                         ")->execute();
+          if(empty($result)){
+//              unset(Yii::$app->session['ids']);
+          }
+
+            return $this->redirect(['index']);
+        }
+        $mem=[];
+        foreach($member as $k=>$v){
+            $mem[$v['purchaser']] = $v['purchaser'];
+
+        }
+        return $this->renderAjax('pick_member', [
+            'model' => $model,
+            'member'=>$mem
+        ]);
+
+
+
+
+    }
+
 }

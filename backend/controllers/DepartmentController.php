@@ -214,6 +214,7 @@ class DepartmentController extends Controller
                             p.`purchaser`,
                             0 as num         
                          from `purchaser` p 
+                         where p.`role`=0 
                          GROUP BY p.`purchaser` 
                          ")->queryAll();
 
