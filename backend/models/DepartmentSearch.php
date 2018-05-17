@@ -40,8 +40,10 @@ class DepartmentSearch extends Product
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$sub_company)
     {
+        $this->sub_company = $sub_company;
+
         $query = Product::find();
 
         // add conditions that should always apply here
@@ -83,7 +85,7 @@ class DepartmentSearch extends Product
             ->andFilterWhere(['like', 'product_status', $this->product_status])
             ->andFilterWhere(['like', 'pd_pic_url', $this->pd_pic_url])
             ->andFilterWhere(['like', 'preview_mark', $this->preview_mark])
-            ->andFilterWhere(['like', 'sub_company', '2'])
+            ->andFilterWhere(['like', 'sub_company', $this->sub_company])
             ->andFilterWhere(['like', 'group_mark', $this->group_mark])
             ->andFilterWhere(['like', 'group_status', $this->group_status])
             ->andFilterWhere(['like', 'brocast_status', $this->brocast_status])

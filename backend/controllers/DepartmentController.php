@@ -8,6 +8,7 @@ use backend\models\DepartmentSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\models\Company;
 
 /**
  * DepartmentController implements the CRUD actions for Product model.
@@ -35,8 +36,11 @@ class DepartmentController extends Controller
      */
     public function actionIndex()
     {
+        $res = Company::find()->select('id,sub_company')
+                ->where("leader_id=".Yii::$app->user->identity->getId())->asArray()->one();
+        $sub_company = $res['sub_company']??'';
         $searchModel = new DepartmentSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$sub_company);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -125,6 +129,7 @@ class DepartmentController extends Controller
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
+
     public function  actionAccept()
     {
         $ids = $_POST['id'];
@@ -161,6 +166,7 @@ class DepartmentController extends Controller
         }
 
     }
+
 
     /**
      * can pick purchaser which hasn't full tasks
