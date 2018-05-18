@@ -2,8 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-header("Content-type: text/html; charset=utf-8");
-
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\PurInfo */
@@ -28,7 +27,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ) ?>
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success','id'=>'save-food']) ?>
+            <?= Html::submitButton(Yii::t('app', 'Cancel'), ['class' => 'btn btn-success','id'=>'cancel-food']) ?>
+<!--            <button>CANCEL</button>-->
         </div>
 
         <?php ActiveForm::end(); ?>
@@ -36,3 +37,25 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
 </div>
+<div id="div1"></div>
+
+<?php
+$cancel = Url::toRoute(['cancel']);
+$js = <<<JS
+    $('#cancel-food').on('click', function(e) {
+        e.preventDefault();
+        $('[name="YaeFoodLists[food_name]"]').prop('checked', false );
+        $.ajax({
+        url:"{$cancel}",
+        success:function(result){
+            
+        $("#div1").html(result);
+    }});
+        
+    });
+
+JS;
+
+$this->registerJs($js);
+
+?>

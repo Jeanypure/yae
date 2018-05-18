@@ -145,16 +145,24 @@ class YaeFoodListsController extends Controller
                 and d.food_id is not  null 
             ")->queryScalar();
 
-        $result = Yii::$app->db->createCommand("
+        $old_food_id = Yii::$app->db->createCommand("
                 SELECT  d.food_id  FROM `yae_user_food`  d 
                 WHERE d.user_id= $user_id
                 AND ( d.order_date BETWEEN '$begintime' AND '$endtime' )
-                and d.food_id is not  null 
+                and d.food_id is not null 
             ")->queryOne();
-
+        $model->food_name = $old_food_id['food_id'];
 
         if(!empty($res)){ //如果不空的  更新 yae_user_food
-            $model->food_name = $result['food_id'];
+
+            if ($model->load(Yii::$app->request->post()) ) {
+                $new_food_id =  Yii::$app->request->post()["YaeFoodLists"]["food_name"];
+
+                    Yii::$app->db->createCommand("
+                    update `yae_user_food` set `food_id`=$new_food_id where `food_id`=$old_food_id[food_id] 
+                    and `user_id`=$user_id and ( order_date BETWEEN '$begintime' AND '$endtime' )
+                    ")->execute();
+            }
 
             $food = $this->actionFoodLists();
 
@@ -199,4 +207,43 @@ class YaeFoodListsController extends Controller
 
     }
 
+
+    public function actionInfo(){
+        $user_id   = Yii::$app->user->identity->getId();
+        $begintime = date("Y-m-d H:i:s",mktime(0,0,0,date('m'),date('d'),date('Y')));
+        $endtime   = date("Y-m-d H:i:s",mktime(0,0,0,date('m'),date('d')+1,date('Y'))-1);
+        $old_food_id = Yii::$app->db->createCommand("
+                SELECT  d.food_id  FROM `yae_user_food`  d 
+                WHERE d.user_id= $user_id
+                AND ( d.order_date BETWEEN '$begintime' AND '$endtime' )
+                and d.food_id is not null 
+            ")->queryOne();
+       $info_data =[];
+       $info_data['user_id']   = $user_id;
+       $info_data['begintime'] = $begintime;
+       $info_data['endtime']   = $endtime;
+       $info_data['old_food_id']   = $old_food_id['food_id'];
+       return $info_data;
+
+    }
+
+    public  function actionCancel()
+    {
+        $info_data = $this->actionInfo();
+
+        $user_id = $info_data['user_id'];
+        $begintime = $info_data['begintime'];
+        $endtime = $info_data['endtime'];
+        $old_food_id = $info_data['old_food_id'];
+
+
+        $res =  Yii::$app->db->createCommand("
+                    delete from  `yae_user_food`  where `food_id`=$old_food_id
+                    and `user_id`=$user_id and ( order_date BETWEEN '$begintime' AND '$endtime' )
+                    ")->execute();
+       if($res){
+           echo 'Cancel后那么今天没点餐哦^_^';
+       }
+
+    }
 }
