@@ -136,9 +136,6 @@ class AssignTaskController extends Controller
 
     public function actionPickMember()
     {
-//        var_dump(Yii::$app->session['ids']);die;
-
-
         $member = Yii::$app->db->createCommand(" 
                             SELECT p.`purchaser` from `purchaser` p  WHERE  p.`role` =1
                          ")->queryAll();
@@ -157,11 +154,12 @@ class AssignTaskController extends Controller
                             update `pur_info` set `member`= '$member' where pur_info_id in ($ids_str)
                          ")->execute();
           if(empty($result)){
-//              unset(Yii::$app->session['ids']);
+              unset(Yii::$app->session['ids']);
           }
 
             return $this->redirect(['index']);
         }
+
         $mem=[];
         foreach($member as $k=>$v){
             $mem[$v['purchaser']] = $v['purchaser'];
