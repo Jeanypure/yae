@@ -3,6 +3,8 @@
 namespace backend\models;
 
 use Yii;
+use backend\models\User;
+use backend\models\YaeFoodLists;
 
 /**
  * This is the model class for table "yae_user_food".
@@ -15,6 +17,8 @@ use Yii;
  */
 class YaeUserFood extends \yii\db\ActiveRecord
 {
+    public $username;
+    public $food_name;
     /**
      * {@inheritdoc}
      */
@@ -32,7 +36,7 @@ class YaeUserFood extends \yii\db\ActiveRecord
             [['user_id', 'food_id'], 'required'],
             [['user_id', 'food_id'], 'integer'],
             [['order_date'], 'safe'],
-            [['note'], 'string', 'max' => 200],
+            [['username','food_name','note'], 'string', 'max' => 200],
         ];
     }
 
@@ -47,6 +51,20 @@ class YaeUserFood extends \yii\db\ActiveRecord
             'food_id' => 'Food ID',
             'note' => 'Note',
             'order_date' => 'Order Date',
+            'username' => 'username',
+            'food_name' => 'food_name',
         ];
     }
+
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(),['id'=>'user_id']);
+    }
+    public function getYaeFoodLists()
+    {
+        return $this->hasOne(YaeFoodLists::className(),['id'=>'food_id']);
+    }
+
+
 }

@@ -29,7 +29,11 @@ $('h1').remove();
 JS;
 $this->registerJs($js);
 ?>
-<h1>dinner/index</h1>
+<?php
+$datetime = new \DateTime;
+
+?>
+<h2><?= $datetime->format('Y-m-d')?></h2>
 
 <head>
     <meta charset="utf-8">

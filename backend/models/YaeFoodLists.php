@@ -38,8 +38,8 @@ class YaeFoodLists extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'food_name' => '食品名',
-            'memo' => '备注',
+            'food_name' => 'food_name',
+            'memo' => 'memo',
         ];
     }
 }
