@@ -133,10 +133,12 @@ class YaeFoodListsController extends Controller
 
         $model = new YaeFoodLists();
         $user_food =  new  YaeUserFood();
-        $user_id = Yii::$app->user->identity->getId();
-        $begintime=date("Y-m-d H:i:s",mktime(0,0,0,date('m'),date('d'),date('Y')));
-        $endtime=date("Y-m-d H:i:s",mktime(0,0,0,date('m'),date('d')+1,date('Y'))-1);
+        $info_data = $this->actionInfo();
 
+        $user_id = $info_data['user_id'];
+        $begintime = $info_data['begintime'];
+        $endtime = $info_data['endtime'];
+        $old_food_id = $info_data['old_food_id'];
 
         $res = Yii::$app->db->createCommand("
                 SELECT count(*) as num  FROM `yae_user_food`  d 
@@ -145,21 +147,15 @@ class YaeFoodListsController extends Controller
                 and d.food_id is not  null 
             ")->queryScalar();
 
-        $old_food_id = Yii::$app->db->createCommand("
-                SELECT  d.food_id  FROM `yae_user_food`  d 
-                WHERE d.user_id= $user_id
-                AND ( d.order_date BETWEEN '$begintime' AND '$endtime' )
-                and d.food_id is not null 
-            ")->queryOne();
-        $model->food_name = $old_food_id['food_id'];
+        $model->food_name = $old_food_id;
 
         if(!empty($res)){ //如果不空的  更新 yae_user_food
 
             if ($model->load(Yii::$app->request->post()) ) {
                 $new_food_id =  Yii::$app->request->post()["YaeFoodLists"]["food_name"];
 
-                    Yii::$app->db->createCommand("
-                    update `yae_user_food` set `food_id`=$new_food_id where `food_id`=$old_food_id[food_id] 
+                   $return_info = Yii::$app->db->createCommand("
+                    update `yae_user_food` set `food_id`=$new_food_id where `food_id`=$old_food_id 
                     and `user_id`=$user_id and ( order_date BETWEEN '$begintime' AND '$endtime' )
                     ")->execute();
             }
@@ -177,7 +173,8 @@ class YaeFoodListsController extends Controller
             if ($model->load(Yii::$app->request->post()) ) {
                 $user_food->food_id =  Yii::$app->request->post()["YaeFoodLists"]["food_name"];
                 $user_food->user_id = $user_id;
-                $user_food->save();
+                ;
+
             }
 
             return $this->render('food_lists', [

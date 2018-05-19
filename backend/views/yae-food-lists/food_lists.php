@@ -46,13 +46,16 @@ $js = <<<JS
         e.preventDefault();
         $('[name="YaeFoodLists[food_name]"]').prop('checked', false );
         $.ajax({
-        url:"{$cancel}",
-        success:function(result){
-            
-        $("#div1").html(result);
-    }});
+            url:"{$cancel}",
+            success:function(result){
+                
+            $("#div1").html(result);
+        }});
         
     });
+    
+
+
 
 JS;
 
