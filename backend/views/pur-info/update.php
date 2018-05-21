@@ -68,7 +68,8 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                 'pd_length'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_width'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_height'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'is_huge'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'pd_weight'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+
             ]
         ]);
 
@@ -77,10 +78,14 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             'form'=>$form,
             'columns'=>4,
             'attributes'=>[       // 2 column layout
-                'pd_weight'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'pd_material'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_throw_weight'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_count_weight'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'pd_material'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'is_huge'=>[
+                    'type'=>Form::INPUT_RADIO_LIST,
+                    'items'=>[1=>'是', 0=>'否'],
+                    'options'=>['placeholder'=>'']
+                ],
             ],
             'contentAfter' => '<div ><br> <br></div>'
 
@@ -94,9 +99,9 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             'columns'=>4,
             'contentBefore'=>'<legend class="text-info"><h3>3.税费信息</h3></legend>',
             'attributes'=>[       // 2 column layout
+                'pd_pur_costprice'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'bill_tax_rebate'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'bill_rebate_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'no_rebate_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'retail_price'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
             ]
@@ -122,17 +127,23 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
             'attributes'=>[       // 6 column layout
                 'pd_purchase_num'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'pd_pur_costprice'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'bill_tax_value'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'number little than 16 ...']],
+                'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
+                    'items'=>['普票'=>'普票', '专票'=>'专票'],
+                    'options'=>['placeholder'=>'']],
+
+                'bill_tax_value'=>['type'=>Form::INPUT_RADIO_LIST,
+                    'items'=>['3'=>'3%', '16'=>'16%'],
+
+                    'options'=>['placeholder'=>'number little than 16 ...']],
+
                 'hs_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'has_shipping_fee'=>[
                     'type'=>Form::INPUT_RADIO_LIST,
                     'items'=>[1=>'是', 0=>'否'],
                     'options'=>['placeholder'=>'']],
 
-                'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
-                    'items'=>['普票'=>'普票', '专票'=>'专票'],
-                    'options'=>['placeholder'=>'']],
+                'no_rebate_amount'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],
+
             ]
         ]);
 
@@ -159,3 +170,106 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
 
 </div>
+
+<?php
+
+//css 表单input 变圆润
+
+$this->registerJs("
+    $(function () {
+        $('.form-control').css('border-radius','7px')
+    }); 
+    ", \yii\web\View::POS_END);
+
+
+
+?>
+
+<?php
+//计算是否是大件
+
+$compute_js =<<<JS
+    $('#w0').on('change',function() {
+        var height = $("#purinfo-pd_height").val();
+        var width = $("#purinfo-pd_width").val();
+        var length = $("#purinfo-pd_length").val();
+        
+        if(height>=20){
+            $(":radio[name ='PurInfo[is_huge]'][value='1']").prop("checked","checked");
+        }else if(width>=35){
+            $(":radio[name ='PurInfo[is_huge]'][value='1']").prop("checked","checked");
+        }else if(length>=45){
+            $(":radio[name ='PurInfo[is_huge]'][value='1']").prop("checked","checked");
+        }else{
+            $(":radio[name ='PurInfo[is_huge]'][value='0']").prop("checked","checked");
+        }
+                      
+        var thow_weight = (height*width*length/5000).toFixed(3); 
+        $('#purinfo-pd_throw_weight').val(thow_weight) ;
+        var fact_weight = $('#purinfo-pd_weight').val();
+        var count_weight;
+        if(fact_weight > thow_weight){
+            count_weight = fact_weight;
+        }else{
+            count_weight = thow_weight;
+        }
+        $("#purinfo-pd_count_weight").val(count_weight);
+        
+        
+        //tax
+        var costprice = $("#purinfo-pd_pur_costprice").val(); //含税价格
+        var tax_rebate = $("#purinfo-bill_tax_rebate").val(); //退税率
+        var bill_rebate_amount = tax_rebate * costprice/100;       //退税金额
+        // $("#purinfo-bill_rebate_amount").val(amount_rebate);
+        $("#purinfo-bill_rebate_amount").val(bill_rebate_amount);
+        
+        
+        //海运运费估计
+        var  shipping_fee;
+        var is_huge = $("input[name='PurInfo[is_huge]']:checked").val();
+        console.log(is_huge);
+        var shipping_fee;
+        if(is_huge==0){
+            shipping_fee = (count_weight*5).toFixed(3);
+        }else{
+            shipping_fee = ((length*width*height/1000000)*800).toFixed(3);
+        }
+        $("#purinfo-shipping_fee").val(shipping_fee);
+        
+        //海外仓运费预估 purinfo-oversea_shipping_fee 
+        // ().toFixed(3)
+        
+        var oversea_fee;
+        if(count_weight<=1){
+            oversea_fee = (6.5*6.3).toFixed(3); //6.3 是美元汇率
+        }else{
+            // oversea_fee = (count_weight-1)*1.2*6.3+6.5*6.3;
+            oversea_fee = (((count_weight-1)*1.2+6.5)*6.3).toFixed(3) ;
+        }
+        $("#purinfo-oversea_shipping_fee").val(oversea_fee);
+        
+        
+        //成交费 purinfo-transaction_fee
+        var transaction_fee;
+        var retail_price = $("#purinfo-retail_price").val(); //预计销售价格 $
+        transaction_fee = (retail_price *0.13).toFixed(3);
+        $("#purinfo-transaction_fee").val(transaction_fee);
+        
+        //预计销售额 RMB  purinfo-no_rebate_amount
+        
+        $("#purinfo-no_rebate_amount").val(retail_price*6.3);
+        
+        //预估毛利 purinfo-gross_profit
+        //预估毛利= 预计销售价格RMB-含税价格+退税金额-海运运费-海外仓运费-成交费
+        var gross_profit;
+        //含税价格 costprice
+        gross_profit = (retail_price*6.3-costprice+-shipping_fee-oversea_fee-transaction_fee*6.3).toFixed(3) ;
+        $("#purinfo-gross_profit").val(gross_profit);
+        
+    });
+
+JS;
+
+$this->registerJs($compute_js);
+
+?>

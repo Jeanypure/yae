@@ -3,19 +3,19 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\PurInfo;
-use backend\models\PurInfoSearch;
+use backend\models\YaeExchangeRate;
+use backend\models\YaeExchangeRateSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PurInfoController implements the CRUD actions for PurInfo model.
+ * YaeExchangeRateController implements the CRUD actions for YaeExchangeRate model.
  */
-class PurInfoController extends Controller
+class YaeExchangeRateController extends Controller
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function behaviors()
     {
@@ -30,12 +30,12 @@ class PurInfoController extends Controller
     }
 
     /**
-     * Lists all PurInfo models.
+     * Lists all YaeExchangeRate models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PurInfoSearch();
+        $searchModel = new YaeExchangeRateSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class PurInfoController extends Controller
     }
 
     /**
-     * Displays a single PurInfo model.
+     * Displays a single YaeExchangeRate model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,29 +58,25 @@ class PurInfoController extends Controller
     }
 
     /**
-     * Creates a new PurInfo model.
+     * Creates a new YaeExchangeRate model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new PurInfo();
-        $res = Yii::$app->db->createCommand("
-        select t1.`exchange_rate` from `yae_exchange_rate`  t1 where t1.`currency`='USD'
-        ")->queryOne();
+        $model = new YaeExchangeRate();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pur_info_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
-            'exchange_rate' => $res['exchange_rate']
         ]);
     }
 
     /**
-     * Updates an existing PurInfo model.
+     * Updates an existing YaeExchangeRate model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,7 +87,7 @@ class PurInfoController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pur_info_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -100,7 +96,7 @@ class PurInfoController extends Controller
     }
 
     /**
-     * Deletes an existing PurInfo model.
+     * Deletes an existing YaeExchangeRate model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -114,15 +110,15 @@ class PurInfoController extends Controller
     }
 
     /**
-     * Finds the PurInfo model based on its primary key value.
+     * Finds the YaeExchangeRate model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return PurInfo the loaded model
+     * @return YaeExchangeRate the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = PurInfo::findOne($id)) !== null) {
+        if (($model = YaeExchangeRate::findOne($id)) !== null) {
             return $model;
         }
 
