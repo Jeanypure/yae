@@ -65,9 +65,8 @@ class PurInfoController extends Controller
     public function actionCreate()
     {
         $model = new PurInfo();
-        $res = Yii::$app->db->createCommand("
-        select t1.`exchange_rate` from `yae_exchange_rate`  t1 where t1.`currency`='USD'
-        ")->queryOne();
+
+       $rate = $this->actionExchangeRate();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->pur_info_id]);
@@ -75,7 +74,7 @@ class PurInfoController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'exchange_rate' => $res['exchange_rate']
+            'exchange_rate' => $rate
         ]);
     }
 
@@ -90,12 +89,16 @@ class PurInfoController extends Controller
     {
         $model = $this->findModel($id);
 
+        $rate = $this->actionExchangeRate();
+
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->pur_info_id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'exchange_rate' => $rate
         ]);
     }
 
@@ -127,5 +130,13 @@ class PurInfoController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    public  function actionExchangeRate(){
+        $res = Yii::$app->db->createCommand("
+        select t1.`exchange_rate` from `yae_exchange_rate`  t1 where t1.`currency`='USD'
+        ")->queryOne();
+        $rate = $res['exchange_rate'];
+        return $rate;
     }
 }
