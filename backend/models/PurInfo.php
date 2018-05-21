@@ -78,7 +78,7 @@ class PurInfo extends \yii\db\ActiveRecord
     {
         return [
             'pur_info_id' => 'ID',
-            'purchaser' => '负责人',
+            'purchaser' => '采购人',
             'pur_group' => '序号',
             'pd_title' => '中文简称',
             'pd_title_en' => '英文简称',
