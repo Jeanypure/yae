@@ -62,8 +62,9 @@ class Preview extends \yii\db\ActiveRecord
             'member_id' => 'Member ID',
             'pd_title' => '中文名',
             'pd_title_en' => '英文全称',
-            'Jenny' => '静静',
-            'admin' => '管理员',
+            'purchaser' => '采购人',
+            'Jenny' => 'Jenny',
+            'pur_group' => '部门',
         ];
     }
 }

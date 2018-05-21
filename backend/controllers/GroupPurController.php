@@ -4,18 +4,18 @@ namespace backend\controllers;
 
 use Yii;
 use backend\models\PurInfo;
-use backend\models\PurInfoSearch;
+use backend\models\GroupPurSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PurInfoController implements the CRUD actions for PurInfo model.
+ * GroupPurController implements the CRUD actions for PurInfo model.
  */
-class PurInfoController extends Controller
+class GroupPurController extends Controller
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function behaviors()
     {
@@ -35,7 +35,7 @@ class PurInfoController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new PurInfoSearch();
+        $searchModel = new GroupPurSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -65,8 +65,8 @@ class PurInfoController extends Controller
     public function actionCreate()
     {
         $model = new PurInfo();
+        $rate = $this->actionExchangeRate();
 
-       $rate = $this->actionExchangeRate();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->pur_info_id]);
@@ -75,6 +75,7 @@ class PurInfoController extends Controller
         return $this->render('create', [
             'model' => $model,
             'exchange_rate' => $rate
+
         ]);
     }
 
@@ -88,11 +89,10 @@ class PurInfoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         $rate = $this->actionExchangeRate();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pur_info_id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
@@ -131,6 +131,7 @@ class PurInfoController extends Controller
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
+
     /**
      * Find exchange rate
      * @return mixed
@@ -144,6 +145,58 @@ class PurInfoController extends Controller
         return $rate;
     }
 
+
+
+    /**To Brocast the Product model based on its primary key value.
+     * mark the status brocasting
+     */
+
+    public function actionBrocast()
+    {
+        $ids = $_POST['id'];
+        $val='';
+        $id_set='';
+        if($ids){
+            foreach ($_POST['id'] as $key=>$value){
+                  $val.=$value.',';
+            }
+            $id_set = trim($val,',');
+            Yii::$app->db->createCommand("
+                update `pur_info` set `brocast_status` = '公示中'  WHERE `pur_info_id` in ($id_set)
+            ")->execute();
+            echo '公示产品成功';
+        }else{
+            echo '请选择公示产品!';
+
+        }
+    }
+
+    /**
+     * To end brocast the Product based on its primary key value
+     * @throws NotFoundHttpException
+     */
+    public function actionEndBrocast()
+    {
+        $ids = $_POST['id'];
+        $val = '';
+        $id_set = '';
+        if($ids){
+            foreach ($_POST['id'] as $key=>$value){
+                $val.=$value.',';
+            }
+            $id_set = trim($val,',');
+            Yii::$app->db->createCommand("
+                update `pur_info` set `brocast_status` = '公示结束'  WHERE `pur_info_id` in ($id_set)
+            ")->execute();
+
+            echo '产品公示结束!';
+
+        }
+        else{
+            echo '请选择产品!';
+
+        }
+    }
 
 
 }

@@ -25,6 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'options' =>['style'=>'overflow:auto; white-space:nowrap;'],
+
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
@@ -62,7 +64,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'pd_title',
             'pd_title_en',
-//            'member',
+            'purchaser',
+            'pur_group',
 //            'member',
 //            'content',
 //            'result',
@@ -73,6 +76,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'admin',
             'Max',
             'Heidi',
+            'Sue',
+            'Bianca',
+            'Molly',
+            'Betty',
+            'John',
 
         ],
     ]); ?>
@@ -101,7 +109,6 @@ Modal::end();
 $requestAuditUrl = Url::toRoute('manger-audit');
 $auditJs = <<<JS
         $('.data-audit').on('click', function () {
-            console.log(999);
             $.get('{$requestAuditUrl}', { id: $(this).closest('tr').data('key') },
                 function (data) {
                     $('.modal-body').html(data);
