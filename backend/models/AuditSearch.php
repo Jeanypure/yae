@@ -40,15 +40,11 @@ class AuditSearch extends PurInfo
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$pur_group)
     {
         $query = PurInfo::find();
+        $this->pur_group = $pur_group;
 
-        $username = Yii::$app->user->identity->username;
-
-        if($username!='Jenny'||$username!='admin'){
-            $this->member = $username;
-        }
 
         // add conditions that should always apply here
 

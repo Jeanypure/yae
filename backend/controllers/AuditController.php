@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use backend\models\Preview;
+use backend\models\Company;
 
 
 /**
@@ -38,7 +39,10 @@ class AuditController extends Controller
     public function actionIndex()
     {
         $searchModel = new AuditSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $res = Company::find()->select('id,sub_company')
+            ->where("leader_id=".Yii::$app->user->identity->getId())->asArray()->one();
+        $sub_id = $res['id']??'';
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$sub_id);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

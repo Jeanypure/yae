@@ -40,7 +40,7 @@ class ProductSearch extends Product
      *
      * @return ActiveDataProvider
      */
-    public function search($params,$accept_status)
+    public function search($params,$accept_status,$sub_company)
     {
         $this->accept_status = $accept_status;
         $query = Product::find();

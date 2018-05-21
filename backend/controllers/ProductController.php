@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\SqlDataProvider;
+use backend\models\Company;
 
 /**
  * ProductController implements the CRUD actions for Product model.
@@ -37,7 +38,7 @@ class ProductController extends Controller
     public function actionIndex()
     {
         $searchModel = new ProductSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'');
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'','');
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -142,7 +143,12 @@ class ProductController extends Controller
     public function  actionReject()
     {
         $searchModel = new ProductSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'拒绝');
+
+        $res = Company::find()->select('id,sub_company')
+            ->where("leader_id=".Yii::$app->user->identity->getId())->asArray()->one();
+        $sub_company = $res['sub_company']??'';
+
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'拒绝',$sub_company);
 
         return $this->render('reject_lists', [
             'searchModel' => $searchModel,

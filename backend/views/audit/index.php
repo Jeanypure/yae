@@ -13,8 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pur-info-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?php
@@ -62,8 +60,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 //            'pur_info_id',
             'purchaser',
-            'member',
-            'pur_group',
+//            'member',
+//            'pur_group',
             'pd_title',
             'pd_title_en',
             'pd_package',
@@ -78,22 +76,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'pd_purchase_num',
             'pd_pur_costprice',
             'has_shipping_fee',
-            //'bill_type',
-            //'bill_tax_value',
-            //'hs_code',
-            //'bill_tax_rebate',
-            //'bill_rebate_amount',
-            //'no_rebate_amount',
-            //'retail_price',
-            //'ebay_url:url',
-            //'amazon_url:url',
-            //'url_1688:url',
-            //'shipping_fee',
-            //'oversea_shipping_fee',
-            //'transaction_fee',
-            //'gross_profit',
-            //'remark',
-            //'parent_product_id',
+            'bill_type',
+            'bill_tax_value',
+            'hs_code',
+            'bill_tax_rebate',
+            'bill_rebate_amount',
+            'no_rebate_amount',
+            'retail_price',
+            'ebay_url:url',
+            'amazon_url:url',
+            'url_1688:url',
+            'shipping_fee',
+            'oversea_shipping_fee',
+            'transaction_fee',
+            'gross_profit',
+            'remark',
+//            'parent_product_id',
 
         ],
     ]); ?>
