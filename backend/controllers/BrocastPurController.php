@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\Product;
-use backend\models\SumSearch;
+use backend\models\PurInfo;
+use backend\models\BrocastPurSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * SumController implements the CRUD actions for Product model.
+ * BrocastPurController implements the CRUD actions for PurInfo model.
  */
-class SumController extends Controller
+class BrocastPurController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class SumController extends Controller
     }
 
     /**
-     * Lists all Product models.
+     * Lists all PurInfo models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new SumSearch();
+        $searchModel = new BrocastPurSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class SumController extends Controller
     }
 
     /**
-     * Displays a single Product model.
+     * Displays a single PurInfo model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,16 +58,16 @@ class SumController extends Controller
     }
 
     /**
-     * Creates a new Product model.
+     * Creates a new PurInfo model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Product();
+        $model = new PurInfo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->product_id]);
+            return $this->redirect(['view', 'id' => $model->pur_info_id]);
         }
 
         return $this->render('create', [
@@ -76,7 +76,7 @@ class SumController extends Controller
     }
 
     /**
-     * Updates an existing Product model.
+     * Updates an existing PurInfo model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -87,7 +87,7 @@ class SumController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->product_id]);
+            return $this->redirect(['view', 'id' => $model->pur_info_id]);
         }
 
         return $this->render('update', [
@@ -96,7 +96,7 @@ class SumController extends Controller
     }
 
     /**
-     * Deletes an existing Product model.
+     * Deletes an existing PurInfo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class SumController extends Controller
     }
 
     /**
-     * Finds the Product model based on its primary key value.
+     * Finds the PurInfo model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Product the loaded model
+     * @return PurInfo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Product::findOne($id)) !== null) {
+        if (($model = PurInfo::findOne($id)) !== null) {
             return $model;
         }
 

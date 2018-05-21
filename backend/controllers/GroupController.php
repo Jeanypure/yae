@@ -94,7 +94,6 @@ class GroupController extends Controller
 
         $company = new Company();
         $res =  $company->find()->select('id,sub_company')->asArray()->all();
-//       $res = $company->findBySql('select id, sub_company from company' )->asArray()->all();
 
         foreach ($res as $value) {
             $result[$value['sub_company']]  = $value['sub_company'];

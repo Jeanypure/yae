@@ -8,13 +8,11 @@ use yii\helpers\Url;
 /* @var $searchModel backend\models\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', '分组');
+$this->title = Yii::t('app', '销售推荐--分组公示');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::button('确认公示', ['id' => 'brocast', 'class' => 'btn btn-primary']) ;?>
