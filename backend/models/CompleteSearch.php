@@ -40,18 +40,18 @@ class CompleteSearch extends PurInfo
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$purchaser)
     {
         $query = PurInfo::find();
-        $username = Yii::$app->user->identity->username;
-        if($username!='Jenny'||$username !='admin'){
-            $this->purchaser = $username;
-//            $this->accept_status_pur = '接受' ;
-        }
+        $this->purchaser = $purchaser;
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pagesize' => '10',
+            ]
         ]);
 
         $this->load($params);

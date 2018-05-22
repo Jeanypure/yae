@@ -36,7 +36,13 @@ class CompleteController extends Controller
     public function actionIndex()
     {
         $searchModel = new CompleteSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $username = Yii::$app->user->getIdentity()->username;
+        if($username=='admin'||$username=='Jenny'){
+            $username ='';
+        }
+
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$username);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

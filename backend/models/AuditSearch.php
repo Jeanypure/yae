@@ -50,6 +50,9 @@ class AuditSearch extends PurInfo
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pagesize' => '10',
+            ]
         ]);
 
         $this->load($params);
