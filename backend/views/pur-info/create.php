@@ -119,14 +119,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'attributes'=>[       // 6 column layout
                 'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
-                    'items'=>['普票'=>'普票', '专票'=>'专票'],
+                    'items'=>['16%专票'=>'16%专票','普票'=>'普票', '增票'=>'3%增票'],
                     'options'=>['placeholder'=>'']],
-
-                'bill_tax_value'=>['type'=>Form::INPUT_RADIO_LIST,
-                    'items'=>['3'=>'3%', '16'=>'16%'],
-
-                    'options'=>['placeholder'=>'number little than 16 ...']],
-
                 'has_shipping_fee'=>[
                     'type'=>Form::INPUT_RADIO_LIST,
                     'items'=>[1=>'是', 0=>'否'],

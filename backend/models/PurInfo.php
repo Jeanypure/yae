@@ -25,7 +25,7 @@ use Yii;
  * @property int $pd_purchase_num 申请采购数量
  * @property string $pd_pur_costprice 含税价格
  * @property int $has_shipping_fee 是否含运 0 否 1 是
- * @property string $bill_type 开票类型  --普票-- --专票--
+ * @property string $bill_type 开票类型  --普票-- --16%专票-- --3%增票--
  * @property int $bill_tax_value 开票税率 --数字 并且小于16
  * @property int $hs_code HS编码
  * @property int $bill_tax_rebate 退税率
@@ -59,7 +59,9 @@ class PurInfo extends \yii\db\ActiveRecord
     {
         return [
             [['pur_group', 'pd_purchase_num', 'hs_code','parent_product_id',], 'integer'],
-            [['pur_group', 'has_shipping_fee'], 'required'],
+            [['pd_title','pd_title_en','pd_package','pd_length', 'pd_width', 'pd_height','pd_weight',
+                'pd_pur_costprice','bill_tax_rebate','retail_price','pd_purchase_num','hs_code',
+                'has_shipping_fee'], 'required'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice'], 'number'],
             [['pd_title', 'pd_title_en', 'remark'], 'string', 'max' => 100],
             [['pd_pic_url', 'ebay_url', 'amazon_url', 'url_1688'], 'string', 'max' => 500],
@@ -68,6 +70,9 @@ class PurInfo extends \yii\db\ActiveRecord
             [['is_huge', 'has_shipping_fee'], 'string', 'max' => 1],
             [['bill_tax_value', 'bill_tax_rebate'], 'string', 'max' => 4],
             [['brocast_status','accept_status_pur','bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit'], 'string', 'max' => 30],
+            ['ebay_url','url','defaultScheme' => 'http'],
+            ['amazon_url','url','defaultScheme' => 'http'],
+            ['url_1688','url','defaultScheme' => 'http']
         ];
     }
 
@@ -81,7 +86,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'purchaser' => '采购人',
             'pur_group' => '序号',
             'pd_title' => '中文简称',
-            'pd_title_en' => '英文简称',
+            'pd_title_en' => '英文全称',
             'pd_pic_url' => '图片',
             'pd_package' => '外包装',
             'pd_length' => '长(cm)',
