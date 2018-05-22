@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php Pjax::begin(); ?>
     <p>
-        <?= Html::button('接受',['class' => 'btn btn-success' ,'id'=>'accept'])?>
-        <?= Html::button('拒绝',['class' => 'btn btn-danger' ,'id'=>'reject'])?>
+<!--        --><?php //echo Html::button('接受',['class' => 'btn btn-success' ,'id'=>'accept'])?>
+<!--        --><?php //echo  Html::button('拒绝',['class' => 'btn btn-danger' ,'id'=>'reject'])?>
     </p>
     <?php
 //     echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -54,9 +54,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 //            'pur_info_id',
-            'purchaser',
-            'accept_status_pur',
-            'pur_group',
+//            'purchaser',
+//            'accept_status_pur',
+//            'pur_group',
             'pd_title',
             'pd_title_en',
             'pd_pic_url:url',

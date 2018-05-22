@@ -4,18 +4,19 @@ namespace backend\controllers;
 
 use Yii;
 use backend\models\PurInfo;
-use backend\models\PurInfoSearch;
+use backend\models\DepartmentSelfSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\models\Company;
 
 /**
- * PurInfoController implements the CRUD actions for PurInfo model.
+ * DepartmentSelfController implements the CRUD actions for PurInfo model.
  */
-class PurInfoController extends Controller
+class DepartmentSelfController extends Controller
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function behaviors()
     {
@@ -35,8 +36,12 @@ class PurInfoController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new PurInfoSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $res = Company::find()->select('id,sub_company')
+            ->where("leader_id=".Yii::$app->user->identity->getId())->asArray()->one();
+        $sub_id = $res['id']??'';
+
+        $searchModel = new DepartmentSelfSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$sub_id);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -66,15 +71,12 @@ class PurInfoController extends Controller
     {
         $model = new PurInfo();
 
-       $rate = $this->actionExchangeRate();
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->pur_info_id]);
         }
 
         return $this->render('create', [
             'model' => $model,
-            'exchange_rate' => $rate
         ]);
     }
 
@@ -89,15 +91,12 @@ class PurInfoController extends Controller
     {
         $model = $this->findModel($id);
 
-        $rate = $this->actionExchangeRate();
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->pur_info_id]);
         }
 
         return $this->render('update', [
             'model' => $model,
-            'exchange_rate' => $rate
         ]);
     }
 
@@ -130,20 +129,4 @@ class PurInfoController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
-
-    /**
-     * Find exchange rate
-     * @return mixed
-     * @throws \yii\db\Exception
-     */
-    static  function actionExchangeRate(){
-        $res = Yii::$app->db->createCommand("
-        select t1.`exchange_rate` from `yae_exchange_rate`  t1 where t1.`currency`='USD'
-        ")->queryOne();
-        $rate = $res['exchange_rate'];
-        return $rate;
-    }
-
-
-
 }

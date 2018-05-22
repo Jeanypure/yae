@@ -12,6 +12,7 @@ $this->title = Yii::t('app', '分到部门产品');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-index">
+    <h5>产品来源：销售推荐</h5>
     <p>
         <?= Html::button('接受',['class' => 'btn btn-success' ,'id'=>'accept'])?>
         <?= Html::button('拒绝',['class' => 'btn btn-danger' ,'id'=>'reject'])?>

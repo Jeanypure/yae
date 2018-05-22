@@ -8,6 +8,8 @@ use app\models\CompleteSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+//use backend\controllers\PurInfoController;
+
 
 /**
  * CompleteController implements the CRUD actions for PurInfo model.
@@ -91,6 +93,7 @@ class CompleteController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $rate = PurInfoController::actionExchangeRate();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->pur_info_id]);
@@ -98,6 +101,7 @@ class CompleteController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'exchange_rate' => $rate
         ]);
     }
 

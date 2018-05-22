@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', '产品'), 'url' => [
 $this->params['breadcrumbs'][] = ['label' => $model->pur_info_id, 'url' => ['view', 'id' => $model->pur_info_id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
+
 <div class="pur-info-update">
 
     <?php
