@@ -51,6 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 //            'product_id',
 //            'pd_pic_url',
+
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [

@@ -63,8 +63,8 @@ class PurInfo extends \yii\db\ActiveRecord
                 'pd_pur_costprice','bill_tax_rebate','retail_price','pd_purchase_num','hs_code',
                 'has_shipping_fee'], 'required'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice'], 'number'],
-            [['pd_title', 'pd_title_en', 'remark'], 'string', 'max' => 100],
-            [['pd_pic_url', 'ebay_url', 'amazon_url', 'url_1688'], 'string', 'max' => 500],
+            [['master_result','pd_title', 'pd_title_en', 'remark'], 'string', 'max' => 100],
+            [['master_mark','pd_pic_url', 'ebay_url', 'amazon_url', 'url_1688'], 'string', 'max' => 500],
             [['pd_package', 'pd_material'], 'string', 'max' => 1000],
             [['member','purchaser', 'pd_length', 'pd_width', 'pd_height', 'bill_type'], 'string', 'max' => 10],
             [['is_huge', 'has_shipping_fee'], 'string', 'max' => 1],
@@ -84,7 +84,7 @@ class PurInfo extends \yii\db\ActiveRecord
         return [
             'pur_info_id' => 'ID',
             'purchaser' => '采购人',
-            'pur_group' => '序号',
+            'pur_group' => '部门号',
             'pd_title' => '中文简称',
             'pd_title_en' => '英文全称',
             'pd_pic_url' => '图片',
@@ -119,6 +119,8 @@ class PurInfo extends \yii\db\ActiveRecord
             'member' => '评审人',
             'accept_status_pur' => '接受状态',
             'brocast_status' => '公示状态',
+            'master_result' => '评审结果',
+            'master_mark' => '评审意见',
         ];
     }
 

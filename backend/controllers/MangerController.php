@@ -48,7 +48,7 @@ class MangerController extends Controller
                        SELECT p.`product_id`,
                         o.`pd_pic_url`,
                         Max(case p.member when 'Jenny' then p.result else 0 end)   'Jenny',
-                        Max(case p.member when 'admin' then p.result else 0 end ) 'admin',
+                        Max(case   p.member when 'admin' then p.result else 0 end ) 'admin',
                         Max(case p.member when 'Heidi' then p.result else 0 end)  'Heidi',
                         Max(case p.member when 'Max' then p.result else 0 end)  'Max',
                         Max(case p.member when 'Sue' then p.result else 0 end)  'Sue',
