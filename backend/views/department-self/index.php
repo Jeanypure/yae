@@ -15,7 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <h6><?= Html::encode($this->title) ?></h6>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -38,7 +37,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-//            'pur_info_id',
+//
+            'master_result',
+            'master_mark',
             'purchaser',
             'pur_group',
             'pd_title',
