@@ -83,9 +83,40 @@ $this->params['breadcrumbs'][] = $this->title;
             'bill_rebate_amount',
             'no_rebate_amount',
             'retail_price',
-            'ebay_url:url',
-            'amazon_url:url',
-            'url_1688:url',
+            [
+                'class' => 'yii\grid\Column',
+                'headerOptions' => [
+                    'width'=>'100'
+                ],
+                'header' => 'eBay链接',
+                'content' => function ($model, $key, $index, $column){
+                    if (!empty($model->ebay_url)) return "<a href='$model->ebay_url' target='_blank'>".parse_url($model->ebay_url)['host']."</a>";
+                }
+            ],
+            [
+                'class' => 'yii\grid\Column',
+                'headerOptions' => [
+                    'width'=>'100'
+                ],
+                'header' => 'Amazon链接',
+                'content' => function ($model, $key, $index, $column){
+                    if (!empty($model->amazon_url)) return "<a href='$model->amazon_url' target='_blank'>".parse_url($model->amazon_url)['host']."</a>";
+                }
+            ],
+            [
+                'class' => 'yii\grid\Column',
+                'headerOptions' => [
+                    'width'=>'100'
+                ],
+                'header' => '1688链接',
+                'content' => function ($model, $key, $index, $column){
+                    if (!empty($model->url_1688)) return "<a href='$model->url_1688' target='_blank'>".parse_url($model->url_1688)['host']."</a>";
+                }
+            ],
+
+//            'ebay_url:url',
+//            'amazon_url:url',
+//            'url_1688:url',
             'shipping_fee',
             'oversea_shipping_fee',
             'transaction_fee',
