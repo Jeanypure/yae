@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+
 /**
  * MangerAuditController implements the CRUD actions for PurInfo model.
  */
@@ -37,6 +38,9 @@ class MangerAuditController extends Controller
     {
         $searchModel = new MangerAuditSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $models = $dataProvider->getModels();
+        $ids = array_column($models,'product_id');
+        $dataProvider->setKeys($ids);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

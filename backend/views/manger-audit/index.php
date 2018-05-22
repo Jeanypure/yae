@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'options' =>['style'=>'overflow:auto; white-space:nowrap;'],
+//        'options' =>['style'=>'overflow:auto; word-wrap:break-word;'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
@@ -37,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ] );
                     },
                 ],
-                'headerOptions' => ['width' => '80'],
+                'headerOptions' => ['width' => '120'],
 
             ],
 
@@ -48,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'header' => '图片',
                 'content' => function ($model, $key, $index, $column){
-                    return "<img src='" .$model->pd_pic_url. "' width='100' height='100'>";
+                    return "<img src='" .$model['pd_pic_url']. "' width='100' height='100'>";
 
 
                 }
@@ -56,6 +57,16 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'pur_info_id',
             'master_result',
             'master_mark',
+            'Jenny',
+            'admin',
+            'Max',
+            'Heidi',
+            'Sue',
+            'Bianca',
+            'Molly',
+            'Betty',
+            'John',
+
             'purchaser',
             'pur_group',
             'pd_title',
@@ -86,7 +97,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'header' => 'Amazon链接',
                 'content' => function ($model, $key, $index, $column){
-                    if (!empty($model->amazon_url)) return "<a href='$model->amazon_url' target='_blank'>".parse_url($model->amazon_url)['host']."</a>";
+                    if (!empty($model['amazon_url'])) return "<a href='$model[amazon_url]' target='_blank'>".parse_url($model['amazon_url'])['host']."</a>";
                 }
             ],
             [
@@ -96,7 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'header' => 'eBay链接',
                 'content' => function ($model, $key, $index, $column){
-                    if (!empty($model->ebay_url)) return "<a href='$model->ebay_url' target='_blank'>".parse_url($model->ebay_url)['host']."</a>";
+                    if (!empty($model['ebay_url'])) return "<a href='$model[ebay_url]' target='_blank'>".parse_url($model['ebay_url'])['host']."</a>";
                 }
             ],
             [
@@ -106,19 +117,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'header' => '1688链接',
                 'content' => function ($model, $key, $index, $column){
-                    if (!empty($model->url_1688)) return "<a href='$model->url_1688' target='_blank'>".parse_url($model->url_1688)['host']."</a>";
+                    if (!empty($model['url_1688'])) return "<a href='$model[url_1688]' target='_blank'>".parse_url($model['url_1688'])['host']."</a>";
                 }
             ],
 
-//            'amazon_url:url',
-//            'ebay_url:url',
-//            'url_1688:url',
+
             'shipping_fee',
             'oversea_shipping_fee',
             'transaction_fee',
             'gross_profit',
             'remark',
 //            'parent_product_id',
+
 
         ],
     ]); ?>

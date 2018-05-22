@@ -6,6 +6,8 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use backend\models\PurInfo;
+use yii\data\SqlDataProvider;
+
 
 /**
  * MangerAuditSearch represents the model behind the search form of `backend\models\PurInfo`.
@@ -46,13 +48,76 @@ class MangerAuditSearch extends PurInfo
     {
         $query = PurInfo::find();
 
+
         // add conditions that should always apply here
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+//        $dataProvider = new ActiveDataProvider([
+//            'query' => $query,
+//            'pagination' => [
+//                'pagesize' => '10',
+//            ]
+//        ]);
+
+        $count = Yii::$app->db->createCommand("
+                      SELECT count(*) 
+                        FROM
+                        (
+                          SELECT 
+                        p.`product_id`,
+                        Max(case p.member when 'Jenny' then p.result else 0 end)   'Jenny',
+                        Max(case   p.member when 'admin' then p.result else 0 end ) 'admin',
+                        Max(case p.member when 'Heidi' then p.result else 0 end)  'Heidi',
+                        Max(case p.member when 'Max' then p.result else 0 end)  'Max',
+                        Max(case p.member when 'Sue' then p.result else 0 end)  'Sue',
+                        Max(case p.member when 'Bianca' then p.result else 0 end)  'Bianca',
+                        Max(case p.member when 'Molly' then p.result else 0 end)  'Molly',
+                        Max(case p.member when 'Betty' then p.result else 0 end)  'Betty',
+                        Max(case p.member when 'John' then p.result else 0 end)  'John'
+                        FROM `preview` p
+                        LEFT JOIN `pur_info` o  on o.pur_info_id = p.`product_id`
+                        GROUP BY p.`product_id`
+) ss
+             ")->queryScalar();
+
+        $dataProvider = new SqlDataProvider([
+            'sql' => "
+                        SELECT
+                          o.*,
+                         p.`product_id`,
+                        Max(case p.member when 'Jenny' then p.result else 0 end)   'Jenny',
+                        Max(case p.member when 'admin' then p.result else 0 end ) 'admin',
+                        Max(case p.member when 'Heidi' then p.result else 0 end)  'Heidi',
+                        Max(case p.member when 'Max' then p.result else 0 end)  'Max',
+                        Max(case p.member when 'Sue' then p.result else 0 end)  'Sue',
+                        Max(case p.member when 'Bianca' then p.result else 0 end)  'Bianca',
+                        Max(case p.member when 'Molly' then p.result else 0 end)  'Molly',
+                        Max(case p.member when 'Betty' then p.result else 0 end)  'Betty',
+                        Max(case p.member when 'John' then p.result else 0 end)  'John'
+                        FROM `preview` p
+                        LEFT JOIN `pur_info` o  on o.pur_info_id = p.`product_id`
+                        GROUP BY p.`product_id`
+
+                        ",
+            'totalCount' => $count,
+            'sort' => [
+                'attributes' => [
+                    'product_id',
+                    'Jenny',
+                    'Max',
+                    'Heidi',
+                    'admin',
+
+//                    'name' => [
+//                        'asc' => ['product_id' => SORT_ASC, 'member' => SORT_ASC],
+//                        'desc' => ['product_id' => SORT_DESC, 'member' => SORT_DESC],
+//                        'default' => SORT_DESC,
+//                        'label' => 'Name',
+//                    ],
+                ],
+            ],
             'pagination' => [
-                'pagesize' => '10',
-            ]
+                'pageSize' => 10,
+            ],
         ]);
 
         $this->load($params);
@@ -107,7 +172,11 @@ class MangerAuditSearch extends PurInfo
             ->andFilterWhere(['like', 'brocast_status', $this->brocast_status])
             ->andFilterWhere(['like', 'master_member', $this->master_member])
             ->andFilterWhere(['like', 'master_mark', $this->master_mark])
-            ->andFilterWhere(['like', 'master_result', $this->master_result]);
+            ->andFilterWhere(['like', 'master_result', $this->master_result])
+//            ->andFilterWhere(['like', 'Jenny', $this->Jenny])
+//            ->andFilterWhere(['like', 'Max', $this->Max])
+//            ->andFilterWhere(['like', 'admin', $this->admin])
+        ;
 
         return $dataProvider;
     }
