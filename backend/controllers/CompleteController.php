@@ -44,7 +44,7 @@ class CompleteController extends Controller
             $username ='';
         }
 
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$username);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$username,'0');
 
         return $this->render('index', [
             'searchModel' => $searchModel,

@@ -40,10 +40,11 @@ class CompleteSearch extends PurInfo
      *
      * @return ActiveDataProvider
      */
-    public function search($params,$purchaser)
+    public function search($params,$purchaser,$data_source)
     {
         $query = PurInfo::find();
         $this->purchaser = $purchaser;
+        $this->source = $data_source;
 
         // add conditions that should always apply here
 
@@ -101,7 +102,7 @@ class CompleteSearch extends PurInfo
             ->andFilterWhere(['like', 'transaction_fee', $this->transaction_fee])
             ->andFilterWhere(['like', 'gross_profit', $this->gross_profit])
             ->andFilterWhere(['like', 'remark', $this->remark])
-            ->andFilterWhere(['like', 'source', '销售推荐']);
+            ->andFilterWhere(['like', 'source', $this->source]);
 
         return $dataProvider;
     }

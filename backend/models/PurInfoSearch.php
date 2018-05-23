@@ -40,9 +40,10 @@ class PurInfoSearch extends PurInfo
      *
      * @return ActiveDataProvider
      */
-    public function search($params,$purchaser)
+    public function search($params,$purchaser,$data_source)
     {
         $this->purchaser = $purchaser;
+        $this->source = $data_source;
         $query = PurInfo::find()->orderBy('pur_info_id desc');
 
         // add conditions that should always apply here

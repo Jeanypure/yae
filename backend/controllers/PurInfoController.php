@@ -44,7 +44,8 @@ class PurInfoController extends Controller
         }
 
 //      0销售推荐  1 自主开发
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$username);
+
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$username,'1');
 
 
         return $this->render('index', [
