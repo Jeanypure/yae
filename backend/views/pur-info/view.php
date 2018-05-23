@@ -12,7 +12,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pur-info-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<!--    <h6>--><?php //echo  Html::encode($this->title) ?><!--</h6>-->
+
 
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->pur_info_id], ['class' => 'btn btn-primary']) ?>
@@ -24,6 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+    <P>
+        <img src="<?php echo $model->pd_pic_url?>" height="100" width="100">
+    </P>
 
     <?= DetailView::widget([
         'model' => $model,
@@ -34,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'pur_group',
             'pd_title',
             'pd_title_en',
-            'pd_pic_url:url',
+            ['attribute'=>'pd_pic_url','format'=>['url',['target'=>'_blank']]],
             'pd_package',
             'pd_length',
             'pd_width',
@@ -54,9 +58,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'bill_rebate_amount',
             'no_rebate_amount',
             'retail_price',
-            'ebay_url:url',
-            'amazon_url:url',
-            'url_1688:url',
+            ['attribute'=>'ebay_url','format'=>['url',['target'=>'_blank']]],
+            ['attribute'=>'amazon_url','format'=>['url',['target'=>'_blank']]],
+            ['attribute'=>'url_1688','format'=>['url',['target'=>'_blank']]],
             'shipping_fee',
             'oversea_shipping_fee',
             'transaction_fee',

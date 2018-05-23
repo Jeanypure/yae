@@ -94,10 +94,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     if (!empty($model->url_1688)) return "<a href='$model->url_1688' target='_blank'>".parse_url($model->url_1688)['host']."</a>";
                 }
             ],
-
-//            'amazon_url:url',
-//            'ebay_url:url',
-//            'url_1688:url',
             'shipping_fee',
             'oversea_shipping_fee',
             'transaction_fee',

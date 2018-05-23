@@ -11,7 +11,6 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Products'), 'url' =>
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-view">
-    <img src="<?= Html::encode($model->pd_pic_url)?>" height="100" width="100"/>
 
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->product_id], ['class' => 'btn btn-primary']) ?>
@@ -23,6 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+    <img src="<?= Html::encode($model->pd_pic_url)?>" height="100" width="100"/>
+
 
     <?= DetailView::widget([
         'model' => $model,
@@ -34,14 +35,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'product_title_en',
             'product_title',
             'product_purchase_value',
-            'ref_url1:url',
-            'ref_url2:url',
-            'ref_url3:url',
-            'ref_url4:url',
-            'ref_url_low1:url',
-            'ref_url_low2:url',
-            'ref_url_low3:url',
-            'ref_url_low4:url',
+
+            ['attribute'=>'ref_url1','format'=>['url',['target'=>'_blank']]],
+            ['attribute'=>'ref_url2','format'=>['url',['target'=>'_blank']]],
+            ['attribute'=>'ref_url3','format'=>['url',['target'=>'_blank']]],
+            ['attribute'=>'ref_url4','format'=>['url',['target'=>'_blank']]],
+
+            ['attribute'=>'ref_url_low1','format'=>['url',['target'=>'_blank']]],
+            ['attribute'=>'ref_url_low2','format'=>['url',['target'=>'_blank']]],
+            ['attribute'=>'ref_url_low3','format'=>['url',['target'=>'_blank']]],
+            ['attribute'=>'ref_url_low4','format'=>['url',['target'=>'_blank']]],
+
             'product_add_time',
             'product_update_time',
 //            'purchaser',

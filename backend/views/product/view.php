@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<!--    <h1>--><?php //echo  Html::encode($this->title) ?><!--</h1>-->
 
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->product_id], ['class' => 'btn btn-primary']) ?>
@@ -24,6 +24,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+    <p>
+        <img src="<?php echo $model->pd_pic_url?>" alt="" width="100" height="100">
+    </p>
 
     <?= DetailView::widget([
         'model' => $model,
@@ -32,10 +35,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'product_title_en',
             'product_title',
             'product_purchase_value',
-            'ref_url1',
-            'ref_url2',
-            'ref_url3',
-            'ref_url4',
+            ['attribute'=>'ref_url1','format'=>['url',['target'=>'_blank']]],
+            ['attribute'=>'ref_url2','format'=>['url',['target'=>'_blank']]],
+            ['attribute'=>'ref_url3','format'=>['url',['target'=>'_blank']]],
+            ['attribute'=>'ref_url4','format'=>['url',['target'=>'_blank']]],
             'product_add_time',
             'product_update_time',
             'creator'
