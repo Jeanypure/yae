@@ -43,7 +43,7 @@ class AuditSearch extends PurInfo
      */
     public function search($params,$pur_group,$preview_status)
     {
-        $query = PurInfo::find();
+        $query = PurInfo::find()->orderBy('pur_info_id desc');
         $this->pur_group = $pur_group;
         $this->preview_status = $preview_status;
 

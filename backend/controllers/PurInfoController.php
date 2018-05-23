@@ -36,7 +36,16 @@ class PurInfoController extends Controller
     public function actionIndex()
     {
         $searchModel = new PurInfoSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $username = Yii::$app->user->identity->username;
+
+        if($username=='admin'||$username=='Jenny'){
+            $username = '';
+        }
+
+//      0销售推荐  1 自主开发
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$username);
+
 
         return $this->render('index', [
             'searchModel' => $searchModel,

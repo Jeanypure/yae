@@ -40,9 +40,11 @@ class BrocastPurSearch extends PurInfo
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$brocast_status)
     {
         $query = PurInfo::find();
+
+        $this->brocast_status = $brocast_status;
 
         // add conditions that should always apply here
 

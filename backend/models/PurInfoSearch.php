@@ -18,7 +18,7 @@ class PurInfoSearch extends PurInfo
     public function rules()
     {
         return [
-            [['pur_info_id', 'pur_group', 'pd_purchase_num', 'hs_code', 'parent_product_id'], 'integer'],
+            [['source','pur_info_id', 'pur_group', 'pd_purchase_num', 'hs_code', 'parent_product_id'], 'integer'],
             [['brocast_status','member','purchaser','pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'is_huge', 'pd_material', 'has_shipping_fee', 'bill_type', 'bill_tax_value', 'bill_tax_rebate', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark'], 'safe'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice'], 'number'],
         ];
@@ -40,9 +40,10 @@ class PurInfoSearch extends PurInfo
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$purchaser)
     {
-        $query = PurInfo::find();
+        $this->purchaser = $purchaser;
+        $query = PurInfo::find()->orderBy('pur_info_id desc');
 
         // add conditions that should always apply here
 
@@ -100,6 +101,7 @@ class PurInfoSearch extends PurInfo
             ->andFilterWhere(['like', 'gross_profit', $this->gross_profit])
             ->andFilterWhere(['like', 'member', $this->member])
             ->andFilterWhere(['like', 'brocast_status', $this->brocast_status])
+            ->andFilterWhere(['like', 'source', $this->source])
             ->andFilterWhere(['like', 'remark', $this->remark]);
 
         return $dataProvider;

@@ -44,7 +44,7 @@ class DepartmentSearch extends Product
     {
         $this->sub_company = $sub_company;
 
-        $query = Product::find();
+        $query = Product::find()->orderBy('product_id desc');
 
         // add conditions that should always apply here
 

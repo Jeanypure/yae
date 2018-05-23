@@ -43,7 +43,7 @@ class ProductSearch extends Product
     public function search($params,$accept_status,$sub_company)
     {
         $this->accept_status = $accept_status;
-        $query = Product::find();
+        $query = Product::find()->orderBy('product_id desc');
 
         // add conditions that should always apply here
 

@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'master_result',
             'master_mark',
             'purchaser',
-            'pur_group',
+//            'pur_group',
             'pd_title',
             'pd_title_en',
             'pd_package',

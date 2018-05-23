@@ -36,7 +36,7 @@ class BrocastPurController extends Controller
     public function actionIndex()
     {
         $searchModel = new BrocastPurSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'公示中');
 
         return $this->render('index', [
             'searchModel' => $searchModel,

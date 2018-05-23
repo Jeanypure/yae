@@ -24,10 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'options' => [
             'style'=>'overflow: auto;  white-space:nowrap;'
         ],
-        'headerRowOptions' => ['class' => 'kartik-sheet-style'],
-        'filterRowOptions' => ['class' => 'kartik-sheet-style'],
-        'bordered' => 1,
-        'condensed' => 1,
         'export' =>false,
         'columns' => [
 
