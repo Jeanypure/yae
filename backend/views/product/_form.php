@@ -40,3 +40,32 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+//css 表单input 变圆润
+
+$this->registerJs("
+        $(function () {
+            $('.form-control').css('border-radius','7px')
+        }); 
+        ", \yii\web\View::POS_END);
+
+$readonly_js =<<<READ
+        $(function(){
+            $("#purinfo-pd_throw_weight").attr("readonly","readonly");
+            $("#purinfo-pd_count_weight").attr("readonly","readonly");
+            $("#purinfo-is_huge").attr("readonly","readonly");
+            $("#purinfo-bill_rebate_amount").attr("readonly","readonly");
+            $("#purinfo-shipping_fee").attr("readonly","readonly");
+            $("#purinfo-oversea_shipping_fee").attr("readonly","readonly");
+            $("#purinfo-transaction_fee").attr("readonly","readonly");
+            $("#purinfo-gross_profit").attr("readonly","readonly");
+            $("#purinfo-no_rebate_amount").attr("readonly","readonly");
+
+        });
+        
+READ;
+$this->registerJs($readonly_js);
+?>
+

@@ -145,7 +145,7 @@ class CompleteController extends Controller
         $ids_str = rtrim($pur_ids,',');
         if($ids_str){
             $result =   Yii::$app->db->createCommand(" 
-                            update `pur_info` set `accept_status_pur`= '接受' where pur_info_id in ($ids_str)
+                            update `pur_info` set `preview_status`= '接受' where pur_info_id in ($ids_str)
                          ")->execute();
             if($result){
                 echo '接受此产品!';
@@ -168,7 +168,7 @@ class CompleteController extends Controller
         $ids_str = rtrim($pur_ids,',');
         if($ids_str){
             $result =   Yii::$app->db->createCommand(" 
-                            update `pur_info` set `accept_status_pur`= '拒绝' where pur_info_id in ($ids_str)
+                            update `pur_info` set `preview_status`= '拒绝' where pur_info_id in ($ids_str)
                          ")->execute();
 
             if($result){

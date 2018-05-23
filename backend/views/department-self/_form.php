@@ -80,7 +80,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'member')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'accept_status_pur')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'preview_status')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'brocast_status')->textInput(['maxlength' => true]) ?>
 

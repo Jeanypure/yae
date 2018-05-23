@@ -121,7 +121,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
                     'items'=>['16%专票'=>'16%专票','普票'=>'普票', '增票'=>'3%增票'],
                     'options'=>['placeholder'=>'']],
-                'has_shipping_fee'=>[
+                    'has_shipping_fee'=>[
                     'type'=>Form::INPUT_RADIO_LIST,
                     'items'=>[1=>'是', 0=>'否'],
                     'options'=>['placeholder'=>'']],
@@ -145,6 +145,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+
         </div>
 
         <?php ActiveForm::end(); ?>

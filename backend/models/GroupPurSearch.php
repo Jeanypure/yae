@@ -19,7 +19,7 @@ class GroupPurSearch extends PurInfo
     {
         return [
             [['pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_value', 'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
-            [['purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'source', 'member', 'accept_status_pur'], 'safe'],
+            [['purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'source', 'member', 'preview_status'], 'safe'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice'], 'number'],
         ];
     }
@@ -101,7 +101,7 @@ class GroupPurSearch extends PurInfo
             ->andFilterWhere(['like', 'remark', $this->remark])
             ->andFilterWhere(['like', 'source', $this->source])
             ->andFilterWhere(['like', 'member', $this->member])
-            ->andFilterWhere(['like', 'accept_status_pur', $this->accept_status_pur]);
+            ->andFilterWhere(['like', 'preview_status', $this->preview_status]);
 
         return $dataProvider;
     }

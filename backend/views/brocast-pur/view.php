@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'parent_product_id',
             'source',
             'member',
-            'accept_status_pur',
+            'preview_status',
             'brocast_status',
         ],
     ]) ?>

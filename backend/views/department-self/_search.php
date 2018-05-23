@@ -87,7 +87,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'member') ?>
 
-    <?php // echo $form->field($model, 'accept_status_pur') ?>
+    <?php // echo $form->field($model, 'preview_status') ?>
 
     <?php // echo $form->field($model, 'brocast_status') ?>
 

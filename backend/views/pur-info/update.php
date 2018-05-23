@@ -156,6 +156,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             ]
         ]);
 
+
         ?>
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
@@ -197,91 +198,3 @@ READ;
 $this->registerJs($readonly_js);
 ?>
 
-<?php
-//计算是否是大件
-
-$compute_js =<<<JS
-        $('#w0').on('change',function() {
-            var height = $("#purinfo-pd_height").val();
-            var width = $("#purinfo-pd_width").val();
-            var length = $("#purinfo-pd_length").val();
-            
-            if(height>=20){
-                $(":radio[name ='PurInfo[is_huge]'][value='1']").prop("checked","checked");
-            }else if(width>=35){
-                $(":radio[name ='PurInfo[is_huge]'][value='1']").prop("checked","checked");
-            }else if(length>=45){
-                $(":radio[name ='PurInfo[is_huge]'][value='1']").prop("checked","checked");
-            }else{
-                $(":radio[name ='PurInfo[is_huge]'][value='0']").prop("checked","checked");
-            }
-                          
-            var thow_weight = (height*width*length/5000).toFixed(3); 
-            $('#purinfo-pd_throw_weight').val(thow_weight) ;
-            var fact_weight = $('#purinfo-pd_weight').val();
-            var count_weight;
-            if(fact_weight > thow_weight){
-                count_weight = fact_weight;
-            }else{
-                count_weight = thow_weight;
-            }
-            $("#purinfo-pd_count_weight").val(count_weight);
-            
-            
-            //tax
-            var costprice = $("#purinfo-pd_pur_costprice").val(); //含税价格
-            var tax_rebate = $("#purinfo-bill_tax_rebate").val(); //退税率
-            var bill_rebate_amount = tax_rebate * costprice/100;       //退税金额
-            // $("#purinfo-bill_rebate_amount").val(amount_rebate);
-            $("#purinfo-bill_rebate_amount").val(bill_rebate_amount);
-            
-            
-            //海运运费估计
-            var  shipping_fee;
-            var is_huge = $("input[name='PurInfo[is_huge]']:checked").val();
-            console.log(is_huge);
-            var shipping_fee;
-            if(is_huge==0){
-                shipping_fee = (count_weight*5).toFixed(3);
-            }else{
-                shipping_fee = ((length*width*height/1000000)*800).toFixed(3);
-            }
-            $("#purinfo-shipping_fee").val(shipping_fee);
-            
-            //海外仓运费预估 purinfo-oversea_shipping_fee 
-            // ().toFixed(3)
-            
-            var oversea_fee;
-            if(count_weight<=1){
-                oversea_fee = (6.5*$exchange_rate).toFixed(3); //$exchange_rate 是美元汇率
-            }else{
-                // oversea_fee = (count_weight-1)*1.2*$exchange_rate+6.5*$exchange_rate;
-                oversea_fee = (((count_weight-1)*1.2+6.5)*$exchange_rate).toFixed(3) ;
-            }
-            $("#purinfo-oversea_shipping_fee").val(oversea_fee);
-            
-            
-            //成交费 purinfo-transaction_fee
-            var transaction_fee;
-            var retail_price = $("#purinfo-retail_price").val(); //预计销售价格 $
-            transaction_fee = (retail_price *0.13).toFixed(3);
-            $("#purinfo-transaction_fee").val(transaction_fee);
-            
-            //预计销售额 RMB  purinfo-no_rebate_amount
-            
-            $("#purinfo-no_rebate_amount").val(retail_price*$exchange_rate);
-            
-            //预估毛利 purinfo-gross_profit
-            //预估毛利= 预计销售价格RMB-含税价格+退税金额-海运运费-海外仓运费-成交费
-            var gross_profit;
-            //含税价格 costprice
-            gross_profit = (retail_price*$exchange_rate-costprice+-shipping_fee-oversea_fee-transaction_fee*$exchange_rate).toFixed(3) ;
-            $("#purinfo-gross_profit").val(gross_profit);
-            
-        });
-
-JS;
-
-$this->registerJs($compute_js);
-
-?>

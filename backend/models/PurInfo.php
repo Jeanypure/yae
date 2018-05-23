@@ -69,7 +69,7 @@ class PurInfo extends \yii\db\ActiveRecord
             [['member','purchaser', 'pd_length', 'pd_width', 'pd_height', 'bill_type'], 'string', 'max' => 10],
             [['is_huge', 'has_shipping_fee'], 'string', 'max' => 1],
             [['bill_tax_value', 'bill_tax_rebate'], 'string', 'max' => 4],
-            [['brocast_status','accept_status_pur','bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit'], 'string', 'max' => 30],
+            [['brocast_status','preview_status','bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit'], 'string', 'max' => 30],
             ['ebay_url','url','defaultScheme' => 'http'],
             ['amazon_url','url','defaultScheme' => 'http'],
             ['url_1688','url','defaultScheme' => 'http']
@@ -117,7 +117,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'remark' => '备注',
             'parent_product_id' => '父ID',
             'member' => '评审人',
-            'accept_status_pur' => '接受状态',
+            'preview_status' => '评审状态',
             'brocast_status' => '公示状态',
             'master_result' => '评审结果',
             'master_mark' => '评审意见',
