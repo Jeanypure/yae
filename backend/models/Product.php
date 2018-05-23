@@ -37,9 +37,13 @@ class Product extends \yii\db\ActiveRecord
         return [
             [['product_purchase_value'], 'number'],
             [['product_add_time', 'product_update_time'], 'safe'],
-            //[['purchaser'], 'required'],
+            [['product_title_en','product_title'], 'required'],
             [['group_mark','preview_mark','product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4','pd_pic_url','ref_url_low1','ref_url_low2','ref_url_low3','ref_url_low4'], 'string', 'max' => 255],
             [['accept_status','group_status','complete_status','brocast_status','sub_company','purchaser'], 'string', 'max' => 32],
+            ['ref_url2','url','defaultScheme' => 'http'],
+            ['ref_url1','url','defaultScheme' => 'http'],
+            ['ref_url3','url','defaultScheme' => 'http'],
+            ['pd_pic_url','url','defaultScheme' => 'http']
         ];
     }
 
