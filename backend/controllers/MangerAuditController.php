@@ -37,7 +37,7 @@ class MangerAuditController extends Controller
     public function actionIndex()
     {
         $searchModel = new MangerAuditSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'待评审');
         $models = $dataProvider->getModels();
         $ids = array_column($models,'product_id');
         $dataProvider->setKeys($ids);
@@ -138,10 +138,10 @@ class MangerAuditController extends Controller
         $model = $this->findModel($id);
         if($model){
             if ($model->load(Yii::$app->request->post())  ) {
-                var_dump(Yii::$app->request->post());
                 $model->master_result = Yii::$app->request->post()['PurInfo']['master_result'];
                 $model->master_mark = Yii::$app->request->post()['PurInfo']['master_mark'];
                 $model->master_member = Yii::$app->user->identity->username;
+                $model->preview_status = '已评审';
                 $model->save(false);
                 return $this->redirect(['index']);
             }

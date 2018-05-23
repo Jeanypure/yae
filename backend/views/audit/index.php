@@ -62,6 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'purchaser',
 //            'member',
 //            'pur_group',
+            'preview_status',
             'pd_title',
             'pd_title_en',
             'pd_package',
@@ -113,10 +114,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     if (!empty($model->url_1688)) return "<a href='$model->url_1688' target='_blank'>".parse_url($model->url_1688)['host']."</a>";
                 }
             ],
-
-//            'ebay_url:url',
-//            'amazon_url:url',
-//            'url_1688:url',
             'shipping_fee',
             'oversea_shipping_fee',
             'transaction_fee',

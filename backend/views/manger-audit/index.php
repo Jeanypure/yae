@@ -57,6 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'pur_info_id',
             'master_result',
             'master_mark',
+            'preview_status',
             'Jenny',
             'admin',
             'Max',
