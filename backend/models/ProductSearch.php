@@ -40,10 +40,19 @@ class ProductSearch extends Product
      *
      * @return ActiveDataProvider
      */
-    public function search($params,$accept_status,$sub_company)
+    public function search($params,$accept_status,$sub_company,$creator)
     {
         $this->accept_status = $accept_status;
-        $query = Product::find()->orderBy('product_id desc');
+        $creator = Yii::$app->user->identity->username;
+        $query = Product::find()
+            ->andWhere(['creator'=>$creator])
+            ->orderBy('product_id desc');
+        if($creator=='Jenny'||$creator=='admin'){
+            $query = Product::find()
+
+                ->orderBy('product_id desc');
+        }
+
 
         // add conditions that should always apply here
 
