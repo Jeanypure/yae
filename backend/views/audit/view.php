@@ -54,9 +54,34 @@ $this->params['breadcrumbs'][] = $this->title;
             'bill_rebate_amount',
             'no_rebate_amount',
             'retail_price',
-            ['attribute'=>'ebay_url','format'=>['url',['target'=>'_blank']]],
-            ['attribute'=>'amazon_url','format'=>['url',['target'=>'_blank']]],
-            ['attribute'=>'url_1688','format'=>['url',['target'=>'_blank']]],
+//            ['attribute'=>'ebay_url','format'=>['url',['target'=>'_blank']]],
+//            ['attribute'=>'amazon_url','format'=>['url',['target'=>'_blank']]],
+//            ['attribute'=>'url_1688','format'=>['url',['target'=>'_blank']]],
+            [
+                'attribute'=>'ebay_url',
+                'format'=>'raw',
+                'value' => function ($model) {
+                    if (!empty($model->ebay_url)) return "<a href='$model->ebay_url' target='_blank'>".parse_url($model->ebay_url)['host']."</a>";
+
+                },
+            ],
+            [
+                'attribute'=>'amazon_url',
+                'format'=>'raw',
+                'value' => function ($model) {
+                    if (!empty($model->amazon_url)) return "<a href='$model->amazon_url' target='_blank'>".parse_url($model->amazon_url)['host']."</a>";
+
+                },
+            ],
+            [
+                'attribute'=>'url_1688',
+                'format'=>'raw',
+                'value' => function ($model) {
+                    if (!empty($model->url_1688)) return "<a href='$model->url_1688' target='_blank'>".parse_url($model->url_1688)['host']."</a>";
+
+                },
+            ],
+
             'shipping_fee',
             'oversea_shipping_fee',
             'transaction_fee',
