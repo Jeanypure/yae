@@ -38,7 +38,7 @@ use Yii;
  * @property string $shipping_fee 海运运费预估
  * @property string $oversea_shipping_fee 海外仓运运费预估
  * @property string $transaction_fee 成交费 销售金额的13%
- * @property string $gross_profit 预估毛利
+ * @property string $gross_profit 预估毛利¥
  * @property string $remark 备注
  * @property int $parent_product_id 关联的母SKU ID
  */
@@ -113,7 +113,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'shipping_fee' => '海运运费预估',
             'oversea_shipping_fee' => '海外仓运运费预估',
             'transaction_fee' => '成交费',
-            'gross_profit' => '预估毛利',
+            'gross_profit' => '预估毛利¥',
             'remark' => '备注',
             'parent_product_id' => '父ID',
             'member' => '评审人',
@@ -121,6 +121,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'brocast_status' => '公示状态',
             'master_result' => '评审结果',
             'master_mark' => '评审意见',
+            'ams_logistics_fee' => '计算费用$',
         ];
     }
 
