@@ -12,17 +12,18 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pur-info-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
+    <img src="<?php echo $model->pd_pic_url ?>" alt="" width="100" height="100">
     <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->pur_info_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->pur_info_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
+<!--        --><?php //echo  Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->pur_info_id], ['class' => 'btn btn-primary']) ?>
+        <?php
+//        echo  Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->pur_info_id], [
+//            'class' => 'btn btn-danger',
+//            'data' => [
+//                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+//                'method' => 'post',
+//            ],
+//        ]) ;
+        ?>
     </p>
 
     <?= DetailView::widget([
@@ -53,15 +54,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'bill_rebate_amount',
             'no_rebate_amount',
             'retail_price',
-            'ebay_url:url',
-            'amazon_url:url',
-            'url_1688:url',
+            ['attribute'=>'ebay_url','format'=>['url',['target'=>'_blank']]],
+            ['attribute'=>'amazon_url','format'=>['url',['target'=>'_blank']]],
+            ['attribute'=>'url_1688','format'=>['url',['target'=>'_blank']]],
             'shipping_fee',
             'oversea_shipping_fee',
             'transaction_fee',
             'gross_profit',
             'remark',
-            'parent_product_id',
+//            'parent_product_id',
         ],
     ]) ?>
 

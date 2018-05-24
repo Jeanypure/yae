@@ -17,7 +17,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <div class="preview-form">
-
         <?php $form = ActiveForm::begin(); ?>
 
         <?= $form->field($model, 'member')->textInput(['maxlength' => true])
@@ -42,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         ?>
 
-        <?= $form->field($model, 'content')->textarea(['maxlength' => true]) ?>
+        <?= $form->field($model, 'content')->textarea(['maxlength' => true,'rows' => '7']) ?>
 
 
         <?= $form->field($model, 'priview_time')->textInput()->hiddenInput([])->label(false) ?>

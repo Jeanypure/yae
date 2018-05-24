@@ -60,7 +60,7 @@ class PurInfo extends \yii\db\ActiveRecord
         return [
             [['pur_group', 'pd_purchase_num', 'hs_code','parent_product_id',], 'integer'],
             [['pd_title','pd_title_en','pd_package','pd_length', 'pd_width', 'pd_height','pd_weight',
-                'pd_pur_costprice','bill_tax_rebate','retail_price','pd_purchase_num','hs_code',
+                'pd_pur_costprice','bill_tax_rebate','retail_price','pd_purchase_num',
                 'has_shipping_fee'], 'required'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice'], 'number'],
             [['master_result','pd_title', 'pd_title_en', 'remark'], 'string', 'max' => 100],
@@ -105,7 +105,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'hs_code' => 'HS编码',
             'bill_tax_rebate' => '退税率',
             'bill_rebate_amount' => '退税金额',
-            'no_rebate_amount' => '预计销售不退税价格¥',
+            'no_rebate_amount' => '预计销售价¥',
             'retail_price' => '预计销售价格$',
             'ebay_url' => 'eBay最低价链接',
             'amazon_url' => 'Amazon最低价链接',

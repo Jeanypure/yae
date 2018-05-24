@@ -90,6 +90,8 @@ class AuditController extends Controller
      */
     public function actionUpdate($id)
     {
+        $exchange_rate = PurInfoController::actionExchangeRate();
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -98,6 +100,8 @@ class AuditController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'exchange_rate' =>$exchange_rate
+
         ]);
     }
 
@@ -140,24 +144,33 @@ class AuditController extends Controller
     public function actionCreateAudit($id)
     {
 
-        if(($model = Preview::findOne(['product_id'=>$id,
+        $exchange_rate = PurInfoController::actionExchangeRate();
+
+        $purinfo = $this->findModel($id);
+
+        if(($model_preview = Preview::findOne(['product_id'=>$id,
             'member_id'=>Yii::$app->user->identity->getId()])))
         {
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if ($model_preview->load(Yii::$app->request->post()) && $model_preview->save()) {
                     return $this->redirect('index');
             }
+
             return $this->renderAjax('update_audit', [
-                'model' => $model,
+                'model_preview' => $model_preview,
+                'purinfo'=>$purinfo,
+                'exchange_rate' =>$exchange_rate
+
+
             ]);
 
         }else {
-          $model =  new Preview();
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model_preview =  new Preview();
+            if ($model_preview->load(Yii::$app->request->post()) && $model_preview->save()) {
                 return $this->redirect('index');
 
             }
             return  $this->renderAjax('create_audit', [
-                'model' => $model,
+                'model_preview' => $model_preview,
                 'id' =>$id,
             ]);
         }
