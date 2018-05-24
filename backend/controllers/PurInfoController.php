@@ -37,15 +37,10 @@ class PurInfoController extends Controller
     {
         $searchModel = new PurInfoSearch();
 
-        $username = Yii::$app->user->identity->username;
-
-        if($username=='admin'||$username=='Jenny'){
-            $username = '';
-        }
 
 //      0销售推荐  1 自主开发
 
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$username,'1');
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'1');
 
 
         return $this->render('index', [

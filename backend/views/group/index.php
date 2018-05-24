@@ -49,9 +49,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
+            'sub_company',
+            'brocast_status',
             'product_title',
             'product_title_en',
-            'sub_company',
             'product_purchase_value',
             [
                 'class' => 'yii\grid\Column',
@@ -103,7 +104,6 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'purchaser',
             'creator',
             'group_status',
-            'brocast_status',
 
         ],
     ]); ?>

@@ -91,7 +91,9 @@ class GroupPurController extends Controller
         $model = $this->findModel($id);
         $rate = $this->actionExchangeRate();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->preview_status = '待评审';
+            $model->save();
             return $this->redirect(['index']);
         }
 

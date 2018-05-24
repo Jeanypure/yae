@@ -13,7 +13,9 @@ $this->params['breadcrumbs'][] = ['label' => $model->product_id, 'url' => ['view
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="product-update">
-
+    <p>
+        <img src="<?php echo $model->pd_pic_url?>" alt="" width="100" height="100">
+    </p>
 
     <?= $this->render('_form', [
         'model' => $model,

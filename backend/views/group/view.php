@@ -11,6 +11,8 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Products'), 'url' =>
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-view">
+    <img src="<?= Html::encode($model->pd_pic_url)?>" height="100" width="100"/>
+
 
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->product_id], ['class' => 'btn btn-primary']) ?>
@@ -22,7 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-    <img src="<?= Html::encode($model->pd_pic_url)?>" height="100" width="100"/>
 
 
     <?= DetailView::widget([

@@ -40,11 +40,22 @@ class PurInfoSearch extends PurInfo
      *
      * @return ActiveDataProvider
      */
-    public function search($params,$purchaser,$data_source)
+    public function search($params,$data_source)
     {
-        $this->purchaser = $purchaser;
+
+        $username = Yii::$app->user->identity->username;
+
+        if($username=='admin'||$username=='Jenny'){
+            $query = PurInfo::find()->orderBy('pur_info_id desc');
+
+        }else{
+            $query = PurInfo::find()
+                ->andWhere(['purchaser'=>$username])
+                ->orderBy('pur_info_id desc');
+
+        }
+
         $this->source = $data_source;
-        $query = PurInfo::find()->orderBy('pur_info_id desc');
 
         // add conditions that should always apply here
 
