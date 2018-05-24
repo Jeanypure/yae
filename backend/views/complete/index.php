@@ -18,8 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <!--        --><?php //echo Html::button('接受',['class' => 'btn btn-success' ,'id'=>'accept'])?>
 <!--        --><?php //echo  Html::button('拒绝',['class' => 'btn btn-danger' ,'id'=>'reject'])?>
     </p>
-    <?php
-//     echo $this->render('_search', ['model' => $searchModel]); ?>
 
 
     <?= GridView::widget([
