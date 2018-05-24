@@ -141,44 +141,6 @@ class AuditController extends Controller
      * @return string|\yii\web\Response
      */
 
-    public function actionCreateAudit22($id)
-    {
-
-        $exchange_rate = PurInfoController::actionExchangeRate();
-
-        $purinfo = $this->findModel($id);
-
-        if(($model_preview = Preview::findOne(['product_id'=>$id,
-            'member_id'=>Yii::$app->user->identity->getId()])))
-        {
-            if ($model_preview->load(Yii::$app->request->post()) && $model_preview->save()) {
-                    return $this->redirect('index');
-            }
-
-            return $this->renderAjax('update_audit', [
-                'model_preview' => $model_preview,
-                'purinfo'=>$purinfo,
-                'exchange_rate' =>$exchange_rate
-
-
-            ]);
-
-        }else {
-            $model_preview =  new Preview();
-            if ($model_preview->load(Yii::$app->request->post()) && $model_preview->save()) {
-                return $this->redirect('index');
-
-            }
-            return  $this->renderAjax('create_audit', [
-                'model_preview' => $model_preview,
-                'id' =>$id,
-                'purinfo'=>$purinfo,
-                'exchange_rate' =>$exchange_rate
-            ]);
-        }
-
-
-    }
     public function actionCreateAudit($id)
     {
 
