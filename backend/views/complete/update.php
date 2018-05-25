@@ -18,13 +18,10 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
 <div class="pur-info-update">
 
-    <?php
+    <p>
+        <img src="<?php echo $model->pd_pic_url ;?>" alt="" width="100" height="100">
 
-
-    /* @var $this yii\web\View */
-    /* @var $model backend\models\PurInfo */
-    /* @var $form yii\widgets\ActiveForm */
-    ?>
+    </p>
 
     <div class="pur-info-form">
         <?php

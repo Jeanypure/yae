@@ -12,7 +12,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pur-info-view">
 
-<!--    <h6>--><?php //echo  Html::encode($this->title) ?><!--</h6>-->
+    <p>
+        <img src="<?php echo $model->pd_pic_url ;?>" alt="" width="100" height="100">
+
+    </p>
 
 
     <p>
@@ -25,9 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-    <P>
-        <img src="<?php echo $model->pd_pic_url?>" height="100" width="100">
-    </P>
+    
 
     <?= DetailView::widget([
         'model' => $model,

@@ -14,8 +14,9 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="product-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
+    <p>
+        <img src="<?php echo $model->pd_pic_url  ;?>" alt="">
+    </p>
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

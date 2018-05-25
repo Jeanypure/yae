@@ -44,13 +44,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'brocast_status')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'ref_url_low1')->textInput(['maxlength' => true]) ?>
+<!--    --><?php //echo  $form->field($model, 'ref_url_low1')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'ref_url_low2')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'ref_url_low3')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'ref_url_low4')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'complete_status')->textInput(['maxlength' => true]) ?>
 

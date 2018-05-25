@@ -11,8 +11,10 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Pur Infos'), 'url' =
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pur-info-view">
+    <p>
+        <img src="<?php echo $model->pd_pic_url ;?>" alt="" width="100" height="100">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    </p>
 
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->pur_info_id], ['class' => 'btn btn-primary']) ?>
