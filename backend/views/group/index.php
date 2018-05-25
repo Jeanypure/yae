@@ -125,7 +125,9 @@ $js = <<<JS
                 type: 'post',
                 data:{id:ids},
                 success:function(res){
-                    if(res) alert(res);
+                    if(res=='success') alert('公示产品成功!');
+                    location.reload();
+
                 }
             });
     });
@@ -140,7 +142,7 @@ $js = <<<JS
                 type: 'post',
                 data:{id:ids},
                 success:function(res){
-                    if(res) alert(res);
+                    if(res=='success') alert('公示产品结束!');
                     location.reload();
                 }
             });

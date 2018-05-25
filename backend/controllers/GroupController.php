@@ -2,9 +2,10 @@
 
 namespace backend\controllers;
 
+use Codeception\Lib\Generator\Group;
 use Yii;
 use backend\models\Product;
-use backend\models\ProductSearch;
+use backend\models\GroupSearch;
 use backend\models\Company;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -36,8 +37,8 @@ class GroupController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ProductSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'','','');
+        $searchModel = new GroupSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'','','','1');
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -87,8 +88,10 @@ class GroupController extends Controller
     {
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post()) ) {
-            isset($model->sub_company)?$model->group_status = '已分组':'';
-            $model->save();
+            $model->sub_company = Yii::$app->request->post()['Product']['sub_company'];
+            $model->group_mark = Yii::$app->request->post()['Product']['group_mark'];
+            $model->group_status = '已分组';
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->product_id]);
         }
 
@@ -141,19 +144,23 @@ class GroupController extends Controller
     public function actionBrocast()
     {
         $ids = $_POST['id'];
-        if($ids){
-            foreach($ids as $val){
-                $model = $this->findModel($val);
-                $model->brocast_status = '公示中';
-                $model->save();
+        $product_ids = '';
+        foreach ($ids as $k=>$v){
+            $product_ids.=$v.',';
+        }
+        $ids_str = trim($product_ids,',');
+        if(isset($ids)&&!empty($ids)){
+            $res = Yii::$app->db->createCommand("
+            update `product` set `brocast_status`= '公示中' where `product_id` in ($ids_str)
+            ")->execute();
+            if($res){
+                echo 'success';
             }
-            echo '公示产品成功';
-
+        }else{
+            echo 'error';
         }
-        else{
-            echo '请选择公示产品!';
 
-        }
+
     }
 
     /**
@@ -163,18 +170,20 @@ class GroupController extends Controller
     public function actionEndBrocast()
     {
         $ids = $_POST['id'];
-        if($ids){
-            foreach($ids as $val){
-                $model = $this->findModel($val);
-                $model->brocast_status = '结束公示';
-                $model->save();
-            }
-            echo '产品公示结束!';
-
+        $product_ids = '';
+        foreach ($ids as $k=>$v){
+            $product_ids.=$v.',';
         }
-        else{
-            echo '请选择产品!';
-
+        $ids_str = trim($product_ids,',');
+        if(isset($ids)&&!empty($ids)){
+            $res = Yii::$app->db->createCommand("
+            update `product` set `brocast_status`= '公示结束' where `product_id` in ($ids_str)
+            ")->execute();
+            if($res){
+                echo 'success';
+            }
+        }else{
+            echo 'error';
         }
     }
 
