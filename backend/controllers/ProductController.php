@@ -159,6 +159,60 @@ class ProductController extends Controller
 
     }
 
+    /**
+     * Commit product
+     * @throws \yii\db\Exception
+     */
+    public function actionCommit()
+    {
+        $ids = $_POST['id'];
+        $product_ids = '';
+        foreach ($ids as $k=>$v){
+            $product_ids.=$v.',';
+        }
+        $ids_str = trim($product_ids,',');
+
+        if(isset($ids)&&!empty($ids)){
+           $res = Yii::$app->db->createCommand("
+            update `product` set `is_submit`= 1 where `product_id` in ($ids_str)
+            ")->execute();
+           if($res){
+               echo 'success';
+           }
+        }else{
+            echo 'error';
+        }
+
+
+    }
+
+    /**
+     * Cancel commit product
+     * @throws \yii\db\Exception
+     */
+    public function actionCancel()
+    {
+        $ids = $_POST['id'];
+        $product_ids = '';
+        foreach ($ids as $k=>$v){
+            $product_ids.=$v.',';
+        }
+        $ids_str = trim($product_ids,',');
+
+        if(isset($ids)&&!empty($ids)){
+            $res = Yii::$app->db->createCommand("
+            update `product` set `is_submit`= 0 where `product_id` in ($ids_str)
+            ")->execute();
+            if($res){
+                echo 'success';
+            }
+        }else{
+            echo 'error';
+        }
+
+
+    }
+
 
 
 

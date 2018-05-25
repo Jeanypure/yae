@@ -18,6 +18,7 @@ use Yii;
  * @property string $product_add_time 产品添加时间
  * @property string $product_update_time 产品最后更新时间
  * @property string $purchaser 采购
+ * @property string $is_submit 是否提交 0 uncommitted  1 commit
  */
 class Product extends \yii\db\ActiveRecord
 {
@@ -39,7 +40,7 @@ class Product extends \yii\db\ActiveRecord
             [['product_add_time', 'product_update_time'], 'safe'],
             [['product_title_en','product_title'], 'required'],
             [['group_mark','preview_mark','product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4','pd_pic_url','ref_url_low1','ref_url_low2','ref_url_low3','ref_url_low4'], 'string', 'max' => 255],
-            [['accept_status','group_status','complete_status','brocast_status','sub_company','purchaser'], 'string', 'max' => 32],
+            [['is_submit','accept_status','group_status','complete_status','brocast_status','sub_company','purchaser'], 'string', 'max' => 32],
             ['ref_url2','url','defaultScheme' => 'http'],
             ['ref_url1','url','defaultScheme' => 'http'],
             ['ref_url3','url','defaultScheme' => 'http'],
@@ -79,6 +80,7 @@ class Product extends \yii\db\ActiveRecord
             'purchaser' => '采购',
             'group_status' => '分组状态',
             'accept_status' => '接受状态',
+            'is_submit' => '是否提交',
 
         ];
     }

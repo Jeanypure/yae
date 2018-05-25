@@ -16,6 +16,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a(Yii::t('app', '创建产品'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?php echo Html::button('确认提交',['class' => 'btn btn-info' ,'id'=>'is_submit'])?>
+        <?php echo Html::button('取消提交',['class' => 'btn btn-primary' ,'id'=>'un_submit'])?>
+
+
     </p>
 
     <?= GridView::widget([
@@ -25,18 +29,20 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'style'=>'overflow: auto;  white-space:nowrap;'
             'style'=>'overflow: auto;  word-break:break-word;'
         ],
+        'id'=>'commit_product',
         'export' =>false,
         'columns' => [
 
             ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\CheckboxColumn'],
             [
                     'class' => 'yii\grid\ActionColumn',
                     'header' => '操作',
                     'template' => ' {view} {update} {delete}',
                     'buttons' => [
-                    'audit' => function ($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-send"></span>', $url, [
-                            'title' => '发送采购',
+                    'push' => function ($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-pushpin"></span>', $url, [
+                            'title' => '提交',
                             'data-toggle' => 'modal',
                             'data-target' => '#audit-modal',
                             'class' => 'data-audit',
@@ -62,8 +68,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'product_title',
-
             'product_title_en',
+            'is_submit',
             'product_purchase_value',
 
 
@@ -99,21 +105,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-            [
-                'class' => 'yii\grid\Column',
-                'headerOptions' => [
-                    'width'=>'100'
-                ],
-                'header' => '其他链接',
-                'content' => function ($model, $key, $index, $column){
-                    if (!empty($model->ref_url4))  return "<a href='$model->ref_url4' target='_blank'>".parse_url($model->ref_url4)['host'] ."</a>";
-
-
-
-                }
-            ],
+//            [
+//                'class' => 'yii\grid\Column',
+//                'headerOptions' => [
+//                    'width'=>'100'
+//                ],
+//                'header' => '其他链接',
+//                'content' => function ($model, $key, $index, $column){
+//                    if (!empty($model->ref_url4))  return "<a href='$model->ref_url4' target='_blank'>".parse_url($model->ref_url4)['host'] ."</a>";
+//
+//
+//
+//                }
+//            ],
             'product_add_time:date',
-            'product_update_time:date',
+//            'product_update_time:date',
             'creator',
 //            'product_status',
             'complete_status',
@@ -154,4 +160,54 @@ JS;
 $this->registerJs($auditJs);
 
 ?>
+
+<?php
+// 标记产品状态    0 uncommitted  1 commit
+//功能放到 index 批量提交    取消提交
+
+$commit = Url::toRoute(['commit']);
+$uncommitted = Url::toRoute(['cancel']);
+$is_submit = <<<JS
+
+    //批量提交
+    $('#is_submit').on('click',function(){
+        var ids =  $('#commit_product').yiiGridView("getSelectedRows");
+        console.log(ids);
+        if(ids==false) alert('请选择产品!') ;
+        $.ajax({
+         url: "{$commit}", 
+         type: 'post',
+         data:{id:ids},
+         success:function(res){
+           if(res=='success') alert('提交产品成功!');
+         }
+      
+    });
+});
+
+//取消提交
+    $('#un_submit').on('click',function(){
+        var ids =  $('#commit_product').yiiGridView("getSelectedRows");
+        console.log(ids);
+        if(ids==false) alert('请选择产品!') ;
+        $.ajax({
+         url: "{$uncommitted}", 
+         type: 'post',
+         data:{id:ids},
+         success:function(res){
+           if(res=='success') alert('取消提交成功!');
+         }
+      
+    });
+});
+JS;
+
+$this->registerJs($is_submit);
+
+
+
+
+
+?>
+
 

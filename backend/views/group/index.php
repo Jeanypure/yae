@@ -100,7 +100,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'product_add_time:date',
-            'product_update_time:date',
+//            'product_update_time:date',
 //            'purchaser',
             'creator',
             'group_status',

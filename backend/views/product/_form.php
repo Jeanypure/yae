@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Product */
@@ -35,6 +36,10 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+
+
+<!--        --><?php //echo Html::button('Commit',['class' => 'btn btn-info' ,'id'=>'is_submit'])?>
+
     </div>
 
     <?php ActiveForm::end(); ?>
@@ -51,21 +56,7 @@ $this->registerJs("
         }); 
         ", \yii\web\View::POS_END);
 
-$readonly_js =<<<READ
-        $(function(){
-            $("#purinfo-pd_throw_weight").attr("readonly","readonly");
-            $("#purinfo-pd_count_weight").attr("readonly","readonly");
-            $("#purinfo-is_huge").attr("readonly","readonly");
-            $("#purinfo-bill_rebate_amount").attr("readonly","readonly");
-            $("#purinfo-shipping_fee").attr("readonly","readonly");
-            $("#purinfo-oversea_shipping_fee").attr("readonly","readonly");
-            $("#purinfo-transaction_fee").attr("readonly","readonly");
-            $("#purinfo-gross_profit").attr("readonly","readonly");
-            $("#purinfo-no_rebate_amount").attr("readonly","readonly");
 
-        });
-        
-READ;
-$this->registerJs($readonly_js);
 ?>
+
 
