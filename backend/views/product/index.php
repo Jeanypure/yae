@@ -22,7 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'options' => [
-            'style'=>'overflow: auto;  white-space:nowrap;'
+//            'style'=>'overflow: auto;  white-space:nowrap;'
+            'style'=>'overflow: auto;  word-break:break-word;'
         ],
         'export' =>false,
         'columns' => [
@@ -31,7 +32,6 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                     'class' => 'yii\grid\ActionColumn',
                     'header' => '操作',
-//                    'template' => '{audit} {view}  {delete}',
                     'template' => ' {view} {update} {delete}',
                     'buttons' => [
                     'audit' => function ($url, $model, $key) {
@@ -62,8 +62,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'product_title',
+
             'product_title_en',
             'product_purchase_value',
+
+
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [

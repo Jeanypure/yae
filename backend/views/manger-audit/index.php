@@ -19,8 +19,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'options' =>['style'=>'overflow:auto; white-space:nowrap;'],
-//        'options' =>['style'=>'overflow:auto; word-wrap:break-word;'],
+        'options' =>['style'=>'overflow:auto; white-space:nowrap;table-layout:fixed'],
+//        'options' =>['style'=>'overflow:auto; word-wrap:break-word; word-break:break-all;'],
+//        'options' =>['style'=>'overflow:auto; word-break:break-all;'],
+//        'options' =>['style'=>'overflow:auto; word-break:break-word;'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
@@ -38,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ] );
                     },
                 ],
-                'headerOptions' => ['width' => '120'],
+                'headerOptions' => ['width' => '100'],
 
             ],
 
@@ -54,7 +56,32 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-//            'pur_info_id',
+            [
+                'class' => 'yii\grid\Column',
+                'header' => '评审结果',
+                'headerOptions' => ['width'=>'100'],
+                'content' => function ($model, $key, $index, $column){
+                    return  $model['master_result'];
+                },
+            ],
+
+            [
+                'class' => 'yii\grid\Column',
+                'header' => '评审内容',
+                'headerOptions' => ['width'=>'100'],
+                'content' => function ($model, $key, $index, $column){
+                    return  $model['master_mark'];
+                },
+            ],
+            [
+                'class' => 'yii\grid\Column',
+                'header' => '评审状态',
+                'headerOptions' => ['width'=>'100'],
+                'content' => function ($model, $key, $index, $column){
+                    return  $model['preview_status'];
+                },
+            ],
+
             'master_result',
             'master_mark',
             'preview_status',
@@ -67,30 +94,40 @@ $this->params['breadcrumbs'][] = $this->title;
             'Molly',
             'Betty',
             'John',
-
-            'purchaser',
-            'pur_group',
-            'pd_title',
-            'pd_title_en',
-            'pd_package',
-            'pd_length',
-            'pd_width',
-            'pd_height',
-            'is_huge',
-            'pd_weight',
-            'pd_throw_weight',
-            'pd_count_weight',
-            'pd_material',
-            'pd_purchase_num',
-            'pd_pur_costprice',
-            'has_shipping_fee',
-            'bill_type',
-            'bill_tax_value',
-            'hs_code',
-            'bill_tax_rebate',
-            'bill_rebate_amount',
-            'no_rebate_amount',
-            'retail_price',
+//
+//            'Jenny-Content',
+//            'admin-Content',
+//            'Max-Content',
+//            'Heidi-Content',
+//            'Sue-Content',
+//            'Bianca-Content',
+//            'Molly-Content',
+//            'Betty-Content',
+//            'John-Content',
+//
+//            'purchaser',
+//            'pur_group',
+//            'pd_title',
+//            'pd_title_en',
+//            'pd_package',
+//            'pd_length',
+//            'pd_width',
+//            'pd_height',
+//            'is_huge',
+//            'pd_weight',
+//            'pd_throw_weight',
+//            'pd_count_weight',
+//            'pd_material',
+//            'pd_purchase_num',
+//            'pd_pur_costprice',
+//            'has_shipping_fee',
+//            'bill_type',
+//            'bill_tax_value',
+//            'hs_code',
+//            'bill_tax_rebate',
+//            'bill_rebate_amount',
+//            'no_rebate_amount',
+//            'retail_price',
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
@@ -127,7 +164,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'oversea_shipping_fee',
             'transaction_fee',
             'gross_profit',
-            'remark',
+//            'remark',
+            [
+                'class' => 'yii\grid\Column',
+                'header' => '评审状态',
+                'headerOptions' => ['width'=>'100'],
+                'content' => function ($model, $key, $index, $column){
+                    return  $model['remark'];
+                },
+            ],
+
 //            'parent_product_id',
 
 

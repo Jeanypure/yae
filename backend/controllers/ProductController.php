@@ -149,7 +149,7 @@ class ProductController extends Controller
             ->where("leader_id=".Yii::$app->user->identity->getId())->asArray()->one();
         $sub_company = $res['sub_company']??'';
 
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'拒绝',$sub_company);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'拒绝',$sub_company,'');
 
         return $this->render('reject_lists', [
             'searchModel' => $searchModel,

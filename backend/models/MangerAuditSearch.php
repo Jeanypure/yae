@@ -81,22 +81,35 @@ class MangerAuditSearch extends PurInfo
 
         $dataProvider = new SqlDataProvider([
             'sql' => "
-                        SELECT
-                          o.*,
-                         p.`product_id`,
-                        Max(case p.member when 'Jenny' then p.result else 0 end)   'Jenny',
-                        Max(case p.member when 'admin' then p.result else 0 end ) 'admin',
-                        Max(case p.member when 'Heidi' then p.result else 0 end)  'Heidi',
-                        Max(case p.member when 'Max' then p.result else 0 end)  'Max',
-                        Max(case p.member when 'Sue' then p.result else 0 end)  'Sue',
-                        Max(case p.member when 'Bianca' then p.result else 0 end)  'Bianca',
-                        Max(case p.member when 'Molly' then p.result else 0 end)  'Molly',
-                        Max(case p.member when 'Betty' then p.result else 0 end)  'Betty',
-                        Max(case p.member when 'John' then p.result else 0 end)  'John'
-                        FROM `preview` p
-                        LEFT JOIN `pur_info` o  on o.pur_info_id = p.`product_id`
-                        GROUP BY p.`product_id`
+                        SELECT 
+ o.*,
+p.`product_id`,
+Max(case p.member when 'Jenny' then p.result else 0 end)   'Jenny',
+Max(case p.member when 'Jenny' then p.content else 0 end)   'Jenny-Content',
+Max(case p.member when 'admin' then p.result else 0 end ) 'admin',
+Max(case p.member when 'admin' then p.content else 0 end)   'admin-Content',
 
+Max(case p.member when 'Heidi' then p.result else 0 end)  'Heidi',
+Max(case p.member when 'Heidi' then p.content else 0 end)   'Heidi-Content',
+
+Max(case p.member when 'Max' then p.result else 0 end)  'Max',
+Max(case p.member when 'Max' then p.content else 0 end)   'Max-Content',
+
+Max(case p.member when 'Sue' then p.result else 0 end)  'Sue',
+Max(case p.member when 'Sue' then p.content else 0 end)   'Sue-Content',
+
+Max(case p.member when 'Bianca' then p.result else 0 end)  'Bianca',
+Max(case p.member when 'Bianca' then p.content else 0 end)   'Bianca-Content',
+Max(case p.member when 'Molly' then p.result else 0 end)  'Molly',
+Max(case p.member when 'Molly' then p.content else 0 end)   'Molly-Content',
+Max(case p.member when 'Betty' then p.result else 0 end)  'Betty',
+Max(case p.member when 'Betty' then p.content else 0 end)   'Betty-Content',
+Max(case p.member when 'John' then p.result else 0 end)  'John',
+Max(case p.member when 'John' then p.content else 0 end)   'John-Content'
+
+FROM `preview` p
+LEFT JOIN `pur_info` o  on o.`pur_info_id` = p.`product_id`
+GROUP BY p.`product_id`
                         ",
             'totalCount' => $count,
             'sort' => [

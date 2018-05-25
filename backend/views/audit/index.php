@@ -24,7 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'options' => [
-            'style'=>'overflow: auto;  white-space:nowrap;'
+//            'style'=>'overflow: auto;  white-space:nowrap;'
+            'style'=>'overflow: auto;  word-break:break-word;'
         ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -68,22 +69,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'pd_package',
             'pd_length',
             'pd_width',
-            'pd_height',
-            'is_huge',
-            'pd_weight',
-            'pd_throw_weight',
-            'pd_count_weight',
-            'pd_material',
-            'pd_purchase_num',
-            'pd_pur_costprice',
-            'has_shipping_fee',
-            'bill_type',
-            'bill_tax_value',
-            'hs_code',
-            'bill_tax_rebate',
-            'bill_rebate_amount',
-            'no_rebate_amount',
-            'retail_price',
+//            'pd_height',
+//            'is_huge',
+//            'pd_weight',
+//            'pd_throw_weight',
+//            'pd_count_weight',
+//            'pd_material',
+//            'pd_purchase_num',
+//            'pd_pur_costprice',
+//            'has_shipping_fee',
+//            'bill_type',
+//            'bill_tax_value',
+//            'hs_code',
+//            'bill_tax_rebate',
+//            'bill_rebate_amount',
+//            'no_rebate_amount',
+//            'retail_price',
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
@@ -114,12 +115,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     if (!empty($model->url_1688)) return "<a href='$model->url_1688' target='_blank'>".parse_url($model->url_1688)['host']."</a>";
                 }
             ],
-            'shipping_fee',
-            'oversea_shipping_fee',
-            'transaction_fee',
-            'gross_profit',
-            'remark',
 //            'parent_product_id',
+//            'shipping_fee',
+//            'oversea_shipping_fee',
+//            'transaction_fee',
+//            'gross_profit',
+//            'remark',
 
         ],
     ]); ?>
