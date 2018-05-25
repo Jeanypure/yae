@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 //            'pur_info_id',
             'purchaser',
-            'member',
+//            'member',
 //            'pur_group',
             'preview_status',
             'pd_title',

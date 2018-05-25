@@ -151,7 +151,7 @@ class GroupController extends Controller
         $ids_str = trim($product_ids,',');
         if(isset($ids)&&!empty($ids)){
             $res = Yii::$app->db->createCommand("
-            update `product` set `brocast_status`= '公示中' where `product_id` in ($ids_str)
+            update `product` set `brocast_status`= '公示中'  where `product_id` in ($ids_str)
             ")->execute();
             if($res){
                 echo 'success';

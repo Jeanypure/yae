@@ -181,6 +181,8 @@ $is_submit = <<<JS
          data:{id:ids},
          success:function(res){
            if(res=='success') alert('提交产品成功!');
+           location.reload();
+
          }
       
     });
@@ -197,6 +199,8 @@ $is_submit = <<<JS
          data:{id:ids},
          success:function(res){
            if(res=='success') alert('取消提交成功!');
+           location.reload();
+
          }
       
     });

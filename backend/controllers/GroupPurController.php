@@ -93,7 +93,7 @@ class GroupPurController extends Controller
 
         if ($model->load(Yii::$app->request->post()) ) {
             $model->preview_status = '待评审';
-            $model->save();
+            $model->save(false);
             return $this->redirect(['index']);
         }
 
@@ -164,7 +164,7 @@ class GroupPurController extends Controller
             }
             $id_set = trim($val,',');
             Yii::$app->db->createCommand("
-                update `pur_info` set `brocast_status` = '公示中'  WHERE `pur_info_id` in ($id_set)
+                update `pur_info` set `brocast_status` = '公示中',`preview_status`= '待评审'  WHERE `pur_info_id` in ($id_set)
             ")->execute();
             echo '公示产品成功';
         }else{
@@ -181,12 +181,13 @@ class GroupPurController extends Controller
     {
         $ids = $_POST['id'];
         $val = '';
-        $id_set = '';
         if($ids){
             foreach ($_POST['id'] as $key=>$value){
                 $val.=$value.',';
             }
+
             $id_set = trim($val,',');
+
             Yii::$app->db->createCommand("
                 update `pur_info` set `brocast_status` = '公示结束' ,`preview_status`= '待评审' WHERE `pur_info_id` in ($id_set)
             ")->execute();

@@ -17,14 +17,7 @@ use Yii;
  */
 class Preview extends \yii\db\ActiveRecord
 {
-//    public  $product_id;
-    public  $pd_pic_url;
-    public  $pd_title;
-    public  $pd_title_en;
-    public  $Jenny;
-    public  $admin;
-    public  $Max;
-    public  $Heidi;
+
 
     /**
      * {@inheritdoc}

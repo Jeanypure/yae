@@ -46,7 +46,7 @@ class AuditSearch extends PurInfo
         $member = Yii::$app->user->identity->username;
 
 
-        if($member!='Jenny'&&$member!='admin'){
+        if($member!='Jenny'&&$member!='admin'&&empty($pur_group)){
 
             $query = PurInfo::find()
                 ->andWhere(['in','preview_status',['待评审','已评审']])

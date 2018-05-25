@@ -12,17 +12,21 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pur-info-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <p>
+        <img src="<?php echo $model->pd_pic_url?>" alt="" width="100" height="100">
+    </p>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->pur_info_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->pur_info_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
+<!--        --><?php //echo  Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->pur_info_id], ['class' => 'btn btn-primary']) ?>
+        <?php
+//        echo  Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->pur_info_id], [
+//            'class' => 'btn btn-danger',
+//            'data' => [
+//                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+//                'method' => 'post',
+//            ],
+//        ]);
+        ?>
     </p>
 
     <?= DetailView::widget([
@@ -61,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'transaction_fee',
             'gross_profit',
             'remark',
-//            'parent_product_id',
+            'parent_product_id',
             'source',
             'member',
             'preview_status',
@@ -71,5 +75,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'master_result',
         ],
     ]) ?>
+
+    <?php
+
+     echo $this->render('preview_view', [
+        'preview_model' => $preview,
+    ]) ;
+    ?>
 
 </div>

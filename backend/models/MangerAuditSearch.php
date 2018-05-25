@@ -37,17 +37,11 @@ class MangerAuditSearch extends PurInfo
         return Model::scenarios();
     }
 
-    /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
-     * @return ActiveDataProvider
-     */
+
     public function search($params,$preview_status)
     {
         $query = PurInfo::find();
-//        $this->preview_status = $preview_status;
+        $this->preview_status = $preview_status;
 
         // add conditions that should always apply here
 

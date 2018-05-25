@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\Preview;
 use Yii;
 use backend\models\PurInfo;
 use backend\models\MangerAuditSearch;
@@ -56,8 +57,12 @@ class MangerAuditController extends Controller
      */
     public function actionView($id)
     {
+
+      $preview =   Preview::find()->where(['product_id'=>$id])->all();
+//      var_dump($preview[0]);die;
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'preview' => $preview[0]
         ]);
     }
 
