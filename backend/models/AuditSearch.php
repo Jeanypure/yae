@@ -43,8 +43,11 @@ class AuditSearch extends PurInfo
      */
     public function search($params,$pur_group,$preview_status,$member)
     {
-        if(empty($pur_group)){
-            $member = Yii::$app->user->identity->username;
+        $member = Yii::$app->user->identity->username;
+//        var_dump($member);die;
+
+
+        if($member!='Jenny'&&$member!='admin'){
 
             $query = PurInfo::find()
                 ->andWhere(['member'=>$member])
