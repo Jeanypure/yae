@@ -74,7 +74,6 @@ class PurInfoController extends Controller
        $rate = $this->actionExchangeRate();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->preview_status = '待评审';
             $model->purchaser = Yii::$app->user->identity->username;
             $model->save();
             return $this->redirect(['view', 'id' => $model->pur_info_id]);

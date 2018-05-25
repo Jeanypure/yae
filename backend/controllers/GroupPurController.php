@@ -188,7 +188,7 @@ class GroupPurController extends Controller
             }
             $id_set = trim($val,',');
             Yii::$app->db->createCommand("
-                update `pur_info` set `brocast_status` = '公示结束'  WHERE `pur_info_id` in ($id_set)
+                update `pur_info` set `brocast_status` = '公示结束' ,`preview_status`= '待评审' WHERE `pur_info_id` in ($id_set)
             ")->execute();
 
             echo '产品公示结束!';

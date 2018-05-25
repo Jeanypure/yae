@@ -42,7 +42,9 @@ class GroupPurSearch extends PurInfo
      */
     public function search($params)
     {
-        $query = PurInfo::find()->orderBy('pur_info_id desc');
+        $query = PurInfo::find()
+            ->andWhere(['is_submit'=>1])
+            ->orderBy('pur_info_id desc');
 
         // add conditions that should always apply here
 
