@@ -1,8 +1,8 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\grid\GridView;
-
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\PurInfoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -14,14 +14,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a(Yii::t('app', '创建新品'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?php echo Html::button('确认提交',['class' => 'btn btn-info' ,'id'=>'is_submit'])?>
+        <?php echo Html::button('取消提交',['class' => 'btn btn-primary' ,'id'=>'un_submit'])?>
+
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'id'=>'commit_product',
         'options' =>['style'=>'overflow:auto; white-space:nowrap;'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\CheckboxColumn'],
+
             [
                     'class' => 'yii\grid\ActionColumn',
                     'header' => '操作',
@@ -42,6 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'master_result',
             'master_mark',
             'purchaser',
+            'is_submit',
             'pur_group',
             'pd_title',
             'pd_title_en',
@@ -104,3 +111,55 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 </div>
+
+<?php
+
+// 标记产品状态    0 uncommitted  1 commit
+//功能放到 index 批量提交    取消提交
+
+$commit = Url::toRoute(['commit']);
+$uncommitted = Url::toRoute(['cancel']);
+$is_submit = <<<JS
+
+    //批量提交
+    $('#is_submit').on('click',function(){
+        var ids =  $('#commit_product').yiiGridView("getSelectedRows");
+        console.log(ids);
+        if(ids==false) alert('请选择产品!') ;
+        $.ajax({
+         url: "{$commit}", 
+         type: 'post',
+         data:{id:ids},
+         success:function(res){
+           if(res=='success') alert('提交产品成功!');
+           location.reload();
+         }
+      
+    });
+});
+
+//取消提交
+    $('#un_submit').on('click',function(){
+        var ids =  $('#commit_product').yiiGridView("getSelectedRows");
+        console.log(ids);
+        if(ids==false) alert('请选择产品!') ;
+        $.ajax({
+         url: "{$uncommitted}", 
+         type: 'post',
+         data:{id:ids},
+         success:function(res){
+           if(res=='success') alert('取消提交成功!');
+           location.reload();
+         }
+      
+    });
+});
+JS;
+
+$this->registerJs($is_submit);
+
+
+
+
+
+?>

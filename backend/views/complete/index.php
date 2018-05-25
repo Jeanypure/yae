@@ -15,18 +15,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php Pjax::begin(); ?>
     <p>
-<!--        --><?php //echo Html::button('接受',['class' => 'btn btn-success' ,'id'=>'accept'])?>
-<!--        --><?php //echo  Html::button('拒绝',['class' => 'btn btn-danger' ,'id'=>'reject'])?>
+        <?php echo Html::button('确认提交',['class' => 'btn btn-info' ,'id'=>'is_submit'])?>
+        <?php echo Html::button('取消提交',['class' => 'btn btn-primary' ,'id'=>'un_submit'])?>
+
     </p>
 
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'id'=>'pur_complete',
+        'id'=>'commit_product',
         'options' =>['style'=>'overflow:auto; white-space:nowrap;'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\CheckboxColumn'],
+
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => '操作',
@@ -46,6 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //
             'master_result',
             'master_mark',
+            'is_submit',
             'purchaser',
             'pur_group',
             'pd_title',
@@ -100,9 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
 
-//            'amazon_url:url',
-//            'ebay_url:url',
-//            'url_1688:url',
+
             'shipping_fee',
             'oversea_shipping_fee',
             'transaction_fee',
@@ -116,45 +118,54 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::end(); ?>
 </div>
 
+
 <?php
-$accept = Url::toRoute(['accept']);
-$reject = Url::toRoute(['reject']);
 
+// 标记产品状态    0 uncommitted  1 commit
+//功能放到 index 批量提交    取消提交
 
-$js = <<<JS
-    //批量接受
-    $('#accept').on('click',function(){
-            var ids = $("#pur_complete").yiiGridView("getSelectedRows");
-            console.log(ids);
-            if(ids.length ==0) return false;
-            $.ajax({
-                url:'{$accept}',
-                type: 'post',
-                data:{id:ids},
-                success:function(res){
-                    if(res) alert(res);
-                }
-            });
+$commit = Url::toRoute(['commit']);
+$uncommitted = Url::toRoute(['cancel']);
+$is_submit = <<<JS
+
+    //批量提交
+    $('#is_submit').on('click',function(){
+        var ids =  $('#commit_product').yiiGridView("getSelectedRows");
+        console.log(ids);
+        if(ids==false) alert('请选择产品!') ;
+        $.ajax({
+         url: "{$commit}", 
+         type: 'post',
+         data:{id:ids},
+         success:function(res){
+           if(res=='success') alert('提交产品成功!');
+           location.reload();
+         }
+      
     });
+});
 
-//批量拒绝
-    $('#reject').on('click',function(){
-            var ids = $("#pur_complete").yiiGridView("getSelectedRows");
-            console.log(ids);
-            if(ids.length ==0) return false;
-            $.ajax({
-                url:'{$reject}',
-                type: 'post',
-                data:{id:ids},
-                success:function(res){
-                    if(res) alert(res);
-                    location.reload();
-                }
-            });
+//取消提交
+    $('#un_submit').on('click',function(){
+        var ids =  $('#commit_product').yiiGridView("getSelectedRows");
+        console.log(ids);
+        if(ids==false) alert('请选择产品!') ;
+        $.ajax({
+         url: "{$uncommitted}", 
+         type: 'post',
+         data:{id:ids},
+         success:function(res){
+           if(res=='success') alert('取消提交成功!');
+           location.reload();
+         }
+      
     });
-
+});
 JS;
-$this->registerJs($js);
+
+$this->registerJs($is_submit);
+
+
 
 
 

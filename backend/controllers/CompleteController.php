@@ -128,50 +128,59 @@ class CompleteController extends Controller
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
-    public function  actionAccept()
+    /**
+     * Commit product
+     * @throws \yii\db\Exception
+     */
+    public function actionCommit()
     {
         $ids = $_POST['id'];
-        $pur_ids='';
-        foreach ($ids as $key=>$value){
-            $pur_ids.=$value.',';
+        $product_ids = '';
+        foreach ($ids as $k=>$v){
+            $product_ids.=$v.',';
         }
-        $ids_str = rtrim($pur_ids,',');
-        if($ids_str){
-            $result =   Yii::$app->db->createCommand(" 
-                            update `pur_info` set `preview_status`= '接受' where pur_info_id in ($ids_str)
-                         ")->execute();
-            if($result){
-                echo '接受此产品!';
+        $ids_str = trim($product_ids,',');
+
+        if(isset($ids)&&!empty($ids)){
+            $res = Yii::$app->db->createCommand("
+            update `pur_info` set `is_submit`= 1 where `pur_info_id` in ($ids_str)
+            ")->execute();
+            if($res){
+                echo 'success';
             }
-
+        }else{
+            echo 'error';
         }
-        else{
-            echo '请选择产品!';
 
-        }
 
     }
-    public function  actionReject()
+
+    /**
+     * Cancel commit product
+     * @throws \yii\db\Exception
+     */
+    public function actionCancel()
     {
         $ids = $_POST['id'];
-        $pur_ids='';
-        foreach ($ids as $key=>$value){
-            $pur_ids.=$value.',';
+        $product_ids = '';
+        foreach ($ids as $k=>$v){
+            $product_ids.=$v.',';
         }
-        $ids_str = rtrim($pur_ids,',');
-        if($ids_str){
-            $result =   Yii::$app->db->createCommand(" 
-                            update `pur_info` set `preview_status`= '拒绝' where pur_info_id in ($ids_str)
-                         ")->execute();
+        $ids_str = trim($product_ids,',');
 
-            if($result){
-                echo '拒绝此产品!';
+        if(isset($ids)&&!empty($ids)){
+            $res = Yii::$app->db->createCommand("
+            update `pur_info` set `is_submit`= 0 where `pur_info_id` in ($ids_str)
+            ")->execute();
+            if($res){
+                echo 'success';
             }
+        }else{
+            echo 'error';
         }
-        else{
-            echo '请选择产品!';
 
-        }
 
     }
+
+
 }

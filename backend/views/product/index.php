@@ -162,6 +162,7 @@ $this->registerJs($auditJs);
 ?>
 
 <?php
+
 // 标记产品状态    0 uncommitted  1 commit
 //功能放到 index 批量提交    取消提交
 
