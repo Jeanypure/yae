@@ -177,7 +177,13 @@ $js = <<<JS
                 type: 'post',
                 data:{id:ids},
                 success:function(res){
-                    if(res) alert(res);
+                    if(res=='success!'){
+                        alert('接受此产品成功!');
+                    }else { 
+                        alert(res);
+                    } 
+                    location.reload();
+
                 }
             });
     });
@@ -192,7 +198,11 @@ $js = <<<JS
                 type: 'post',
                 data:{id:ids},
                 success:function(res){
-                    if(res) alert(res);
+                    if(res=='success!'){
+                        alert('拒绝此产品成功!');
+                    }else { 
+                        alert(res);
+                    } 
                     location.reload();
                 }
             });

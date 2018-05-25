@@ -137,13 +137,13 @@ class DepartmentController extends Controller
             foreach($ids as $val){
                 $model = $this->findModel($val);
                 $model->accept_status = '接受';
-                $model->save();
+                $model->save(false);
             }
-            echo '接受此产品!';
+            echo 'success!';
 
         }
         else{
-            echo '请选择产品!';
+            echo 'error!';
 
         }
 
@@ -155,13 +155,13 @@ class DepartmentController extends Controller
             foreach($ids as $val){
                 $model = $this->findModel($val);
                 $model->accept_status = '拒绝';
-                $model->save();
+                $model->save(false);
             }
-            echo '拒绝此产品!';
+            echo 'success!';
 
         }
         else{
-            echo '请选择产品!';
+            echo 'error!';
 
         }
 
