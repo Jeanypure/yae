@@ -59,10 +59,10 @@ class MangerAuditController extends Controller
     {
 
       $preview =   Preview::find()->where(['product_id'=>$id])->all();
-//      var_dump($preview[0]);die;
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'preview' => $preview[0]
+            'preview' => $preview[0],
+            'preview2' => $preview[1],
         ]);
     }
 

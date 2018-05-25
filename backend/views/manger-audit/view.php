@@ -83,4 +83,9 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ;
     ?>
 
+    <?php
+    echo $this->render('preview_view', [
+        'preview_model' => $preview2,
+    ]) ;
+    ?>
 </div>

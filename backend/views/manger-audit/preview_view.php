@@ -17,17 +17,19 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Previews'), 'url' =>
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="preview-view">
-<h3> 评审结果集</h3>
+<h3> <?php
+    echo $preview_model->member
+    ?>评审结果</h3>
 
 
     <?= DetailView::widget([
         'model' => $preview_model,
         'attributes' => [
-            'preview_id',
+//            'preview_id',
             'member',
-            'product_id',
-            'content',
+//            'product_id',
             'result',
+            'content',
             'priview_time',
 //            'member_id',
         ],
