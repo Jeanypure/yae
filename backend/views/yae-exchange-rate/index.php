@@ -29,7 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'memo',
             'currency',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                    'class' => 'yii\grid\ActionColumn',
+                   'header'=>'操作'
+
+            ],
         ],
     ]); ?>
 </div>

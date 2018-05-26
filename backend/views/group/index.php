@@ -25,7 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'id' => 'group',
         'options' => [
-            'style'=>'overflow: auto;  white-space:nowrap;'
+//            'style'=>'overflow: auto;  white-space:nowrap;'
+            'style'=>'overflow: auto;  break-word:word-break;'
         ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -49,11 +50,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
+            'creator',
             'sub_company',
-            'brocast_status',
             'product_title',
             'product_title_en',
-            'product_purchase_value',
+            'brocast_status',
+            'group_status',
+//            'product_purchase_value',
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
@@ -86,24 +89,22 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-            [
-                'class' => 'yii\grid\Column',
-                'headerOptions' => [
-                    'width'=>'100'
-                ],
-                'header' => '其他链接',
-                'content' => function ($model, $key, $index, $column){
-                    if (!empty($model->ref_url4))  return "<a href='$model->ref_url4' target='_blank'>".parse_url($model->ref_url4)['host'] ."</a>";
-
-
-
-                }
-            ],
-            'product_add_time:date',
+//            [
+//                'class' => 'yii\grid\Column',
+//                'headerOptions' => [
+//                    'width'=>'100'
+//                ],
+//                'header' => '其他链接',
+//                'content' => function ($model, $key, $index, $column){
+//                    if (!empty($model->ref_url4))  return "<a href='$model->ref_url4' target='_blank'>".parse_url($model->ref_url4)['host'] ."</a>";
+//
+//
+//
+//                }
+//            ],
+//            'product_add_time:date',
 //            'product_update_time:date',
 //            'purchaser',
-            'creator',
-            'group_status',
 
         ],
     ]); ?>

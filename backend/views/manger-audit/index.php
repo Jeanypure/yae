@@ -2,7 +2,9 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\GridView;
+//use yii\grid\GridView;
+
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\MangerAuditSearch */
@@ -19,10 +21,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'striped'=>true,
+        'responsive'=>true,
+        'hover'=>true,
+        'export' => false,
         'options' =>['style'=>'overflow:auto; white-space:nowrap;table-layout:fixed'],
-//        'options' =>['style'=>'overflow:auto; word-wrap:break-word; word-break:break-all;'],
-//        'options' =>['style'=>'overflow:auto; word-break:break-all;'],
-//        'options' =>['style'=>'overflow:auto; word-break:break-word;'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
@@ -105,29 +108,38 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'Betty-Content',
 //            'John-Content',
 //
-//            'purchaser',
-//            'pur_group',
-//            'pd_title',
-//            'pd_title_en',
-//            'pd_package',
-//            'pd_length',
-//            'pd_width',
-//            'pd_height',
-//            'is_huge',
-//            'pd_weight',
-//            'pd_throw_weight',
-//            'pd_count_weight',
-//            'pd_material',
-//            'pd_purchase_num',
-//            'pd_pur_costprice',
-//            'has_shipping_fee',
-//            'bill_type',
-//            'bill_tax_value',
-//            'hs_code',
-//            'bill_tax_rebate',
-//            'bill_rebate_amount',
-//            'no_rebate_amount',
-//            'retail_price',
+            'purchaser',
+            'pur_group',
+            'pd_title',
+            'pd_title_en',
+            'pd_package',
+            [
+                'class' => 'yii\grid\Column',
+                'header' => '外包装',
+                'headerOptions' => ['style' => 'width:20%'],
+                'contentOptions' => ['style' => 'width: 30px;', 'class' => 'text-center'],
+                'content' => function ($model, $key, $index, $column){
+                    return  $model['pd_package'];
+                },
+            ],
+            'pd_length',
+            'pd_width',
+            'pd_height',
+            'is_huge',
+            'pd_weight',
+            'pd_throw_weight',
+            'pd_count_weight',
+            'pd_material',
+            'pd_purchase_num',
+            'pd_pur_costprice',
+            'has_shipping_fee',
+            'bill_type',
+            'bill_tax_value',
+            'hs_code',
+            'bill_tax_rebate',
+            'bill_rebate_amount',
+            'no_rebate_amount',
+            'retail_price',
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [

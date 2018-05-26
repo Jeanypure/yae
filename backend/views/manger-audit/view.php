@@ -77,15 +77,24 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
     <?php
+        if($num>1){
+            echo $this->render('preview_view', [
+                'preview_model' => $preview,
+            ]) ;
+            echo $this->render('preview_view', [
+                'preview_model' => $preview2,
+            ]) ;
+        }else{
+            echo $this->render('preview_view', [
+                'preview_model' => $preview,
+            ]) ;
+        }
 
-     echo $this->render('preview_view', [
-        'preview_model' => $preview,
-    ]) ;
+
     ?>
 
     <?php
-    echo $this->render('preview_view', [
-        'preview_model' => $preview2,
-    ]) ;
+
+
     ?>
 </div>

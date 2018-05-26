@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', '更新');
 
         ?>
 
-        <?= $form->field($model, 'group_mark')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'group_mark')->textarea(['rows' => '6']) ?>
 
         <?= $form->field($model, 'product_title_en')->textInput(['maxlength' => true]) ?>
 
