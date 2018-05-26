@@ -59,7 +59,6 @@ class MangerAuditController extends Controller
     {
 
       $preview =   Preview::find()->where(['product_id'=>$id])->all();
-//      var_dump(sizeof($preview));die;
        $num = sizeof($preview);
 
 
@@ -68,6 +67,8 @@ class MangerAuditController extends Controller
               'model' => $this->findModel($id),
               'preview' => $preview[0],
               'preview2' => $preview[1],
+              'num' =>$num,
+
           ]);
       }
 
