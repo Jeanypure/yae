@@ -5,8 +5,6 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\PurInfo;
-use yii\data\SqlDataProvider;
 
 
 /**
@@ -38,10 +36,15 @@ class MangerAuditSearch extends PurInfo
     }
 
 
-    public function search($params,$preview_status)
+    public function search($params)
     {
-        $query = PurInfo::find();
-        $this->preview_status = $preview_status;
+       $res = Yii::$app->db->createCommand(' SELECT DISTINCT w.product_id FROM preview w')->queryAll();
+        foreach ($res as $k=>$v){
+            $ids[] = $v['product_id'];
+        }
+        $query = PurInfo::find()
+            ->andWhere(['in','pur_info_id',$ids])
+        ;
 
         // add conditions that should always apply here
 
@@ -106,11 +109,7 @@ class MangerAuditSearch extends PurInfo
             ->andFilterWhere(['like', 'brocast_status', $this->brocast_status])
             ->andFilterWhere(['like', 'master_member', $this->master_member])
             ->andFilterWhere(['like', 'master_mark', $this->master_mark])
-            ->andFilterWhere(['like', 'master_result', $this->master_result])
-//            ->andFilterWhere(['like', 'Jenny', $this->Jenny])
-//            ->andFilterWhere(['like', 'Max', $this->Max])
-//            ->andFilterWhere(['like', 'admin', $this->admin])
-        ;
+            ->andFilterWhere(['like', 'master_result', $this->master_result]);
 
         return $dataProvider;
     }

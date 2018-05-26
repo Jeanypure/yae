@@ -38,7 +38,8 @@ class MangerAuditController extends Controller
     public function actionIndex()
     {
         $searchModel = new MangerAuditSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'待评审');
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -76,7 +77,7 @@ class MangerAuditController extends Controller
 
 
           ]);
-      }else{
+      }elseif($num ==1){
           if ($model_update->load(Yii::$app->request->post()) && $model_update->save(false)) {
               return $this->redirect(['view', 'id' => $model_update->pur_info_id]);
           }
@@ -92,10 +93,6 @@ class MangerAuditController extends Controller
           ]);
 
       }
-
-
-
-
     }
 
     /**
