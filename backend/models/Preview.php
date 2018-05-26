@@ -39,7 +39,7 @@ class Preview extends \yii\db\ActiveRecord
             [['member_id'], 'integer'],
             [['member', 'content', 'result'], 'string', 'max' => 500],
             [['product_id'], 'string', 'max' => 20],
-            [['ref_url1', 'ref_url2', 'ref_url3', 'ref_url4'], 'string', 'max' => 255],
+            [['ref_url1', 'ref_url2', 'ref_url3', 'ref_url4'], 'string', 'max' => 5000],
             [['product_id', 'member_id'], 'unique', 'targetAttribute' => ['product_id', 'member_id']],
         ];
     }

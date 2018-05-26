@@ -2,10 +2,10 @@
 
 namespace backend\controllers;
 
-use backend\models\Preview;
 use Yii;
 use backend\models\PurInfo;
 use backend\models\MangerAuditSearch;
+use backend\models\Preview;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -39,9 +39,6 @@ class MangerAuditController extends Controller
     {
         $searchModel = new MangerAuditSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'待评审');
-        $models = $dataProvider->getModels();
-        $ids = array_column($models,'product_id');
-        $dataProvider->setKeys($ids);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -58,25 +55,46 @@ class MangerAuditController extends Controller
     public function actionView($id)
     {
 
-      $preview =   Preview::find()->where(['product_id'=>$id])->all();
+       $preview =   Preview::find()->where(['product_id'=>$id])->all();
        $num = sizeof($preview);
+       $model_update = $this->findModel($id);
+       $exchange_rate = PurInfoController::actionExchangeRate();
 
 
-      if($num > 1){
+        if($num > 1){
+          if ($model_update->load(Yii::$app->request->post()) && $model_update->save(false)) {
+              return $this->redirect(['view', 'id' => $model_update->pur_info_id]);
+          }
           return $this->render('view', [
               'model' => $this->findModel($id),
               'preview' => $preview[0],
               'preview2' => $preview[1],
               'num' =>$num,
+              'model_update' =>$model_update,
+              'exchange_rate' =>$exchange_rate,
+
+
 
           ]);
+      }else{
+          if ($model_update->load(Yii::$app->request->post()) && $model_update->save(false)) {
+              return $this->redirect(['view', 'id' => $model_update->pur_info_id]);
+          }
+
+          return $this->render('view', [
+              'model' => $this->findModel($id),
+              'num' =>$num,
+              'preview' => $preview[0],
+              'model_update' =>$model_update,
+              'exchange_rate' =>$exchange_rate,
+
+
+          ]);
+
       }
 
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-            'num' =>$num,
-            'preview' => $preview[0],
-        ]);
+
+
 
     }
 

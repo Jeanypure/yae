@@ -9,7 +9,6 @@
 use yii\helpers\Html;
 use kartik\select2\Select2;
 use kartik\widgets\ActiveForm;
-
 use kartik\builder\Form;
 
 
@@ -27,11 +26,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
     <?= $this->render('view', [
         'model' => $purinfo,
-
-
     ]) ?>
-
-
     <div class="preview-form">
 
         <?php $form = ActiveForm::begin(); ?>
@@ -40,7 +35,6 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
         <?= $form->field($model_preview, 'member')->textInput(['maxlength' => true])->hiddenInput([])->label(false);?>
         <?= $form->field($model_preview, 'product_id')->textInput() ->hiddenInput([])->label(false);?>
         <?= $form->field($model_preview, 'priview_time')->textInput() ->hiddenInput([])->label(false);?>
-
         <?= $form->field($model_preview, 'member_id')->textInput() ->hiddenInput([])->label(false);?>
 
         <?php
@@ -106,9 +100,6 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
 
     </div>
-
-
-
 </div>
 
 

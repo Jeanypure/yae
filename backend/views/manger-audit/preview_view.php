@@ -12,9 +12,6 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $preview_model backend\models\Preview */
 
-$this->title = $preview_model->preview_id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Previews'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="preview-view">
 <h3> <?php
@@ -30,6 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'product_id',
             'result',
             'content',
+            ['attribute'=>'ref_url1','format'=>['url',['target'=>'_blank']]],
+            ['attribute'=>'ref_url2','format'=>['url',['target'=>'_blank']]],
+            ['attribute'=>'ref_url3','format'=>['url',['target'=>'_blank']]],
+            ['attribute'=>'ref_url4','format'=>['url',['target'=>'_blank']]],
             'priview_time',
 //            'member_id',
         ],

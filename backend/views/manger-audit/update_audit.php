@@ -8,17 +8,14 @@
 
 use yii\helpers\Html;
 use kartik\select2\Select2;
-use yii\widgets\ActiveForm;
+use kartik\widgets\ActiveForm;
+
+use kartik\builder\Form;
+
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\PurInfo */
 
-$this->title = Yii::t('app', '更新评审: ' . $model->pur_info_id, [
-'nameAttribute' => '' . $model->pur_info_id,
-]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Pur Infos'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->pur_info_id, 'url' => ['view', 'id' => $model->pur_info_id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="pur-info-update">
 
@@ -29,6 +26,8 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
         <?= $form->field($model, 'member')->textInput(['maxlength' => true])->hiddenInput([])->label(false);?>
         <?= $form->field($model, 'pur_info_id')->textInput() ->hiddenInput([])->label(false);?>
+        <?= $form->field($model, 'priview_time')->textInput() ->hiddenInput([])->label(false);?>
+        <?= $form->field($model, 'master_member')->textInput() ->hiddenInput([])->label(false);?>
 
         <?php
         // Usage with ActiveForm and model
@@ -46,15 +45,21 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
         ]);
 
         ?>
-        <?= $form->field($model, 'master_mark')->textarea(['maxlength' => true]) ?>
 
+        <?php
+        echo Form::widget([
+            'model'=>$model,
+            'form'=>$form,
+            'columns'=>1,
+            'attributes'=>[       // 1 column layout
+                'master_mark'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'','style'=>'height:100px']],
+            ]
+        ]);
+        ?>
 
-        <?= $form->field($model, 'priview_time')->textInput() ->hiddenInput([])->label(false);?>
-
-        <?= $form->field($model, 'master_member')->textInput() ->hiddenInput([])->label(false);?>
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-lg']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>

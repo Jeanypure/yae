@@ -1,9 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
-//use yii\grid\GridView;
-
 use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -31,18 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header'=> '操作',
-                'template' => ' {audit} {view}  {delete}',
-                'buttons' => [
-                    'audit' => function ($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-check"></span>', $url, [
-                            'title' => '评审',
-                            'data-toggle' => 'modal',
-                            'data-target' => '#audit-modal',
-                            'class' => 'data-audit',
-                            'data-id' => $key,
-                        ] );
-                    },
-                ],
+                'template' => ' {view}  {delete}',
                 'headerOptions' => ['width' => '100'],
 
             ],
@@ -59,69 +45,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-            [
-                'class' => 'yii\grid\Column',
-                'header' => '评审结果',
-                'headerOptions' => ['width'=>'100'],
-                'content' => function ($model, $key, $index, $column){
-                    return  $model['master_result'];
-                },
-            ],
-
-            [
-                'class' => 'yii\grid\Column',
-                'header' => '评审内容',
-                'headerOptions' => ['width'=>'100'],
-                'content' => function ($model, $key, $index, $column){
-                    return  $model['master_mark'];
-                },
-            ],
-            [
-                'class' => 'yii\grid\Column',
-                'header' => '评审状态',
-                'headerOptions' => ['width'=>'100'],
-                'content' => function ($model, $key, $index, $column){
-                    return  $model['preview_status'];
-                },
-            ],
 
             'master_result',
             'master_mark',
             'preview_status',
-            'Jenny',
-            'admin',
-            'Max',
-            'Heidi',
-            'Sue',
-            'Bianca',
-            'Molly',
-            'Betty',
-            'John',
-//
-//            'Jenny-Content',
-//            'admin-Content',
-//            'Max-Content',
-//            'Heidi-Content',
-//            'Sue-Content',
-//            'Bianca-Content',
-//            'Molly-Content',
-//            'Betty-Content',
-//            'John-Content',
-//
+
             'purchaser',
             'pur_group',
             'pd_title',
             'pd_title_en',
             'pd_package',
-            [
-                'class' => 'yii\grid\Column',
-                'header' => '外包装',
-                'headerOptions' => ['style' => 'width:20%'],
-                'contentOptions' => ['style' => 'width: 30px;', 'class' => 'text-center'],
-                'content' => function ($model, $key, $index, $column){
-                    return  $model['pd_package'];
-                },
-            ],
             'pd_length',
             'pd_width',
             'pd_height',
@@ -176,15 +109,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'oversea_shipping_fee',
             'transaction_fee',
             'gross_profit',
-//            'remark',
-            [
-                'class' => 'yii\grid\Column',
-                'header' => '评审状态',
-                'headerOptions' => ['width'=>'100'],
-                'content' => function ($model, $key, $index, $column){
-                    return  $model['remark'];
-                },
-            ],
+            'remark',
 
 //            'parent_product_id',
 
@@ -195,36 +120,4 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
 
-<?php
-use yii\bootstrap\Modal;
-// 评审操作
-Modal::begin([
-    'id' => 'audit-modal',
-    'header' => '<h4 class="modal-title">评审产品</h4>',
-    'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>',
-    'options'=>[
-        'data-backdrop'=>'static',//点击空白处不关闭弹窗
-        'data-keyboard'=>false,
-    ],
-    'size'=> Modal::SIZE_LARGE
-]);
-Modal::end();
-?>
-
-
-
-<?php
-$requestAuditUrl = Url::toRoute('audit');
-$auditJs = <<<JS
-        $('.data-audit').on('click', function () {
-            $.get('{$requestAuditUrl}', { id: $(this).closest('tr').data('key') },
-                function (data) {
-                    $('.modal-body').html(data);
-                }  
-            );
-        });
-JS;
-$this->registerJs($auditJs);
-
-?>
 

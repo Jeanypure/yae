@@ -32,9 +32,9 @@ use Yii;
  * @property string $bill_rebate_amount 退税金额
  * @property string $no_rebate_amount 预计销售不退税价格RMB
  * @property string $retail_price 预计销售价格$
- * @property string $ebay_url eBay最低价链接
- * @property string $amazon_url amazon最低价链接
- * @property string $url_1688 1688最低价链接
+ * @property string $ebay_url eBay链接
+ * @property string $amazon_url amazon链接
+ * @property string $url_1688 1688链接
  * @property string $shipping_fee 海运运费预估
  * @property string $oversea_shipping_fee 海外仓运运费预估
  * @property string $transaction_fee 成交费 销售金额的13%
@@ -107,9 +107,9 @@ class PurInfo extends \yii\db\ActiveRecord
             'bill_rebate_amount' => '退税金额',
             'no_rebate_amount' => '预计销售价¥',
             'retail_price' => '预计销售价格$',
-            'ebay_url' => 'eBay最低价链接',
-            'amazon_url' => 'Amazon最低价链接',
-            'url_1688' => '1688最低价链接',
+            'ebay_url' => 'eBay链接',
+            'amazon_url' => 'Amazon链接',
+            'url_1688' => '1688链接',
             'shipping_fee' => '海运运费预估',
             'oversea_shipping_fee' => '海外仓运运费预估',
             'transaction_fee' => '成交费',
