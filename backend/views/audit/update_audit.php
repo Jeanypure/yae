@@ -39,12 +39,46 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
         <?= $form->field($model_preview, 'member')->textInput(['maxlength' => true])->hiddenInput([])->label(false);?>
         <?= $form->field($model_preview, 'product_id')->textInput() ->hiddenInput([])->label(false);?>
+        <?= $form->field($model_preview, 'priview_time')->textInput() ->hiddenInput([])->label(false);?>
 
+        <?= $form->field($model_preview, 'member_id')->textInput() ->hiddenInput([])->label(false);?>
+
+        <?php
+        echo Form::widget([
+            'model'=>$model_preview,
+            'form'=>$form,
+            'columns'=>2,
+            'contentBefore'=>'<legend class="text-info"><h3>评审数据记录</h3></legend>',
+            'attributes'=>[       // 2 column layout
+                'ref_url1'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'ref_url2'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            ]
+        ]);
+
+        echo Form::widget([
+            'model'=>$model_preview,
+            'form'=>$form,
+            'columns'=>2,
+            'attributes'=>[       // 2 column layout
+                'ref_url3'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'ref_url4'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            ]
+        ]);
+
+        echo Form::widget([
+            'model'=>$model_preview,
+            'form'=>$form,
+            'columns'=>1,
+            'attributes'=>[       // 2 column layout
+                'content'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'','style'=>'height:150px']],
+            ]
+        ]);
+
+        ?>
         <?php
         // Usage with ActiveForm and model
         echo $form->field($model_preview, 'result')->widget(Select2::classname(), [
             'data' => [
-                    ''=>'',
                 '采样'=>'采样',
                 '拒绝'=>'拒绝',
                 '可以开发'=>'可以开发',
@@ -56,14 +90,13 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
         ]);
 
         ?>
-        <?= $form->field($model_preview, 'content')->textarea(['maxlength' => true,'rows' => '7']) ?>
 
-        <?= $form->field($model_preview, 'priview_time')->textInput() ->hiddenInput([])->label(false);?>
-
-        <?= $form->field($model_preview, 'member_id')->textInput() ->hiddenInput([])->label(false);?>
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+            <div style="text-align:right">
+                <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-lg']) ?>
+
+            </div>
         </div>
 
         <?php ActiveForm::end(); ?>
