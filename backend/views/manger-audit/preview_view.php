@@ -15,7 +15,7 @@ use yii\widgets\DetailView;
 ?>
 <div class="preview-view">
 <h3> <?php
-    echo $preview_model->member
+    echo $preview_model->member2
     ?>评审结果</h3>
 
 

@@ -65,7 +65,7 @@ class PreviewSearch extends Preview
             'member_id' => $this->member_id,
         ]);
 
-        $query->andFilterWhere(['like', 'member2', $this->member])
+        $query->andFilterWhere(['like', 'member2', $this->member2])
             ->andFilterWhere(['like', 'content', $this->content])
             ->andFilterWhere(['like', 'result', $this->result]);
 
