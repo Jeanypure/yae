@@ -134,40 +134,50 @@ $group_brocast = Url::toRoute(['brocast']);
 $group_end_brocast = Url::toRoute(['end-brocast']);
 
 
-$js = <<<GROUP
+$js = <<<JS
     //批量公示
     $('#brocast').on('click',function(){
-    console.log(9999);
+            var button = $(this);
+            button.attr('disabled','disabled');
             var ids = $("#group-pur").yiiGridView("getSelectedRows");
             console.log(ids);
-            if(ids.length ==0) return false;
+            if(ids.length ==0)  alert('请选择产品后再操作!');
             $.ajax({
                 url:'{$group_brocast}',
                 type: 'post',
                 data:{id:ids},
                 success:function(res){
                     if(res) alert(res);
+                    button.attr('disabled',false);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    button.attr('disabled',false);
                 }
             });
     });
 
     //批量结束公示
     $('#end-brocast').on('click',function(){
+            var button = $(this);
+            button.attr('disabled','disabled');
             var ids = $("#group-pur").yiiGridView("getSelectedRows");
-            console.log(ids);
-            if(ids.length ==0) return false;
+            if(ids.length ==0) alert('请选择产品后再操作!');
             $.ajax({
                 url:'{$group_end_brocast}',
                 type: 'post',
                 data:{id:ids},
                 success:function(res){
                     if(res) alert(res);
+                    button.attr('disabled',false);
                     location.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    button.attr('disabled',false);
                 }
             });
     });
 
-GROUP;
+JS;
 
 $this->registerJs($js);
 

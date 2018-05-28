@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'hover'=>true,
         'export' => false,
         'options' => [
-            'style'=>'overflow: auto; white-space:nowrap;'
+//            'style'=>'overflow: auto; white-space:nowrap;'
 //            'style'=>'overflow: auto;  word-break:break-word;'
         ],
         'id'=>'commit_product',
@@ -76,8 +76,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($model) { return $model->product_title;},
                 'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
+                'noWrap' => false,
                 'headerOptions' => [
-                    'width'=>'80%'
+                        'style'=> 'width:80%; overflow: auto; white-space:nowrap;',
                 ],
             ],
             [
@@ -85,8 +86,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($model) { return $model->product_title_en;},
                 'contentOptions'=> ['style' => 'width: 90%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
+                'noWrap' => false,
                 'headerOptions' => [
-                    'width'=>'80%'
+                    'style'=> 'width:80%; overflow: auto; white-space:nowrap;',
                 ],
             ],
             'is_submit',
@@ -191,6 +193,8 @@ $is_submit = <<<JS
 
     //批量提交
     $('#is_submit').on('click',function(){
+        var button = $(this);
+        button.attr('disabled','disabled');
         var ids =  $('#commit_product').yiiGridView("getSelectedRows");
         console.log(ids);
         if(ids==false) alert('请选择产品!') ;
@@ -200,8 +204,12 @@ $is_submit = <<<JS
          data:{id:ids},
          success:function(res){
            if(res=='success') alert('提交产品成功!');
+           button.attr('disabled',false);
            location.reload();
 
+         },
+         error: function (jqXHR, textStatus, errorThrown) {
+             button.attr('disabled',false);
          }
       
     });
@@ -209,6 +217,8 @@ $is_submit = <<<JS
 
 //取消提交
     $('#un_submit').on('click',function(){
+        var button = $(this);
+        button.attr('disabled','disabled');
         var ids =  $('#commit_product').yiiGridView("getSelectedRows");
         console.log(ids);
         if(ids==false) alert('请选择产品!') ;
@@ -218,8 +228,12 @@ $is_submit = <<<JS
          data:{id:ids},
          success:function(res){
            if(res=='success') alert('取消提交成功!');
+           button.attr('disabled',false);
            location.reload();
 
+         },
+         error: function (jqXHR, textStatus, errorThrown) {
+             button.attr('disabled',false);
          }
       
     });

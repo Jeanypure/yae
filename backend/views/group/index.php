@@ -129,33 +129,45 @@ $group_end_brocast = Url::toRoute(['group/end-brocast']);
 $js = <<<JS
     //批量公示
     $('#brocast').on('click',function(){
+            var button = $(this);
+            button.attr('disabled','disabled');
             var ids = $("#group").yiiGridView("getSelectedRows");
             console.log(ids);
-            if(ids.length ==0) return false;
+            if(ids.length ==0) alert('请选择产品后再操作!');
             $.ajax({
                 url:'{$group_brocast}',
                 type: 'post',
                 data:{id:ids},
                 success:function(res){
                     if(res=='success') alert('公示产品成功!');
+                    button.attr('disabled',false);
                     location.reload();
 
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    button.attr('disabled',false);
                 }
             });
     });
 
 //批量结束公示
     $('#end-brocast').on('click',function(){
+            var button = $(this);
+            button.attr('disabled','disabled');
             var ids = $("#group").yiiGridView("getSelectedRows");
             console.log(ids);
-            if(ids.length ==0) return false;
+            if(ids.length ==0)  alert('请选择产品后再操作!');
             $.ajax({
                 url:'{$group_end_brocast}',
                 type: 'post',
                 data:{id:ids},
                 success:function(res){
                     if(res=='success') alert('公示产品结束!');
+                    button.attr('disabled',false);
                     location.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    button.attr('disabled',false);
                 }
             });
     });
