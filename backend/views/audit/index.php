@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\PurInfoSearch */
@@ -85,13 +86,25 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format'=>'html',
 
             ],
-
-
 //            'pd_package',
+        'preview.member2',
             'pd_length',
             'pd_width',
             'pd_height',
-            'is_huge',
+            [
+                'attribute'=>'is_huge',
+                'width'=>'100px',
+                'value'=>function ($model, $key, $index, $widget) {
+                    return $model->is_huge;
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '是', '0' => '否'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'Ishuge'],
+                'group'=>true,  // enable grouping
+            ],
             'pd_weight',
             'pd_throw_weight',
             'pd_count_weight',

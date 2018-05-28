@@ -92,7 +92,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'pd_length' => '长(cm)',
             'pd_width' => '宽(cm)',
             'pd_height' => '高(cm)',
-            'is_huge' => '是否是大件货',
+            'is_huge' => '是否大件',
             'pd_weight' => '货物实际重量kg',
             'pd_throw_weight' => '抛重',
             'pd_count_weight' => '计算重量',

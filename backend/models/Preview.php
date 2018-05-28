@@ -37,7 +37,7 @@ class Preview extends \yii\db\ActiveRecord
         return [
             [['priview_time'], 'safe'],
             [['member_id'], 'integer'],
-            [['member', 'content', 'result'], 'string', 'max' => 500],
+            [['member2', 'content', 'result'], 'string', 'max' => 500],
             [['product_id'], 'string', 'max' => 20],
             [['ref_url1', 'ref_url2', 'ref_url3', 'ref_url4'], 'string', 'max' => 5000],
             [['product_id', 'member_id'], 'unique', 'targetAttribute' => ['product_id', 'member_id']],
@@ -51,7 +51,7 @@ class Preview extends \yii\db\ActiveRecord
     {
         return [
             'preview_id' => 'Preview ID',
-            'member' => '评审人',
+            'member2' => '评审人',
             'product_id' => 'Product ID',
             'content' => '评审内容',
             'result' => '评审结果',

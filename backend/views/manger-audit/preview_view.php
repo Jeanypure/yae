@@ -23,7 +23,7 @@ use yii\widgets\DetailView;
         'model' => $preview_model,
         'attributes' => [
 //            'preview_id',
-            'member',
+            'member2',
 //            'product_id',
             'result',
             'content',

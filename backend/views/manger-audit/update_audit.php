@@ -24,10 +24,10 @@ use kartik\builder\Form;
 
         <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'member')->textInput(['maxlength' => true])->hiddenInput([])->label(false);?>
+        <?= $form->field($model, 'member2')->textInput(['maxlength' => true])->hiddenInput([])->label(false);?>
         <?= $form->field($model, 'pur_info_id')->textInput() ->hiddenInput([])->label(false);?>
         <?= $form->field($model, 'priview_time')->textInput() ->hiddenInput([])->label(false);?>
-        <?= $form->field($model, 'master_member')->textInput() ->hiddenInput([])->label(false);?>
+        <?= $form->field($model, 'master_member2')->textInput() ->hiddenInput([])->label(false);?>
 
         <?php
         // Usage with ActiveForm and model

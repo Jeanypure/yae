@@ -19,7 +19,7 @@ class PreviewSearch extends Preview
     {
         return [
             [['preview_id', 'product_id', 'member_id'], 'integer'],
-            [['member', 'content', 'result', 'priview_time'], 'safe'],
+            [['member2', 'content', 'result', 'priview_time'], 'safe'],
         ];
     }
 
@@ -65,7 +65,7 @@ class PreviewSearch extends Preview
             'member_id' => $this->member_id,
         ]);
 
-        $query->andFilterWhere(['like', 'member', $this->member])
+        $query->andFilterWhere(['like', 'member2', $this->member])
             ->andFilterWhere(['like', 'content', $this->content])
             ->andFilterWhere(['like', 'result', $this->result]);
 

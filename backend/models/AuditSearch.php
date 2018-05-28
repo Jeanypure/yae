@@ -49,18 +49,21 @@ class AuditSearch extends PurInfo
         if($member!='Jenny'&&$member!='admin'&&empty($pur_group)){
 
             $query = PurInfo::find()
+                ->joinWith('preview')
                 ->andWhere(['in','preview_status',['待评审','已评审']])
                 ->andWhere(['member'=>$member])
                 ->orderBy('pur_info_id desc');
 
         }else{
             $query = PurInfo::find()
+                ->joinWith('preview')
                 ->andWhere(['in','preview_status',['待评审','已评审']])
                 ->orderBy('pur_info_id desc');
             $this->pur_group = $pur_group;
 
 
         }
+
 
 //        $this->preview_status = $preview_status;
 

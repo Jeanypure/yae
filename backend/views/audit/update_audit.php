@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
         <?php $form = ActiveForm::begin(); ?>
 
 
-        <?= $form->field($model_preview, 'member')->textInput(['maxlength' => true])->hiddenInput([])->label(false);?>
+        <?= $form->field($model_preview, 'member2')->textInput(['maxlength' => true])->hiddenInput([])->label(false);?>
         <?= $form->field($model_preview, 'product_id')->textInput() ->hiddenInput([])->label(false);?>
         <?= $form->field($model_preview, 'priview_time')->textInput() ->hiddenInput([])->label(false);?>
         <?= $form->field($model_preview, 'member_id')->textInput() ->hiddenInput([])->label(false);?>
