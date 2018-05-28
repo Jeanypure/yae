@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'pd_title',
                 'value' => function($model) { return $model->pd_title;},
-                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'headerOptions' => [
                     'width'=>'80%'
@@ -83,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'preview_status',
                 'value' => function($model) { return $model->preview_status;},
-                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
 
             ],

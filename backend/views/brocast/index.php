@@ -50,13 +50,13 @@ $sub_title = '销售推荐产品';
             [
                 'attribute'=>'product_title',
                 'value' => function($model) { return $model->product_title;},
-                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
             ],
             [
                 'attribute'=>'product_title_en',
                 'value' => function($model) { return $model->product_title_en;},
-                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
             ],
             'product_purchase_value',

@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'pd_title',
                 'value' => function($model) { return $model->pd_title;},
-                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'headerOptions' => [
                     'width'=>'80%'
@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'pd_title_en',
                 'value' => function($model) { return $model->pd_title_en;},
-                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'headerOptions' => [
                     'width'=>'80%'
@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //            [
 //                'attribute'=>'pd_package',
 //                'value' => function($model) { return $model->pd_package;},
-//                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+//                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
 //                'format'=>'html',
 //                'headerOptions' => [
 //                    'width'=>'80%'
@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //            [
 //                'attribute'=>'pd_material',
 //                'value' => function($model) { return $model->pd_material;},
-//                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+//                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
 //                'format'=>'html',
 //                'headerOptions' => [
 //                    'width'=>'80%'
