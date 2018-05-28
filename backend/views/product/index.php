@@ -74,9 +74,8 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'product_title',
                 'value' => function($model) { return $model->product_title;},
-                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'contentOptions'=> ['style' => 'width: 50%; overflow: auto;word-wrap: break-word;'],
                 'format'=>'html',
-                'noWrap' => false,
                 'headerOptions' => [
                         'style'=> 'width:80%; overflow: auto; white-space:nowrap;',
                 ],
@@ -84,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'product_title_en',
                 'value' => function($model) { return $model->product_title_en;},
-                'contentOptions'=> ['style' => 'width: 90%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'contentOptions'=> ['style' => 'width: 90%; overflow:auto;word-wrap: break-word;'],
                 'format'=>'html',
                 'noWrap' => false,
                 'headerOptions' => [
