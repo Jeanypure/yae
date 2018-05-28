@@ -88,7 +88,7 @@ class CompleteController extends Controller
         $model = $this->findModel($id);
         $rate = PurInfoController::actionExchangeRate();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
             return $this->redirect(['view', 'id' => $model->pur_info_id]);
         }
 

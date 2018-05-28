@@ -84,12 +84,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($model) { return $model->preview_status;},
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['待评审' => '待评审', '已评审' => '已评审'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'评审状态'],
+                'group'=>true,  // enable grouping
 
             ],
 //            'pd_package',
-             'preview.member2',
-             'preview.view_status',
-             'preview.saler_view_status',
+//             'preview.member2',
+//             'preview.view_status',
+//             'preview.saler_view_status',
             'pd_length',
             'pd_width',
             'pd_height',
@@ -104,7 +111,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                'filterInputOptions'=>['placeholder'=>'Ishuge'],
+                'filterInputOptions'=>['placeholder'=>'是否大件'],
                 'group'=>true,  // enable grouping
             ],
             'pd_weight',
