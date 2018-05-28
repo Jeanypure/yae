@@ -47,14 +47,33 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             'master_result',
-            'master_mark',
+            [
+                'attribute'=>'master_mark',
+                'value' => function($model) { return $model->master_mark;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+            ],
             'preview_status',
 
             'purchaser',
             'pur_group',
             'pd_title',
-            'pd_title_en',
-            'pd_package',
+            [
+                'attribute'=>'pd_title_en',
+                'value' => function($model) { return $model->pd_title_en;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+            [
+                'attribute'=>'pd_package',
+                'value' => function($model) { return $model->pd_package;},
+                'contentOptions'=> ['style' => 'width: 150px; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html'
+
+            ],
             'pd_length',
             'pd_width',
             'pd_height',
@@ -62,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'pd_weight',
             'pd_throw_weight',
             'pd_count_weight',
-            'pd_material',
+//            'pd_material',
             'pd_purchase_num',
             'pd_pur_costprice',
             'has_shipping_fee',
