@@ -21,7 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'export'=>false,
-        'options' =>['style'=>'overflow:auto; white-space:nowrap;'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [

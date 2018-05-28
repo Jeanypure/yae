@@ -22,7 +22,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'responsive'=>true,
         'hover'=>true,
         'export' => false,
-        'options' =>['style'=>'overflow:auto; white-space:nowrap;table-layout:fixed'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [

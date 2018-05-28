@@ -22,9 +22,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'id' => 'department',
-        'options' => [
-            'style'=>'overflow: auto;  white-space:nowrap;'
-        ],
         'headerRowOptions' => ['class' => 'kartik-sheet-style'],
         'filterRowOptions' => ['class' => 'kartik-sheet-style'],
         'bordered' => 1,
