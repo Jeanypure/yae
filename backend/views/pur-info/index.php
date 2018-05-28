@@ -147,6 +147,8 @@ $is_submit = <<<JS
 
     //批量提交
     $('#is_submit').on('click',function(){
+         var button = $(this);
+         button.attr('disabled','disabled');
         var ids =  $('#commit_product').yiiGridView("getSelectedRows");
         console.log(ids);
         if(ids==false) alert('请选择产品!') ;
@@ -155,8 +157,12 @@ $is_submit = <<<JS
          type: 'post',
          data:{id:ids},
          success:function(res){
-           if(res=='success') alert('提交产品成功!');
+           if(res=='success') alert('提交产品成功!');     
+           button.attr('disabled',false);
            location.reload();
+         },
+         error: function (jqXHR, textStatus, errorThrown) {
+                    button.attr('disabled',false);
          }
       
     });
@@ -164,6 +170,8 @@ $is_submit = <<<JS
 
 //取消提交
     $('#un_submit').on('click',function(){
+        var button = $(this);
+         button.attr('disabled','disabled');
         var ids =  $('#commit_product').yiiGridView("getSelectedRows");
         console.log(ids);
         if(ids==false) alert('请选择产品!') ;
@@ -173,7 +181,11 @@ $is_submit = <<<JS
          data:{id:ids},
          success:function(res){
            if(res=='success') alert('取消提交成功!');
+           button.attr('disabled',false);
            location.reload();
+         },
+         error: function (jqXHR, textStatus, errorThrown) {
+                    button.attr('disabled',false);
          }
       
     });

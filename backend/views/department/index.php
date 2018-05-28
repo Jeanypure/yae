@@ -60,7 +60,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-            'accept_status',
             'purchaser',
             [
                 'attribute'=>'product_title',
@@ -80,6 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
+            'accept_status',
             'product_purchase_value',
             [
                 'class' => 'yii\grid\Column',
@@ -131,8 +131,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'creator',
 //            'product_status',
 //            'complete_status',
-            'accept_status',
-            'purchaser',
         ],
     ]); ?>
 </div>
@@ -179,9 +177,11 @@ $reject = Url::toRoute(['department/reject']);
 $js = <<<JS
     //批量接受
     $('#accept').on('click',function(){
+            var button = $(this);
+            button.attr('disabled','disabled');
             var ids = $("#department").yiiGridView("getSelectedRows");
             console.log(ids);
-            if(ids.length ==0) return false;
+            if(ids.length ==0) alert('请选择产品!');
             $.ajax({
                 url:'{$accept}',
                 type: 'post',
@@ -189,20 +189,27 @@ $js = <<<JS
                 success:function(res){
                     if(res=='success!'){
                         alert('接受此产品成功!');
+                        button.attr('disabled',false);
                     }else { 
                         alert(res);
+                        button.attr('disabled',false);
                     } 
                     location.reload();
 
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    button.attr('disabled',false);
                 }
             });
     });
 
 //批量拒绝
     $('#reject').on('click',function(){
+            var button = $(this);
+            button.attr('disabled','disabled');
             var ids = $("#department").yiiGridView("getSelectedRows");
             console.log(ids);
-            if(ids.length ==0) return false;
+            if(ids.length ==0) alert('请选择产品!');
             $.ajax({
                 url:'{$reject}',
                 type: 'post',
@@ -210,10 +217,15 @@ $js = <<<JS
                 success:function(res){
                     if(res=='success!'){
                         alert('拒绝此产品成功!');
+                        button.attr('disabled',false);
                     }else { 
                         alert(res);
+                        button.attr('disabled',false);
                     } 
                     location.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    button.attr('disabled',false);
                 }
             });
     });

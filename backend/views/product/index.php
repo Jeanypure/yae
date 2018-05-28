@@ -29,10 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'responsive'=>true,
         'hover'=>true,
         'export' => false,
-        'options' => [
-//            'style'=>'overflow: auto; white-space:nowrap;'
-//            'style'=>'overflow: auto;  word-break:break-word;'
-        ],
+
         'id'=>'commit_product',
         'columns' => [
 
@@ -76,20 +73,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($model) { return $model->product_title;},
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
-                'noWrap' => false,
-                'headerOptions' => [
-                        'style'=> 'width:80%; overflow: auto; white-space:nowrap;',
-                ],
+
             ],
             [
                 'attribute'=>'product_title_en',
                 'value' => function($model) { return $model->product_title_en;},
                 'contentOptions'=> ['style' => 'width: 90%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
-                'noWrap' => false,
-                'headerOptions' => [
-                    'style'=> 'width:80%; overflow: auto; white-space:nowrap;',
-                ],
+
             ],
             'is_submit',
             'product_purchase_value',

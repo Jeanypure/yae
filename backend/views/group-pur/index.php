@@ -149,6 +149,7 @@ $js = <<<JS
                 success:function(res){
                     if(res) alert(res);
                     button.attr('disabled',false);
+                    location.reload();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     button.attr('disabled',false);
