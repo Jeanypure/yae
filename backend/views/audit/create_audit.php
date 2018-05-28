@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $form = ActiveForm::begin(); ?>
 
-        <?php echo  $form->field($model_preview, 'member')->textInput(['maxlength' => true])
+        <?php echo  $form->field($model_preview, 'member2')->textInput(['maxlength' => true])
             ->hiddenInput(['value'=>Yii::$app->user->identity->username])->label(false); ?>
 
         <?= $form->field($model_preview, 'product_id')->textInput(['value' => $id ])

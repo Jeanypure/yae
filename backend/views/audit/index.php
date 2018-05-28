@@ -87,7 +87,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ],
 //            'pd_package',
-        'preview.member2',
+             'preview.member2',
+             'preview.view_status',
+             'preview.saler_view_status',
             'pd_length',
             'pd_width',
             'pd_height',
