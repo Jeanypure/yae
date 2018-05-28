@@ -39,7 +39,7 @@ class Product extends \yii\db\ActiveRecord
             [['product_purchase_value'], 'number'],
             [['product_add_time', 'product_update_time'], 'safe'],
             [['product_title_en','product_title'], 'required'],
-            [['group_mark','preview_mark','product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4','pd_pic_url','ref_url_low1','ref_url_low2','ref_url_low3','ref_url_low4'], 'string', 'max' => 255],
+            [['group_mark','preview_mark','product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4','pd_pic_url',], 'string', 'max' => 255],
             [['is_submit','accept_status','group_status','complete_status','brocast_status','sub_company','purchaser'], 'string', 'max' => 32],
             ['ref_url2','url','defaultScheme' => 'http'],
             ['ref_url1','url','defaultScheme' => 'http'],
@@ -55,8 +55,8 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             'product_id' => '产品ID',
-            'product_title_en' => '英文名',
-            'product_title' => '中文名',
+            'product_title_en' => '英文全称',
+            'product_title' => '中文全称',
             'product_purchase_value' => '采购价',
             'ref_url1' => 'Amazon链接',
             'ref_url2' => 'eBay链接',
@@ -72,10 +72,7 @@ class Product extends \yii\db\ActiveRecord
             'sub_company' => '部门',
 //            'sub_company_id' => '组别ID',
             'brocast_status' => '公示状态',
-            'ref_url_low1' => 'Amazon最低价链接',
-            'ref_url_low2' => 'eBay最低价链接',
-            'ref_url_low3' => '1688最低价链接',
-            'ref_url_low4' => '其他最低价链接',
+
             'complete_status' => '完成状态',
             'purchaser' => '采购',
             'group_status' => '分组状态',

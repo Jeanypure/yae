@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
+
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\BrocastPurSearch */
@@ -19,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'export'=>false,
         'options' =>['style'=>'overflow:auto; white-space:nowrap;'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -37,9 +39,33 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'pur_info_id',
             'purchaser',
             'pur_group',
-            'pd_title',
-            'pd_title_en',
-            'pd_package',
+            [
+                'attribute'=>'pd_title',
+                'value' => function($model) { return $model->pd_title;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+            [
+                'attribute'=>'pd_title_en',
+                'value' => function($model) { return $model->pd_title_en;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+//            [
+//                'attribute'=>'pd_package',
+//                'value' => function($model) { return $model->pd_package;},
+//                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+//                'format'=>'html',
+//                'headerOptions' => [
+//                    'width'=>'80%'
+//                ],
+//            ],
             'pd_length',
             'pd_width',
             'pd_height',
@@ -47,7 +73,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'pd_weight',
             'pd_throw_weight',
             'pd_count_weight',
-            'pd_material',
+//            [
+//                'attribute'=>'pd_material',
+//                'value' => function($model) { return $model->pd_material;},
+//                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+//                'format'=>'html',
+//                'headerOptions' => [
+//                    'width'=>'80%'
+//                ],
+//            ],
+
             'pd_purchase_num',
             'pd_pur_costprice',
             'has_shipping_fee',
@@ -89,14 +124,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
 
-//            'amazon_url:url',
-//            'ebay_url:url',
-//            'url_1688:url',
             'shipping_fee',
             'oversea_shipping_fee',
             'transaction_fee',
             'gross_profit',
-            'remark',
+//            'remark',
 //            'parent_product_id',
 
         ],

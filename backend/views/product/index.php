@@ -25,12 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'striped'=>true,
+        'responsive'=>true,
+        'hover'=>true,
+        'export' => false,
         'options' => [
-//            'style'=>'overflow: auto;  white-space:nowrap;'
-            'style'=>'overflow: auto;  word-break:break-word;'
+            'style'=>'overflow: auto; white-space:nowrap;'
+//            'style'=>'overflow: auto;  word-break:break-word;'
         ],
         'id'=>'commit_product',
-        'export' =>false,
         'columns' => [
 
             ['class' => 'yii\grid\SerialColumn'],
@@ -67,8 +70,25 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-            'product_title',
-            'product_title_en',
+            'creator',
+            [
+                'attribute'=>'product_title',
+                'value' => function($model) { return $model->product_title;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+            [
+                'attribute'=>'product_title_en',
+                'value' => function($model) { return $model->product_title_en;},
+                'contentOptions'=> ['style' => 'width: 90%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
             'is_submit',
             'product_purchase_value',
 
@@ -105,22 +125,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-//            [
-//                'class' => 'yii\grid\Column',
-//                'headerOptions' => [
-//                    'width'=>'100'
-//                ],
-//                'header' => '其他链接',
-//                'content' => function ($model, $key, $index, $column){
-//                    if (!empty($model->ref_url4))  return "<a href='$model->ref_url4' target='_blank'>".parse_url($model->ref_url4)['host'] ."</a>";
-//
-//
-//
-//                }
-//            ],
+            [
+                'class' => 'yii\grid\Column',
+                'headerOptions' => [
+                    'width'=>'100'
+                ],
+                'header' => '其他链接',
+                'content' => function ($model, $key, $index, $column){
+                    if (!empty($model->ref_url4))  return "<a href='$model->ref_url4' target='_blank'>".parse_url($model->ref_url4)['host'] ."</a>";
+
+
+
+                }
+            ],
             'product_add_time:date',
 //            'product_update_time:date',
-            'creator',
 //            'product_status',
             'complete_status',
 //            'purchaser',

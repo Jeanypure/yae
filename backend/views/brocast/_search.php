@@ -64,13 +64,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'brocast_status') ?>
 
-    <?php // echo $form->field($model, 'ref_url_low1') ?>
 
-    <?php // echo $form->field($model, 'ref_url_low2') ?>
-
-    <?php // echo $form->field($model, 'ref_url_low3') ?>
-
-    <?php // echo $form->field($model, 'ref_url_low4') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

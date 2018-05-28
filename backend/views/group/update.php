@@ -52,7 +52,6 @@ $this->params['breadcrumbs'][] = Yii::t('app', '更新');
 
         <?= $form->field($model, 'ref_url4')->textInput(['maxlength' => true]) ?>
 
-<!--        --><?php //echo  $form->field($model, 'ref_url_low1')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'pd_pic_url')->textInput(['maxlength' => true]) ?>
 

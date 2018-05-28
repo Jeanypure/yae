@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
@@ -23,10 +23,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'options' => [
-//            'style'=>'overflow: auto;  white-space:nowrap;'
-            'style'=>'overflow: auto;  word-break:break-word;'
-        ],
+        'export' => false,
+        'options' =>['style'=>'overflow:auto; white-space:nowrap;table-layout:fixed'],
+
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
@@ -62,29 +61,52 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'pur_info_id',
             'purchaser',
 //            'member',
-//            'pur_group',
-            'preview_status',
-            'pd_title',
-            'pd_title_en',
-            'pd_package',
+            'pur_group',
+            [
+                'attribute'=>'pd_title',
+                'value' => function($model) { return $model->pd_title;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+            [
+                'attribute'=>'pd_title_en',
+                'value' => function($model) { return $model->pd_title_en;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow:auto;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+            [
+                'attribute'=>'preview_status',
+                'value' => function($model) { return $model->preview_status;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+
+            ],
+
+
+//            'pd_package',
             'pd_length',
             'pd_width',
-//            'pd_height',
-//            'is_huge',
-//            'pd_weight',
-//            'pd_throw_weight',
-//            'pd_count_weight',
+            'pd_height',
+            'is_huge',
+            'pd_weight',
+            'pd_throw_weight',
+            'pd_count_weight',
 //            'pd_material',
-//            'pd_purchase_num',
-//            'pd_pur_costprice',
-//            'has_shipping_fee',
-//            'bill_type',
-//            'bill_tax_value',
-//            'hs_code',
-//            'bill_tax_rebate',
-//            'bill_rebate_amount',
-//            'no_rebate_amount',
-//            'retail_price',
+            'pd_purchase_num',
+            'pd_pur_costprice',
+            'has_shipping_fee',
+            'bill_type',
+            'bill_tax_value',
+            'hs_code',
+            'bill_tax_rebate',
+            'bill_rebate_amount',
+            'no_rebate_amount',
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
@@ -119,7 +141,8 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'shipping_fee',
 //            'oversea_shipping_fee',
 //            'transaction_fee',
-//            'gross_profit',
+            'retail_price',
+            'gross_profit',
 //            'remark',
 
         ],

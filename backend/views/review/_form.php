@@ -42,13 +42,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'brocast_status')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'ref_url_low1')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'ref_url_low2')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'ref_url_low3')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'ref_url_low4')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

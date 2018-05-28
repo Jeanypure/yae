@@ -52,9 +52,25 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'pur_info_id',
             'member',
             'pur_group',
-            'pd_title',
-            'pd_title_en',
-            'pd_package',
+            [
+                'attribute'=>'pd_title',
+                'value' => function($model) { return $model->pd_title;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+            [
+                'attribute'=>'pd_title_en',
+                'value' => function($model) { return $model->pd_title_en;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+//            'pd_package',
             'pd_length',
             'pd_width',
             'pd_height',
@@ -62,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'pd_weight',
             'pd_throw_weight',
             'pd_count_weight',
-            'pd_material',
+//            'pd_material',
             'pd_purchase_num',
             'pd_pur_costprice',
             'has_shipping_fee',
@@ -104,14 +120,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
 
-//            'amazon_url:url',
-//            'ebay_url:url',
-//            'url_1688:url',
             'shipping_fee',
             'oversea_shipping_fee',
             'transaction_fee',
             'gross_profit',
-            'remark',
+//            'remark',
 //            'parent_product_id',
 
         ],

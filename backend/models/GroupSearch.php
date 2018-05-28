@@ -19,7 +19,9 @@ class GroupSearch extends Product
     {
         return [
             [['product_id', 'sub_company_id', 'creator_id', 'is_submit'], 'integer'],
-            [['product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4', 'product_add_time', 'product_update_time', 'purchaser', 'creator', 'product_status', 'pd_pic_url', 'preview_time', 'preview_mark', 'sub_company', 'group_mark', 'group_time', 'group_update_time', 'group_status', 'brocast_status', 'ref_url_low1', 'ref_url_low2', 'ref_url_low3', 'ref_url_low4', 'complete_status', 'accept_status'], 'safe'],
+            [['product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3',
+                'ref_url4', 'product_add_time', 'product_update_time', 'purchaser', 'creator',
+                'product_status', 'pd_pic_url', 'preview_time', 'preview_mark', 'sub_company', 'group_mark', 'group_time', 'group_update_time', 'group_status', 'brocast_status', 'complete_status', 'accept_status'], 'safe'],
             [['product_purchase_value'], 'number'],
         ];
     }
@@ -93,10 +95,6 @@ class GroupSearch extends Product
             ->andFilterWhere(['like', 'group_mark', $this->group_mark])
             ->andFilterWhere(['like', 'group_status', $this->group_status])
             ->andFilterWhere(['like', 'brocast_status', $this->brocast_status])
-            ->andFilterWhere(['like', 'ref_url_low1', $this->ref_url_low1])
-            ->andFilterWhere(['like', 'ref_url_low2', $this->ref_url_low2])
-            ->andFilterWhere(['like', 'ref_url_low3', $this->ref_url_low3])
-            ->andFilterWhere(['like', 'ref_url_low4', $this->ref_url_low4])
             ->andFilterWhere(['like', 'complete_status', $this->complete_status])
             ->andFilterWhere(['like', 'accept_status', $this->accept_status]);
 

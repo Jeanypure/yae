@@ -53,10 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'group_update_time',
             'group_status',
             'brocast_status',
-            'ref_url_low1:url',
-            'ref_url_low2:url',
-            'ref_url_low3:url',
-            'ref_url_low4:url',
+
             'complete_status',
             'creator_id',
             'accept_status',

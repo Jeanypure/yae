@@ -46,14 +46,42 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-//
-            'master_result',
-            'master_mark',
-            'is_submit',
+
             'purchaser',
             'pur_group',
-            'pd_title',
-            'pd_title_en',
+            [
+                'attribute'=>'pd_title',
+                'value' => function($model) { return $model->pd_title;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+            [
+                'attribute'=>'pd_title_en',
+                'value' => function($model) { return $model->pd_title_en;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+
+
+            'is_submit',
+            'master_result',
+
+            [
+                'attribute'=>'master_mark',
+                'value' => function($model) { return $model->master_mark;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+
             'pd_package',
             'pd_length',
             'pd_width',

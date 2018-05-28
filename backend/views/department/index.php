@@ -50,9 +50,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                 ],
                 'headerOptions' => ['width' => '80'],
-
-
-
             ],
             [
                 'class' => 'yii\grid\Column',
@@ -68,8 +65,24 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'accept_status',
             'purchaser',
-            'product_title',
-            'product_title_en',
+            [
+                'attribute'=>'product_title',
+                'value' => function($model) { return $model->product_title;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+            [
+                'attribute'=>'product_title_en',
+                'value' => function($model) { return $model->product_title_en;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
             'product_purchase_value',
             [
                 'class' => 'yii\grid\Column',

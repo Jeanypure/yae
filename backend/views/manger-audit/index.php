@@ -45,16 +45,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-
-            'master_result',
-            [
-                'attribute'=>'master_mark',
-                'value' => function($model) { return $model->master_mark;},
-                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
-                'format'=>'html',
-            ],
-            'preview_status',
-
             'purchaser',
             'pur_group',
             'pd_title',
@@ -67,31 +57,34 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
+            'master_result',
             [
-                'attribute'=>'pd_package',
-                'value' => function($model) { return $model->pd_package;},
-                'contentOptions'=> ['style' => 'width: 150px; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
-                'format'=>'html'
-
+                'attribute'=>'master_mark',
+                'value' => function($model) { return $model->master_mark;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
             ],
-            'pd_length',
-            'pd_width',
-            'pd_height',
-            'is_huge',
-            'pd_weight',
-            'pd_throw_weight',
-            'pd_count_weight',
+            'preview_status',
+
+
+//            'pd_length',
+//            'pd_width',
+//            'pd_height',
+//            'is_huge',
+//            'pd_weight',
+//            'pd_throw_weight',
+//            'pd_count_weight',
 //            'pd_material',
-            'pd_purchase_num',
-            'pd_pur_costprice',
-            'has_shipping_fee',
-            'bill_type',
-            'bill_tax_value',
-            'hs_code',
-            'bill_tax_rebate',
-            'bill_rebate_amount',
-            'no_rebate_amount',
-            'retail_price',
+//            'pd_purchase_num',
+//            'pd_pur_costprice',
+//            'has_shipping_fee',
+//            'bill_type',
+//            'bill_tax_value',
+//            'hs_code',
+//            'bill_tax_rebate',
+//            'bill_rebate_amount',
+//            'no_rebate_amount',
+//            'retail_price',
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
@@ -128,7 +121,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'oversea_shipping_fee',
             'transaction_fee',
             'gross_profit',
-            'remark',
+//            'remark',
 
 //            'parent_product_id',
 

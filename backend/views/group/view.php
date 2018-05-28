@@ -42,10 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute'=>'ref_url3','format'=>['url',['target'=>'_blank']]],
             ['attribute'=>'ref_url4','format'=>['url',['target'=>'_blank']]],
 
-            ['attribute'=>'ref_url_low1','format'=>['url',['target'=>'_blank']]],
-            ['attribute'=>'ref_url_low2','format'=>['url',['target'=>'_blank']]],
-            ['attribute'=>'ref_url_low3','format'=>['url',['target'=>'_blank']]],
-            ['attribute'=>'ref_url_low4','format'=>['url',['target'=>'_blank']]],
 
             'product_add_time',
             'product_update_time',

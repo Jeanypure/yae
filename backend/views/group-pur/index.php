@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
@@ -24,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'export'=>false,
         'options' =>['style'=>'overflow:auto; white-space:nowrap;'],
         'id'=> 'group-pur',
         'columns' => [
@@ -48,10 +49,26 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'pur_info_id',
             'purchaser',
             'pur_group',
+            [
+                'attribute'=>'pd_title',
+                'value' => function($model) { return $model->pd_title;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+            [
+                'attribute'=>'pd_title_en',
+                'value' => function($model) { return $model->pd_title_en;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
             'brocast_status',
-            'pd_title',
-            'pd_title_en',
-            'pd_package',
+//            'pd_package',
             'pd_length',
             'pd_width',
             'pd_height',
@@ -59,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'pd_weight',
             'pd_throw_weight',
             'pd_count_weight',
-            'pd_material',
+//            'pd_material',
             'pd_purchase_num',
             'pd_pur_costprice',
             'has_shipping_fee',
@@ -100,10 +117,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     if (!empty($model->url_1688)) return "<a href='$model->url_1688' target='_blank'>".parse_url($model->url_1688)['host']."</a>";
                 }
             ],
-
-//            'amazon_url:url',
-//            'ebay_url:url',
-//            'url_1688:url',
             'shipping_fee',
             'oversea_shipping_fee',
             'transaction_fee',

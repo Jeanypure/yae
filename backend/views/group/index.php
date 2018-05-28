@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
@@ -24,9 +24,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'id' => 'group',
+        'export' => false,
         'options' => [
-//            'style'=>'overflow: auto;  white-space:nowrap;'
-            'style'=>'overflow: auto;  break-word:word-break;'
+            'style'=>'overflow: scroll;  white-space:nowrap;'
+//            'style'=>'overflow: auto;  break-word:word-break;'
         ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -52,8 +53,18 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'creator',
             'sub_company',
-            'product_title',
-            'product_title_en',
+            [
+                'attribute'=>'product_title',
+                'value' => function($model) { return $model->product_title;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+            ],
+            [
+                'attribute'=>'product_title_en',
+                'value' => function($model) { return $model->product_title_en;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+            ],
             'brocast_status',
             'group_status',
 //            'product_purchase_value',
@@ -89,20 +100,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-//            [
-//                'class' => 'yii\grid\Column',
-//                'headerOptions' => [
-//                    'width'=>'100'
-//                ],
-//                'header' => '其他链接',
-//                'content' => function ($model, $key, $index, $column){
-//                    if (!empty($model->ref_url4))  return "<a href='$model->ref_url4' target='_blank'>".parse_url($model->ref_url4)['host'] ."</a>";
-//
-//
-//
-//                }
-//            ],
-//            'product_add_time:date',
+            [
+                'class' => 'yii\grid\Column',
+                'headerOptions' => [
+                    'width'=>'100'
+                ],
+                'header' => '其他链接',
+                'content' => function ($model, $key, $index, $column){
+                    if (!empty($model->ref_url4))  return "<a href='$model->ref_url4' target='_blank'>".parse_url($model->ref_url4)['host'] ."</a>";
+
+
+
+                }
+            ],
+            'product_add_time:date',
 //            'product_update_time:date',
 //            'purchaser',
 

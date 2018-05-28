@@ -44,15 +44,39 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-//
-            'master_result',
-            'master_mark',
             'purchaser',
-            'is_submit',
             'pur_group',
-            'pd_title',
-            'pd_title_en',
-            'pd_package',
+            [
+                'attribute'=>'pd_title',
+                'value' => function($model) { return $model->pd_title;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+            [
+                'attribute'=>'pd_title_en',
+                'value' => function($model) { return $model->pd_title_en;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+            'master_result',
+            [
+                'attribute'=>'master_mark',
+                'value' => function($model) { return $model->master_mark;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+
+            'is_submit',
+//            'pd_package',
             'pd_length',
             'pd_width',
             'pd_height',
@@ -60,7 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'pd_weight',
             'pd_throw_weight',
             'pd_count_weight',
-            'pd_material',
+//            'pd_material',
             'pd_purchase_num',
             'pd_pur_costprice',
             'has_shipping_fee',

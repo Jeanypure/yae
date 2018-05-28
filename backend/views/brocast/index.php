@@ -1,8 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
 use yii\widgets\Pjax;
+use kartik\grid\GridView;
+
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\BrocastSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -26,6 +27,7 @@ $sub_title = '销售推荐产品';
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'export' =>false,
         'options' => [
             'style'=>'overflow: auto;  white-space:nowrap;'
 
@@ -45,8 +47,18 @@ $sub_title = '销售推荐产品';
                 }
             ],
             'sub_company',
-            'product_title_en',
-            'product_title',
+            [
+                'attribute'=>'product_title',
+                'value' => function($model) { return $model->product_title;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+            ],
+            [
+                'attribute'=>'product_title_en',
+                'value' => function($model) { return $model->product_title_en;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow: scroll;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+            ],
             'product_purchase_value',
             [
                 'class' => 'yii\grid\Column',
@@ -93,10 +105,6 @@ $sub_title = '销售推荐产品';
 
                 }
             ],
-//            'ref_url1',
-            //'ref_url2',
-            //'ref_url3',
-            //'ref_url4',
             //'product_add_time',
             //'product_update_time',
             //'purchaser',
@@ -108,14 +116,11 @@ $sub_title = '销售推荐产品';
             //'sub_company',
             //'sub_company_id',
             //'group_mark',
-            //'group_time',
-            //'group_update_time',
-            //'group_status',
-            //'brocast_status',
-            //'ref_url_low1:url',
-            //'ref_url_low2:url',
-            //'ref_url_low3:url',
-            //'ref_url_low4:url',
+//            'group_time',
+//            'group_update_time',
+            'group_status',
+            'brocast_status',
+
 
 //            ['class' => 'yii\grid\ActionColumn'],
         ],
