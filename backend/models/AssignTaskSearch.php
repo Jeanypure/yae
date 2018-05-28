@@ -42,7 +42,10 @@ class AssignTaskSearch extends PurInfo
      */
     public function search($params)
     {
-        $query = PurInfo::find();
+        $query = PurInfo::find()
+            ->andwhere(['is_submit'=>1])
+            ->andwhere(['not',['purchaser'=>'null']])
+        ;
 
         // add conditions that should always apply here
 

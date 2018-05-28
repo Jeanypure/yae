@@ -37,7 +37,6 @@ class AssignTaskController extends Controller
     {
         $searchModel = new AssignTaskSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-//        $dataProvider->pagination->defaultPageSize =5;
 
         return $this->render('index', [
             'searchModel' => $searchModel,

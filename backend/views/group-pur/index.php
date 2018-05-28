@@ -8,7 +8,7 @@ use yii\helpers\Url;
 /* @var $searchModel backend\models\GroupPurSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', '采购自主开产品--分组公示');
+$this->title = Yii::t('app', '今日新品分组公示');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pur-info-index">
