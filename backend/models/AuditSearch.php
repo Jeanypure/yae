@@ -46,7 +46,7 @@ class AuditSearch extends PurInfo
         $member = Yii::$app->user->identity->username;
 
 
-        if($member!='Jenny'&&$member!='admin'&&empty($pur_group)){
+        if($member!='Jenny'&&$member!='admin'&&$member!='David'&&empty($pur_group)){
 
             $query = PurInfo::find()
                 ->joinWith('preview')

@@ -44,7 +44,7 @@ class CompleteSearch extends PurInfo
     {
         $username = Yii::$app->user->getIdentity()->username;
 
-        if($username=='admin'||$username=='Jenny'){
+        if($username=='admin'||$username=='Jenny'||$username=='David'){
             $query = PurInfo::find();
 
         }else{

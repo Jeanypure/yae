@@ -45,7 +45,7 @@ class PurInfoSearch extends PurInfo
 
         $username = Yii::$app->user->identity->username;
 
-        if($username=='admin'||$username=='Jenny'){
+        if($username=='admin'||$username=='Jenny'||$username=='David'){
             $query = PurInfo::find()->orderBy('pur_info_id desc');
 
         }else{
