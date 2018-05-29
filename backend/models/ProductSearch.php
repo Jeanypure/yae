@@ -47,7 +47,7 @@ class ProductSearch extends Product
         $query = Product::find()
             ->andWhere(['creator'=>$creator])
             ->orderBy('product_id desc');
-        if($creator=='Jenny'||$creator=='admin'||$username=='David'){
+        if($creator=='Jenny'||$creator=='admin'||$creator=='David'){
             $query = Product::find()
 
                 ->orderBy('product_id desc');
