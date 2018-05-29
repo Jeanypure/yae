@@ -147,6 +147,8 @@ $preview_js= <<<JS
             var  preview_profit_float = preview_retail_price * $exchange_rate -(1-tax_rebate/100)*costprice-shipping_fee-amz_fee*$exchange_rate;
             var preview_profit = (preview_profit_float).toFixed(3);
            $('#purinfo-gross_profit').val(preview_profit);
+           
+           
     
     });
 

@@ -182,4 +182,67 @@ class AuditController extends Controller
     }
 
 
+
+
+    public function actionBrocast()
+    {
+        $ids = $_POST['id'];
+        $product_ids = '';
+        foreach ($ids as $k=>$v){
+            $product_ids.=$v.',';
+        }
+        $ids_str = trim($product_ids,',');
+        if(isset($ids)&&!empty($ids)){
+            $res = Yii::$app->db->createCommand("
+            update `product` set `brocast_status`= '公示中'  where `product_id` in ($ids_str)
+            ")->execute();
+            if($res){
+                echo 'success';
+            }
+        }else{
+            echo 'error';
+        }
+
+
+    }
+
+    public  function  actionSubmit(){
+        $ids = $_POST['id'];
+        $product_ids = '';
+        foreach ($ids as $k=>$v){
+            $product_ids.=$v.',';
+        }
+        $ids_str = trim($product_ids,',');
+        if(isset($ids)&&!empty($ids)){
+            $res = Yii::$app->db->createCommand("
+            update `pur_info` set `is_submit_manager`= 1  where `pur_info_id` in ($ids_str)
+            ")->execute();
+            if($res){
+                echo 'success';
+            }
+        }else{
+            echo 'error';
+        }
+    }
+
+
+    public  function  actionCancel(){
+        $ids = $_POST['id'];
+        $product_ids = '';
+        foreach ($ids as $k=>$v){
+            $product_ids.=$v.',';
+        }
+        $ids_str = trim($product_ids,',');
+        if(isset($ids)&&!empty($ids)){
+            $res = Yii::$app->db->createCommand("
+            update `pur_info` set `is_submit_manager`= 0  where `pur_info_id` in ($ids_str)
+            ")->execute();
+            if($res){
+                echo 'success';
+            }
+        }else{
+            echo 'error';
+        }
+    }
+
 }

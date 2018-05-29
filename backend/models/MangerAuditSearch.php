@@ -18,7 +18,7 @@ class MangerAuditSearch extends PurInfo
     public function rules()
     {
         return [
-            [['pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_value', 'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
+            [['is_submit_manager','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_value', 'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
             [['preview_status','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount',
                 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'source', 'member', 'preview_status',
                 'brocast_status', 'master_member', 'master_mark', 'master_result'], 'safe'],
@@ -38,12 +38,13 @@ class MangerAuditSearch extends PurInfo
 
     public function search($params)
     {
-       $res = Yii::$app->db->createCommand(' SELECT DISTINCT w.product_id FROM preview w')->queryAll();
-        foreach ($res as $k=>$v){
-            $ids[] = $v['product_id'];
-        }
+//       $res = Yii::$app->db->createCommand(' SELECT DISTINCT w.product_id FROM preview w')->queryAll();
+//        foreach ($res as $k=>$v){
+//            $ids[] = $v['product_id'];
+//        }
         $query = PurInfo::find()
-            ->andWhere(['in','pur_info_id',$ids])
+            ->Where(['is_submit_manager'=>1])
+//            ->andWhere(['in','pur_info_id',$ids])
         ;
 
         // add conditions that should always apply here

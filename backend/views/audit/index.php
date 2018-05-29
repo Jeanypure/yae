@@ -19,14 +19,23 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php
 //        echo Html::a(Yii::t('app', '创建新品'), ['create'], ['class' => 'btn btn-success']);
         ?>
+
+    </p>
+
+    <p>
+        <?= Html::button('提交评审', ['id' => 'is_submit_manager', 'class' => 'btn btn-primary']) ;?>
+        <?=  Html::button('取消提交', ['id' => 'un_submit_manager', 'class' => 'btn btn-info']) ?>
+
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'export' => false,
+        'id'=>'audit',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\CheckboxColumn'],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => '操作',
@@ -93,6 +102,28 @@ $this->params['breadcrumbs'][] = $this->title;
                 'group'=>true,  // enable grouping
 
             ],
+            [
+                'attribute'=>'is_submit_manager',
+                'value' => function($model) {
+                                if($model->is_submit_manager==0){
+                                    return '未提交';
+                                } else{
+                                    return '已提交';
+                                }
+
+
+                },
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['0' => '已提交', '1' => '未提交'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'是否提交'],
+                'group'=>true,  // enable grouping
+
+            ],
+//            'is_submit_manager',
 //            'pd_package',
 //             'preview.member2',
 //             'preview.view_status',
@@ -104,7 +135,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'is_huge',
                 'width'=>'100px',
                 'value'=>function ($model, $key, $index, $widget) {
-                    return $model->is_huge;
+                    if($model->is_huge==1){
+                        return '是';
+
+                    }else{
+                        return '否';
+                    }
                 },
                 'filterType'=>GridView::FILTER_SELECT2,
                 'filter'=>['1' => '是', '0' => '否'],
@@ -200,4 +236,63 @@ $auditJs = <<<JS
 JS;
 $this->registerJs($auditJs);
 
+?>
+<?php
+$submit = Url::toRoute('submit');
+$unsubmit = Url::toRoute('cancel');
+//提交评审
+$is_submit_manager =<<<JS
+    $('#is_submit_manager').on('click',function() {
+            var button = $(this);
+            button.attr('disabled','disabled');
+            var ids = $("#audit").yiiGridView("getSelectedRows");
+            console.log(ids);
+            if(ids.length ==0) alert('请选择产品后再操作!');
+            $.ajax({
+            url:'{$submit}',
+            type:'post',
+            data:{id:ids},
+            success:function(res){
+                if(res=='success') alert('提交成功!');
+                button.attr('disabled',false);
+                location.reload();
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                button.attr('disabled',false);
+            }
+            
+            });
+      
+    });
+//取消提交
+
+    $('#un_submit_manager').on('click',function() {
+                var button = $(this);
+                button.attr('disabled','disabled');
+                var ids = $("#audit").yiiGridView("getSelectedRows");
+                console.log(ids);
+                if(ids.length ==0) alert('请选择产品后再操作!');
+                $.ajax({
+                url:'{$unsubmit}',
+                type:'post',
+                data:{id:ids},
+                success:function(res){
+                    if(res=='success') alert('取消成功!');
+                    button.attr('disabled',false);
+                    location.reload();
+    
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    button.attr('disabled',false);
+                }
+                
+                });
+          
+        });
+JS;
+
+
+
+$this->registerJs($is_submit_manager);
 ?>

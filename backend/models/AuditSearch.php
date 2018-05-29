@@ -18,7 +18,7 @@ class AuditSearch extends PurInfo
     public function rules()
     {
         return [
-            [['pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_value', 'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
+            [['is_submit_manager','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_value', 'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
             [['preview_status','member','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount',
                 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark'], 'safe'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice'], 'number'],
@@ -52,20 +52,21 @@ class AuditSearch extends PurInfo
                 ->joinWith('preview')
                 ->andWhere(['in','preview_status',['待评审','已评审']])
                 ->andWhere(['member'=>$member])
-                ->orderBy('pur_info_id desc');
+//                ->orderBy('pur_info_id desc')
+            ;
 
         }else{
             $query = PurInfo::find()
                 ->joinWith('preview')
                 ->andWhere(['in','preview_status',['待评审','已评审']])
-                ->orderBy('pur_info_id desc');
+//                ->orderBy('pur_info_id desc')
+            ;
             $this->pur_group = $pur_group;
 
 
         }
 
 
-//        $this->preview_status = $preview_status;
 
 
         // add conditions that should always apply here
@@ -88,6 +89,7 @@ class AuditSearch extends PurInfo
         // grid filtering conditions
         $query->andFilterWhere([
             'pur_info_id' => $this->pur_info_id,
+            'is_submit_manager' => $this->is_submit_manager,
             'pur_group' => $this->pur_group,
             'is_huge' => $this->is_huge,
             'pd_weight' => $this->pd_weight,

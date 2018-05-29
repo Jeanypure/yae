@@ -67,7 +67,7 @@ class PurInfo extends \yii\db\ActiveRecord
             [['master_mark','pd_pic_url', 'ebay_url', 'amazon_url', 'url_1688'], 'string', 'max' => 500],
             [['pd_package', 'pd_material'], 'string', 'max' => 1000],
             [['member','purchaser', 'pd_length', 'pd_width', 'pd_height', 'bill_type'], 'string', 'max' => 10],
-            [['is_submit','is_huge', 'has_shipping_fee'], 'string', 'max' => 1],
+            [['is_submit_manager','is_submit','is_huge', 'has_shipping_fee'], 'string', 'max' => 1],
             [['bill_tax_value', 'bill_tax_rebate'], 'string', 'max' => 4],
             [['brocast_status','preview_status','bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit'], 'string', 'max' => 30],
             ['ebay_url','url','defaultScheme' => 'http'],
@@ -123,6 +123,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'master_mark' => '评审意见',
             'ams_logistics_fee' => '计算费用$',
             'is_submit' => '提交状态',
+            'is_submit_manager' => '评审提交',
         ];
     }
 
