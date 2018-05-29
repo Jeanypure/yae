@@ -49,6 +49,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             'data-id' => $key,
                         ] );
                     },
+
+                        'update' => function ($url, $model, $key) {
+
+                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);',
+                                ['data-href' => Url::to(['update', 'id' => $model['product_id']]), 'class' => 'index-update', 'data-id' => $model['product_id']]);
+                        },
                 ],
                     'headerOptions' => ['width' => '80'],
 
@@ -82,10 +88,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format'=>'html',
 
             ],
-            'is_submit',
+            [
+                'attribute'=>'is_submit',
+                'width'=>'50px',
+                'value'=>function ($model, $key, $index, $widget) {
+                        if($model->is_submit=='0'){
+                            return '否';
+
+                        }else{
+                            return '是';
+                        }
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '是', '0' => '否'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'是否提交'],
+                'group'=>true,  // enable grouping
+            ],
+
             'product_purchase_value',
-
-
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
@@ -238,5 +261,15 @@ $this->registerJs($is_submit);
 
 
 ?>
+<?php
+//已经提交的产品 不能编辑
+$un_update = <<<JS
+ $('.glyphicon-pencil').on('click',function(){
+     
+     
+ });
+JS;
 
 
+
+?>

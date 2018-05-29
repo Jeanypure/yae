@@ -120,8 +120,6 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             'model'=>$model,
             'form'=>$form,
             'columns'=>6,
-//            'contentBefore'=>'<legend class="text-info"><h3>其他信息</h3></legend>',
-
             'attributes'=>[       // 6 column layout
                 'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
                     'items'=>['16%专票'=>'16%专票','普票'=>'普票', '3%增票'=>'3%增票'],
@@ -138,6 +136,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                     'options'=>['placeholder'=>'']],
 
                 'no_rebate_amount'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],
+                'source'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],
 
             ]
         ]);
@@ -180,7 +179,7 @@ $this->registerJs("
         }); 
         ", \yii\web\View::POS_END);
 
-$readonly_js =<<<READ
+$readonly_js =<<<JS
         $(function(){
             $("#purinfo-pd_throw_weight").attr("readonly","readonly");
             $("#purinfo-pd_count_weight").attr("readonly","readonly");
@@ -191,10 +190,17 @@ $readonly_js =<<<READ
             $("#purinfo-transaction_fee").attr("readonly","readonly");
             $("#purinfo-gross_profit").attr("readonly","readonly");
             $("#purinfo-no_rebate_amount").attr("readonly","readonly");
+            
+            //来源是销售推荐的不分组 source = 0
+
+            var source = $('#purinfo-source').val();
+             if (source=='0')  $("#purinfo-pur_group").attr("readonly","readonly");
 
         });
+
         
-READ;
+        
+JS;
 $this->registerJs($readonly_js);
 ?>
 

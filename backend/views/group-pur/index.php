@@ -68,6 +68,26 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
             'brocast_status',
+            [
+                'attribute'=>'source',
+                'width'=>'50px',
+                'value'=>function ($model, $key, $index, $widget) {
+                    if($model->source=='0'){
+                        return '销售推荐';
+
+                    }else{
+                        return '自主开发';
+                    }
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '自主开发', '0' => '销售推荐'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'产品来源'],
+                'group'=>true,  // enable grouping
+            ],
+
 //            'pd_package',
             'pd_length',
             'pd_width',
