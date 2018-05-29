@@ -106,7 +106,7 @@ class PurInfoController extends Controller
               WHERE `product_id` = $product_id
               ")->execute();
             $model->preview_status = '待评审';
-            $model->save();
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->pur_info_id]);
         }
         return $this->render('update', [
