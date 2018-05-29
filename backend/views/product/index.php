@@ -50,11 +50,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         ] );
                     },
 
-                        'update' => function ($url, $model, $key) {
-
-                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);',
-                                ['data-href' => Url::to(['update', 'id' => $model['product_id']]), 'class' => 'index-update', 'data-id' => $model['product_id']]);
-                        },
                 ],
                     'headerOptions' => ['width' => '80'],
 

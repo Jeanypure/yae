@@ -89,6 +89,8 @@ class GroupController extends Controller
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post()) ) {
             $model->sub_company = Yii::$app->request->post()['Product']['sub_company'];
+            $model->sub_company_id = Yii::$app->request->post()['Product']['sub_company'];
+//            $model->sub_company_id = Yii::$app->request->post()['Product']['sub_company_id'];
             $model->group_mark = Yii::$app->request->post()['Product']['group_mark'];
             $model->group_status = '已分组';
             $model->save(false);
@@ -99,8 +101,12 @@ class GroupController extends Controller
         $res =  $company->find()->select('id,sub_company')->asArray()->all();
 
         foreach ($res as $value) {
-            $result[$value['sub_company']]  = $value['sub_company'];
+            $result[$value['id']]  = $value['sub_company'];
         }
+//        var_dump($res);
+//        var_dump($result);
+//        die;
+
         return $this->render('update', [
             'model' => $model,
             'data' => $result

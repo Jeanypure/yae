@@ -6,9 +6,9 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Product */
 
-$this->title = $model->product_title;
+$this->title = $model->product_id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Products'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $model->product_id;
 ?>
 <div class="product-view">
     <img src="<?= Html::encode($model->pd_pic_url)?>" height="100" width="100"/>
