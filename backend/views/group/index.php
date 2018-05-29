@@ -65,8 +65,35 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
             ],
-            'brocast_status',
-            'group_status',
+            [
+                'attribute'=>'brocast_status',
+                'value' => function($model) { return $model->brocast_status;},
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['公示中' => '公示中', '公示结束' => '公示结束'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'公示状态'],
+                'group'=>true,  // enable grouping
+
+            ],
+            [
+                'attribute'=>'group_status',
+                'value' => function($model) { return $model->group_status;},
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['未分组' => '未分组', '已分组' => '已分组'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'分组状态'],
+                'group'=>true,  // enable grouping
+
+            ],
+
 //            'product_purchase_value',
             [
                 'class' => 'yii\grid\Column',

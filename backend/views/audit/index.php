@@ -102,28 +102,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'group'=>true,  // enable grouping
 
             ],
-            [
-                'attribute'=>'is_submit_manager',
-                'value' => function($model) {
-                                if($model->is_submit_manager==0){
-                                    return '未提交';
-                                } else{
-                                    return '已提交';
-                                }
-
-
-                },
-                'format'=>'html',
-                'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['0' => '已提交', '1' => '未提交'],
-                'filterWidgetOptions'=>[
-                    'pluginOptions'=>['allowClear'=>true],
-                ],
-                'filterInputOptions'=>['placeholder'=>'是否提交'],
-                'group'=>true,  // enable grouping
-
-            ],
-//            'is_submit_manager',
 //            'pd_package',
 //             'preview.member2',
 //             'preview.view_status',

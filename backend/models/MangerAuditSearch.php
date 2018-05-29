@@ -38,13 +38,22 @@ class MangerAuditSearch extends PurInfo
 
     public function search($params)
     {
-//       $res = Yii::$app->db->createCommand(' SELECT DISTINCT w.product_id FROM preview w')->queryAll();
-//        foreach ($res as $k=>$v){
-//            $ids[] = $v['product_id'];
-//        }
+       $res = Yii::$app->db->createCommand(' 
+                 SELECT DISTINCT w.product_id FROM preview w where w.submit_manager=1
+                 ' )
+           ->queryAll();
+       if(!empty($res)){
+           foreach ($res as $k=>$v){
+               $ids[] = $v['product_id'];
+           }
+       }else{
+           $ids = [];
+       }
+
+
         $query = PurInfo::find()
-            ->Where(['is_submit_manager'=>1])
-//            ->andWhere(['in','pur_info_id',$ids])
+//            ->Where(['is_submit_manager'=>1])
+            ->andWhere(['in','pur_info_id',$ids])
         ;
 
         // add conditions that should always apply here

@@ -1,9 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
+use kartik\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CompleteSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'id'=>'commit_product',
+        'export'=> false,
         'options' =>['style'=>'overflow:auto; white-space:nowrap;'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -67,9 +68,26 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
+            [
+                'attribute'=>'is_submit',
+                'width'=>'100px',
+                'value'=>function ($model, $key, $index, $widget) {
+                    if($model->is_submit==1){
+                        return '是';
 
+                    }else{
+                        return '否';
+                    }
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '是', '0' => '否'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'是否提交'],
+                'group'=>true,  // enable grouping
+            ],
 
-            'is_submit',
             'master_result',
 
             [

@@ -207,6 +207,8 @@ class AuditController extends Controller
     }
 
     public  function  actionSubmit(){
+
+        $username = Yii::$app->user->identity->username;
         $ids = $_POST['id'];
         $product_ids = '';
         foreach ($ids as $k=>$v){
@@ -215,7 +217,8 @@ class AuditController extends Controller
         $ids_str = trim($product_ids,',');
         if(isset($ids)&&!empty($ids)){
             $res = Yii::$app->db->createCommand("
-            update `pur_info` set `is_submit_manager`= 1  where `pur_info_id` in ($ids_str)
+           --  update `pur_info` set `is_submit_manager`= 1  where `pur_info_id` in ($ids_str);
+            update `preview` set `submit_manager`= 1  where `product_id` in ($ids_str) and  member2='$username' ;
             ")->execute();
             if($res){
                 echo 'success';
@@ -227,6 +230,7 @@ class AuditController extends Controller
 
 
     public  function  actionCancel(){
+        $username = Yii::$app->user->identity->username;
         $ids = $_POST['id'];
         $product_ids = '';
         foreach ($ids as $k=>$v){
@@ -235,7 +239,9 @@ class AuditController extends Controller
         $ids_str = trim($product_ids,',');
         if(isset($ids)&&!empty($ids)){
             $res = Yii::$app->db->createCommand("
-            update `pur_info` set `is_submit_manager`= 0  where `pur_info_id` in ($ids_str)
+           -- update `pur_info` set `is_submit_manager`= 0  where `pur_info_id` in ($ids_str);
+            update `preview` set `submit_manager`= 0  where `product_id` in ($ids_str) and  member2='$username';
+
             ")->execute();
             if($res){
                 echo 'success';
