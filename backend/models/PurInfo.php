@@ -90,7 +90,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'pur_group' => '部门号',
             'pd_title' => '中文简称',
             'pd_title_en' => '英文全称',
-            'pd_pic_url' => '图片',
+            'pd_pic_url' => '图片地址',
             'pd_package' => '外包装',
             'pd_length' => '长(cm)',
             'pd_width' => '宽(cm)',
@@ -127,6 +127,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'ams_logistics_fee' => '计算费用$',
             'is_submit' => '提交状态',
             'is_submit_manager' => '评审提交',
+            'else_url' => '其他链接',
         ];
     }
 

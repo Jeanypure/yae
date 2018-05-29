@@ -51,6 +51,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                 'ebay_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'amazon_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'url_1688'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'else_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             ],
             'contentAfter' => '<div ><br> <br></div>'
 
@@ -79,7 +80,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
         echo Form::widget([
             'model'=>$model,
             'form'=>$form,
-            'columns'=>4,
+            'columns'=>6,
             'attributes'=>[       // 2 column layout
                 'pd_package'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_material'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'',]],

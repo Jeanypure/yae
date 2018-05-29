@@ -62,6 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute'=>'ebay_url','format'=>['url',['target'=>'_blank']]],
             ['attribute'=>'amazon_url','format'=>['url',['target'=>'_blank']]],
             ['attribute'=>'url_1688','format'=>['url',['target'=>'_blank']]],
+            ['attribute'=>'else_url','format'=>['url',['target'=>'_blank']]],
             'shipping_fee',
             'oversea_shipping_fee',
             'transaction_fee',

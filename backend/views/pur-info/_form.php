@@ -23,7 +23,9 @@ use kartik\builder\Form;
 //                'purchaser'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'','style'=>'border-radius:7px']],
             'pur_group'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'pd_title'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'pd_title_en'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],                'pd_package'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']]
+            'pd_title_en'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'pd_pic_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+
 
         ],
 
@@ -36,7 +38,7 @@ use kartik\builder\Form;
             'ebay_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'amazon_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'url_1688'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'pd_pic_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'else_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
         ],
         'contentAfter' => '<div ><br> <br></div>'
 
@@ -54,6 +56,8 @@ use kartik\builder\Form;
             'pd_width'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'pd_height'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'pd_weight'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'pd_throw_weight'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'pd_count_weight'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
         ]
     ]);
@@ -61,11 +65,10 @@ use kartik\builder\Form;
     echo Form::widget([
         'model'=>$model,
         'form'=>$form,
-        'columns'=>4,
-        'attributes'=>[       // 2 column layout
+        'columns'=>6,
+        'attributes'=>[       // 6 column layout
+            'pd_package'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'pd_material'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'',]],
-            'pd_throw_weight'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'pd_count_weight'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'is_huge'=>[
                 'type'=>Form::INPUT_RADIO_LIST,
                 'items'=>[1=>'是', 0=>'否'],
