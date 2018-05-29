@@ -90,7 +90,6 @@ class GroupController extends Controller
         if ($model->load(Yii::$app->request->post()) ) {
             $model->sub_company = Yii::$app->request->post()['Product']['sub_company'];
             $model->sub_company_id = Yii::$app->request->post()['Product']['sub_company'];
-//            $model->sub_company_id = Yii::$app->request->post()['Product']['sub_company_id'];
             $model->group_mark = Yii::$app->request->post()['Product']['group_mark'];
             $model->group_status = '已分组';
             $model->save(false);
