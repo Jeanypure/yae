@@ -25,10 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'id' => 'group',
         'export' => false,
-        'options' => [
-            'style'=>'  white-space:nowrap;'
-//            'style'=>'overflow: auto;  break-word:word-break;'
-        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
@@ -52,7 +48,33 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'creator',
-            'sub_company',
+            [
+                'attribute'=>'sub_company',
+                'value' => function($model) {
+                    if($model->sub_company==1){
+                        return '一部';
+                    }elseif($model->sub_company==2){
+                        return '二部';
+                    }elseif($model->sub_company==3){
+                        return '三部';
+                    }elseif($model->sub_company==4){
+                        return '四部';
+                    }elseif($model->sub_company==5){
+                        return '五部';
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '一部', '2' => '二部','3' => '三部','4' => '四部','5' => '五部','6' => '六部',],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'部门'],
+                'group'=>true,  // enable grouping
+
+            ],
+
             [
                 'attribute'=>'product_title',
                 'value' => function($model) { return $model->product_title;},
