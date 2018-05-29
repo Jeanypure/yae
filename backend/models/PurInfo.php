@@ -62,16 +62,19 @@ class PurInfo extends \yii\db\ActiveRecord
             [['pd_title','pd_title_en','pd_package','pd_length', 'pd_width', 'pd_height','pd_weight',
                 'pd_pur_costprice','bill_tax_rebate','retail_price','pd_purchase_num',
                 'has_shipping_fee'], 'required'],
-            [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice'], 'number'],
+            [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice',
+                'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'shipping_fee',
+                'oversea_shipping_fee', 'transaction_fee', 'gross_profit'], 'number'],
             [['master_result','pd_title', 'pd_title_en', 'remark'], 'string', 'max' => 500],
-            [['master_mark','pd_pic_url', 'ebay_url', 'amazon_url', 'url_1688'], 'string', 'max' => 500],
+            [['master_mark','pd_pic_url', 'ebay_url', 'amazon_url', 'url_1688','else_url'], 'string', 'max' => 200],
             [['pd_package', 'pd_material'], 'string', 'max' => 1000],
             [['member','purchaser', 'pd_length', 'pd_width', 'pd_height', 'bill_type'], 'string', 'max' => 10],
             [['is_submit_manager','is_submit','is_huge', 'has_shipping_fee'], 'string', 'max' => 1],
             [['bill_tax_value', 'bill_tax_rebate'], 'string', 'max' => 4],
-            [['brocast_status','preview_status','bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit'], 'string', 'max' => 30],
+            [['brocast_status','preview_status'], 'string', 'max' => 30],
             ['ebay_url','url','defaultScheme' => 'http'],
             ['amazon_url','url','defaultScheme' => 'http'],
+            ['else_url','url','defaultScheme' => 'http'],
             ['url_1688','url','defaultScheme' => 'http']
         ];
     }
