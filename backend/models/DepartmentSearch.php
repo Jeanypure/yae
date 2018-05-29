@@ -44,7 +44,9 @@ class DepartmentSearch extends Product
     {
         $this->sub_company = $sub_company;
 
-        $query = Product::find()->orderBy('product_id desc');
+        $query = Product::find()
+            ->andWhere(['brocast_status'=>'公示结束'])
+            ->orderBy('product_id desc');
 
         // add conditions that should always apply here
 

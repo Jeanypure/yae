@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 /* @var $model backend\models\Product */
 
 $this->title = Yii::t('app', '分组产品 : {nameAttribute}', [
-    'nameAttribute' => $model->product_title,
+    'nameAttribute' => $model->product_id,
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', '分组产品'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->product_id, 'url' => ['view', 'id' => $model->product_id]];
