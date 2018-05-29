@@ -26,7 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'id'=>'commit_product',
         'export'=> false,
-        'options' =>['style'=>'overflow:auto; white-space:nowrap;'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             ['class' => 'yii\grid\CheckboxColumn'],

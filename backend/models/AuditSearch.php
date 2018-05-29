@@ -53,6 +53,7 @@ class AuditSearch extends PurInfo
                 ->andWhere(['in','preview_status',['待评审','已评审']])
                 ->andWhere(['member'=>$member])
                 ->andWhere(['is_submit'=>1])
+                ->andWhere(['brocast_status'=>'公示结束'])
 //                ->orderBy('pur_info_id desc')
             ;
 
@@ -61,6 +62,7 @@ class AuditSearch extends PurInfo
                 ->joinWith('preview')
                 ->andWhere(['in','preview_status',['待评审','已评审']])
                 ->andWhere(['is_submit'=>1])
+                ->andWhere(['brocast_status'=>'公示结束'])
 
 //                ->orderBy('pur_info_id desc')
             ;
