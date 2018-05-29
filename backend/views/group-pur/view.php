@@ -56,6 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'ebay_url:url',
             'amazon_url:url',
             'url_1688:url',
+            'else_url:url',
             'shipping_fee',
             'oversea_shipping_fee',
             'transaction_fee',
