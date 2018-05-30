@@ -61,12 +61,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         return '四部';
                     }elseif($model->sub_company==5){
                         return '五部';
+                    }elseif($model->sub_company==6){
+                        return '六部';
+                    }elseif($model->sub_company==7){
+                        return '七部';
+                    }elseif($model->sub_company==8){
+                        return '八部';
                     }
                 },
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['1' => '一部', '2' => '二部','3' => '三部','4' => '四部','5' => '五部','6' => '六部',],
+                'filter'=>['1' => '一部', '2' => '二部','3' => '三部','4' => '四部','5' => '五部','6' => '六部','7' => '七部','8' => '八部',],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],

@@ -66,7 +66,7 @@ class PurInfo extends \yii\db\ActiveRecord
                 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'shipping_fee',
                 'oversea_shipping_fee', 'transaction_fee', 'gross_profit'], 'number'],
             [['master_result','pd_title', 'pd_title_en', 'remark'], 'string', 'max' => 500],
-            [['master_mark','pd_pic_url', 'ebay_url', 'amazon_url', 'url_1688','else_url'], 'string', 'max' => 200],
+            [['master_mark','pd_pic_url', 'ebay_url', 'amazon_url', 'url_1688','else_url'], 'string', 'max' => 2000],
             [['pd_package', 'pd_material'], 'string', 'max' => 1000],
             [['member','purchaser', 'pd_length', 'pd_width', 'pd_height', 'bill_type'], 'string', 'max' => 10],
             [['is_submit_manager','is_submit','is_huge', 'has_shipping_fee'], 'string', 'max' => 1],

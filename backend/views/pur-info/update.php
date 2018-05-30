@@ -35,9 +35,11 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             'contentBefore'=>'<legend class="text-info"><h3>1.基本信息</h3></legend>',
             'attributes'=>[       // 3 column layout
                 'pur_group'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'pd_title'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'pd_title'=>['type'=>Form::INPUT_TEXT,
+                    'labelOptions'=>['class'=>'label-require'],
+                    'options'=>['placeholder'=>'','class'=>'label-require']],
                 'pd_title_en'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'pd_pic_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'pd_pic_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'地址格式:https://XXXX.jpg|png|gif等']],
             ],
 
         ]);
@@ -113,7 +115,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             'model'=>$model,
             'form'=>$form,
             'columns'=>6,
-            'attributes'=>[       // 4 column layout
+            'attributes'=>[       // 6 column layout
                 'bill_rebate_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'shipping_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'oversea_shipping_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
@@ -127,14 +129,13 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             'model'=>$model,
             'form'=>$form,
             'columns'=>6,
-//            'contentBefore'=>'<legend class="text-info"><h3>其他信息</h3></legend>',
-
             'attributes'=>[       // 6 column layout
                 'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
                     'items'=>['16%专票'=>'16%专票','普票'=>'普票', '3%增票'=>'3%增票'],
                     'options'=>['placeholder'=>'']],
                 'has_shipping_fee'=>[
                     'type'=>Form::INPUT_RADIO_LIST,
+                    'label'=>"<span style = 'color:red'><big>*</big></span>是否含运费",
                     'items'=>[1=>'是', 0=>'否'],
                     'options'=>['placeholder'=>'']],
 
@@ -178,7 +179,7 @@ $this->registerJs("
         }); 
         ", \yii\web\View::POS_END);
 
-$readonly_js =<<<READ
+$readonly_js =<<<JS
         $(function(){
             $("#purinfo-pd_throw_weight").attr("readonly","readonly");
             $("#purinfo-pd_count_weight").attr("readonly","readonly");
@@ -189,10 +190,31 @@ $readonly_js =<<<READ
             $("#purinfo-transaction_fee").attr("readonly","readonly");
             $("#purinfo-gross_profit").attr("readonly","readonly");
             $("#purinfo-no_rebate_amount").attr("readonly","readonly");
+            $("#purinfo-pur_group").attr("readonly","readonly");
+            
+            $("label[for='purinfo-pd_title'] ").addClass("label-require");
+            $("label[for='purinfo-pd_title_en'] ").addClass("label-require");
+            $("label[for='purinfo-pd_pic_url'] ").addClass("label-require");
+            $("label[for='purinfo-pd_length'] ").addClass("label-require");
+            $("label[for='purinfo-pd_width'] ").addClass("label-require");
+            $("label[for='purinfo-pd_height'] ").addClass("label-require");
+            $("label[for='purinfo-pd_weight'] ").addClass("label-require");
+            $("label[for='purinfo-pd_package'] ").addClass("label-require");
+            $("label[for='purinfo-pd_material'] ").addClass("label-require");
+            $("label[for='purinfo-pd_material'] ").addClass("label-require");
+            $("label[for='purinfo-pd_pur_costprice'] ").addClass("label-require");
+            $("label[for='purinfo-bill_tax_rebate'] ").addClass("label-require");
+            $("label[for='purinfo-retail_price'] ").addClass("label-require");
+            $("label[for='purinfo-pd_purchase_num'] ").addClass("label-require");
+            
+            $('.label-require').html(function(_,html) {
+                return html.replace(/(.*?)/, "<span style = 'color:red'><big>*$1</big></span>");
+            });
+
 
         });
         
-READ;
+JS;
 $this->registerJs($readonly_js);
 ?>
 <?php
@@ -266,8 +288,9 @@ $compute_js =<<<JS
             $("#purinfo-transaction_fee").val(transaction_fee);
             
             //预计销售额 RMB  purinfo-no_rebate_amount
+            var no_rebate_amount = (retail_price*$exchange_rate).toFixed(3)
             
-            $("#purinfo-no_rebate_amount").val(retail_price*$exchange_rate);
+            $("#purinfo-no_rebate_amount").val(no_rebate_amount);
             
             //预估毛利 purinfo-gross_profit
             //预估毛利= 预计销售价格RMB-含税价格+退税金额-海运运费-海外仓运费-成交费

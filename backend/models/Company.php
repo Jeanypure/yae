@@ -9,14 +9,15 @@ use Yii;
  *
  * @property int $id 公司ID
  * @property string $sub_company 子公司名字
- * @property string $department 部门
+ * @property string $department     部门
  * @property string $leader 部长
  * @property string $memo 备注
+ * @property int $leader_id 部长ID 关联user
  */
 class Company extends \yii\db\ActiveRecord
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -24,18 +25,20 @@ class Company extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
+            [['leader_id'], 'required'],
+            [['leader_id'], 'integer'],
             [['sub_company', 'department', 'leader'], 'string', 'max' => 100],
             [['memo'], 'string', 'max' => 500],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
@@ -45,6 +48,7 @@ class Company extends \yii\db\ActiveRecord
             'department' => 'Department',
             'leader' => 'Leader',
             'memo' => 'Memo',
+            'leader_id' => 'Leader ID',
         ];
     }
 }

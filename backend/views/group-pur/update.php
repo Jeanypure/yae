@@ -30,8 +30,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                 'pur_group'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_title'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_title_en'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'pd_pic_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-
+                'pd_pic_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'地址格式:https://XXXX.jpg|png|gif等']],
 
             ],
 
@@ -135,6 +134,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
                 'has_shipping_fee'=>[
                     'type'=>Form::INPUT_RADIO_LIST,
+                    'label'=>"<span style = 'color:red'><big>*</big></span>是否含运费",
                     'items'=>[1=>'是', 0=>'否'],
                     'options'=>['placeholder'=>'']],
 
@@ -193,6 +193,21 @@ $readonly_js =<<<JS
             $("#purinfo-transaction_fee").attr("readonly","readonly");
             $("#purinfo-gross_profit").attr("readonly","readonly");
             $("#purinfo-no_rebate_amount").attr("readonly","readonly");
+            
+            $("label[for='purinfo-pd_title'] ").addClass("label-require");
+            $("label[for='purinfo-pd_title_en'] ").addClass("label-require");
+            $("label[for='purinfo-pd_pic_url'] ").addClass("label-require");
+            $("label[for='purinfo-pd_length'] ").addClass("label-require");
+            $("label[for='purinfo-pd_width'] ").addClass("label-require");
+            $("label[for='purinfo-pd_height'] ").addClass("label-require");
+            $("label[for='purinfo-pd_weight'] ").addClass("label-require");
+            $("label[for='purinfo-pd_package'] ").addClass("label-require");
+            $("label[for='purinfo-pd_material'] ").addClass("label-require");
+            $("label[for='purinfo-pd_material'] ").addClass("label-require");
+            $("label[for='purinfo-pd_pur_costprice'] ").addClass("label-require");
+            $("label[for='purinfo-bill_tax_rebate'] ").addClass("label-require");
+            $("label[for='purinfo-retail_price'] ").addClass("label-require");
+            $("label[for='purinfo-pd_purchase_num'] ").addClass("label-require");
             
             //来源是销售推荐的不分组 source = 0
 

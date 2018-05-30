@@ -35,9 +35,11 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             'attributes'=>[       // 3 column layout
 //                'purchaser'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'','style'=>'border-radius:7px']],
                 'pur_group'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'pd_title'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'pd_title'=>['type'=>Form::INPUT_TEXT,
+                              'options'=>['placeholder'=>''],
+                             ],
                 'pd_title_en'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'pd_pic_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'pd_pic_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'地址格式:https://XXXX.jpg|png|gif等']],
 
 
             ],
@@ -139,6 +141,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                     'options'=>['placeholder'=>'']],
                 'has_shipping_fee'=>[
                     'type'=>Form::INPUT_RADIO_LIST,
+                    'label'=>"<span style = 'color:red'><big>*</big></span>是否含运费",
                     'items'=>[1=>'是', 0=>'否'],
                     'options'=>['placeholder'=>'']],
 
@@ -181,7 +184,7 @@ $this->registerJs("
         }); 
         ", \yii\web\View::POS_END);
 
-$readonly_js =<<<READ
+$readonly_js =<<<JS
         $(function(){
             $("#purinfo-pd_throw_weight").attr("readonly","readonly");
             $("#purinfo-pd_count_weight").attr("readonly","readonly");
@@ -192,10 +195,32 @@ $readonly_js =<<<READ
             $("#purinfo-transaction_fee").attr("readonly","readonly");
             $("#purinfo-gross_profit").attr("readonly","readonly");
             $("#purinfo-no_rebate_amount").attr("readonly","readonly");
+            $("#purinfo-pur_group").attr("readonly","readonly");
+            
+            $("label[for='purinfo-pd_title'] ").addClass("label-require");
+            $("label[for='purinfo-pd_title_en'] ").addClass("label-require");
+            $("label[for='purinfo-pd_pic_url'] ").addClass("label-require");
+            $("label[for='purinfo-pd_length'] ").addClass("label-require");
+            $("label[for='purinfo-pd_width'] ").addClass("label-require");
+            $("label[for='purinfo-pd_height'] ").addClass("label-require");
+            $("label[for='purinfo-pd_weight'] ").addClass("label-require");
+            $("label[for='purinfo-pd_package'] ").addClass("label-require");
+            $("label[for='purinfo-pd_material'] ").addClass("label-require");
+            $("label[for='purinfo-pd_material'] ").addClass("label-require");
+            $("label[for='purinfo-pd_pur_costprice'] ").addClass("label-require");
+            $("label[for='purinfo-bill_tax_rebate'] ").addClass("label-require");
+            $("label[for='purinfo-retail_price'] ").addClass("label-require");
+            $("label[for='purinfo-pd_purchase_num'] ").addClass("label-require");
+            
+            $('.label-require').html(function(_,html) {
+                return html.replace(/(.*?)/, "<span style = 'color:red'><big>*$1</big></span>");
+            });
+
 
         });
         
-READ;
+JS;
+
 $this->registerJs($readonly_js);
 ?>
 
