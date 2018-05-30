@@ -143,15 +143,64 @@ class AssignTaskController extends Controller
         if ($model->load(Yii::$app->request->post()) ) {
            $member = Yii::$app->request->post()["PurInfo"]["member"];
            $pur_info_ids =  Yii::$app->session['ids'];
-            $pur_ids = '';
+           $pur_ids = '';
            foreach ($pur_info_ids as $key=>$value){
                $pur_ids.=$value.',';
+
            }
            $ids_str = rtrim($pur_ids,',');
-
-          $result =   Yii::$app->db->createCommand(" 
-                            update `pur_info` set `member`= '$member' where pur_info_id in ($ids_str)
+            try{
+                $result =   Yii::$app->db->createCommand(" 
+                            update `pur_info` set `member`= '$member' where pur_info_id in ($ids_str);
                          ")->execute();
+            }
+            catch(Exception $e){
+                throw new Exception();
+            }
+
+            $table = 'preview';
+            $arr_key = ['member2','product_id'];
+            $member2 = [$member];
+            $arr = [];
+            foreach ($pur_info_ids as $key=>$value){
+                $val = [$value];
+                $new_array = array_merge($member2,$val);
+                $arr[] = $new_array;
+
+            }
+
+            $res = $this->actionMultArray2Insert($table,$arr_key, $arr, $split = '`');
+
+            $count_num = Yii::$app->db->createCommand("
+            select count(*) as number from `preview` where `product_id` in ($ids_str) 
+            and `member2` in ( SELECT p.`purchaser` from `purchaser` p  WHERE  p.`role` =1)
+            
+            ")->queryOne();
+
+            if($count_num['number']!= 0){ //更新原来的member2
+
+                try{//分配的同时 preview无此产品 插入  存在则更新preview表
+                    $update_member2 = Yii::$app->db->createCommand("
+                    update `preview` set `member2`= '$member' where `product_id` in ($ids_str);
+                    update `pur_info` set `member`= '$member' where pur_info_id in ($ids_str);
+                    ")->execute();
+                }
+                catch(Exception $e){
+                    throw new Exception();
+                }
+            }else{//插入新记录
+                try{//分配的同时 preview无此产品 插入  存在则更新preview表
+                    $into_preview = Yii::$app->db->createCommand("$res")->execute();
+                }
+                catch(Exception $e){
+                    throw new Exception();
+                }
+            }
+
+
+
+
+
           if(empty($result)){
               unset(Yii::$app->session['ids']);
           }
@@ -171,6 +220,46 @@ class AssignTaskController extends Controller
 
 
 
+
+    }
+
+    /**
+
+     * 多条数据同时转化成插入SQL语句
+
+     * @ CreatBy:IT自由职业者
+
+     * @param string $table 表名
+
+     * @$arr_key是表字段名的key：$arr_key=array("field1","field2","field3")
+
+     * @param array $arr是字段值 数组示例 arrat(("a","b","c"), ("bbc","bbb","caaa"),('add',"bppp","cggg"))
+
+     * @return string
+
+     */
+
+    function actionMultArray2Insert($table,$arr_key, $arr, $split = '`') {
+
+        $arrValues = array();
+
+        if (empty($table) || !is_array($arr_key) || !is_array($arr)) {
+
+            return false;
+
+        }
+
+        $sql = "INSERT INTO %s( %s ) values %s ";
+
+        foreach ($arr as $k => $v) {
+
+            $arrValues[$k] = "'".implode("','",array_values($v))."'";
+
+        }
+
+        $sql = sprintf($sql, $table, "{$split}" . implode("{$split} ,{$split}", $arr_key) . "{$split}", "(" . implode(") , (", array_values($arrValues)) . ")");
+
+        return $sql;
 
     }
 
