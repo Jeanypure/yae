@@ -61,15 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'purchaser',
-            [
-                'attribute'=>'product_title',
-                'value' => function($model) { return $model->product_title;},
-                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
-                'format'=>'html',
-                'headerOptions' => [
-                    'width'=>'80%'
-                ],
-            ],
+            'product_title',
             [
                 'attribute'=>'product_title_en',
                 'value' => function($model) { return $model->product_title_en;},
