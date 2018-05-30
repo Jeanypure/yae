@@ -135,7 +135,7 @@ class AssignTaskController extends Controller
 
     public function actionPickMember()
     {
-        $member = Yii::$app->db->createCommand(" 
+        $member = Yii::$app->db->createCommand("
                             SELECT p.`purchaser` from `purchaser` p  WHERE  p.`role` =1
                          ")->queryAll();
 
@@ -239,7 +239,7 @@ class AssignTaskController extends Controller
 
      */
 
-    function actionMultArray2Insert($table,$arr_key, $arr, $split = '`') {
+  public  function actionMultArray2Insert($table,$arr_key, $arr, $split = '`') {
 
         $arrValues = array();
 

@@ -176,10 +176,13 @@ class GroupPurController extends Controller
     /**
      * To end brocast the Product based on its primary key value
      * @throws NotFoundHttpException
+     * 结束公示之后要把部门的产品 同步到preview表中
      */
     public function actionEndBrocast()
     {
         $ids = $_POST['id'];
+
+
         $val = '';
         if($ids){
             foreach ($_POST['id'] as $key=>$value){
@@ -187,6 +190,8 @@ class GroupPurController extends Controller
             }
 
             $id_set = trim($val,',');
+
+           $update_insert = $this->actionPreview($id_set); // 更新同步评审表的一系列操作
 
             Yii::$app->db->createCommand("
                 update `pur_info` set `brocast_status` = '公示结束' ,`preview_status`= '待评审' WHERE `pur_info_id` in ($id_set)
@@ -199,6 +204,118 @@ class GroupPurController extends Controller
             echo '请选择产品!';
 
         }
+    }
+
+
+// 同部更新到评审表中
+
+    public function actionPreview($id_set){
+
+        $lead = Yii::$app->db->createCommand("select DISTINCT leader FROM company ;")->queryAll();
+
+        $leader ='';
+        foreach ($lead as $k=>$v){
+            $leader.= "'".$v['leader']."',";
+        }
+
+        $leaders = rtrim($leader,",");
+
+        $count_num = Yii::$app->db->createCommand("
+            select count(*) as number from `preview` where `product_id` in ($id_set) 
+            and `member2` in ( $leaders)
+            ")->queryOne();
+
+        if($count_num!=0){ //update
+            // 根据条件在leaders里 更新现在的
+
+            $new_items = Yii::$app->db->createCommand("
+                SELECT leader,pur_info_id FROM pur_info o
+        LEFT JOIN company y ON y.sub_company=o.pur_group
+        WHERE pur_info_id in ($id_set);
+        ")->queryAll();
+
+            foreach ($new_items as $key=>$value){
+                try{
+                    Yii::$app->db->createCommand("
+                update `preview` set `member2`='$value[leader]' where `product_id`=$value[pur_info_id] 
+                and `member2`  in ( $leaders)
+                ")->execute();
+                }catch(Exception $e){
+                    throw new Exception();
+                }
+
+
+            }
+
+
+        }
+        else{//insert
+
+            //批量插入语句
+            $member2_pid = Yii::$app->db->createCommand("
+                SELECT leader,pur_info_id FROM pur_info o
+        LEFT JOIN company y ON y.sub_company=o.pur_group
+        WHERE pur_info_id in ($id_set);
+        ")->queryAll();
+
+            foreach($member2_pid as $k=>$v){
+                $arr[] =array_values($v);
+            }
+
+            $table = 'preview';
+            $arr_key = ['member2','product_id'];
+
+            $res = $this->actionMultArray2Insert($table,$arr_key, $arr, $split = '`');
+
+
+            try{
+                $result =   Yii::$app->db->createCommand("$res")->execute();
+            }
+            catch(Exception $e){
+                throw new Exception();
+            }
+        }
+
+    }
+
+    /**
+
+     * 多条数据同时转化成插入SQL语句
+
+     * @ CreatBy:IT自由职业者
+
+     * @param string $table 表名
+
+     * @$arr_key是表字段名的key：$arr_key=array("field1","field2","field3")
+
+     * @param array $arr是字段值 数组示例 arrat(("a","b","c"), ("bbc","bbb","caaa"),('add',"bppp","cggg"))
+
+     * @return string
+
+     */
+
+    public  function actionMultArray2Insert($table,$arr_key, $arr, $split = '`') {
+
+        $arrValues = array();
+
+        if (empty($table) || !is_array($arr_key) || !is_array($arr)) {
+
+            return false;
+
+        }
+
+        $sql = "INSERT INTO %s( %s ) values %s ";
+
+        foreach ($arr as $k => $v) {
+
+            $arrValues[$k] = "'".implode("','",array_values($v))."'";
+
+        }
+
+        $sql = sprintf($sql, $table, "{$split}" . implode("{$split} ,{$split}", $arr_key) . "{$split}", "(" . implode(") , (", array_values($arrValues)) . ")");
+
+        return $sql;
+
     }
 
 
