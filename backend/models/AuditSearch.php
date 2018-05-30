@@ -19,7 +19,7 @@ class AuditSearch extends PurInfo
     {
         return [
             [['is_submit_manager','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_value', 'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
-            [['preview_status','member','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount',
+            [['view_status','preview_status','member','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount',
                 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688','else_url', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark'], 'safe'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice'], 'number'],
         ];
@@ -49,20 +49,25 @@ class AuditSearch extends PurInfo
         if($member!='Jenny'&&$member!='admin'&&$member!='David'&&empty($pur_group)){
 
             $query = PurInfo::find()
+                ->select(['`pur_info`.*,`preview`.view_status'])
                 ->joinWith('preview')
                 ->andWhere(['in','preview_status',['待评审','已评审']])
                 ->andWhere(['member'=>$member])
                 ->andWhere(['is_submit'=>1])
                 ->andWhere(['brocast_status'=>'公示结束'])
+                ->andWhere(['member2'=>$member])
+
 //                ->orderBy('pur_info_id desc')
             ;
 
         }else{
             $query = PurInfo::find()
+                ->select(['`pur_info`.*,`preview`.view_status'])
                 ->joinWith('preview')
                 ->andWhere(['in','preview_status',['待评审','已评审']])
                 ->andWhere(['is_submit'=>1])
                 ->andWhere(['brocast_status'=>'公示结束'])
+
 
 //                ->orderBy('pur_info_id desc')
             ;
@@ -70,6 +75,7 @@ class AuditSearch extends PurInfo
 
 
         }
+//       echo  $query->createCommand()->getRawSql();die;
 
 
 
@@ -82,7 +88,6 @@ class AuditSearch extends PurInfo
                 'pagesize' => '10',
             ]
         ]);
-
         $this->load($params);
 
         if (!$this->validate()) {

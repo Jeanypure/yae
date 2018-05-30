@@ -44,6 +44,8 @@ use Yii;
  */
 class PurInfo extends \yii\db\ActiveRecord
 {
+    public $view_status;
+
     /**
      * @inheritdoc
      */
@@ -57,6 +59,7 @@ class PurInfo extends \yii\db\ActiveRecord
      */
     public function rules()
     {
+
         return [
             [['pur_group', 'pd_purchase_num', 'hs_code','parent_product_id',], 'integer'],
             [['pd_title','pd_title_en','pd_package','pd_length', 'pd_width', 'pd_height','pd_weight',
@@ -71,7 +74,7 @@ class PurInfo extends \yii\db\ActiveRecord
             [['member','purchaser', 'pd_length', 'pd_width', 'pd_height', 'bill_type'], 'string', 'max' => 10],
             [['is_submit_manager','is_submit','is_huge', 'has_shipping_fee'], 'string', 'max' => 1],
             [['bill_tax_value', 'bill_tax_rebate'], 'string', 'max' => 4],
-            [['brocast_status','preview_status'], 'string', 'max' => 30],
+            [['view_status','brocast_status','preview_status'], 'string', 'max' => 30],
             ['ebay_url','url','defaultScheme' => 'http'],
             ['amazon_url','url','defaultScheme' => 'http'],
             ['else_url','url','defaultScheme' => 'http'],

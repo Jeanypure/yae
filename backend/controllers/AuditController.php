@@ -149,9 +149,10 @@ class AuditController extends Controller
         $purinfo = $this->findModel($id);
 
         if(($model_preview = Preview::findOne(['product_id'=>$id,
-            'member_id'=>Yii::$app->user->identity->getId()])))
+            'member2'=>Yii::$app->user->identity->username])))
         {
             if ($model_preview->load(Yii::$app->request->post()) && $model_preview->save()) {
+                $model_preview->view_status = 1;
                     return $this->redirect('index');
             }
 
