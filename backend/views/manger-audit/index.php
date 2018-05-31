@@ -71,7 +71,26 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
             ],
-            'preview_status',
+            [
+                'attribute'=>'preview_status',
+                'width'=>'100px',
+                'value'=>function ($model, $key, $index, $widget) {
+                    if($model->preview_status==1){
+                        return '已评审';
+
+                    }else{
+                        return '未评审';
+                    }
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '已评审', '0' => '未评审'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'评审状态'],
+                'group'=>true,  // enable grouping
+            ],
+
 
 
 //            'pd_length',

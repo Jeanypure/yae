@@ -151,8 +151,9 @@ class AuditController extends Controller
         if(($model_preview = Preview::findOne(['product_id'=>$id,
             'member2'=>Yii::$app->user->identity->username])))
         {
-            if ($model_preview->load(Yii::$app->request->post()) && $model_preview->save()) {
+            if ($model_preview->load(Yii::$app->request->post()) ) {
                 $model_preview->view_status = 1;
+                 $model_preview->save(false);
                     return $this->redirect('index');
             }
 
@@ -166,8 +167,9 @@ class AuditController extends Controller
 
         }else {
             $model_preview =  new Preview();
-            if ($model_preview->load(Yii::$app->request->post())&& $model_preview->save()) {
-
+            if ($model_preview->load(Yii::$app->request->post())) {
+                $model_preview->view_status = 1;
+                $model_preview->save(false);
                 return $this->redirect('index');
 
             }
@@ -195,7 +197,7 @@ class AuditController extends Controller
         $ids_str = trim($product_ids,',');
         if(isset($ids)&&!empty($ids)){
             $res = Yii::$app->db->createCommand("
-            update `product` set `brocast_status`= '公示中'  where `product_id` in ($ids_str)
+            update `product` set `brocast_status`= 1  where `product_id` in ($ids_str)
             ")->execute();
             if($res){
                 echo 'success';

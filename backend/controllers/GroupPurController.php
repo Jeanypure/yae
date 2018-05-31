@@ -92,7 +92,7 @@ class GroupPurController extends Controller
         $rate = $this->actionExchangeRate();
 
         if ($model->load(Yii::$app->request->post()) ) {
-            $model->preview_status = '待评审';
+            $model->preview_status = 0;
             $model->save(false);
             return $this->redirect(['index']);
         }
@@ -164,7 +164,7 @@ class GroupPurController extends Controller
             }
             $id_set = trim($val,',');
             Yii::$app->db->createCommand("
-                update `pur_info` set `brocast_status` = '公示中',`preview_status`= '待评审'  WHERE `pur_info_id` in ($id_set)
+                update `pur_info` set `brocast_status` = 1,`preview_status`= 0  WHERE `pur_info_id` in ($id_set)
             ")->execute();
             echo '公示产品成功';
         }else{
@@ -194,7 +194,7 @@ class GroupPurController extends Controller
            $update_insert = $this->actionPreview($id_set); // 更新同步评审表的一系列操作
 
             Yii::$app->db->createCommand("
-                update `pur_info` set `brocast_status` = '公示结束' ,`preview_status`= '待评审' WHERE `pur_info_id` in ($id_set)
+                update `pur_info` set `brocast_status` = 2 ,`preview_status`= 0 WHERE `pur_info_id` in ($id_set)
             ")->execute();
 
             echo '产品公示结束!';

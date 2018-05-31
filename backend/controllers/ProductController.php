@@ -70,7 +70,7 @@ class ProductController extends Controller
 
         if ($model->load(Yii::$app->request->post()) ) {
 
-            $model->brocast_status = '待公示';
+            $model->brocast_status = 0;
             $model->complete_status = '待完成';
             $model->creator = Yii::$app->user->identity->username;
             $model->save();

@@ -63,7 +63,10 @@ class MangerAuditController extends Controller
 
 
         if($num > 1){
-          if ($model_update->load(Yii::$app->request->post()) && $model_update->save(false)) {
+          if ($model_update->load(Yii::$app->request->post()) ) {
+              $model_update->preview_status = 1;
+              $model_update->save(false);
+
               return $this->redirect(['view', 'id' => $model_update->pur_info_id]);
           }
           return $this->render('view', [
@@ -78,7 +81,9 @@ class MangerAuditController extends Controller
 
           ]);
       }elseif($num ==1){
-          if ($model_update->load(Yii::$app->request->post()) && $model_update->save(false)) {
+          if ($model_update->load(Yii::$app->request->post())) {
+              $model_update->preview_status = 1;
+              $model_update->save(false);
               return $this->redirect(['view', 'id' => $model_update->pur_info_id]);
           }
 
@@ -172,10 +177,11 @@ class MangerAuditController extends Controller
         $model = $this->findModel($id);
         if($model){
             if ($model->load(Yii::$app->request->post())  ) {
+                var_dump(Yii::$app->request->post());die;
                 $model->master_result = Yii::$app->request->post()['PurInfo']['master_result'];
                 $model->master_mark = Yii::$app->request->post()['PurInfo']['master_mark'];
                 $model->master_member = Yii::$app->user->identity->username;
-                $model->preview_status = '已评审';
+                $model->preview_status = 1;
                 $model->save(false);
                 return $this->redirect(['index']);
             }

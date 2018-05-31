@@ -105,7 +105,7 @@ class PurInfoController extends Controller
               update `product` set `complete_status`='已完成'
               WHERE `product_id` = $product_id
               ")->execute();
-            $model->preview_status = '待评审';
+            $model->preview_status = 0;
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->pur_info_id]);
         }
