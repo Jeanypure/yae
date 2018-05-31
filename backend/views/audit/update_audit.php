@@ -41,23 +41,29 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
         echo Form::widget([
             'model'=>$model_preview,
             'form'=>$form,
-            'columns'=>2,
+            'columns'=>3,
             'contentBefore'=>'<legend class="text-info"><h3>评审数据记录</h3></legend>',
             'attributes'=>[       // 2 column layout
                 'ref_url1'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'ref_url2'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'ref_url12'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'ref_url13'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+
             ]
         ]);
 
         echo Form::widget([
             'model'=>$model_preview,
             'form'=>$form,
-            'columns'=>2,
-            'attributes'=>[       // 2 column layout
+            'columns'=>3,
+            'attributes'=>[
+                'ref_url2'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'ref_url22'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'ref_url23'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'ref_url3'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'ref_url4'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             ]
         ]);
+
 
         echo Form::widget([
             'model'=>$model_preview,
@@ -130,6 +136,17 @@ echo Form::widget([
 
 ?>
 <?php ActiveForm::end(); ?>
+
+<?php
+
+//css 表单input 变圆润
+
+$this->registerJs("
+        $(function () {
+            $('.form-control').css('border-radius','7px')
+        }); 
+        ", \yii\web\View::POS_END);
+?>
 <?php
 
 //评审计算器

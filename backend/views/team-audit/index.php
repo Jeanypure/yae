@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::button('确认提交', ['id' => 'team-submit', 'class' => 'btn btn-primary']) ;?>
-        <?=  Html::button('拒绝产品', ['id' => 'cancel-submit', 'class' => 'btn btn-info']) ?>
+        <?=  Html::button('取消提交', ['id' => 'cancel-submit', 'class' => 'btn btn-info']) ?>
 
     </p>
     <?= GridView::widget([

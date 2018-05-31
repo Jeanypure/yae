@@ -39,7 +39,7 @@ class Preview extends \yii\db\ActiveRecord
             [['member_id'], 'integer'],
             [['member2', 'content', 'result'], 'string', 'max' => 500],
             [['product_id'], 'string', 'max' => 20],
-            [['ref_url1', 'ref_url2', 'ref_url3', 'ref_url4'], 'string', 'max' => 5000],
+            [['ref_url1','ref_url12','ref_url13', 'ref_url2','ref_url22','ref_url23', 'ref_url3', 'ref_url4'], 'string', 'max' => 5000],
             [['product_id', 'member_id'], 'unique', 'targetAttribute' => ['product_id', 'member_id']],
         ];
     }
@@ -58,7 +58,11 @@ class Preview extends \yii\db\ActiveRecord
             'priview_time' => '评审时间',
             'member_id' => 'Member ID',
             'ref_url1' => 'Amazon低价链接',
+            'ref_url12' => 'Amazon链接2',
+            'ref_url13' => 'Amazon链接3',
             'ref_url2' => 'eBay低价链接',
+            'ref_url22' => 'eBay链接2',
+            'ref_url23' => 'eBay链接3',
             'ref_url3' => '1688低价链接',
             'ref_url4' => '其他链接',
         ];
