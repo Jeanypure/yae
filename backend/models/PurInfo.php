@@ -61,7 +61,7 @@ class PurInfo extends \yii\db\ActiveRecord
     {
 
         return [
-            [['pur_group', 'pd_purchase_num', 'parent_product_id','preview_status'], 'integer'],
+            [['junior_submit','pur_group', 'pd_purchase_num', 'parent_product_id','preview_status'], 'integer'],
             [['pd_title','pd_title_en','pd_package','pd_length', 'pd_width', 'pd_height','pd_weight',
                 'pd_pur_costprice','bill_tax_rebate','retail_price','pd_purchase_num',
                 'has_shipping_fee'], 'required'],
@@ -135,6 +135,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'else_url' => '其他链接',
             'view_status' => '评审状态',
             'pd_create_time' => '创建时间',
+            'junior_submit' => '是否提交',
         ];
     }
 

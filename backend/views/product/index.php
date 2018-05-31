@@ -261,7 +261,7 @@ $this->registerJs($is_submit);
 $un_update = <<<JS
  $('.glyphicon-pencil').on('click',function(){
      
-     
+        
  });
 JS;
 
