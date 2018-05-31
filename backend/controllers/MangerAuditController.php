@@ -177,7 +177,6 @@ class MangerAuditController extends Controller
         $model = $this->findModel($id);
         if($model){
             if ($model->load(Yii::$app->request->post())  ) {
-                var_dump(Yii::$app->request->post());die;
                 $model->master_result = Yii::$app->request->post()['PurInfo']['master_result'];
                 $model->master_mark = Yii::$app->request->post()['PurInfo']['master_mark'];
                 $model->master_member = Yii::$app->user->identity->username;

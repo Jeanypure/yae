@@ -119,11 +119,17 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute'=>'group_status',
-                'value' => function($model) { return $model->group_status;},
+                'value' => function($model) {
+                        if($model->group_status==0){
+                            return '未分组';
+                        }else{
+                            return '已分组';
+                        }
+                },
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['未分组' => '未分组', '已分组' => '已分组'],
+                'filter'=>['0' => '未分组', '1' => '已分组'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],

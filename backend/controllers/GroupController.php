@@ -91,7 +91,7 @@ class GroupController extends Controller
             $model->sub_company = Yii::$app->request->post()['Product']['sub_company'];
             $model->sub_company_id = Yii::$app->request->post()['Product']['sub_company'];
             $model->group_mark = Yii::$app->request->post()['Product']['group_mark'];
-            $model->group_status = '已分组';
+            $model->group_status = 1;
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->product_id]);
         }
@@ -102,9 +102,6 @@ class GroupController extends Controller
         foreach ($res as $value) {
             $result[$value['id']]  = $value['sub_company'];
         }
-//        var_dump($res);
-//        var_dump($result);
-//        die;
 
         return $this->render('update', [
             'model' => $model,
