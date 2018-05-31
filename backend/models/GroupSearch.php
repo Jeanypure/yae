@@ -21,7 +21,7 @@ class GroupSearch extends Product
             [['product_id', 'sub_company_id', 'creator_id', 'is_submit'], 'integer'],
             [['product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3',
                 'ref_url4', 'product_add_time', 'product_update_time', 'purchaser', 'creator',
-                'product_status', 'pd_pic_url', 'preview_time', 'preview_mark', 'sub_company', 'group_mark', 'group_time', 'group_update_time', 'group_status', 'brocast_status', 'complete_status', 'accept_status'], 'safe'],
+                'pd_create_time','product_status', 'pd_pic_url', 'preview_time', 'preview_mark', 'sub_company', 'group_mark', 'group_time', 'group_update_time', 'group_status', 'brocast_status', 'complete_status', 'accept_status'], 'safe'],
             [['product_purchase_value'], 'number'],
         ];
     }
@@ -69,6 +69,7 @@ class GroupSearch extends Product
         // grid filtering conditions
         $query->andFilterWhere([
             'product_id' => $this->product_id,
+            'pd_create_time' => $this->pd_create_time,
             'product_purchase_value' => $this->product_purchase_value,
             'product_add_time' => $this->product_add_time,
             'product_update_time' => $this->product_update_time,

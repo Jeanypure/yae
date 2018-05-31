@@ -78,7 +78,9 @@ class PurInfo extends \yii\db\ActiveRecord
             ['ebay_url','url','defaultScheme' => 'http'],
             ['amazon_url','url','defaultScheme' => 'http'],
             ['else_url','url','defaultScheme' => 'http'],
-            ['url_1688','url','defaultScheme' => 'http']
+            ['url_1688','url','defaultScheme' => 'http'],
+            [['pd_create_time', ], 'safe'],
+
         ];
     }
 
@@ -132,6 +134,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'is_submit_manager' => '评审提交',
             'else_url' => '其他链接',
             'view_status' => '评审状态',
+            'pd_create_time' => '创建时间',
         ];
     }
 

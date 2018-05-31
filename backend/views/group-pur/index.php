@@ -48,7 +48,39 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 //            'pur_info_id',
             'purchaser',
-            'pur_group',
+            [
+                'attribute'=>'pur_group',
+                'value' => function($model) {
+                    if($model->pur_group==1){
+                        return '一部';
+                    }elseif ($model->pur_group==2){
+                        return '二部';
+                    }elseif ($model->pur_group==3){
+                        return '三部';
+                    }elseif ($model->pur_group==4){
+                        return '四部';
+                    }elseif ($model->pur_group==5){
+                        return '五部';
+                    }elseif ($model->pur_group==6){
+                        return '六部';
+                    }elseif ($model->pur_group==7){
+                        return '七部';
+                    }elseif ($model->pur_group==8){
+                        return '八部';
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '一部', '2' => '二部','3' => '三部','4' => '四部','5' => '五部','6' => '六部','7' => '七部','8' => '八部',],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'部门'],
+                'group'=>true,  // enable grouping
+
+            ],
+
             [
                 'attribute'=>'pd_title',
                 'value' => function($model) { return $model->pd_title;},
@@ -67,7 +99,31 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
-            'brocast_status',
+            [
+                'attribute'=>'brocast_status',
+                'value' => function($model) {
+                    if($model->brocast_status==0){
+                        return '未公示';
+                    }elseif ($model->brocast_status==1){
+                        return '公示中';
+
+                    }else{
+                        return '公示结束';
+
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['0' => '未示中','1' => '公示中', '2' => '公示结束'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'公示状态'],
+                'group'=>true,  // enable grouping
+
+            ],
+
             [
                 'attribute'=>'source',
                 'width'=>'50px',
@@ -92,14 +148,51 @@ $this->params['breadcrumbs'][] = $this->title;
             'pd_length',
             'pd_width',
             'pd_height',
-            'is_huge',
+            [
+                'attribute'=>'is_huge',
+                'width'=>'50px',
+                'value'=>function ($model, $key, $index, $widget) {
+                    if($model->is_huge=='0'){
+                        return '否';
+
+                    }else{
+                        return '是';
+                    }
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '是', '0' => '否'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'是否大件'],
+                'group'=>true,  // enable grouping
+            ],
+
             'pd_weight',
             'pd_throw_weight',
             'pd_count_weight',
 //            'pd_material',
             'pd_purchase_num',
             'pd_pur_costprice',
-            'has_shipping_fee',
+            [
+                'attribute'=>'has_shipping_fee',
+                'width'=>'50px',
+                'value'=>function ($model, $key, $index, $widget) {
+                    if($model->has_shipping_fee=='0'){
+                        return '否';
+
+                    }else{
+                        return '是';
+                    }
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '是', '0' => '否'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'是否含运'],
+                'group'=>true,  // enable grouping
+            ],
             'bill_type',
             'bill_tax_value',
             'hs_code',
@@ -141,6 +234,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'oversea_shipping_fee',
             'transaction_fee',
             'gross_profit',
+            'pd_create_time:date',
+
             'remark',
 //            'parent_product_id',
 

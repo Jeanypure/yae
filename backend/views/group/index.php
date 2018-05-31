@@ -95,11 +95,21 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute'=>'brocast_status',
-                'value' => function($model) { return $model->brocast_status;},
+                'value' => function($model) {
+                        if($model->brocast_status==0){
+                            return '未公示';
+                        }elseif ($model->brocast_status==1){
+                            return '公示中';
+
+                        }else{
+                            return '公示结束';
+
+                        }
+                    },
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['公示中' => '公示中', '公示结束' => '公示结束'],
+                'filter'=>['0' => '未示中','1' => '公示中', '2' => '公示结束'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
