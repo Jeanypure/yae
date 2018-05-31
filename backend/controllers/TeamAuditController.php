@@ -85,13 +85,22 @@ class TeamAuditController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $product_id =  $model->parent_product_id;
+        $rate = PurInfoController::actionExchangeRate();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+            //标记产品 已完成
+            Yii::$app->db->createCommand("
+              update `product` set `complete_status`='已完成'
+              WHERE `product_id` = $product_id
+              ")->execute();
+            $model->preview_status = 0;
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->pur_info_id]);
         }
-
         return $this->render('update', [
             'model' => $model,
+            'exchange_rate' => $rate
         ]);
     }
 
