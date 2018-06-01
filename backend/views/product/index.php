@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\grid\GridView;
+use kartik\daterange\DateRangePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\ProductSearch */
@@ -149,7 +150,22 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-            'product_add_time:date',
+            [
+                'attribute' => 'product_add_time',
+                'format' => ['date', "php:Y-m-d H:i:s"],
+                'headerOptions' => ['width' => '12%'],
+                'filter' => DateRangePicker::widget([
+                    'name' => 'ProductSearch[product_add_time]',
+                    'value' => Yii::$app->request->get('ProductSearch')['product_add_time'],
+                    'convertFormat' => true,
+                    'pluginOptions' => [
+                        'locale' => [
+                            'format' => 'Y-m-d H:i:s',
+                            'separator' => '/',
+                        ]
+                    ]
+                ])
+            ],
 //            'product_update_time:date',
 //            'product_status',
             'complete_status',
