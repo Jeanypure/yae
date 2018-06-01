@@ -8,7 +8,7 @@ use kartik\grid\GridView;
 /* @var $searchModel backend\models\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', '分到部门产品');
+$this->title = Yii::t('app', '发送采购');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-index">
