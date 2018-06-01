@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\helpers\Url;
+use kartik\daterange\DateRangePicker;
+
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\PurInfoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -87,6 +89,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 'group'=>true,  // enable grouping
 
             ],
+            [
+                'attribute' => 'pd_create_time',
+                'format' => ['date', "php:Y-m-d H:i:s"],
+                'headerOptions' => ['width' => '12%'],
+                'filter' => DateRangePicker::widget([
+                    'name' => 'PurInfoSearch[pd_create_time]',
+                    'value' => Yii::$app->request->get('PurInfoSearch')['pd_create_time'],
+                    'convertFormat' => true,
+                    'pluginOptions' => [
+                        'locale' => [
+                            'format' => 'Y-m-d H:i:s',
+                            'separator' => '/',
+                        ]
+                    ]
+                ])
+            ],
+
 //            'pd_package',
             'pd_length',
             'pd_width',

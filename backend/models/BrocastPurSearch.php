@@ -60,6 +60,10 @@ class BrocastPurSearch extends PurInfo
             // $query->where('0=1');
             return $dataProvider;
         }
+        if (!empty($this->pd_create_time)) {
+            $query->andFilterCompare('pd_create_time', explode('/', $this->pd_create_time)[0], '>=');//起始时间
+            $query->andFilterCompare('pd_create_time', explode('/', $this->pd_create_time)[1], '<');//结束时间
+        }
 
         // grid filtering conditions
         $query->andFilterWhere([
