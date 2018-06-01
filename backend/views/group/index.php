@@ -8,7 +8,7 @@ use yii\helpers\Url;
 /* @var $searchModel backend\models\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', '销售推荐--分组公示');
+$this->title = Yii::t('app', '销售推荐--分部公示');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-index">
@@ -121,19 +121,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'group_status',
                 'value' => function($model) {
                         if($model->group_status==0){
-                            return '未分组';
+                            return '未分部';
                         }else{
-                            return '已分组';
+                            return '已分部';
                         }
                 },
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['0' => '未分组', '1' => '已分组'],
+                'filter'=>['0' => '未分部', '1' => '已分部'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                'filterInputOptions'=>['placeholder'=>'分组状态'],
+                'filterInputOptions'=>['placeholder'=>'分部状态'],
                 'group'=>true,  // enable grouping
 
             ],

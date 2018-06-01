@@ -68,14 +68,14 @@ class Product extends \yii\db\ActiveRecord
             'pd_pic_url' => '图片地址',
             'product_status' => '状态',
             'preview_mark' => '评审记录',
-            'group_mark' => '分组原因',
+            'group_mark' => '分部原因',
             'sub_company' => '部门',
 //            'sub_company_id' => '组别ID',
             'brocast_status' => '公示状态',
 
             'complete_status' => '完成状态',
             'purchaser' => '采购',
-            'group_status' => '分组状态',
+            'group_status' => '分部状态',
             'accept_status' => '接受状态',
             'is_submit' => '是否提交',
 

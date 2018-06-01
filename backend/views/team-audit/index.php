@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                'filterInputOptions'=>['placeholder'=>'分组状态'],
+                'filterInputOptions'=>['placeholder'=>'分部状态'],
                 'group'=>true,  // enable grouping
 
             ],

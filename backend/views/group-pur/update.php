@@ -7,7 +7,7 @@ use kartik\builder\Form;
 /* @var $this yii\web\View */
 /* @var $model backend\models\PurInfo */
 
-$this->title = Yii::t('app', '自主开发--分组: ' . $model->pur_info_id, [
+$this->title = Yii::t('app', '自主开发--分部: ' . $model->pur_info_id, [
     'nameAttribute' => '' . $model->pur_info_id,
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Pur Infos'), 'url' => ['index']];
@@ -209,7 +209,7 @@ $readonly_js =<<<JS
             $("label[for='purinfo-retail_price'] ").addClass("label-require");
             $("label[for='purinfo-pd_purchase_num'] ").addClass("label-require");
             
-            //来源是销售推荐的不分组 source = 0
+            //来源是销售推荐的不分部 source = 0
 
             var source = $('#purinfo-source').val();
              if (source=='0')  $("#purinfo-pur_group").attr("readonly","readonly");
