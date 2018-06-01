@@ -84,7 +84,7 @@ class BrocastSearch extends Product
             ->andFilterWhere(['like', 'sub_company', $this->sub_company])
             ->andFilterWhere(['like', 'group_mark', $this->group_mark])
             ->andFilterWhere(['like', 'group_status', $this->group_status])
-            ->andFilterWhere(['like', 'brocast_status', '公示中']);
+            ->andFilterWhere(['like', 'brocast_status', $this->brocast_status]);
 
 
 
