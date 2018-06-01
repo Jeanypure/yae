@@ -13,7 +13,7 @@ use dmstr\widgets\Alert;
                 if ($this->title !== null) {
                     echo \yii\helpers\Html::encode($this->title);
                 } else {
-                    echo '产品开发管理系统';
+                    echo '产品开发管理';
 
 //                    echo \yii\helpers\Inflector::camel2words(
 //                        \yii\helpers\Inflector::id2camel($this->context->module->id)
