@@ -41,7 +41,7 @@ class AuditSearch extends PurInfo
      *
      * @return ActiveDataProvider
      */
-    public function search($params,$pur_group,$member)
+    public function search($params,$pur_group)
     {
         $member = Yii::$app->user->identity->username;
 
@@ -51,10 +51,9 @@ class AuditSearch extends PurInfo
             $query = PurInfo::find()
                 ->select(['`pur_info`.*,`preview`.view_status'])
                 ->joinWith('preview')
-//                ->andWhere(['in','preview_status',['待评审','已评审']])
                 ->andWhere(['member'=>$member])
                 ->andWhere(['is_submit'=>1])
-                ->andWhere(['brocast_status'=>'公示结束'])
+                ->andWhere(['brocast_status'=>'2'])
                 ->andWhere(['member2'=>$member])
 
 //                ->orderBy('pur_info_id desc')
@@ -64,10 +63,8 @@ class AuditSearch extends PurInfo
             $query = PurInfo::find()
                 ->select(['`pur_info`.*,`preview`.view_status'])
                 ->joinWith('preview')
-//                ->andWhere(['in','preview_status',['待评审','已评审']])
                 ->andWhere(['is_submit'=>1])
-                ->andWhere(['brocast_status'=>'公示结束'])
-
+                ->andWhere(['brocast_status'=>'2'])
 
 //                ->orderBy('pur_info_id desc')
             ;
@@ -75,10 +72,6 @@ class AuditSearch extends PurInfo
 
 
         }
-//       echo  $query->createCommand()->getRawSql();die;
-
-
-
 
         // add conditions that should always apply here
 
