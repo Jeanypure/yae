@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\DepartmentSelfSearch */
@@ -18,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'options' =>['style'=>'overflow:auto; white-space:nowrap;'],
+        'export' => false,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
@@ -58,10 +59,29 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
-//            'pd_title',
-//            'pd_title_en',
+
             'master_result',
             'master_mark',
+            [
+                'attribute'=>'source',
+                'width'=>'50px',
+                'value'=>function ($model, $key, $index, $widget) {
+                    if($model->source=='0'){
+                        return '销售推荐';
+
+                    }else{
+                        return '自主开发';
+                    }
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '自主开发', '0' => '销售推荐'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'产品来源'],
+                'group'=>true,  // enable grouping
+            ],
+
 //            'pd_package',
             'pd_length',
             'pd_width',
