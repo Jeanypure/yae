@@ -276,10 +276,10 @@ $compute_js =<<<JS
             transaction_fee = (retail_price *0.13).toFixed(3);
             $("#purinfo-transaction_fee").val(transaction_fee);
             
-            //预计销售额 RMB  purinfo-no_rebate_amount
-            
-            $("#purinfo-no_rebate_amount").val(retail_price*$exchange_rate);
-            
+           //预计销售额 RMB  purinfo-no_rebate_amount
+           var no_rebate_amount =(retail_price*$exchange_rate).toFixed(3); 
+            $("#purinfo-no_rebate_amount").val(no_rebate_amount);
+           
             //预估毛利 purinfo-gross_profit
             //预估毛利= 预计销售价格RMB-含税价格+退税金额-海运运费-海外仓运费-成交费
             var gross_profit;
