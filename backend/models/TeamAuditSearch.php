@@ -59,6 +59,7 @@ class TeamAuditSearch extends PurInfo
         $query = PurInfo::find()
             ->andWhere(['in','purchaser',$members])
             ->andWhere(['junior_submit'=>1])
+            ->orderBy('pur_info_id desc')
 
         ;
 

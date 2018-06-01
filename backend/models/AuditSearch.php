@@ -14,7 +14,11 @@ class AuditSearch extends PurInfo
 {
     /**
      * {@inheritdoc}
+     *
+     *
      */
+
+
     public function rules()
     {
         return [
@@ -66,12 +70,14 @@ class AuditSearch extends PurInfo
                 ->andWhere(['is_submit'=>1])
                 ->andWhere(['brocast_status'=>'2'])
 
-//                ->orderBy('pur_info_id desc')
+                ->orderBy('pur_info_id desc')
             ;
             $this->pur_group = $pur_group;
 
 
         }
+
+
 
         // add conditions that should always apply here
 
@@ -83,6 +89,7 @@ class AuditSearch extends PurInfo
         ]);
         $this->load($params);
 
+
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
@@ -93,6 +100,7 @@ class AuditSearch extends PurInfo
         $query->andFilterWhere([
             'pur_info_id' => $this->pur_info_id,
             'is_submit_manager' => $this->is_submit_manager,
+            'view_status' => $this->view_status,
             'pur_group' => $this->pur_group,
             'is_huge' => $this->is_huge,
             'pd_weight' => $this->pd_weight,

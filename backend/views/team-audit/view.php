@@ -13,6 +13,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="pur-info-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <p>
+        <img src="<?php echo $model->pd_pic_url;?>" alt="" height="100" width="100">
+    </p>
 
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->pur_info_id], ['class' => 'btn btn-primary']) ?>

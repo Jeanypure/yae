@@ -88,7 +88,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
-
             [
                 'attribute'=>'view_status',
                 'value' => function($model) {
@@ -110,26 +109,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'group'=>true,  // enable grouping
 
             ],
-
-
-//            [
-//                'attribute'=>'preview_status',
-//                'value' => function($model) { return $model->preview_status;},
-//                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
-//                'format'=>'html',
-//                'filterType'=>GridView::FILTER_SELECT2,
-//                'filter'=>['待评审' => '待评审', '已评审' => '已评审'],
-//                'filterWidgetOptions'=>[
-//                    'pluginOptions'=>['allowClear'=>true],
-//                ],
-//                'filterInputOptions'=>['placeholder'=>'评审状态'],
-//                'group'=>true,  // enable grouping
-//
-//            ],
-//            'pd_package',
-//             'preview.member2',
-//             'preview.view_status',
-//             'preview.saler_view_status',
             'pd_length',
             'pd_width',
             'pd_height',
