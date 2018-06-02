@@ -38,7 +38,7 @@ class CompleteController extends Controller
     public function actionIndex()
     {
         $searchModel = new CompleteSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'0');
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

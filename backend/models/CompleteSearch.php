@@ -40,18 +40,21 @@ class CompleteSearch extends PurInfo
      *
      * @return ActiveDataProvider
      */
-    public function search($params,$data_source)
+    public function search($params)
     {
         $username = Yii::$app->user->getIdentity()->username;
 
         if($username=='admin'||$username=='Jenny'||$username=='David'){
-            $query = PurInfo::find();
+            $query = PurInfo::find()
+                ->andWhere(['source'=>0 ])
+            ;
 
         }else{
-            $query = PurInfo::find()->andWhere(['purchaser'=>$username]);
+            $query = PurInfo::find()
+                ->andwehre(['source'=>0 ])
+                ->andWhere(['purchaser'=>$username]);
         }
 
-        $this->source = $data_source;
 
         // add conditions that should always apply here
 
