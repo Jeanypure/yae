@@ -27,7 +27,10 @@ return [
         'gridviewKrajee' =>  [
         'class' => '\kartik\grid\Module',
         // your other grid module settings
-         ]
+         ],
+        'yaedata' => [
+            'class' => 'backend\modules\yaedata\Module',
+        ],
     ],
     "aliases" => [
         "@mdm/admin" => "@vendor/mdmsoft/yii2-admin",
