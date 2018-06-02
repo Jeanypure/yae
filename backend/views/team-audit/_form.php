@@ -118,7 +118,7 @@ use kartik\builder\Form;
 
         'attributes'=>[       // 6 column layout
             'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
-                'items'=>['16%专票'=>'16%专票','普票'=>'普票', '3%增票'=>'3%增票'],
+                'items'=>['16%专票'=>'16%专票','普票'=>'普票', '3%专票'=>'3%专票'],
                 'options'=>['placeholder'=>'']],
 
             'bill_tax_value'=>['type'=>Form::INPUT_RADIO_LIST,

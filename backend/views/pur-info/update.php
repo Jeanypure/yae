@@ -134,7 +134,8 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             'columns'=>6,
             'attributes'=>[       // 6 column layout
                 'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
-                    'items'=>['16%专票'=>'16%专票','普票'=>'普票', '3%增票'=>'3%增票'],
+                    'items'=>['16%专票'=>'16%专票','普票'=>'普票', '3%专票'=>'3%专票'],
+                    'label'=>"<span style = 'color:red'><big>*</big></span>开票类型",
                     'options'=>['placeholder'=>'']],
                 'has_shipping_fee'=>[
                     'type'=>Form::INPUT_RADIO_LIST,
@@ -209,6 +210,7 @@ $readonly_js =<<<JS
             $("label[for='purinfo-bill_tax_rebate'] ").addClass("label-require");
             $("label[for='purinfo-retail_price'] ").addClass("label-require");
             $("label[for='purinfo-pd_purchase_num'] ").addClass("label-require");
+            $("label[for='purinfo-bill_type'] ").addClass("label-require");
             
             $('.label-require').html(function(_,html) {
                 return html.replace(/(.*?)/, "<span style = 'color:red'><big>*$1</big></span>");

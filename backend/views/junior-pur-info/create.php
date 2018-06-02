@@ -121,7 +121,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'attributes'=>[       // 6 column layout
                 'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
-                    'items'=>['16%专票'=>'16%专票','普票'=>'普票', '增票'=>'3%增票'],
+                    'items'=>['16%专票'=>'16%专票','普票'=>'普票', '3%专票'=>'3%专票'],
                     'options'=>['placeholder'=>'']],
                     'has_shipping_fee'=>[
                     'type'=>Form::INPUT_RADIO_LIST, 'label'=>"<span style = 'color:red'><big>*</big></span>是否含运费",
