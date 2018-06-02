@@ -66,6 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'shipping_fee',
             'oversea_shipping_fee',
             'transaction_fee',
+            'profit_rate',
             'gross_profit',
             'remark',
             'parent_product_id',

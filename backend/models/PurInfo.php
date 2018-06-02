@@ -67,7 +67,7 @@ class PurInfo extends \yii\db\ActiveRecord
                 'has_shipping_fee'], 'required'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice',
                 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'shipping_fee',
-                'oversea_shipping_fee', 'transaction_fee', 'gross_profit'], 'number'],
+               'profit_rate','oversea_shipping_fee', 'transaction_fee', 'gross_profit'], 'number'],
             [['hs_code','master_result','pd_title', 'pd_title_en', 'remark'], 'string', 'max' => 500],
             [['master_mark','pd_pic_url', 'ebay_url', 'amazon_url', 'url_1688','else_url'], 'string', 'max' => 2000],
             [['pd_package', 'pd_material'], 'string', 'max' => 1000],
@@ -136,6 +136,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'view_status' => '评审状态',
             'pd_create_time' => '创建时间',
             'junior_submit' => '是否提交',
+            'profit_rate' => '毛利率%',
         ];
     }
 

@@ -106,6 +106,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                 'retail_price'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_purchase_num'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'hs_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'no_rebate_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
 
 
@@ -121,6 +122,8 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                 'oversea_shipping_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'transaction_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'gross_profit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'profit_rate'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+
             ]
         ]);
 
@@ -189,6 +192,7 @@ $readonly_js =<<<JS
             $("#purinfo-oversea_shipping_fee").attr("readonly","readonly");
             $("#purinfo-transaction_fee").attr("readonly","readonly");
             $("#purinfo-gross_profit").attr("readonly","readonly");
+            $("#purinfo-profit_rate").attr("readonly","readonly");
             $("#purinfo-no_rebate_amount").attr("readonly","readonly");
             $("#purinfo-pur_group").attr("readonly","readonly");
             
@@ -200,7 +204,6 @@ $readonly_js =<<<JS
             $("label[for='purinfo-pd_height'] ").addClass("label-require");
             $("label[for='purinfo-pd_weight'] ").addClass("label-require");
             $("label[for='purinfo-pd_package'] ").addClass("label-require");
-            $("label[for='purinfo-pd_material'] ").addClass("label-require");
             $("label[for='purinfo-pd_material'] ").addClass("label-require");
             $("label[for='purinfo-pd_pur_costprice'] ").addClass("label-require");
             $("label[for='purinfo-bill_tax_rebate'] ").addClass("label-require");
@@ -298,6 +301,9 @@ $compute_js =<<<JS
             //含税价格 costprice
             gross_profit = (retail_price*$exchange_rate-costprice+-shipping_fee-oversea_fee-transaction_fee*$exchange_rate).toFixed(3) ;
             $("#purinfo-gross_profit").val(gross_profit);
+              //毛利率
+            var profit_rate = (gross_profit*100/no_rebate_amount).toFixed(3);
+             $("#purinfo-profit_rate").val(profit_rate);
             
         });
 
