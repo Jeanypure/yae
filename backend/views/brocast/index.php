@@ -28,10 +28,6 @@ $sub_title = '销售推荐产品';
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'export' =>false,
-        'options' => [
-            'style'=>'overflow: auto;  white-space:nowrap;'
-
-        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
@@ -118,8 +114,31 @@ $sub_title = '销售推荐产品';
             //'group_mark',
 //            'group_time',
 //            'group_update_time',
-            'group_status',
-            'brocast_status',
+//            'group_status',
+            [
+                'attribute'=>'brocast_status',
+                'value' => function($model) {
+                    if($model->brocast_status==0){
+                        return '未公示';
+                    }elseif ($model->brocast_status==1){
+                        return '公示中';
+
+                    }else{
+                        return '公示结束';
+
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['0' => '未公示','1' => '公示中', '2' => '公示结束'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'公示状态'],
+                'group'=>true,  // enable grouping
+
+            ],
 
 
 //            ['class' => 'yii\grid\ActionColumn'],

@@ -42,7 +42,9 @@ class BrocastSearch extends Product
      */
     public function search($params)
     {
-        $query = Product::find();
+        $query = Product::find()
+            ->andWhere(['brocast_status'=>1])
+        ;
 
         // add conditions that should always apply here
 
