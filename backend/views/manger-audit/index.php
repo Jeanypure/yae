@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header'=> '操作',
-                'template' => ' {view}  {delete}',
+                'template' => ' {view}',
                 'headerOptions' => ['width' => '100'],
 
             ],

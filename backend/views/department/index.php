@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => '操作',
-                    'template' => '{audit} {view}  {update}  {delete}',
+                    'template' => '{audit} {view}  {update}',
                 'buttons' => [
                     'audit' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-send"></span>', $url, [

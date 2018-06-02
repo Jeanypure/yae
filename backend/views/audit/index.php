@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => '操作',
-                'template' => '{audit}  {view}  {delete}',
+                'template' => '{audit}  {view}',
                 'buttons' => [
                     'audit' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-check"></span>', $url, [
@@ -84,6 +84,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'pd_title_en',
                 'value' => function($model) { return $model->pd_title_en;},
                 'contentOptions'=> ['style' => 'width: 50%; overflow:auto;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+            'master_result',
+            [
+                'attribute'=>'master_mark',
+                'value' => function($model) { return $model->master_mark;},
+                'contentOptions'=> ['style' => 'width: 50%; '],
                 'format'=>'html',
                 'headerOptions' => [
                     'width'=>'80%'

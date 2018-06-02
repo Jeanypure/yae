@@ -34,10 +34,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             ['class' => 'yii\grid\CheckboxColumn'],
+
             [
                 'class' => 'yii\grid\ActionColumn',
-                'header' => '操作',
+                'header'=> '操作',
+                'template' => ' {view}',
+                'headerOptions' => ['width' => '100'],
+
             ],
+
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
