@@ -14,9 +14,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="pur-info-index">
 
 
-    <p>
-<!--        --><?php //echo  Html::a(Yii::t('app', 'Create Pur Info'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -35,13 +32,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-//            'pur_info_id',
             'purchaser',
             'pur_group',
             [
                 'attribute'=>'pd_title',
                 'value' => function($model) { return $model->pd_title;},
-                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'contentOptions'=> ['style' => 'width: 100; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'headerOptions' => [
                     'width'=>'80%'
