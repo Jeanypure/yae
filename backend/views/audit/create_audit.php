@@ -118,6 +118,8 @@ echo Form::widget([
         'retail_price'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
         'ams_logistics_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
         'gross_profit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+        'profit_rate'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+
     ]
 ]);
 
@@ -162,6 +164,13 @@ $preview_js= <<<JS
             var  preview_profit_float = preview_retail_price * $exchange_rate -(1-tax_rebate/100)*costprice-shipping_fee-amz_fee*$exchange_rate;
             var preview_profit = (preview_profit_float).toFixed(3);
            $('#purinfo-gross_profit').val(preview_profit);
+           
+                      
+           //审核计算的毛利率 
+           
+           var profit_rate = (preview_profit*100/(preview_retail_price * $exchange_rate)).toFixed(3);
+           $('#purinfo-profit_rate').val(profit_rate);
+
     
     });
 

@@ -54,9 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'bill_rebate_amount',
             'no_rebate_amount',
             'retail_price',
-//            ['attribute'=>'ebay_url','format'=>['url',['target'=>'_blank']]],
-//            ['attribute'=>'amazon_url','format'=>['url',['target'=>'_blank']]],
-//            ['attribute'=>'url_1688','format'=>['url',['target'=>'_blank']]],
+
             [
                 'attribute'=>'ebay_url',
                 'format'=>'raw',
@@ -86,6 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'oversea_shipping_fee',
             'transaction_fee',
             'gross_profit',
+            'profit_rate',
             'remark',
 //            'parent_product_id',
         ],

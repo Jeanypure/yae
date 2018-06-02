@@ -238,6 +238,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'transaction_fee',
             'retail_price',
             'gross_profit',
+            'profit_rate',
 //            'remark',
 
         ],
