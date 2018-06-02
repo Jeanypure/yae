@@ -38,10 +38,9 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
         // Usage with ActiveForm and model
         echo $form->field($model, 'result')->widget(Select2::classname(), [
             'data' => [
-                    ''=>'',
-                '采样'=>'采样',
-                '拒绝'=>'拒绝',
-                '可以开发'=>'可以开发',
+                '1'=>'采样',
+                '0'=>'拒绝',
+                '2'=>'可以开发',
             ],
             'options' => ['placeholder' => '选择结果.....'],
             'pluginOptions' => [

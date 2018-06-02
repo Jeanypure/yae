@@ -34,9 +34,9 @@ use kartik\builder\Form;
         echo $form->field($model, 'master_result')->widget(Select2::classname(), [
             'data' => [
                 ''=>'',
-                '采样'=>'采样',
-                '拒绝'=>'拒绝',
-                '可以开发'=>'可以开发',
+                '1'=>'采样',
+                '0'=>'拒绝',
+                '2'=>'可以开发',
             ],
             'options' => ['placeholder' => '选择结果.....'],
             'pluginOptions' => [

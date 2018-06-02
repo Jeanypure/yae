@@ -127,7 +127,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'member' => '评审人',
             'preview_status' => '评审状态',
             'brocast_status' => '公示状态',
-            'master_result' => '评审结果',
+            'master_result' => '经理评审',
             'master_mark' => '评审意见',
             'ams_logistics_fee' => '计算费用$',
             'is_submit' => '提交状态',
