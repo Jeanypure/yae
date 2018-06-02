@@ -30,7 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'responsive'=>true,
         'hover'=>true,
         'export' => false,
-
         'id'=>'commit_product',
         'columns' => [
 
@@ -167,9 +166,26 @@ $this->params['breadcrumbs'][] = $this->title;
                 ])
             ],
 //            'product_update_time:date',
-//            'product_status',
-            'complete_status',
-//            'purchaser',
+            [
+                'attribute'=>'complete_status',
+                'width'=>'100px',
+                'value'=>function ($model, $key, $index, $widget) {
+                    if($model->complete_status==1){
+                        return '是';
+
+                    }else{
+                        return '否';
+                    }
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '是', '0' => '否'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'是否完成'],
+                'group'=>true,  // enable grouping
+            ],
+
         ],
     ]); ?>
 </div>

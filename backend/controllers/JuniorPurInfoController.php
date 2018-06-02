@@ -98,7 +98,7 @@ class JuniorPurInfoController extends Controller
         if ($model->load(Yii::$app->request->post()) ) {
             //标记产品 已完成
             Yii::$app->db->createCommand("
-              update `product` set `complete_status`='已完成'
+              update `product` set `complete_status`=1
               WHERE `product_id` = $product_id
               ")->execute();
             $model->preview_status = 0;

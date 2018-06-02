@@ -205,7 +205,7 @@ class DepartmentController extends Controller
                             SELECT 
                             p.`purchaser`,
                             count(*) as num         
-                         from `product` p  WHERE  p.`complete_status`='未完成' and p.`purchaser` is not null 
+                         from `product` p  WHERE  p.`complete_status`= 0 and p.`purchaser` is not null 
                          GROUP BY p.`purchaser` 
                          ")->queryAll();
         $pur_non = Yii::$app->db->createCommand(" 
