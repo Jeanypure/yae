@@ -50,7 +50,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-//            'pur_info_id',
             'purchaser',
             [
                 'attribute'=>'pur_group',
