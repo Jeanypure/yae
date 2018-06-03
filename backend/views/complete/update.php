@@ -137,8 +137,6 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             'model'=>$model,
             'form'=>$form,
             'columns'=>6,
-//            'contentBefore'=>'<legend class="text-info"><h3>其他信息</h3></legend>',
-
             'attributes'=>[       // 6 column layout
                 'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
                     'items'=>['16%专票'=>'16%专票','普票'=>'普票', '3%专票'=>'3%专票'],
