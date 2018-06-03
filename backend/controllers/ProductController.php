@@ -73,7 +73,7 @@ class ProductController extends Controller
             $model->brocast_status = 0;
             $model->complete_status = 0;
             $model->creator = Yii::$app->user->identity->username;
-            $model->save();
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->product_id]);
         }
 
@@ -93,11 +93,11 @@ class ProductController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
             if(empty($model->creator)){
                 $model->creator = Yii::$app->user->identity->username;
             }
-            $model->save();
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->product_id]);
         }
 

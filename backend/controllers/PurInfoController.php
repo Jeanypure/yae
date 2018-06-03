@@ -75,7 +75,7 @@ class PurInfoController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->purchaser = Yii::$app->user->identity->username;
-            $model->save();
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->pur_info_id]);
         }
 

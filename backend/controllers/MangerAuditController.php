@@ -109,7 +109,7 @@ class MangerAuditController extends Controller
     {
         $model = new PurInfo();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
             return $this->redirect(['view', 'id' => $model->pur_info_id]);
         }
 
@@ -129,7 +129,7 @@ class MangerAuditController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
             return $this->redirect(['view', 'id' => $model->pur_info_id]);
         }
 
