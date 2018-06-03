@@ -73,34 +73,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'master_member',
             [
                 'attribute'=>'master_result',
-                'value' => function($model) {
-                    if($model->master_result==0){
-                        return '拒绝';
-                    }elseif($model->master_result==1){
-                        return '采样';
-
-                    }elseif($model->master_result==2){
-                        return '可以开发';
-
-                    }elseif($model->master_result==3){
-                        return '尚未评';
-
+                'value'=>function($model){
+                    if($model->result==0){
+                        return "拒绝";
+                    }elseif($model->result==1){
+                        return "采样";
+                    }elseif($model->result==2){
+                        return "可以开发";
                     }
-                },
-                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
-                'format'=>'html',
-                'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['0' => '拒绝', '1' => '采样', '2' => '可已开发', '3' => '尚未评'],
-                'filterWidgetOptions'=>[
-                    'pluginOptions'=>['allowClear'=>true],
-                ],
-                'filterInputOptions'=>['placeholder'=>'评审状态'],
-                'group'=>true,  // enable grouping
-
+                }
             ],
-
             'master_mark',
-
             'priview_time',
             'ams_logistics_fee',
             'is_submit',

@@ -55,7 +55,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-//            'pur_info_id',
             'member',
             'pur_group',
             [
@@ -188,6 +187,8 @@ $this->registerJs($auditJs);
 $task = Url::toRoute(['task']);
 $js =<<<JS
   $('#assign-task').on('click',function(){
+            var button = $(this);
+            button.attr('disabled','disabled');
             var ids = $("#task").yiiGridView("getSelectedRows");
             console.log(ids);
             if(ids.length ==0) alert('当前你没选择任务---请选择！');
@@ -196,8 +197,13 @@ $js =<<<JS
                 type: 'post',
                 data:{id:ids},
                 success:function(res){
-                    if(res) alert(res);
-                }
+                    alert(res);     
+                   button.attr('disabled',false);
+                   location.reload();
+                 },
+                 error: function (jqXHR, textStatus, errorThrown) {
+                            button.attr('disabled',false);
+                 }
             });
     });
 

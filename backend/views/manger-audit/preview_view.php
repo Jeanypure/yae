@@ -22,17 +22,25 @@ use yii\widgets\DetailView;
     <?= DetailView::widget([
         'model' => $preview_model,
         'attributes' => [
-//            'preview_id',
             'member2',
-//            'product_id',
-            'result',
+            [
+                'attribute'=>'result',
+                'value'=>function($model){
+                        if($model->result==0){
+                            return "拒绝";
+                        }elseif($model->result==1){
+                            return "采样";
+                        }elseif($model->result==2){
+                            return "可以开发";
+                        }
+                }
+            ],
             'content',
             ['attribute'=>'ref_url1','format'=>['url',['target'=>'_blank']]],
             ['attribute'=>'ref_url2','format'=>['url',['target'=>'_blank']]],
             ['attribute'=>'ref_url3','format'=>['url',['target'=>'_blank']]],
             ['attribute'=>'ref_url4','format'=>['url',['target'=>'_blank']]],
             'priview_time',
-//            'member_id',
         ],
     ]) ?>
 

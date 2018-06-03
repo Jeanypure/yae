@@ -135,11 +135,12 @@ class AssignTaskController extends Controller
 
     public function actionPickMember()
     {
-        $member = Yii::$app->db->createCommand("
+        $audit_member = Yii::$app->db->createCommand("
                             SELECT p.`purchaser` from `purchaser` p  WHERE  p.`role` =1
                          ")->queryAll();
 
         $model = new PurInfo();
+
         if ($model->load(Yii::$app->request->post()) ) {
            $member = Yii::$app->request->post()["PurInfo"]["member"];
            $pur_info_ids =  Yii::$app->session['ids'];
@@ -209,7 +210,7 @@ class AssignTaskController extends Controller
         }
 
         $mem=[];
-        foreach($member as $k=>$v){
+        foreach($audit_member as $k=>$v){
             $mem[$v['purchaser']] = $v['purchaser'];
 
         }

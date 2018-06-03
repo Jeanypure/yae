@@ -110,7 +110,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['0' => '拒绝', '1' => '采样', '2' => '可已开发', '3' => '尚未评'],
+                'filter'=>['0' => '拒绝', '1' => '采样', '2' => '可以开发', '3' => '尚未评'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
