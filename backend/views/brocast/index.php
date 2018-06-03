@@ -104,7 +104,7 @@ $sub_title = '销售推荐产品';
             //'product_add_time',
             //'product_update_time',
             //'purchaser',
-            //'creator',
+            'creator',
             //'product_status',
             //'pd_pic_url:url',
             //'preview_time',

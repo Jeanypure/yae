@@ -59,8 +59,8 @@ class AuditSearch extends PurInfo
                 ->andWhere(['is_submit'=>1])
                 ->andWhere(['brocast_status'=>'2'])
                 ->andWhere(['member2'=>$member])
-
-//                ->orderBy('pur_info_id desc')
+                ->andWhere(['not', ['pur_group' => null]])
+                ->orderBy('pur_info_id desc')
             ;
 
         }else{
@@ -69,6 +69,7 @@ class AuditSearch extends PurInfo
                 ->joinWith('preview')
                 ->andWhere(['is_submit'=>1])
                 ->andWhere(['brocast_status'=>'2'])
+                ->andWhere(['not', ['pur_group' => null]])
 
                 ->orderBy('pur_info_id desc')
             ;
