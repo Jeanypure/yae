@@ -178,7 +178,7 @@ $this->params['breadcrumbs'][] = $this->title;
             $("#purinfo-oversea_shipping_fee").attr("readonly","readonly");
             $("#purinfo-transaction_fee").attr("readonly","readonly");
             $("#purinfo-gross_profit").attr("readonly","readonly");
-            $("#purinfo-profit_gross").attr("readonly","readonly");
+            $("#purinfo-profit_rate").attr("readonly","readonly");
             $("#purinfo-no_rebate_amount").attr("readonly","readonly");
             $("#purinfo-pur_group").attr("readonly","readonly");
             
