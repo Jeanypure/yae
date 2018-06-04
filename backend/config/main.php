@@ -14,7 +14,7 @@ return [
     'modules' => [
         "admin" => [
             "class" => "mdm\admin\Module",
-            'layout' => 'left-menu',
+//            'layout' => 'left-menu',
         ],
         'gridview' =>  [
             'class' => '\kartik\grid\Module'
