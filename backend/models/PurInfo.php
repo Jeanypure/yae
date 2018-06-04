@@ -67,7 +67,7 @@ class PurInfo extends \yii\db\ActiveRecord
                 'has_shipping_fee'], 'required'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice',
                 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'shipping_fee',
-                'ams_logistics_fee','gross_profit_amz','profit_rate_amz', 'profit_rate','oversea_shipping_fee', 'transaction_fee', 'gross_profit'], 'number'],
+                'selling_on_amz_fee','amz_fulfillment_cost','ams_logistics_fee','gross_profit_amz','profit_rate_amz', 'profit_rate','oversea_shipping_fee', 'transaction_fee', 'gross_profit'], 'number'],
             [['hs_code','master_result','pd_title', 'pd_title_en', 'remark'], 'string', 'max' => 500],
             [['master_mark','pd_pic_url', 'ebay_url', 'amazon_url', 'url_1688','else_url'], 'string', 'max' => 2000],
             [['pd_package', 'pd_material'], 'string', 'max' => 1000],
@@ -139,9 +139,10 @@ class PurInfo extends \yii\db\ActiveRecord
             'profit_rate' => 'eBay毛利率%',
             'gross_profit_amz' => 'Amazon毛利¥',
             'profit_rate_amz' => 'Amazon毛利率%',
+            'selling_on_amz_fee' => 'Selling on Amazon fees',
+            'amz_fulfillment_cost' => 'Total Fulfillment Cost',
         ];
     }
-
     /**
      * @return \yii\db\ActiveQuery
      * 一个产品有多个评论

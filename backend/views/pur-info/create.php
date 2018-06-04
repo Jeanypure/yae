@@ -23,11 +23,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'contentBefore'=>'<legend class="text-info"><h3>1.基本信息</h3></legend>',
             'attributes'=>[       // 3 column layout
                 'pur_group'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'pd_title'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'pd_title'=>['type'=>Form::INPUT_TEXT,
+                    'labelOptions'=>['class'=>'label-require'],
+                    'options'=>['placeholder'=>'','class'=>'label-require']],
                 'pd_title_en'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_pic_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'地址格式:https://XXXX.jpg|png|gif等']],
-
-
             ],
 
         ]);
@@ -45,12 +45,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
         ]);
 
-
-
         echo Form::widget([
             'model'=>$model,
             'form'=>$form,
-            'columns'=>6,
+            'columns'=>4,
             'contentBefore'=>'<legend class="text-info"><h3>2.尺寸重量</h3></legend>',
             'attributes'=>[       // 2 column layout
                 'pd_length'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
@@ -67,35 +65,34 @@ $this->params['breadcrumbs'][] = $this->title;
             'model'=>$model,
             'form'=>$form,
             'columns'=>6,
-            'attributes'=>[       // 6 column layout
+            'attributes'=>[       // 2 column layout
                 'pd_package'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_material'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'',]],
-
                 'is_huge'=>[
                     'type'=>Form::INPUT_RADIO_LIST,
                     'items'=>[1=>'是', 0=>'否'],
                     'options'=>['placeholder'=>'',
-                       ]
+                    ]
                 ],
             ],
             'contentAfter' => '<div ><br> <br></div>'
 
         ]);
 
-
-
         echo Form::widget([
             'model'=>$model,
             'form'=>$form,
             'columns'=>6,
             'contentBefore'=>'<legend class="text-info"><h3>3.税费信息</h3></legend>',
-             'attributes'=>[       // 2 column layout
-                 'pd_pur_costprice'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                 'bill_tax_rebate'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                 'retail_price'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                 'pd_purchase_num'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                 'ams_logistics_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                 'hs_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'attributes'=>[       // 2 column layout
+                'pd_pur_costprice'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'bill_tax_rebate'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'retail_price'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'pd_purchase_num'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'selling_on_amz_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'amz_fulfillment_cost'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+
+
 
 
 
@@ -105,14 +102,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'model'=>$model,
             'form'=>$form,
             'columns'=>6,
-            'attributes'=>[       // 4 column layout
+            'attributes'=>[       // 6 column layout
+                'ams_logistics_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'no_rebate_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'bill_rebate_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'shipping_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'oversea_shipping_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'transaction_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'no_rebate_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
-                'gross_profit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             ]
         ]);
 
@@ -121,20 +118,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'model'=>$model,
             'form'=>$form,
             'columns'=>6,
-
             'attributes'=>[       // 6 column layout
+                'gross_profit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'profit_rate'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'gross_profit_amz'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'profit_rate_amz'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'hs_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+
                 'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
                     'items'=>['16%专票'=>'16%专票','普票'=>'普票', '3%专票'=>'3%专票'],
                     'label'=>"<span style = 'color:red'><big>*</big></span>开票类型",
                     'options'=>['placeholder'=>'']],
-                    'has_shipping_fee'=>[
-                    'type'=>Form::INPUT_RADIO_LIST, 'label'=>"<span style = 'color:red'><big>*</big></span>是否含运费",
-                        'items'=>[1=>'是', 0=>'否'],
+                'has_shipping_fee'=>[
+                    'type'=>Form::INPUT_RADIO_LIST,
+                    'label'=>"<span style = 'color:red'><big>*</big></span>是否含运费",
+                    'items'=>[1=>'是', 0=>'否'],
                     'options'=>['placeholder'=>'']],
-
 
             ]
         ]);
@@ -150,7 +149,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ]
         ]);
 
+
         ?>
+
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
 
@@ -187,6 +188,8 @@ $this->params['breadcrumbs'][] = $this->title;
               
             $("#purinfo-gross_profit_amz").attr("readonly","readonly");
             $("#purinfo-profit_rate_amz").attr("readonly","readonly");
+            $("#purinfo-ams_logistics_fee").attr("readonly","readonly");
+
             
             $("#purinfo-no_rebate_amount").attr("readonly","readonly");
             $("#purinfo-pur_group").attr("readonly","readonly");
@@ -298,17 +301,25 @@ JS;
             //预估毛利= 预计销售价格RMB-含税价格+退税金额-海运运费-海外仓运费-成交费
             var gross_profit;
             //含税价格 costprice
-            //gross_profit = (no_rebate_amount-costprice+(bill_rebate_amount)-(shipping_fee)-(oversea_fee)-transaction_fee).toFixed(3) ;
             gross_profit = (no_rebate_amount-costprice+(bill_rebate_amount)-(shipping_fee)-(oversea_fee)-transaction_fee).toFixed(3) ;
             $("#purinfo-gross_profit").val(gross_profit);
-            
-            //毛利率
+              //毛利率
             var profit_rate = (gross_profit*100/no_rebate_amount).toFixed(3);
              $("#purinfo-profit_rate").val(profit_rate);
+             
+             //amz   amz_fulfillment_cost
+             var fulfillment_cost = $("#purinfo-amz_fulfillment_cost").val();
+             
+             
+             // amz selling_on_amz_fee
+             var amz_selling_on_amz_fee = $("#purinfo-selling_on_amz_fee").val();
+             
+             //amz 物流计算费用 $ = 成交费+派送费
+             // var ams_logistics_fee = $("#purinfo-ams_logistics_fee").val();
+             var ams_logistics_fee = (parseFloat(fulfillment_cost) + parseFloat(amz_selling_on_amz_fee)).toFixed(3);
+             $("#purinfo-ams_logistics_fee").val(ams_logistics_fee);
             
-             //amz 物流计算费用 $
-             var ams_logistics_fee = $("#purinfo-ams_logistics_fee").val();
-            
+             
              //amz 成交费 是 售价的15%
              var amz_transaction_fee = (retail_price*$exchange_rate*0.15).toFixed(3);
              
@@ -317,13 +328,12 @@ JS;
              
             var gross_profit_amz;
             gross_profit_amz = (no_rebate_amount-costprice+(bill_rebate_amount)-(ams_logistics_fee*$exchange_rate)-shipping_fee).toFixed(3) ;
-             $("#purinfo-gross_profit_amz").val(gross_profit_amz);
+            $("#purinfo-gross_profit_amz").val(gross_profit_amz);
 
              //amz毛利率
             var profit_rate_amz = (gross_profit_amz*100/no_rebate_amount).toFixed(3);
              $("#purinfo-profit_rate_amz").val(profit_rate_amz);
-            
-            
+             
             
         });
 

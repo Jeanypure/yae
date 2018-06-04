@@ -89,11 +89,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'bill_tax_rebate'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'retail_price'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_purchase_num'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'ams_logistics_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'hs_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-
-
-
+                'selling_on_amz_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'amz_fulfillment_cost'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
             ]
         ]);
@@ -102,12 +99,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'form'=>$form,
             'columns'=>6,
             'attributes'=>[       // 6 column layout
+                'ams_logistics_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'no_rebate_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'bill_rebate_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'shipping_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'oversea_shipping_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'transaction_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'gross_profit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
             ]
         ]);
@@ -118,10 +115,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'form'=>$form,
             'columns'=>6,
             'attributes'=>[       // 6 column layout
+                'gross_profit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'profit_rate'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-
                 'gross_profit_amz'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'profit_rate_amz'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'hs_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
                 'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
                     'items'=>['16%专票'=>'16%专票','普票'=>'普票', '3%专票'=>'3%专票'],
@@ -147,7 +145,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ]
         ]);
 
+
         ?>
+
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
 
@@ -183,6 +183,8 @@ $this->params['breadcrumbs'][] = $this->title;
             $("#purinfo-profit_rate").attr("readonly","readonly");
              $("#purinfo-gross_profit_amz").attr("readonly","readonly");
             $("#purinfo-profit_rate_amz").attr("readonly","readonly");
+            $("#purinfo-ams_logistics_fee").attr("readonly","readonly");
+
             
             $("#purinfo-no_rebate_amount").attr("readonly","readonly");
             $("#purinfo-pur_group").attr("readonly","readonly");
@@ -298,9 +300,19 @@ JS;
             var profit_rate = (gross_profit*100/no_rebate_amount).toFixed(3);
              $("#purinfo-profit_rate").val(profit_rate);
              
-             //amz 物流计算费用 $
-             var ams_logistics_fee = $("#purinfo-ams_logistics_fee").val();
+             //amz   amz_fulfillment_cost
+             var fulfillment_cost = $("#purinfo-amz_fulfillment_cost").val();
+             
+             
+             // amz selling_on_amz_fee
+             var amz_selling_on_amz_fee = $("#purinfo-selling_on_amz_fee").val();
+             
+             //amz 物流计算费用 $ = 成交费+派送费
+             // var ams_logistics_fee = $("#purinfo-ams_logistics_fee").val();
+             var ams_logistics_fee = (parseFloat(fulfillment_cost) + parseFloat(amz_selling_on_amz_fee)).toFixed(3);
+             $("#purinfo-ams_logistics_fee").val(ams_logistics_fee);
             
+             
              //amz 成交费 是 售价的15%
              var amz_transaction_fee = (retail_price*$exchange_rate*0.15).toFixed(3);
              
@@ -309,7 +321,7 @@ JS;
              
             var gross_profit_amz;
             gross_profit_amz = (no_rebate_amount-costprice+(bill_rebate_amount)-(ams_logistics_fee*$exchange_rate)-shipping_fee).toFixed(3) ;
-             $("#purinfo-gross_profit_amz").val(gross_profit_amz);
+            $("#purinfo-gross_profit_amz").val(gross_profit_amz);
 
              //amz毛利率
             var profit_rate_amz = (gross_profit_amz*100/no_rebate_amount).toFixed(3);
