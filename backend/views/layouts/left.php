@@ -33,7 +33,7 @@ $callback = function($menu){
         <?= dmstr\widgets\Menu::widget(
             [
 
-                'options' => ['class' => 'sidebar-menu'],
+                'options' => ['class' => 'sidebar-menu','data-widget' => 'tree'],
                 'items' => MenuHelper::getAssignedMenu(Yii::$app->user->id,null,$callback),
             ]
         ) ?>
