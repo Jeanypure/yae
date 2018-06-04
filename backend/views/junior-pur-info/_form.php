@@ -133,7 +133,7 @@ use kartik\builder\Form;
                 'items'=>[1=>'是', 0=>'否'],
                 'options'=>['placeholder'=>'']],
 
-            'no_rebate_amount'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],
+//            'no_rebate_amount'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],
 
         ]
     ]);
