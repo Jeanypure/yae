@@ -106,6 +106,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                 'retail_price'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_purchase_num'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'hs_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'no_rebate_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
 
 
