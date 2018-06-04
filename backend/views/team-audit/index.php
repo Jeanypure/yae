@@ -8,7 +8,7 @@ use yii\helpers\Url;
 /* @var $searchModel backend\models\TeamAuditSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', '产品审核');
+$this->title = Yii::t('app', '主管审核');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pur-info-index">

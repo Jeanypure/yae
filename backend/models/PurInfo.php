@@ -67,7 +67,8 @@ class PurInfo extends \yii\db\ActiveRecord
                 'has_shipping_fee'], 'required'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice',
                 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'shipping_fee',
-                'selling_on_amz_fee','amz_fulfillment_cost','ams_logistics_fee','gross_profit_amz','profit_rate_amz', 'profit_rate','oversea_shipping_fee', 'transaction_fee', 'gross_profit'], 'number'],
+                'amz_retail_price',
+                'amz_retail_price_rmb','selling_on_amz_fee','amz_fulfillment_cost','ams_logistics_fee','gross_profit_amz','profit_rate_amz', 'profit_rate','oversea_shipping_fee', 'transaction_fee', 'gross_profit'], 'number'],
             [['hs_code','master_result','pd_title', 'pd_title_en', 'remark'], 'string', 'max' => 500],
             [['master_mark','pd_pic_url', 'ebay_url', 'amazon_url', 'url_1688','else_url'], 'string', 'max' => 2000],
             [['pd_package', 'pd_material'], 'string', 'max' => 1000],
@@ -113,8 +114,9 @@ class PurInfo extends \yii\db\ActiveRecord
             'hs_code' => 'HS编码',
             'bill_tax_rebate' => '退税率%',
             'bill_rebate_amount' => '退税金额¥',
-            'no_rebate_amount' => '预计销售价¥',
-            'retail_price' => '预计销售价格$',
+            'no_rebate_amount' => 'eBay预计销售价¥',
+            'retail_price' => 'eBay预计销售价格$',
+//            'retail_price' => '预计销售价格$',
             'ebay_url' => 'eBay低价链接',
             'amazon_url' => 'Amazon低价链接',
             'url_1688' => '1688低价链接',
@@ -141,6 +143,9 @@ class PurInfo extends \yii\db\ActiveRecord
             'profit_rate_amz' => 'Amazon毛利率%',
             'selling_on_amz_fee' => 'Selling on Amazon fees',
             'amz_fulfillment_cost' => 'Total Fulfillment Cost',
+            'amz_retail_price' => 'Amz预计销售价格$',
+            'amz_retail_price_rmb' => 'Amz预计销售价格¥',
+
         ];
     }
 
