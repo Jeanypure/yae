@@ -99,13 +99,7 @@ use mdm\admin\components\MenuHelper;
 
 
 //        dmstr\widgets\Menu
-        echo Nav::widget(
-                    [
-//                        "encodeLabels" => false,
-                        "options" => ["class" => "sidebar-menu"],
-                        "items" => MenuHelper::getAssignedMenu(Yii::$app->user->id,null, $callback),
-                    ]
-                );
+    //
 
 
         ?>
@@ -119,6 +113,15 @@ use mdm\admin\components\MenuHelper;
 //                'items' => MenuHelper::getAssignedMenu(Yii::$app->user->id,null,$callback),
 //            ]
 //        );
+                 echo
+         dmstr\widgets\Menu::widget(
+            [
+
+                "encodeLabels" => false,
+                                "options" => ["class" => "sidebar-menu"],
+                                "items" => MenuHelper::getAssignedMenu(Yii::$app->user->id,null, $callback),
+            ]
+        );
          ?>
 
 
