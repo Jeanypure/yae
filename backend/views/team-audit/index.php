@@ -25,7 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'export'=>false,
-//        'options' =>['style'=>'overflow:auto; white-space:nowrap;'],
         'id'=> 'commit_product',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -33,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => '操作',
+                'template' => ' {view} {update}',
             ],
             [
                 'class' => 'yii\grid\Column',
@@ -46,7 +46,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-//            'pur_info_id',
             'purchaser',
 
             [
@@ -191,7 +190,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'shipping_fee',
             'oversea_shipping_fee',
             'transaction_fee',
-            'gross_profit',
             'gross_profit',
             'profit_rate',
             'gross_profit_amz',
