@@ -143,6 +143,9 @@ class PurInfo extends \yii\db\ActiveRecord
             'amz_fulfillment_cost' => 'Total Fulfillment Cost',
         ];
     }
+
+
+
     /**
      * @return \yii\db\ActiveQuery
      * 一个产品有多个评论

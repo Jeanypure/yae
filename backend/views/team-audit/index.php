@@ -192,6 +192,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'oversea_shipping_fee',
             'transaction_fee',
             'gross_profit',
+            'gross_profit',
+            'profit_rate',
+            'gross_profit_amz',
+            'profit_rate_amz',
             'pd_create_time:date',
 
             'remark',
