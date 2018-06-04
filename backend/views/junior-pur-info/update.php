@@ -320,7 +320,7 @@ $compute_js =<<<JS
              //amz 毛利率%
              
             var gross_profit_amz;
-            gross_profit_amz = (no_rebate_amount-costprice+(bill_rebate_amount)-(ams_logistics_fee*$exchange_rate)-amz_transaction_fee*$exchange_rate).toFixed(3) ;
+            gross_profit_amz = (no_rebate_amount-costprice+(bill_rebate_amount)-(ams_logistics_fee*$exchange_rate)-shipping_fee).toFixed(3) ;
             $("#purinfo-gross_profit_amz").val(gross_profit_amz);
 
              //amz毛利率
