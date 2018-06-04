@@ -220,6 +220,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'transaction_fee',
             'gross_profit',
             'profit_rate',
+            'gross_profit_amz',
+            'profit_rate_amz',
             'remark',
 //            'parent_product_id',
 
