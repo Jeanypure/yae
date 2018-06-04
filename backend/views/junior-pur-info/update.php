@@ -321,6 +321,7 @@ $compute_js =<<<JS
              
             var gross_profit_amz;
             gross_profit_amz = (no_rebate_amount-costprice+(bill_rebate_amount)-(ams_logistics_fee*$exchange_rate)-amz_transaction_fee).toFixed(3) ;
+            $("#purinfo-gross_profit_amz").val(gross_profit_amz);
 
              //amz毛利率
             var profit_rate_amz = (gross_profit_amz*100/no_rebate_amount).toFixed(3);
