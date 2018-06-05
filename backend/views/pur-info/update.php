@@ -99,21 +99,6 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             'attributes'=>[       // 2 column layout
                 'pd_pur_costprice'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'bill_tax_rebate'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'retail_price'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'no_rebate_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-
-                'pd_purchase_num'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'selling_on_amz_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'amz_fulfillment_cost'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-
-            ]
-        ]);
-        echo Form::widget([
-            'model'=>$model,
-            'form'=>$form,
-            'columns'=>6,
-            'attributes'=>[       // 6 column layout
-                'ams_logistics_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'bill_rebate_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'shipping_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'oversea_shipping_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
@@ -121,6 +106,20 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
             ]
         ]);
+        echo Form::widget([
+            'model'=>$model,
+            'form'=>$form,
+            'columns'=>6,
+            'attributes'=>[       // 6 column layout
+
+                'retail_price'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'no_rebate_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'gross_profit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'profit_rate'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+
+
+            ]
+        ]);
 
 
         echo Form::widget([
@@ -128,10 +127,28 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             'form'=>$form,
             'columns'=>6,
             'attributes'=>[       // 6 column layout
-                'gross_profit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'profit_rate'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'amz_retail_price'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'amz_retail_price_rmb'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'gross_profit_amz'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'profit_rate_amz'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            ]
+        ]);
+
+        echo Form::widget([
+            'model'=>$model,
+            'form'=>$form,
+            'columns'=>6,
+            'attributes'=>[       // 6 column layout
+                'selling_on_amz_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'amz_fulfillment_cost'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'ams_logistics_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            ]
+        ]);
+        echo Form::widget([
+            'model'=>$model,
+            'form'=>$form,
+            'columns'=>6,
+            'attributes'=>[       // 6 column layout
                 'hs_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
                 'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
@@ -160,6 +177,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
 
         ?>
+
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
         </div>

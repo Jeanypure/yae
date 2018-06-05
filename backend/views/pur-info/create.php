@@ -121,6 +121,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'profit_rate_amz'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             ]
         ]);
+
         echo Form::widget([
             'model'=>$model,
             'form'=>$form,
@@ -202,6 +203,8 @@ $this->params['breadcrumbs'][] = $this->title;
             $("#purinfo-gross_profit_amz").attr("readonly","readonly");
             $("#purinfo-profit_rate_amz").attr("readonly","readonly");
             $("#purinfo-ams_logistics_fee").attr("readonly","readonly");
+            
+            $("#purinfo-amz_retail_price_rmb").attr("readonly","readonly");
 
             
             $("#purinfo-no_rebate_amount").attr("readonly","readonly");
@@ -222,6 +225,7 @@ $this->params['breadcrumbs'][] = $this->title;
             $("label[for='purinfo-retail_price'] ").addClass("label-require");
             $("label[for='purinfo-pd_purchase_num'] ").addClass("label-require");
             $("label[for='purinfo-bill_type'] ").addClass("label-require");
+            $("label[for='purinfo-amz_retail_price'] ").addClass("label-require");
 
             
             $('.label-require').html(function(_,html) {
@@ -316,9 +320,14 @@ JS;
             //含税价格 costprice
             gross_profit = (no_rebate_amount-costprice+(bill_rebate_amount)-(shipping_fee)-(oversea_fee)-transaction_fee).toFixed(3) ;
             $("#purinfo-gross_profit").val(gross_profit);
-              //毛利率
+              //毛利率--eBay
             var profit_rate = (gross_profit*100/no_rebate_amount).toFixed(3);
              $("#purinfo-profit_rate").val(profit_rate);
+             
+                //amz 最低售价 $ rmb
+            var amz_retail_price = $("#purinfo-amz_retail_price").val();
+            var amz_retail_price_rmb = (amz_retail_price*$exchange_rate).toFixed(3);
+            $("#purinfo-amz_retail_price_rmb").val(amz_retail_price_rmb);
              
              //amz   amz_fulfillment_cost
              var fulfillment_cost = $("#purinfo-amz_fulfillment_cost").val();
@@ -340,13 +349,14 @@ JS;
              //amz 毛利率%
              
             var gross_profit_amz;
-            gross_profit_amz = (no_rebate_amount-costprice+(bill_rebate_amount)-(ams_logistics_fee*$exchange_rate)-shipping_fee).toFixed(3) ;
+            gross_profit_amz = (amz_retail_price_rmb-costprice+(bill_rebate_amount)-(ams_logistics_fee*$exchange_rate)-shipping_fee).toFixed(3) ;
             $("#purinfo-gross_profit_amz").val(gross_profit_amz);
 
              //amz毛利率
             var profit_rate_amz = (gross_profit_amz*100/no_rebate_amount).toFixed(3);
              $("#purinfo-profit_rate_amz").val(profit_rate_amz);
              
+          
             
         });
 
