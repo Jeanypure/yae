@@ -28,10 +28,11 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             'contentBefore'=>'<legend class="text-info"><h3>1.基本信息</h3></legend>',
             'attributes'=>[       // 3 column layout
                 'pur_group'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'pd_title'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'pd_title'=>['type'=>Form::INPUT_TEXT,
+                    'labelOptions'=>['class'=>'label-require'],
+                    'options'=>['placeholder'=>'','class'=>'label-require']],
                 'pd_title_en'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_pic_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'地址格式:https://XXXX.jpg|png|gif等']],
-
             ],
 
         ]);
@@ -49,12 +50,10 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
         ]);
 
-
-
         echo Form::widget([
             'model'=>$model,
             'form'=>$form,
-            'columns'=>6,
+            'columns'=>4,
             'contentBefore'=>'<legend class="text-info"><h3>2.尺寸重量</h3></legend>',
             'attributes'=>[       // 2 column layout
                 'pd_length'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
@@ -74,7 +73,6 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             'attributes'=>[       // 2 column layout
                 'pd_package'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_material'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'',]],
-
                 'is_huge'=>[
                     'type'=>Form::INPUT_RADIO_LIST,
                     'items'=>[1=>'是', 0=>'否'],
@@ -86,8 +84,6 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
         ]);
 
-
-
         echo Form::widget([
             'model'=>$model,
             'form'=>$form,
@@ -97,10 +93,11 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                 'pd_pur_costprice'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'bill_tax_rebate'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'retail_price'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'no_rebate_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+
                 'pd_purchase_num'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'hs_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-
-
+                'selling_on_amz_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'amz_fulfillment_cost'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
             ]
         ]);
@@ -108,12 +105,13 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             'model'=>$model,
             'form'=>$form,
             'columns'=>6,
-            'attributes'=>[       // 4 column layout
+            'attributes'=>[       // 6 column layout
+                'ams_logistics_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'bill_rebate_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'shipping_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'oversea_shipping_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'transaction_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'gross_profit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+
             ]
         ]);
 
@@ -123,23 +121,21 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             'form'=>$form,
             'columns'=>6,
             'attributes'=>[       // 6 column layout
+                'gross_profit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'profit_rate'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'gross_profit_amz'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'profit_rate_amz'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'hs_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+
                 'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
                     'items'=>['16%专票'=>'16%专票','普票'=>'普票', '3%专票'=>'3%专票'],
+                    'label'=>"<span style = 'color:red'><big>*</big></span>开票类型",
                     'options'=>['placeholder'=>'']],
-
-                'bill_tax_value'=>['type'=>Form::INPUT_RADIO_LIST,
-                    'items'=>['3'=>'3%', '16'=>'16%'],
-
-                    'options'=>['placeholder'=>'number little than 16 ...']],
-
                 'has_shipping_fee'=>[
                     'type'=>Form::INPUT_RADIO_LIST,
                     'label'=>"<span style = 'color:red'><big>*</big></span>是否含运费",
                     'items'=>[1=>'是', 0=>'否'],
                     'options'=>['placeholder'=>'']],
-
-//                'no_rebate_amount'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],
-                'source'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],
 
             ]
         ]);
@@ -154,6 +150,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                 'remark'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'','style'=>'height:150px']]
             ]
         ]);
+
 
         ?>
         <div class="form-group">
