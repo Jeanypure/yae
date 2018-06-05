@@ -195,9 +195,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'gross_profit_amz',
             'profit_rate_amz',
             'pd_create_time:date',
+            [
+                'attribute'=>'remark',
+                'value' => function($model) { return $model->remark;},
+                'contentOptions'=> ['style' => 'width: 80%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
 
-            'remark',
-//            'parent_product_id',
 
         ],
     ]); ?>

@@ -177,8 +177,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'gross_profit',
             'gross_profit_amz',
             'profit_rate_amz',
-            'remark',
-//            'parent_product_id',
+            [
+                'attribute'=>'remark',
+                'value' => function($model) { return $model->remark;},
+                'contentOptions'=> ['style' => 'width: 80%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+
 
         ],
     ]); ?>

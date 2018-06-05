@@ -52,9 +52,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'hs_code',
             'bill_tax_rebate',
             'bill_rebate_amount',
-            'no_rebate_amount',
-            'retail_price',
-
             [
                 'attribute'=>'ebay_url',
                 'format'=>'raw',
@@ -83,12 +80,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'shipping_fee',
             'oversea_shipping_fee',
             'transaction_fee',
+            'retail_price',
+            'no_rebate_amount',
             'gross_profit',
             'profit_rate',
+            'amz_retail_price',
+            'amz_retail_price_rmb',
             'gross_profit_amz',
             'profit_rate_amz',
             'remark',
-//            'parent_product_id',
         ],
     ]) ?>
 

@@ -192,8 +192,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'oversea_shipping_fee',
             'transaction_fee',
             'gross_profit',
-            'remark',
-//            'parent_product_id',
+            [
+                'attribute'=>'remark',
+                'value' => function($model) { return $model->remark;},
+                'contentOptions'=> ['style' => 'width: 80%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+
 
         ],
     ]); ?>
