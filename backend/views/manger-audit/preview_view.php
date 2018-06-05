@@ -32,6 +32,14 @@ use yii\widgets\DetailView;
                             return "采样";
                         }elseif($model->result==2){
                             return "可以开发";
+                        }elseif($model->result==3){
+                            return "未评审";
+                        }elseif($model->result==4){
+                            return "直接下单";
+                        }elseif($model->result==5){
+                            return "季节产品推迟";
+                        }elseif($model->result==6){
+                            return "需议价或谈其他条件";
                         }
                 }
             ],

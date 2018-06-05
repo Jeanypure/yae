@@ -81,9 +81,13 @@ $this->params['breadcrumbs'][] = $this->title;
         // Usage with ActiveForm and model
         echo $form->field($model_preview, 'result')->widget(Select2::classname(), [
             'data' => [
-                '1'=>'采样',
                 '0'=>'拒绝',
+                '1'=>'采样',
                 '2'=>'可以开发',
+                '3'=>'未评审',
+                '4'=>'直接下单',
+                '5'=>'季节产品推迟',
+                '6'=>'需议价或谈其他条件',
             ],
             'options' => ['placeholder' => '选择结果.....'],
             'pluginOptions' => [

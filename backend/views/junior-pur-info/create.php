@@ -352,10 +352,10 @@ $compute_js =<<<JS
             gross_profit_amz = (amz_retail_price_rmb-costprice+(bill_rebate_amount)-(ams_logistics_fee*$exchange_rate)-shipping_fee).toFixed(3) ;
             $("#purinfo-gross_profit_amz").val(gross_profit_amz);
 
-             //amz毛利率
-            var profit_rate_amz = (gross_profit_amz*100/no_rebate_amount).toFixed(3);
-             $("#purinfo-profit_rate_amz").val(profit_rate_amz);
              
+             //amz毛利率
+            var profit_rate_amz = (gross_profit_amz*100/amz_retail_price_rmb).toFixed(3);
+             $("#purinfo-profit_rate_amz").val(profit_rate_amz);
           
             
         });
