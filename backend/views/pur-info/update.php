@@ -149,6 +149,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             'form'=>$form,
             'columns'=>6,
             'attributes'=>[       // 6 column layout
+                'pd_purchase_num'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'hs_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
                 'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
