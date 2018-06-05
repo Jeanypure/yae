@@ -68,7 +68,7 @@ class AuditSearch extends PurInfo
                 ->select(['`pur_info`.*,`preview`.view_status'])
                 ->joinWith('preview')
                 ->andWhere(['is_submit'=>1])
-                ->andWhere(['brocast_status'=>'2'])
+//                ->andWhere(['brocast_status'=>'2'])
                 ->andWhere(['not', ['pur_group' => null]])
 
                 ->orderBy('pur_info_id desc')
