@@ -23,7 +23,7 @@ class AuditSearch extends PurInfo
     {
         return [
             [['is_submit_manager','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_value', 'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
-            [['master_mark','master_result','pd_create_time','view_status','preview_status','member','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount',
+            [['submit_manager','master_mark','master_result','pd_create_time','view_status','preview_status','member','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount',
                 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688','else_url', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark'], 'safe'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice'], 'number'],
         ];
@@ -49,7 +49,7 @@ class AuditSearch extends PurInfo
     {
         $member = Yii::$app->user->identity->username;
 
-        if($member!='Jenny'&&$member!='admin'&&$member!='David'&&empty($pur_group)){
+        if($member!='Jenny'&&$member!='admin'&&$member!='David'&&empty($pur_group)){ //审核组
 
             $query = PurInfo::find()
                 ->select(['`pur_info`.*,`preview`.view_status'])
@@ -61,7 +61,7 @@ class AuditSearch extends PurInfo
                 ->orderBy('pur_info_id desc')
             ;
 
-        }else{
+        }elseif(!empty($pur_group)){ //部长
             $query = PurInfo::find()
                 ->select(['`pur_info`.*,`preview`.view_status'])
                 ->joinWith('preview')
@@ -70,6 +70,16 @@ class AuditSearch extends PurInfo
                 ->orderBy('pur_info_id desc')
             ;
 
+
+        }else{ //超级管理员
+
+            $query = PurInfo::find()
+                ->select(['`pur_info`.*,`preview`.view_status'])
+                ->joinWith('preview')
+                ->andWhere(['is_submit'=>1])
+//                ->andWhere(['not', ['pur_group' => null]])
+                ->orderBy('pur_info_id desc')
+            ;
 
         }
 
@@ -105,6 +115,7 @@ class AuditSearch extends PurInfo
             'pur_info_id' => $this->pur_info_id,
             'is_submit_manager' => $this->is_submit_manager,
             'view_status' => $this->view_status,
+            'submit_manager' => $this->submit_manager,
             'pur_group' => $this->pur_group,
             'is_huge' => $this->is_huge,
             'pd_weight' => $this->pd_weight,

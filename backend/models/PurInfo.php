@@ -45,6 +45,7 @@ use Yii;
 class PurInfo extends \yii\db\ActiveRecord
 {
     public $view_status;
+    public $submit_manager;
 
     /**
      * @inheritdoc

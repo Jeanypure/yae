@@ -179,6 +179,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ],
             [
+                'attribute'=>'submit_manager',
+                'value' => function($model) {
+                    if($model->submit_manager==1){
+                        return '是';
+                    }else{
+                        return '否';
+
+                    }
+                    },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['0' => '否', '1' => '是'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'评审状态'],
+                'group'=>true,  // enable grouping
+
+            ],
+            [
                 'attribute' => 'pd_create_time',
                 'format' => ['date', "php:Y-m-d H:i:s"],
                 'headerOptions' => ['width' => '12%'],
