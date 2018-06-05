@@ -52,7 +52,7 @@ class AuditSearch extends PurInfo
         if($member!='Jenny'&&$member!='admin'&&$member!='David'&&empty($pur_group)){ //审核组
 
             $query = PurInfo::find()
-                ->select(['`pur_info`.*,`preview`.view_status'])
+                ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager'])
                 ->joinWith('preview')
                 ->andWhere(['member'=>$member])
                 ->andWhere(['is_submit'=>1])
@@ -63,7 +63,7 @@ class AuditSearch extends PurInfo
 
         }elseif(!empty($pur_group)){ //部长
             $query = PurInfo::find()
-                ->select(['`pur_info`.*,`preview`.view_status'])
+                ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager'])
                 ->joinWith('preview')
                 ->andWhere(['is_submit'=>1])
                 ->andWhere(['pur_group'=> $pur_group])
@@ -74,7 +74,7 @@ class AuditSearch extends PurInfo
         }else{ //超级管理员
 
             $query = PurInfo::find()
-                ->select(['`pur_info`.*,`preview`.view_status'])
+                ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager'])
                 ->joinWith('preview')
                 ->andWhere(['is_submit'=>1])
 //                ->andWhere(['not', ['pur_group' => null]])
