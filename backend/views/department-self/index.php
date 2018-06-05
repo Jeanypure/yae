@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'产品来源'],
-                'group'=>true,  // enable grouping
+//                'group'=>true,  // enable grouping
             ],
 
 //            'pd_package',

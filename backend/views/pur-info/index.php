@@ -122,7 +122,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'评审状态'],
-                'group'=>true,  // enable grouping
+//                'group'=>true,  // enable grouping
 
             ],
 
@@ -146,7 +146,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'分部状态'],
-                'group'=>true,  // enable grouping
+//                'group'=>true,  // enable grouping
 
             ],
             [

@@ -136,7 +136,7 @@ $sub_title = '销售推荐产品';
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'公示状态'],
-                'group'=>true,  // enable grouping
+//                'group'=>true,  // enable grouping
 
             ],
 

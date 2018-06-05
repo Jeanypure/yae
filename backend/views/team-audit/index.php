@@ -72,12 +72,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['1' => '已提交', '0' => '未提交'],
+                'filter'=>['1' => '是', '0' => '否'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                'filterInputOptions'=>['placeholder'=>'分部状态'],
-                'group'=>true,  // enable grouping
+                'filterInputOptions'=>['placeholder'=>'是否提交'],
+//                'group'=>true,  // enable grouping
 
             ],
 
@@ -98,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'产品来源'],
-                'group'=>true,  // enable grouping
+//                'group'=>true,  // enable grouping
             ],
 
 //            'pd_package',

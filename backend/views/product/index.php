@@ -100,7 +100,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'是否提交'],
-                'group'=>true,  // enable grouping
+//                'group'=>true,  // enable grouping
             ],
 
             'product_purchase_value',
@@ -183,7 +183,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'是否完成'],
-                'group'=>true,  // enable grouping
+//                'group'=>true,  // enable grouping
             ],
 
         ],

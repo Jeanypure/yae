@@ -44,6 +44,7 @@ class GroupPurSearch extends PurInfo
     {
         $query = PurInfo::find()
             ->andWhere(['is_submit'=>1])
+            ->andWhere(['not',['pur_group'=>'null']])
             ->orderBy('pur_info_id desc');
 
         // add conditions that should always apply here

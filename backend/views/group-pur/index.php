@@ -123,7 +123,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'公示状态'],
-                'group'=>true,  // enable grouping
+//                'group'=>true,  // enable grouping
 
             ],
 
@@ -144,7 +144,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'产品来源'],
-                'group'=>true,  // enable grouping
+//                'group'=>true,  // enable grouping
             ],
 
 //            'pd_package',
