@@ -74,11 +74,11 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'master_result',
                 'value'=>function($model){
-                    if($model->result==0){
+                    if($model->master_result==0){
                         return "拒绝";
-                    }elseif($model->result==1){
+                    }elseif($model->master_result==1){
                         return "采样";
-                    }elseif($model->result==2){
+                    }elseif($model->master_result==2){
                         return "可以开发";
                     }
                 }
