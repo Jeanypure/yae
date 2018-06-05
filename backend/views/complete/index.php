@@ -100,7 +100,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return '采样';
 
                     }elseif($model->master_result==2){
-                        return '可以开发';
+                        return '需议价和谈其他条件';
 
                     }elseif($model->master_result==3){
                         return '尚未评';
@@ -111,15 +111,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     }elseif($model->master_result==5){
                         return '季节产品推迟';
 
-                    }elseif($model->master_result==6){
-                        return '需议价和谈其他条件';
-
                     }
                 },
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['0' => '拒绝', '1' => '采样', '2' => '可以开发', '3' => '尚未评', '4' => '直接下单', '5' => '季节产品推迟', '6' => '需议价和谈其他条件'],
+                'filter'=>['0' => '拒绝', '1' => '采样', '2' => '需议价和谈其他条件', '3' => '尚未评', '4' => '直接下单', '5' => '季节产品推迟'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],

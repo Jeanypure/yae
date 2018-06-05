@@ -85,7 +85,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     }elseif($model->master_result==1){
                         return "采样";
                     }elseif($model->master_result==2){
-                        return "可以开发";
+                        return "需议价或谈其他条件";
+                    }elseif($model->master_result==3){
+                        return "未评审";
+                    }elseif($model->master_result==4){
+                        return "直接下单";
+                    }elseif($model->master_result==5){
+                        return "季节产品推迟";
                     }
                 }
             ],
