@@ -216,7 +216,6 @@ $readonly_js =<<<JS
 
             
             $("#purinfo-no_rebate_amount").attr("readonly","readonly");
-            $("#purinfo-pur_group").attr("readonly","readonly");
             
             $("label[for='purinfo-pd_title'] ").addClass("label-require");
             $("label[for='purinfo-pd_title_en'] ").addClass("label-require");
