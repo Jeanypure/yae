@@ -47,6 +47,7 @@ class GroupSearch extends Product
         $this->accept_status = $accept_status;
         $this->is_submit = $is_submit;
         $query = Product::find()
+            ->andWhere(['not',['sub_company'=>'null']])
             ->orderBy('product_id desc');
 
         // add conditions that should always apply here
