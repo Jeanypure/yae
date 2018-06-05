@@ -219,7 +219,6 @@ $this->params['breadcrumbs'][] = $this->title;
             $("label[for='purinfo-pd_weight'] ").addClass("label-require");
             $("label[for='purinfo-pd_package'] ").addClass("label-require");
             $("label[for='purinfo-pd_material'] ").addClass("label-require");
-            $("label[for='purinfo-pd_material'] ").addClass("label-require");
             $("label[for='purinfo-pd_pur_costprice'] ").addClass("label-require");
             $("label[for='purinfo-bill_tax_rebate'] ").addClass("label-require");
             $("label[for='purinfo-retail_price'] ").addClass("label-require");
