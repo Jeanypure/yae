@@ -149,6 +149,8 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             'form'=>$form,
             'columns'=>6,
             'attributes'=>[       // 6 column layout
+                'pd_purchase_num'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+
                 'hs_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
                 'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
@@ -362,7 +364,7 @@ $compute_js =<<<JS
             $("#purinfo-gross_profit_amz").val(gross_profit_amz);
 
              //amz毛利率
-            var profit_rate_amz = (gross_profit_amz*100/no_rebate_amount).toFixed(3);
+            var profit_rate_amz = (gross_profit_amz*100/amz_retail_price_rmb).toFixed(3);
              $("#purinfo-profit_rate_amz").val(profit_rate_amz);
              
           

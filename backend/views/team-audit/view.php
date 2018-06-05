@@ -64,8 +64,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'oversea_shipping_fee',
             'transaction_fee',
             'gross_profit',
+            'gross_profit',
+            'profit_rate',
+            'gross_profit_amz',
+            'profit_rate_amz',
+            'selling_on_amz_fee',
+            'amz_fulfillment_cost',
             'remark',
-            'parent_product_id',
+//            'parent_product_id',
             'source',
             'member',
             'preview_status',
@@ -91,6 +97,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'is_submit_manager',
             'pur_group_status',
             'purchaser_leader',
+
         ],
     ]) ?>
 
