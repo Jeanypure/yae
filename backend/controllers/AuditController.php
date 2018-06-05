@@ -152,7 +152,9 @@ class AuditController extends Controller
             'member2'=>Yii::$app->user->identity->username])))
         {
             if ($model_preview->load(Yii::$app->request->post()) ) {
-                $model_preview->view_status = 1;
+                if(!empty(Yii::$app->request->post()['Preview']['result'])){
+                    $model_preview->view_status = 1;
+                }
                  $model_preview->save(false);
                     return $this->redirect('index');
             }
@@ -168,7 +170,9 @@ class AuditController extends Controller
         }else {
             $model_preview =  new Preview();
             if ($model_preview->load(Yii::$app->request->post())) {
-                $model_preview->view_status = 1;
+                if(!empty(Yii::$app->request->post()['Preview']['result'])){
+                    $model_preview->view_status = 1;
+                }
                 $model_preview->save(false);
                 return $this->redirect('index');
 
