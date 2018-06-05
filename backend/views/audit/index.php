@@ -229,7 +229,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'hs_code',
             'bill_tax_rebate',
             'bill_rebate_amount',
-            'no_rebate_amount',
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
@@ -260,13 +259,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     if (!empty($model->url_1688)) return "<a href='$model->url_1688' target='_blank'>".parse_url($model->url_1688)['host']."</a>";
                 }
             ],
-//            'parent_product_id',
 //            'shipping_fee',
 //            'oversea_shipping_fee',
 //            'transaction_fee',
             'retail_price',
+            'no_rebate_amount',
             'gross_profit',
             'profit_rate',
+            'gross_profit_amz',
+            'profit_rate_amz',
 //            'remark',
 
         ],
