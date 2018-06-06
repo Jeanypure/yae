@@ -152,13 +152,11 @@ class AuditController extends Controller
             'member2'=>Yii::$app->user->identity->username])))
         {
             if ($model_preview->load(Yii::$app->request->post()) ) {
-                if(!empty(Yii::$app->request->post()['Preview']['result'])){
-                    $model_preview->view_status = 1;
-                }
+
+                 $model_preview->view_status = 1;
                  $model_preview->save(false);
                     return $this->redirect('index');
             }
-
             return $this->renderAjax('update_audit', [
                 'model_preview' => $model_preview,
                 'purinfo'=>$purinfo,
@@ -170,9 +168,7 @@ class AuditController extends Controller
         }else {
             $model_preview =  new Preview();
             if ($model_preview->load(Yii::$app->request->post())) {
-                if(!empty(Yii::$app->request->post()['Preview']['result'])){
-                    $model_preview->view_status = 1;
-                }
+                $model_preview->view_status = 1;
                 $model_preview->save(false);
                 return $this->redirect('index');
 
