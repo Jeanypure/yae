@@ -30,7 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'export' => false,
         'id'=>'task',
-        'options' =>['style'=>'overflow:auto; white-space:nowrap;'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             ['class' => 'yii\grid\CheckboxColumn'],
