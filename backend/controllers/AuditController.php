@@ -192,9 +192,6 @@ class AuditController extends Controller
 
         $username = Yii::$app->user->identity->username;
         $ids = $_POST['id'];
-        var_dump($username);
-        var_dump($ids);
-            die;
         $product_ids = '';
         foreach ($ids as $k=>$v){
             $product_ids.=$v.',';
