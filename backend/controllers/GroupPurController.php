@@ -191,9 +191,10 @@ class GroupPurController extends Controller
 
             $id_set = trim($val,',');
 
-           $update_insert = $this->actionPreview($id_set); // 更新同步评审表的一系列操作
 
-            Yii::$app->db->createCommand("
+            $preview_result = $this->actionPreview($id_set); // 更新同步评审表的一系列操作
+
+            $pur_result  = Yii::$app->db->createCommand("
                 update `pur_info` set `brocast_status` = 2 ,`preview_status`= 0 WHERE `pur_info_id` in ($id_set)
             ")->execute();
 
@@ -221,11 +222,12 @@ class GroupPurController extends Controller
         $leaders = rtrim($leader,",");
 
         $count_num = Yii::$app->db->createCommand("
-            select count(*) as number from `preview` where `product_id` in ($id_set) 
+            select count(*) as number from `preview` where 
+            `product_id` in ($id_set) 
             and `member2` in ( $leaders)
             ")->queryOne();
 
-        if($count_num!=0){ //update
+        if($count_num['number'] > 0){ //update
             // 根据条件在leaders里 更新现在的
 
             $new_items = Yii::$app->db->createCommand("
@@ -236,10 +238,11 @@ class GroupPurController extends Controller
 
             foreach ($new_items as $key=>$value){
                 try{
-                    Yii::$app->db->createCommand("
+                    $result  =   Yii::$app->db->createCommand("
                 update `preview` set `member2`='$value[leader]' where `product_id`=$value[pur_info_id] 
                 and `member2`  in ( $leaders)
                 ")->execute();
+
                 }catch(Exception $e){
                     throw new Exception();
                 }
@@ -267,14 +270,18 @@ class GroupPurController extends Controller
 
             $res = $this->actionMultArray2Insert($table,$arr_key, $arr, $split = '`');
 
-
             try{
                 $result =   Yii::$app->db->createCommand("$res")->execute();
+
             }
             catch(Exception $e){
                 throw new Exception();
             }
+
+
         }
+
+        return $result;
 
     }
 
