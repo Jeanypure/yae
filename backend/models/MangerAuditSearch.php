@@ -55,6 +55,7 @@ class MangerAuditSearch extends PurInfo
 //            ->Where(['is_submit_manager'=>1])
             ->andWhere(['in','pur_info_id',$ids])
         ;
+        $this->master_result = 3;
 
         // add conditions that should always apply here
 
