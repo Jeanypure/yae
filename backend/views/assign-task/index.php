@@ -92,7 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'是否分配'],
-//                'group'=>true,  // enable grouping
+                'group'=>true,  // enable grouping
 
             ],
             [
