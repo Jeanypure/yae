@@ -119,6 +119,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
+
+
             [
                 'attribute'=>'master_result',
                 'value' => function($model) {

@@ -1,7 +1,6 @@
 <?php
-
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\helpers\Url;
 use kartik\daterange\DateRangePicker;
 
@@ -29,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'export' => false,
         'id'=>'task',
         'options' =>['style'=>'overflow:auto; white-space:nowrap;'],
         'columns' => [
@@ -74,6 +74,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => [
                     'width'=>'80%'
                 ],
+            ],
+            [
+                'attribute'=>'is_assign',
+                'value' => function($model) {
+                    if($model->is_assign==1){
+                        return '是';
+                    }else{
+                        return '否';
+
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['0' => '否', '1' => '是'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'是否分配'],
+//                'group'=>true,  // enable grouping
+
             ],
             [
                 'attribute' => 'pd_create_time',

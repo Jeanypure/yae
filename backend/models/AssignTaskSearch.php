@@ -18,7 +18,7 @@ class AssignTaskSearch extends PurInfo
     public function rules()
     {
         return [
-            [['pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_value', 'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
+            [['is_assign','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_value', 'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
             [['pd_create_time','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package',
                 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url',
                 'amazon_url', 'url_1688', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'source', 'member'], 'safe'],
@@ -46,7 +46,7 @@ class AssignTaskSearch extends PurInfo
     {
         $query = PurInfo::find()
             ->andwhere(['is_submit'=>1])
-            ->andwhere(['is_assign'=>0])    //未分配
+//            ->andwhere(['is_assign'=>0])    //未分配
             ->andwhere(['not',['purchaser'=>'null']])
         ;
 
@@ -76,6 +76,7 @@ class AssignTaskSearch extends PurInfo
         // grid filtering conditions
         $query->andFilterWhere([
             'pur_info_id' => $this->pur_info_id,
+            'is_assign' => $this->is_assign,
             'pur_group' => $this->pur_group,
             'is_huge' => $this->is_huge,
             'pd_weight' => $this->pd_weight,
