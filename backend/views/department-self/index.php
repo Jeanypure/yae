@@ -25,6 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => '操作',
+
+                'template'=> ' {view}  {update}'
             ],
             [
                 'class' => 'yii\grid\Column',
@@ -91,7 +93,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'filterInputOptions'=>['placeholder'=>'评审状态'],
             ],
-            'master_mark',
+            [
+                'attribute'=>'master_mark',
+                'value' => function($model) { return $model->master_mark;},
+                'contentOptions'=> ['style' => 'width: 90%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'90%'
+                ],
+            ],
             [
                 'attribute'=>'source',
                 'width'=>'50px',
@@ -166,7 +176,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'transaction_fee',
             'gross_profit',
 //            'remark',
-//            'parent_product_id',
+
 
         ],
     ]); ?>
