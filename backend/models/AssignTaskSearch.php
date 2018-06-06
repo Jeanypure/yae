@@ -46,6 +46,7 @@ class AssignTaskSearch extends PurInfo
     {
         $query = PurInfo::find()
             ->andwhere(['is_submit'=>1])
+            ->andwhere(['is_assign'=>0])    //未分配
             ->andwhere(['not',['purchaser'=>'null']])
         ;
 

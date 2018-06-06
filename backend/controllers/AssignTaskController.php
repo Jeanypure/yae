@@ -152,7 +152,7 @@ class AssignTaskController extends Controller
            $ids_str = rtrim($pur_ids,',');
             try{
                 $result =   Yii::$app->db->createCommand(" 
-                            update `pur_info` set `member`= '$member' where pur_info_id in ($ids_str);
+                            update `pur_info` set `member`= '$member',`is_assign`=1  where pur_info_id in ($ids_str);
                          ")->execute();
             }
             catch(Exception $e){
@@ -183,7 +183,7 @@ class AssignTaskController extends Controller
                 try{//分配的同时 preview无此产品 插入  存在则更新preview表
                     $update_member2 = Yii::$app->db->createCommand("
                     update `preview` set `member2`= '$member' where `product_id` in ($ids_str);
-                    update `pur_info` set `member`= '$member' where pur_info_id in ($ids_str);
+                    update `pur_info` set `member`= '$member' ,`is_assign`=1   where pur_info_id in ($ids_str);
                     ")->execute();
                 }
                 catch(Exception $e){

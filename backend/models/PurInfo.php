@@ -62,7 +62,7 @@ class PurInfo extends \yii\db\ActiveRecord
     {
 
         return [
-            [['junior_submit','pur_group', 'pd_purchase_num', 'parent_product_id','preview_status'], 'integer'],
+            [['is_assign','junior_submit','pur_group', 'pd_purchase_num', 'parent_product_id','preview_status'], 'integer'],
             [['pd_title','pd_title_en','pd_package','pd_length', 'pd_width', 'pd_height','pd_weight',
                 'pd_pur_costprice','bill_tax_rebate','retail_price','pd_purchase_num',
                 'has_shipping_fee'], 'required'],
@@ -93,6 +93,7 @@ class PurInfo extends \yii\db\ActiveRecord
     {
         return [
             'pur_info_id' => 'ID',
+            'is_assign' => '是否分配',
             'purchaser' => '采购人',
             'pur_group' => '部门号',
             'pd_title' => '中文简称',
@@ -117,7 +118,6 @@ class PurInfo extends \yii\db\ActiveRecord
             'bill_rebate_amount' => '退税金额¥',
             'no_rebate_amount' => 'eBay预计销售价¥',
             'retail_price' => 'eBay预计销售价格$',
-//            'retail_price' => '预计销售价格$',
             'ebay_url' => 'eBay低价链接',
             'amazon_url' => 'Amazon低价链接',
             'url_1688' => '1688低价链接',
