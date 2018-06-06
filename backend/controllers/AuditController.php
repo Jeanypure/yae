@@ -148,9 +148,15 @@ class AuditController extends Controller
 
         $purinfo = $this->findModel($id);
 
+        $model_preview = Preview::findOne(['product_id'=>$id,
+            'member2'=>Yii::$app->user->identity->username]);
+        var_dump($model_preview); die;
+
+       var_dump(Yii::$app->user->identity->username);die;
+
         if(($model_preview = Preview::findOne(['product_id'=>$id,
             'member2'=>Yii::$app->user->identity->username])))
-        {
+        { // 审核组 更新评审
             if ($model_preview->load(Yii::$app->request->post()) ) {
 
                  $model_preview->view_status = 1;
@@ -187,32 +193,14 @@ class AuditController extends Controller
 
 
 
-    public function actionBrocast()
-    {
-        $ids = $_POST['id'];
-        $product_ids = '';
-        foreach ($ids as $k=>$v){
-            $product_ids.=$v.',';
-        }
-        $ids_str = trim($product_ids,',');
-        if(isset($ids)&&!empty($ids)){
-            $res = Yii::$app->db->createCommand("
-            update `product` set `brocast_status`= 1  where `product_id` in ($ids_str)
-            ")->execute();
-            if($res){
-                echo 'success';
-            }
-        }else{
-            echo 'error';
-        }
-
-
-    }
 
     public  function  actionSubmit(){
 
         $username = Yii::$app->user->identity->username;
         $ids = $_POST['id'];
+        var_dump($username);
+        var_dump($ids);
+            die;
         $product_ids = '';
         foreach ($ids as $k=>$v){
             $product_ids.=$v.',';
