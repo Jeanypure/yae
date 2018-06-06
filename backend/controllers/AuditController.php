@@ -148,12 +148,6 @@ class AuditController extends Controller
 
         $purinfo = $this->findModel($id);
 
-        $model_preview = Preview::findOne(['product_id'=>$id,
-            'member2'=>Yii::$app->user->identity->username]);
-        var_dump($model_preview); die;
-
-       var_dump(Yii::$app->user->identity->username);die;
-
         if(($model_preview = Preview::findOne(['product_id'=>$id,
             'member2'=>Yii::$app->user->identity->username])))
         { // 审核组 更新评审
