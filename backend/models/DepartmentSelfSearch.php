@@ -43,8 +43,8 @@ class DepartmentSelfSearch extends PurInfo
     public function search($params,$pur_group)
     {
         $query = PurInfo::find()
+            ->andWhere(['pur_group'=>$pur_group])
             ->orderBy('pur_info_id   desc');
-        $this->pur_group = $pur_group;
 
         // add conditions that should always apply here
 
