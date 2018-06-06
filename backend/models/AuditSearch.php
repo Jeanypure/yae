@@ -83,7 +83,7 @@ class AuditSearch extends PurInfo
 
         }
 
-        echo  $query->createCommand()->getRawSql();die;
+//        echo  $query->createCommand()->getRawSql();die;
 
 
 
