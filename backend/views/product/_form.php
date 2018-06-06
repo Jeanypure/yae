@@ -45,18 +45,8 @@ use kartik\builder\Form;
 
     ?>
 
-
-
-<!--    --><?php //echo  $form->field($model, 'product_add_time')->textInput() ?>
-
-<!--    --><?php //echo  $form->field($model, 'product_update_time')->textInput() ?>
-
-
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
-
-
-<!--        --><?php //echo Html::button('Commit',['class' => 'btn btn-info' ,'id'=>'is_submit'])?>
+        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn-lg btn-success ']) ?>
 
     </div>
 
@@ -80,6 +70,7 @@ $require_js = <<<JS
     $(function(){
          $("label[for='product-product_title'] ").addClass("label-require");
          $("label[for='product-product_title_en'] ").addClass("label-require");
+         $("label[for='product-pd_pic_url'] ").addClass("label-require");
             
             $('.label-require').html(function(_,html) {
                 return html.replace(/(.*?)/, "<span style = 'color:red'><big>*$1</big></span>");

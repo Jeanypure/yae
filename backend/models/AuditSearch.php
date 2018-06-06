@@ -78,15 +78,13 @@ class AuditSearch extends PurInfo
                 ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager'])
                 ->joinWith('preview')
                 ->andWhere(['is_submit'=>1])
-//                ->andWhere(['not', ['pur_group' => null]])
+                ->andWhere(['not', ['pur_group' => null]])
                 ->orderBy('pur_info_id desc')
             ;
 
         }
 
 //        echo  $query->createCommand()->getRawSql();die;
-
-
 
         // add conditions that should always apply here
 

@@ -61,6 +61,7 @@ class YaeUserFood extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(),['id'=>'user_id']);
     }
+
     public function getYaeFoodLists()
     {
         return $this->hasOne(YaeFoodLists::className(),['id'=>'food_id']);

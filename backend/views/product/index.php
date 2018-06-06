@@ -288,15 +288,3 @@ $this->registerJs($is_submit);
 
 
 ?>
-<?php
-//已经提交的产品 不能编辑
-$un_update = <<<JS
- $('.glyphicon-pencil').on('click',function(){
-     
-        
- });
-JS;
-
-
-
-?>

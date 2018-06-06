@@ -31,6 +31,9 @@ return [
         'yaedata' => [
             'class' => 'backend\modules\yaedata\Module',
         ],
+        'sample' => [
+            'class' => 'backend\modules\sample\Module',
+        ],
     ],
     "aliases" => [
         "@mdm/admin" => "@vendor/mdmsoft/yii2-admin",
