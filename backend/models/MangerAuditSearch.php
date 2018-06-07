@@ -4,7 +4,8 @@ namespace backend\models;
 
 use Yii;
 use yii\base\Model;
-use yii\data\ActiveDataProvider;
+//use yii\data\ActiveDataProvider;
+use yii\data\SqlDataProvider;
 
 
 /**
@@ -40,33 +41,92 @@ class MangerAuditSearch extends PurInfo
     {
        $res = Yii::$app->db->createCommand(' 
                  SELECT DISTINCT w.product_id FROM preview w where w.submit_manager=1
+                 and  w.product_id is not  null 
                  ' )
            ->queryAll();
+        $id_str = '';
        if(!empty($res)){
            foreach ($res as $k=>$v){
-               $ids[] = $v['product_id'];
-           }
-       }else{
-           $ids = [];
-       }
+               if(!empty($v['product_id'])){
+                   $id_str .= "'".$v['product_id']."',";
 
+               }
+           }
+       }
+        $ids = rtrim($id_str,",");
+
+        $sql = "
+        SELECT 
+        o.*,
+        sum(A) as A,
+        sum(B) as B
+        FROM(
+            SELECT
+            `pur_info`.pur_info_id, 
+            `preview`.`submit_manager`,
+            case when audit_role = 0 then submit_manager end as A,
+            case when audit_role = 1 then submit_manager end as B
+            FROM
+                `pur_info`
+                LEFT JOIN `preview` ON `pur_info`.`pur_info_id` = `preview`.`product_id` 
+            WHERE `pur_info_id` IN ( $ids )
+          )aa 
+        left JOIN `pur_info` o on o.`pur_info_id`=aa.`pur_info_id`  GROUP BY aa.pur_info_id  
+        " ;
 
         $query = PurInfo::find()
             ->joinWith('preview')
             ->andWhere(['in','pur_info_id',$ids])
         ;
+
+
+            $count = Yii::$app->db->createCommand("
+            select count(*) from ($sql) bb
+            ")->queryScalar();
+
+
+        $query = new Query;
+        $query->select('pur_info_id.*,')
+            ->joinWith('preview')
+            ->andWhere(['in','pur_info_id',$ids])
+            ->from('my_table');
+
+
+        $dataProvider = new SqlDataProvider([
+            'sql' => $sql,
+//            'params' => [':status' => 1],
+            'totalCount' => $count,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+            'sort' => [
+                'attributes' => [
+//                    'title',
+//                    'view_count',
+//                    'created_at',
+                ],
+            ],
+        ]);
+
+// 返回包含每一行的数组
+        $models = $dataProvider->getModels();
+
+        var_dump($models);die;
+
+
+
        echo  $query->createCommand()->getRawSql();die;
 
         $this->master_result = 3;
 
         // add conditions that should always apply here
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pagesize' => '10',
-            ]
-        ]);
+//        $dataProvider = new ActiveDataProvider([
+//            'query' => $query,
+//            'pagination' => [
+//                'pagesize' => '10',
+//            ]
+//        ]);
 
 
 
