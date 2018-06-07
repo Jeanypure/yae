@@ -7,6 +7,7 @@ $params = array_merge(
 );
 
 return [
+    'timeZone'=>'Asia/Chongqing',
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
@@ -113,5 +114,5 @@ return [
     ],
 
     'params' => $params,
-    'language' => 'zh-CN'
+    'language' => 'zh-CN',
 ];

@@ -166,10 +166,10 @@ class PurInfo extends \yii\db\ActiveRecord
     }
 
 
-    /*
-  * 一个产品有一个采购跟单申请
-  *
-  */
+    /**
+      * 一个产品有一个采购跟单申请
+      *
+      */
 
     public function getSampleTrack()
     {

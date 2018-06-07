@@ -3,16 +3,16 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\PurInfo */
+/* @var $model backend\models\SampleTrack */
 
-$this->title = Yii::t('app', 'Update Pur Info: ' . $model->pur_info_id, [
-    'nameAttribute' => '' . $model->pur_info_id,
+$this->title = Yii::t('app', 'Update Sample Track: ' . $model->sample_id, [
+    'nameAttribute' => '' . $model->sample_id,
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Pur Infos'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->pur_info_id, 'url' => ['view', 'id' => $model->pur_info_id]];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Sample Tracks'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->sample_id, 'url' => ['view', 'id' => $model->sample_id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
-<div class="pur-info-update">
+<div class="sample-track-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

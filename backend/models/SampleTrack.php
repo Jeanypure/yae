@@ -26,10 +26,8 @@ use Yii;
  * @property string $create_date 创建时间
  * @property string $lastop_date 最后处理时间
  */
-class SampleTrack extends \yii\db\ActiveRecord
+    class SampleTrack extends \yii\db\ActiveRecord
 {
-
-
     /**
      * {@inheritdoc}
      */
@@ -78,8 +76,4 @@ class SampleTrack extends \yii\db\ActiveRecord
             'lastop_date' => 'Lastop Date',
         ];
     }
-
-
-
-
 }
