@@ -5,7 +5,7 @@ namespace backend\models;
 use Yii;
 
 /**
- * This is the model class for table "sample_track".
+ * This is the model class for table "sample".
  *
  * @property int $sample_id 主键 样品ID
  * @property int $spur_info_id 商品ID
@@ -26,14 +26,14 @@ use Yii;
  * @property string $create_date 创建时间
  * @property string $lastop_date 最后处理时间
  */
-    class SampleTrack extends \yii\db\ActiveRecord
+class Sample extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'sample_track';
+        return 'sample';
     }
 
     /**
