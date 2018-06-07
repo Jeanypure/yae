@@ -149,6 +149,22 @@ $this->registerJs("
             $('.form-control').css('border-radius','7px')
         }); 
         ", \yii\web\View::POS_END);
+
+//span * 必填字段
+
+$require_js = <<<JS
+    $(function(){
+         $("label[for='preview-content'] ").addClass("label-require");
+         $("label[for='preview-result'] ").addClass("label-require");
+            
+            $('.label-require').html(function(_,html) {
+                return html.replace(/(.*?)/, "<span style = 'color:red'><big>*$1</big></span>");
+            });
+    });
+JS;
+
+$this->registerJs($require_js);
+
 ?>
 <?php
 

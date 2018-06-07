@@ -35,6 +35,7 @@ class Preview extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['result','content'], 'required'],
             [['priview_time'], 'safe'],
             [['member_id'], 'integer'],
             [['member2', 'content', 'result'], 'string', 'max' => 500],
