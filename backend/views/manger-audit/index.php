@@ -176,24 +176,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
 
-//            'pd_length',
-//            'pd_width',
-//            'pd_height',
-//            'is_huge',
-//            'pd_weight',
-//            'pd_throw_weight',
-//            'pd_count_weight',
-//            'pd_material',
-//            'pd_purchase_num',
-//            'pd_pur_costprice',
-//            'has_shipping_fee',
-//            'bill_type',
-//            'bill_tax_value',
-//            'hs_code',
-//            'bill_tax_rebate',
-//            'bill_rebate_amount',
-//            'no_rebate_amount',
-//            'retail_price',
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
@@ -231,8 +213,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'transaction_fee',
             'gross_profit',
             'profit_rate',
-
-
+            'gross_profit_amz',
+            'profit_rate_amz',
+            [
+                'attribute'=>'remark',
+                'value' => function($model) { return $model->remark;},
+                'contentOptions'=> ['style' => 'width: 80%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
         ],
     ]); ?>
 

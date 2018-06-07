@@ -52,9 +52,11 @@ class MangerAuditSearch extends PurInfo
 
 
         $query = PurInfo::find()
-//            ->Where(['is_submit_manager'=>1])
+            ->joinWith('preview')
             ->andWhere(['in','pur_info_id',$ids])
         ;
+       echo  $query->createCommand()->getRawSql();die;
+
         $this->master_result = 3;
 
         // add conditions that should always apply here

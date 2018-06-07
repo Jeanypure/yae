@@ -227,6 +227,7 @@ class GroupPurController extends Controller
             and `member2` in ( $leaders)
             ")->queryOne();
 
+
         if($count_num['number'] > 0){ //update
             // 根据条件在leaders里 更新现在的
 
@@ -239,7 +240,7 @@ class GroupPurController extends Controller
             foreach ($new_items as $key=>$value){
                 try{
                     $result  =   Yii::$app->db->createCommand("
-                update `preview` set `member2`='$value[leader]' where `product_id`=$value[pur_info_id] 
+                update `preview` set `member2`='$value[leader]',`audit_role`=1 where `product_id`=$value[pur_info_id] 
                 and `member2`  in ( $leaders)
                 ")->execute();
 
@@ -256,7 +257,7 @@ class GroupPurController extends Controller
 
             //批量插入语句
             $member2_pid = Yii::$app->db->createCommand("
-                SELECT leader,pur_info_id FROM pur_info o
+                SELECT leader,pur_info_id,1 FROM pur_info o
         LEFT JOIN company y ON y.sub_company=o.pur_group
         WHERE pur_info_id in ($id_set);
         ")->queryAll();
@@ -266,7 +267,7 @@ class GroupPurController extends Controller
             }
 
             $table = 'preview';
-            $arr_key = ['member2','product_id'];
+            $arr_key = ['member2','product_id','audit_role'];
 
             $res = $this->actionMultArray2Insert($table,$arr_key, $arr, $split = '`');
 
