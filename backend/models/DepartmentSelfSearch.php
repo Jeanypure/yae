@@ -44,6 +44,7 @@ class DepartmentSelfSearch extends PurInfo
     {
         $query = PurInfo::find()
             ->andWhere(['pur_group'=>$pur_group])
+            ->andWhere(['is_submit'=>1])
             ->orderBy('pur_info_id   desc');
 
         // add conditions that should always apply here
