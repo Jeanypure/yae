@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\modelsSampleTrackSearch */
+/* @var $searchModel backend\models\SampleTrackSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Sample Tracks');
+$this->title = Yii::t('app', 'Pur Infos');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="sample-track-index">
+<div class="pur-info-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Sample Track'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Pur Info'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -25,24 +25,65 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'sample_id',
             'spur_info_id',
-            'procurement_cost',
-            'sample_freight',
-            'else_fee',
-            //'pay_amount',
-            //'pay_way',
-            //'mark',
-            //'is_audit',
-            //'is_agreest',
-            //'is_quality',
-            //'fee_return',
-            //'audit_mem1',
-            //'audit_mem2',
-            //'audit_mem3',
-            //'applicant',
-            //'create_date',
-            //'lastop_date',
+            'pur_info_id',
+            'purchaser',
+            'pur_group',
+            'pd_title',
+            'pd_title_en',
+            //'pd_pic_url:url',
+            //'pd_package',
+            //'pd_length',
+            //'pd_width',
+            //'pd_height',
+            //'is_huge',
+            //'pd_weight',
+            //'pd_throw_weight',
+            //'pd_count_weight',
+            //'pd_material',
+            //'pd_purchase_num',
+            //'pd_pur_costprice',
+            //'has_shipping_fee',
+            //'bill_type',
+            //'bill_tax_value',
+            //'hs_code',
+            //'bill_tax_rebate',
+            //'bill_rebate_amount',
+            //'no_rebate_amount',
+            //'retail_price',
+            //'ebay_url:url',
+            //'amazon_url:url',
+            //'url_1688:url',
+            //'else_url:url',
+            //'shipping_fee',
+            //'oversea_shipping_fee',
+            //'transaction_fee',
+            //'gross_profit',
+            //'remark',
+            //'parent_product_id',
+            //'source',
+            //'member',
+            //'preview_status',
+            //'brocast_status',
+            //'master_member',
+            //'master_mark',
+            //'master_result',
+            //'priview_time',
+            //'ams_logistics_fee',
+            //'is_submit',
+            //'pd_create_time',
+            //'is_submit_manager',
+            //'pur_group_status',
+            //'purchaser_leader',
+            //'junior_submit',
+            //'profit_rate',
+            //'gross_profit_amz',
+            //'profit_rate_amz',
+            //'amz_fulfillment_cost',
+            //'selling_on_amz_fee',
+            //'amz_retail_price',
+            //'amz_retail_price_rmb',
+            //'is_assign',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

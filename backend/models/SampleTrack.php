@@ -29,8 +29,7 @@ use Yii;
 class SampleTrack extends \yii\db\ActiveRecord
 {
 
-    public  $pd_title;
-    public  $pd_pic_url;
+
     /**
      * {@inheritdoc}
      */
@@ -80,17 +79,7 @@ class SampleTrack extends \yii\db\ActiveRecord
         ];
     }
 
-    /*
-     * 一个产品有一个采购跟单申请
-     *
-     */
 
-    public function getPurInfo()
-    {
-        //第一个参数为要关联的子表模型类名，
-        //第二个参数指定 通过子表的 spur_info_id，关联主表的pur_info_id字段
-        return $this->hasOne(PurInfo::className(), ['pur_info_id' => 'spur_info_id']);
-    }
 
 
 }

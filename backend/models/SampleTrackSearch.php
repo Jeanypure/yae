@@ -8,19 +8,22 @@ use yii\data\ActiveDataProvider;
 use backend\models\PurInfo;
 
 /**
- * BrocastPurSearch represents the model behind the search form of `backend\models\PurInfo`.
+ * SampleTrackSearch represents the model behind the search form of `backend\models\PurInfo`.
  */
-class BrocastPurSearch extends PurInfo
+class SampleTrackSearch extends PurInfo
 {
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_value', 'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
-            [['purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688','else_url', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'source', 'member', 'preview_status', 'brocast_status'], 'safe'],
-            [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice'], 'number'],
+            [['pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_value',
+                'bill_tax_rebate', 'parent_product_id', 'source', 'preview_status', 'brocast_status',
+                'master_result', 'is_submit', 'is_submit_manager', 'pur_group_status', 'junior_submit', 'is_assign'], 'integer'],
+            [['spur_info_id','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'hs_code', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'else_url', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'member', 'master_member', 'master_mark', 'priview_time', 'pd_create_time', 'purchaser_leader', 'profit_rate', 'gross_profit_amz', 'profit_rate_amz', 'amz_fulfillment_cost', 'selling_on_amz_fee', 'amz_retail_price', 'amz_retail_price_rmb'], 'safe'],
+            [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice', 'ams_logistics_fee'], 'number'],
         ];
     }
 
@@ -43,10 +46,9 @@ class BrocastPurSearch extends PurInfo
     public function search($params)
     {
         $query = PurInfo::find()
-         ->andWhere(['brocast_status'=>1])
-         ->andWhere(['is_submit'=>1])
+            ->select(['`pur_info`.*,`sample_track`.spur_info_id'])
+            ->joinWith('sample_track')
         ;
-
 
         // add conditions that should always apply here
 
@@ -61,10 +63,6 @@ class BrocastPurSearch extends PurInfo
             // $query->where('0=1');
             return $dataProvider;
         }
-        if (!empty($this->pd_create_time)) {
-            $query->andFilterCompare('pd_create_time', explode('/', $this->pd_create_time)[0], '>=');//起始时间
-            $query->andFilterCompare('pd_create_time', explode('/', $this->pd_create_time)[1], '<');//结束时间
-        }
 
         // grid filtering conditions
         $query->andFilterWhere([
@@ -78,9 +76,21 @@ class BrocastPurSearch extends PurInfo
             'pd_pur_costprice' => $this->pd_pur_costprice,
             'has_shipping_fee' => $this->has_shipping_fee,
             'bill_tax_value' => $this->bill_tax_value,
-            'hs_code' => $this->hs_code,
             'bill_tax_rebate' => $this->bill_tax_rebate,
             'parent_product_id' => $this->parent_product_id,
+            'source' => $this->source,
+            'preview_status' => $this->preview_status,
+            'brocast_status' => $this->brocast_status,
+            'master_result' => $this->master_result,
+            'priview_time' => $this->priview_time,
+            'ams_logistics_fee' => $this->ams_logistics_fee,
+            'is_submit' => $this->is_submit,
+            'pd_create_time' => $this->pd_create_time,
+            'is_submit_manager' => $this->is_submit_manager,
+            'pur_group_status' => $this->pur_group_status,
+            'junior_submit' => $this->junior_submit,
+            'is_assign' => $this->is_assign,
+            'spur_info_id' => $this->spur_info_id,
         ]);
 
         $query->andFilterWhere(['like', 'purchaser', $this->purchaser])
@@ -93,21 +103,30 @@ class BrocastPurSearch extends PurInfo
             ->andFilterWhere(['like', 'pd_height', $this->pd_height])
             ->andFilterWhere(['like', 'pd_material', $this->pd_material])
             ->andFilterWhere(['like', 'bill_type', $this->bill_type])
+            ->andFilterWhere(['like', 'hs_code', $this->hs_code])
             ->andFilterWhere(['like', 'bill_rebate_amount', $this->bill_rebate_amount])
             ->andFilterWhere(['like', 'no_rebate_amount', $this->no_rebate_amount])
             ->andFilterWhere(['like', 'retail_price', $this->retail_price])
             ->andFilterWhere(['like', 'ebay_url', $this->ebay_url])
             ->andFilterWhere(['like', 'amazon_url', $this->amazon_url])
             ->andFilterWhere(['like', 'url_1688', $this->url_1688])
+            ->andFilterWhere(['like', 'else_url', $this->else_url])
             ->andFilterWhere(['like', 'shipping_fee', $this->shipping_fee])
             ->andFilterWhere(['like', 'oversea_shipping_fee', $this->oversea_shipping_fee])
             ->andFilterWhere(['like', 'transaction_fee', $this->transaction_fee])
             ->andFilterWhere(['like', 'gross_profit', $this->gross_profit])
             ->andFilterWhere(['like', 'remark', $this->remark])
-            ->andFilterWhere(['like', 'source', $this->source])
             ->andFilterWhere(['like', 'member', $this->member])
-            ->andFilterWhere(['like', 'preview_status', $this->preview_status])
-            ->andFilterWhere(['like', 'brocast_status', $this->brocast_status]);
+            ->andFilterWhere(['like', 'master_member', $this->master_member])
+            ->andFilterWhere(['like', 'master_mark', $this->master_mark])
+            ->andFilterWhere(['like', 'purchaser_leader', $this->purchaser_leader])
+            ->andFilterWhere(['like', 'profit_rate', $this->profit_rate])
+            ->andFilterWhere(['like', 'gross_profit_amz', $this->gross_profit_amz])
+            ->andFilterWhere(['like', 'profit_rate_amz', $this->profit_rate_amz])
+            ->andFilterWhere(['like', 'amz_fulfillment_cost', $this->amz_fulfillment_cost])
+            ->andFilterWhere(['like', 'selling_on_amz_fee', $this->selling_on_amz_fee])
+            ->andFilterWhere(['like', 'amz_retail_price', $this->amz_retail_price])
+            ->andFilterWhere(['like', 'amz_retail_price_rmb', $this->amz_retail_price_rmb]);
 
         return $dataProvider;
     }
