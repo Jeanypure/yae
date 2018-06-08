@@ -67,7 +67,7 @@ class MangerAuditController extends Controller
               $model_update->preview_status = 1;
               $model_update->save(false);
 
-              return $this->redirect(['view', 'id' => $model_update->pur_info_id]);
+              return $this->redirect(['index']);
           }
           return $this->render('view', [
               'model' => $this->findModel($id),
@@ -84,7 +84,8 @@ class MangerAuditController extends Controller
           if ($model_update->load(Yii::$app->request->post())) {
               $model_update->preview_status = 1;
               $model_update->save(false);
-              return $this->redirect(['view', 'id' => $model_update->pur_info_id]);
+              return $this->redirect(['index']);
+
           }
 
           return $this->render('view', [
