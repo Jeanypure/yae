@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\YaeUserFood */
+/* @var $model backend\models\Sample */
 
-$this->title = Yii::t('app', 'Create Yae User Food');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Yae User Foods'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Create Sample');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Samples'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="yae-user-food-create">
+<div class="sample-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

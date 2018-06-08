@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\PurInfo;
-use backend\models\ProductTrackSearch;
+use backend\models\Sample;
+use backend\models\SampleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ProductTrackController implements the CRUD actions for PurInfo model.
+ * SampleController implements the CRUD actions for Sample model.
  */
-class ProductTrackController extends Controller
+class SampleController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class ProductTrackController extends Controller
     }
 
     /**
-     * Lists all PurInfo models.
+     * Lists all Sample models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ProductTrackSearch();
+        $searchModel = new SampleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class ProductTrackController extends Controller
     }
 
     /**
-     * Displays a single PurInfo model.
+     * Displays a single Sample model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,16 +58,16 @@ class ProductTrackController extends Controller
     }
 
     /**
-     * Creates a new PurInfo model.
+     * Creates a new Sample model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new PurInfo();
+        $model = new Sample();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pur_info_id]);
+            return $this->redirect(['view', 'id' => $model->sample_id]);
         }
 
         return $this->render('create', [
@@ -76,7 +76,7 @@ class ProductTrackController extends Controller
     }
 
     /**
-     * Updates an existing PurInfo model.
+     * Updates an existing Sample model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -87,7 +87,7 @@ class ProductTrackController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pur_info_id]);
+            return $this->redirect(['view', 'id' => $model->sample_id]);
         }
 
         return $this->render('update', [
@@ -96,7 +96,7 @@ class ProductTrackController extends Controller
     }
 
     /**
-     * Deletes an existing PurInfo model.
+     * Deletes an existing Sample model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class ProductTrackController extends Controller
     }
 
     /**
-     * Finds the PurInfo model based on its primary key value.
+     * Finds the Sample model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return PurInfo the loaded model
+     * @return Sample the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = PurInfo::findOne($id)) !== null) {
+        if (($model = Sample::findOne($id)) !== null) {
             return $model;
         }
 

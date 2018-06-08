@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\Sample;
 use Yii;
 use backend\models\PurInfo;
 use backend\models\PurInfoTrackSearch;
@@ -85,13 +86,19 @@ class PurInfoTrackController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $sample_model = Sample::findOne(['spur_info_id'=>$id]);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pur_info_id]);
+        if ($sample_model->load(Yii::$app->request->post())&& $sample_model->save() ) {
+
+            return $this->redirect(['update', 'id' => $sample_model->spur_info_id]);
         }
+
+
+
 
         return $this->render('update', [
             'model' => $model,
+            'sample_model' => $sample_model,
         ]);
     }
 

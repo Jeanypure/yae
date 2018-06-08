@@ -15,23 +15,17 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pur-info-index">
 
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Pur Info'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'export' => false,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\CheckboxColumn'],
             ['class' => 'yii\grid\ActionColumn',
                 'header' => '操作',
                 'template' => '{view} {update}',
             ],
-
-
 
 //            'pur_info_id',
             'spur_info_id',

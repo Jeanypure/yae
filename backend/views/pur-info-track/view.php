@@ -11,29 +11,16 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Pur Infos'), 'url' =
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pur-info-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->pur_info_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->pur_info_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'pur_info_id',
+            'preview_status',
             'purchaser',
             'pur_group',
             'pd_title',
             'pd_title_en',
-            'pd_pic_url:url',
+            ['attribute'=>'pd_pic_url','format'=>['url',['target'=>'_blank']]],
             'pd_package',
             'pd_length',
             'pd_width',
@@ -52,40 +39,39 @@ $this->params['breadcrumbs'][] = $this->title;
             'bill_rebate_amount',
             'no_rebate_amount',
             'retail_price',
-            'ebay_url:url',
-            'amazon_url:url',
-            'url_1688:url',
-            'else_url:url',
+            ['attribute'=>'ebay_url','format'=>['url',['target'=>'_blank']]],
+            ['attribute'=>'amazon_url','format'=>['url',['target'=>'_blank']]],
+            ['attribute'=>'url_1688','format'=>['url',['target'=>'_blank']]],
+            ['attribute'=>'else_url','format'=>['url',['target'=>'_blank']]],
             'shipping_fee',
             'oversea_shipping_fee',
             'transaction_fee',
             'gross_profit',
-            'remark',
-            'parent_product_id',
-            'source',
-            'member',
-            'preview_status',
-            'brocast_status',
-            'master_member',
-            'master_mark',
-            'master_result',
-            'priview_time',
-            'ams_logistics_fee',
-            'is_submit',
-            'pd_create_time',
-            'is_submit_manager',
-            'pur_group_status',
-            'purchaser_leader',
-            'junior_submit',
             'profit_rate',
             'gross_profit_amz',
             'profit_rate_amz',
-            'amz_fulfillment_cost',
             'selling_on_amz_fee',
-            'amz_retail_price',
-            'amz_retail_price_rmb',
-            'is_assign',
-            'commit_date',
+            'amz_fulfillment_cost',
+            'remark',
+            [
+                'attribute'=>'master_result',
+                'value'=>function($model){
+                    if($model->master_result==0){
+                        return "拒绝";
+                    }elseif($model->master_result==1){
+                        return "采样";
+                    }elseif($model->master_result==2){
+                        return "需议价或谈其他条件";
+                    }elseif($model->master_result==3){
+                        return "未评审";
+                    }elseif($model->master_result==4){
+                        return "直接下单";
+                    }elseif($model->master_result==5){
+                        return "季节产品推迟";
+                    }
+                }
+            ],
+            'master_mark',
         ],
     ]) ?>
 
