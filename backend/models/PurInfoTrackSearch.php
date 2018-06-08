@@ -45,14 +45,14 @@ class PurInfoTrackSearch extends PurInfo
     {
         $query = PurInfo::find()
             ->select(['
-                    `pur_info`.pd_title,
-                    `pur_info`.pd_title_en,
                     `pur_info`.pur_info_id,
+                    `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
+                    `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
                     `sample`.spur_info_id'])
             ->joinWith('sample')
             ->andWhere(['not',['sample.spur_info_id'=>null]])
         ;
-        echo $query->createCommand()->getRawSql();die;
+//        echo $query->createCommand()->getRawSql();die;
 
         // add conditions that should always apply here
 
