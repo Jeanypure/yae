@@ -48,7 +48,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'bill_type')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'bill_tax_value')->textInput() ?>
 
     <?= $form->field($model, 'hs_code')->textInput() ?>
 

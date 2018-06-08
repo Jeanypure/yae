@@ -18,7 +18,7 @@ class JuniorPurInfoSearch extends PurInfo
     public function rules()
     {
         return [
-            [['junior_submit','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_value', 'bill_tax_rebate', 'parent_product_id', 'source', 'preview_status', 'brocast_status', 'is_submit', 'is_submit_manager', 'pur_group_status'], 'integer'],
+            [['junior_submit','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee',  'bill_tax_rebate', 'parent_product_id', 'source', 'preview_status', 'brocast_status', 'is_submit', 'is_submit_manager', 'pur_group_status'], 'integer'],
             [['purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'hs_code', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'else_url', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'member', 'master_member', 'master_mark', 'master_result', 'priview_time', 'pd_create_time', 'purchaser_leader'], 'safe'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice', 'ams_logistics_fee'], 'number'],
         ];
@@ -83,7 +83,6 @@ class JuniorPurInfoSearch extends PurInfo
             'pd_purchase_num' => $this->pd_purchase_num,
             'pd_pur_costprice' => $this->pd_pur_costprice,
             'has_shipping_fee' => $this->has_shipping_fee,
-            'bill_tax_value' => $this->bill_tax_value,
             'bill_tax_rebate' => $this->bill_tax_rebate,
             'parent_product_id' => $this->parent_product_id,
             'source' => $this->source,

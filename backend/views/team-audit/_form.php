@@ -120,12 +120,6 @@ use kartik\builder\Form;
             'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
                 'items'=>['16%专票'=>'16%专票','增值税普通普票'=>'增值税普通普票', '3%专票'=>'3%专票'],
                 'options'=>['placeholder'=>'']],
-
-            'bill_tax_value'=>['type'=>Form::INPUT_RADIO_LIST,
-                'items'=>['3'=>'3%', '16'=>'16%'],
-
-                'options'=>['placeholder'=>'number little than 16 ...']],
-
             'has_shipping_fee'=>[
                 'type'=>Form::INPUT_RADIO_LIST,
                 'label'=>"<span style = 'color:red'><big>*</big></span>是否含运费",

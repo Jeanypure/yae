@@ -251,7 +251,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'pd_pur_costprice',
             'has_shipping_fee',
             'bill_type',
-            'bill_tax_value',
             'hs_code',
             'bill_tax_rebate',
             'bill_rebate_amount',
