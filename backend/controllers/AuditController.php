@@ -191,15 +191,19 @@ class AuditController extends Controller
     public  function  actionSubmit(){
 
         $username = Yii::$app->user->identity->username;
+        $tag = 1;
         $ids = $_POST['id'];
+
         $product_ids = '';
         foreach ($ids as $k=>$v){
             $product_ids.=$v.',';
         }
         $ids_str = trim($product_ids,',');
+        $result = $this->actionAuditStatus($username,$ids_str,$tag);
+
         if(isset($ids)&&!empty($ids)){
             $res = Yii::$app->db->createCommand("
-           --  update `pur_info` set `is_submit_manager`= 1  where `pur_info_id` in ($ids_str);
+         
             update `preview` set `submit_manager`= 1  where `product_id` in ($ids_str) and  member2='$username' ;
             ")->execute();
             if($res){
@@ -213,17 +217,20 @@ class AuditController extends Controller
 
     public  function  actionCancel(){
         $username = Yii::$app->user->identity->username;
+        $tag = 0;
         $ids = $_POST['id'];
         $product_ids = '';
         foreach ($ids as $k=>$v){
             $product_ids.=$v.',';
         }
         $ids_str = trim($product_ids,',');
+
+        $result = $this->actionAuditStatus($username,$ids_str,$tag);
+
+
         if(isset($ids)&&!empty($ids)){
             $res = Yii::$app->db->createCommand("
-           -- update `pur_info` set `is_submit_manager`= 0  where `pur_info_id` in ($ids_str);
             update `preview` set `submit_manager`= 0  where `product_id` in ($ids_str) and  member2='$username';
-
             ")->execute();
             if($res){
                 echo 'success';
@@ -232,5 +239,35 @@ class AuditController extends Controller
             echo 'error';
         }
     }
+
+    /**
+     * @param $username
+     * @param $ids_str
+     * @param $tag
+     * @return int
+     * @throws \yii\db\Exception
+      *审核组更新audit_a     部长组更新audit_b
+     */
+
+    public function actionAuditStatus($username,$ids_str,$tag){
+
+
+        $arr_role =  Yii::$app->db->createCommand("
+        SELECT  role FROM purchaser WHERE purchaser='$username'
+        ")->queryOne();
+        if($arr_role['role']==1){
+            $res = Yii::$app->db->createCommand("
+            update `pur_info` set `audit_a`= $tag where `pur_info_id` in ($ids_str);
+            ")->execute();
+
+        }elseif($arr_role['role']==2){
+            $res = Yii::$app->db->createCommand("
+            update `pur_info` set `audit_b`= $tag where `pur_info_id` in ($ids_str);
+            ")->execute();
+        }
+        return $res;
+    }
+
+
 
 }

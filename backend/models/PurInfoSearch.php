@@ -21,7 +21,7 @@ class PurInfoSearch extends PurInfo
             [['is_submit','source','pur_info_id', 'pur_group', 'pd_purchase_num', 'hs_code', 'parent_product_id'], 'integer'],
             [['pd_create_time','master_mark','master_result','brocast_status','member','purchaser','pd_title', 'pd_title_en',
                 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'is_huge', 'pd_material', 'has_shipping_fee',
-                'profit_rate', 'bill_type', 'bill_tax_value', 'bill_tax_rebate', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url',
+                'profit_rate', 'bill_type', 'bill_tax_rebate', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url',
                 'amazon_url', 'url_1688','else_url', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark'], 'safe'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice'], 'number'],
         ];
@@ -107,7 +107,6 @@ class PurInfoSearch extends PurInfo
             ->andFilterWhere(['like', 'pd_material', $this->pd_material])
             ->andFilterWhere(['like', 'has_shipping_fee', $this->has_shipping_fee])
             ->andFilterWhere(['like', 'bill_type', $this->bill_type])
-            ->andFilterWhere(['like', 'bill_tax_value', $this->bill_tax_value])
             ->andFilterWhere(['like', 'bill_tax_rebate', $this->bill_tax_rebate])
             ->andFilterWhere(['like', 'bill_rebate_amount', $this->bill_rebate_amount])
             ->andFilterWhere(['like', 'no_rebate_amount', $this->no_rebate_amount])

@@ -77,7 +77,7 @@ class PurInfo extends \yii\db\ActiveRecord
             [['pd_package', 'pd_material'], 'string', 'max' => 1000],
             [['member','purchaser', 'pd_length', 'pd_width', 'pd_height', 'bill_type'], 'string', 'max' => 10],
             [['is_submit_manager','is_submit','is_huge', 'has_shipping_fee'], 'string', 'max' => 1],
-            [['bill_tax_value', 'bill_tax_rebate'], 'string', 'max' => 4],
+            [[ 'bill_tax_rebate'], 'string', 'max' => 4],
             [['brocast_status'], 'string', 'max' => 30],
             ['ebay_url','url','defaultScheme' => 'http'],
             ['amazon_url','url','defaultScheme' => 'http'],
@@ -95,6 +95,8 @@ class PurInfo extends \yii\db\ActiveRecord
     {
         return [
             'pur_info_id' => 'ID',
+            'audit_a' => '审核组',
+            'audit_b' => '部长组',
             'is_assign' => '是否分配',
             'purchaser' => '采购人',
             'pur_group' => '部门号',
@@ -114,7 +116,6 @@ class PurInfo extends \yii\db\ActiveRecord
             'pd_pur_costprice' => '含税价格¥',
             'has_shipping_fee' => '是否含运',
             'bill_type' => '开票类型',
-            'bill_tax_value' => '开票税率',
             'hs_code' => 'HS编码',
             'bill_tax_rebate' => '退税率%',
             'bill_rebate_amount' => '退税金额¥',

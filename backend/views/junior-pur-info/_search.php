@@ -53,7 +53,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'bill_type') ?>
 
-    <?php // echo $form->field($model, 'bill_tax_value') ?>
 
     <?php // echo $form->field($model, 'hs_code') ?>
 
