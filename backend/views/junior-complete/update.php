@@ -237,6 +237,8 @@ $readonly_js =<<<JS
             $("label[for='purinfo-pd_purchase_num'] ").addClass("label-require");
             $("label[for='purinfo-bill_type'] ").addClass("label-require");
             $("label[for='purinfo-amz_retail_price'] ").addClass("label-require");
+            $("label[for='purinfo-hs_code'] ").addClass("label-require");
+
 
             
             $('.label-require').html(function(_,html) {
