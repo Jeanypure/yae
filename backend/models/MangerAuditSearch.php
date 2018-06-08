@@ -4,7 +4,8 @@ namespace backend\models;
 
 use Yii;
 use yii\base\Model;
-//use yii\data\ActiveDataProvider;
+use yii\data\ActiveDataProvider;
+
 use yii\data\SqlDataProvider;
 
 
@@ -19,7 +20,7 @@ class MangerAuditSearch extends PurInfo
     public function rules()
     {
         return [
-            [['is_submit_manager','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_value', 'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
+            [['audit_a','audit_b','is_submit_manager','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_value', 'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
             [['pd_create_time','preview_status','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount',
                 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688','else_url', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'source', 'member', 'preview_status',
                 'brocast_status', 'master_member', 'master_mark', 'master_result'], 'safe'],
@@ -39,94 +40,35 @@ class MangerAuditSearch extends PurInfo
 
     public function search($params)
     {
+
        $res = Yii::$app->db->createCommand(' 
                  SELECT DISTINCT w.product_id FROM preview w where w.submit_manager=1
                  and  w.product_id is not  null 
                  ' )
            ->queryAll();
-        $id_str = '';
+
        if(!empty($res)){
            foreach ($res as $k=>$v){
-               if(!empty($v['product_id'])){
-                   $id_str .= "'".$v['product_id']."',";
 
-               }
+               $ids[] = $v['product_id'];
            }
        }
-        $ids = rtrim($id_str,",");
-
-        $sql = "
-        SELECT 
-        o.*,
-        sum(A) as A,
-        sum(B) as B
-        FROM(
-            SELECT
-            `pur_info`.pur_info_id, 
-            `preview`.`submit_manager`,
-            case when audit_role = 0 then submit_manager end as A,
-            case when audit_role = 1 then submit_manager end as B
-            FROM
-                `pur_info`
-                LEFT JOIN `preview` ON `pur_info`.`pur_info_id` = `preview`.`product_id` 
-            WHERE `pur_info_id` IN ( $ids )
-          )aa 
-        left JOIN `pur_info` o on o.`pur_info_id`=aa.`pur_info_id`  GROUP BY aa.pur_info_id  
-        " ;
 
         $query = PurInfo::find()
-            ->joinWith('preview')
             ->andWhere(['in','pur_info_id',$ids])
         ;
-
-
-            $count = Yii::$app->db->createCommand("
-            select count(*) from ($sql) bb
-            ")->queryScalar();
-
-
-        $query = new Query;
-        $query->select('pur_info_id.*,')
-            ->joinWith('preview')
-            ->andWhere(['in','pur_info_id',$ids])
-            ->from('my_table');
-
-
-        $dataProvider = new SqlDataProvider([
-            'sql' => $sql,
-//            'params' => [':status' => 1],
-            'totalCount' => $count,
-            'pagination' => [
-                'pageSize' => 10,
-            ],
-            'sort' => [
-                'attributes' => [
-//                    'title',
-//                    'view_count',
-//                    'created_at',
-                ],
-            ],
-        ]);
-
-// 返回包含每一行的数组
-        $models = $dataProvider->getModels();
-
-        var_dump($models);die;
-
-
-
-       echo  $query->createCommand()->getRawSql();die;
-
         $this->master_result = 3;
+//        $this->audit_a = 1;
+//        $this->audit_b = 1;
 
         // add conditions that should always apply here
 
-//        $dataProvider = new ActiveDataProvider([
-//            'query' => $query,
-//            'pagination' => [
-//                'pagesize' => '10',
-//            ]
-//        ]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pagesize' => '10',
+            ]
+        ]);
 
 
 
@@ -147,6 +89,8 @@ class MangerAuditSearch extends PurInfo
         // grid filtering conditions
         $query->andFilterWhere([
             'pur_info_id' => $this->pur_info_id,
+            'audit_a' => $this->audit_a,
+            'audit_b' => $this->audit_b,
             'pur_group' => $this->pur_group,
             'is_huge' => $this->is_huge,
             'pd_weight' => $this->pd_weight,
