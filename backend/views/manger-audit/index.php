@@ -50,21 +50,21 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'pur_group',
                 'value' => function($model) {
-                    if($model->pur_group==1){
+                    if($model['pur_group']==1){
                         return '一部';
-                    }elseif ($model->pur_group==2){
+                    }elseif ($model['pur_group']==2){
                         return '二部';
-                    }elseif ($model->pur_group==3){
+                    }elseif ($model['pur_group']==3){
                         return '三部';
-                    }elseif ($model->pur_group==4){
+                    }elseif ($model['pur_group']==4){
                         return '四部';
-                    }elseif ($model->pur_group==5){
+                    }elseif ($model['pur_group']==5){
                         return '五部';
-                    }elseif ($model->pur_group==6){
+                    }elseif ($model['pur_group']==6){
                         return '六部';
-                    }elseif ($model->pur_group==7){
+                    }elseif ($model['pur_group']==7){
                         return '七部';
-                    }elseif ($model->pur_group==8){
+                    }elseif ($model['pur_group']==8){
                         return '八部';
                     }
                 },
@@ -82,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'attribute'=>'pd_title',
-                'value' => function($model) { return $model->pd_title;},
+                'value' => function($model) { return $model['pd_title'];},
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'headerOptions' => [
@@ -91,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute'=>'pd_title_en',
-                'value' => function($model) { return $model->pd_title_en;},
+                'value' => function($model) { return $model['pd_title_en'];},
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'headerOptions' => [
@@ -99,23 +99,59 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
             [
+                'attribute'=>'audit_a',
+                'width'=>'100px',
+                'value'=>function ($model, $key, $index, $widget) {
+                    if($model['audit_a']==1){
+                        return '是';
+
+                    }else{
+                        return '否';
+                    }
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '是', '0' => '否'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'是否提交'],
+            ],
+            [
+                'attribute'=>'audit_b',
+                'width'=>'100px',
+                'value'=>function ($model, $key, $index, $widget) {
+                    if($model['audit_b']==1){
+                        return '是';
+
+                    }else{
+                        return '否';
+                    }
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '是', '0' => '否'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'是否提交'],
+            ],
+            [
                 'attribute'=>'master_result',
                 'value' => function($model) {
-                    if($model->master_result==0){
+                    if($model['master_result']==0){
                         return '拒绝';
-                    }elseif($model->master_result==1){
+                    }elseif($model['master_result']==1){
                         return '采样';
 
-                    }elseif($model->master_result==2){
+                    }elseif($model['master_result']==2){
                         return '需议价和谈其他条件';
 
-                    }elseif($model->master_result==3){
+                    }elseif($model['master_result']==3){
                         return '尚未评';
 
-                    }elseif($model->master_result==4){
+                    }elseif($model['master_result']==4){
                         return '直接下单';
 
-                    }elseif($model->master_result==5){
+                    }elseif($model['master_result']==5){
                         return '季节产品推迟';
 
                     }
@@ -129,12 +165,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'filterInputOptions'=>['placeholder'=>'评审状态'],
             ],
-
-
-
             [
                 'attribute'=>'master_mark',
-                'value' => function($model) { return $model->master_mark;},
+                'value' => function($model) { return $model['master_mark'];},
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
             ],
@@ -142,7 +175,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'preview_status',
                 'width'=>'100px',
                 'value'=>function ($model, $key, $index, $widget) {
-                    if($model->preview_status==1){
+                    if($model['preview_status']==1){
                         return '已评审';
 
                     }else{
@@ -155,9 +188,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'评审状态'],
-//                'group'=>true,  // enable grouping
             ],
-
             [
                 'attribute' => 'pd_create_time',
                 'format' => ['date', "php:Y-m-d H:i:s"],
@@ -176,24 +207,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
 
-//            'pd_length',
-//            'pd_width',
-//            'pd_height',
-//            'is_huge',
-//            'pd_weight',
-//            'pd_throw_weight',
-//            'pd_count_weight',
-//            'pd_material',
-//            'pd_purchase_num',
-//            'pd_pur_costprice',
-//            'has_shipping_fee',
-//            'bill_type',
-//            'bill_tax_value',
-//            'hs_code',
-//            'bill_tax_rebate',
-//            'bill_rebate_amount',
-//            'no_rebate_amount',
-//            'retail_price',
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
@@ -231,8 +244,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'transaction_fee',
             'gross_profit',
             'profit_rate',
-
-
+            'gross_profit_amz',
+            'profit_rate_amz',
+            [
+                'attribute'=>'remark',
+                'value' => function($model) { return $model['remark'];},
+                'contentOptions'=> ['style' => 'width: 80%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
         ],
     ]); ?>
 

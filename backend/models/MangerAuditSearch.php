@@ -6,6 +6,8 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
+use yii\data\SqlDataProvider;
+
 
 /**
  * MangerAuditSearch represents the model behind the search form of `backend\models\PurInfo`.
@@ -18,7 +20,7 @@ class MangerAuditSearch extends PurInfo
     public function rules()
     {
         return [
-            [['is_submit_manager','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_value', 'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
+            [['audit_a','audit_b','is_submit_manager','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee',  'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
             [['pd_create_time','preview_status','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount',
                 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688','else_url', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'source', 'member', 'preview_status',
                 'brocast_status', 'master_member', 'master_mark', 'master_result'], 'safe'],
@@ -38,24 +40,26 @@ class MangerAuditSearch extends PurInfo
 
     public function search($params)
     {
+
        $res = Yii::$app->db->createCommand(' 
                  SELECT DISTINCT w.product_id FROM preview w where w.submit_manager=1
+                 and  w.product_id is not  null 
                  ' )
            ->queryAll();
+
        if(!empty($res)){
            foreach ($res as $k=>$v){
+
                $ids[] = $v['product_id'];
            }
-       }else{
-           $ids = [];
        }
 
-
         $query = PurInfo::find()
-//            ->Where(['is_submit_manager'=>1])
             ->andWhere(['in','pur_info_id',$ids])
         ;
         $this->master_result = 3;
+//        $this->audit_a = 1;
+//        $this->audit_b = 1;
 
         // add conditions that should always apply here
 
@@ -85,6 +89,8 @@ class MangerAuditSearch extends PurInfo
         // grid filtering conditions
         $query->andFilterWhere([
             'pur_info_id' => $this->pur_info_id,
+            'audit_a' => $this->audit_a,
+            'audit_b' => $this->audit_b,
             'pur_group' => $this->pur_group,
             'is_huge' => $this->is_huge,
             'pd_weight' => $this->pd_weight,
@@ -93,7 +99,6 @@ class MangerAuditSearch extends PurInfo
             'pd_purchase_num' => $this->pd_purchase_num,
             'pd_pur_costprice' => $this->pd_pur_costprice,
             'has_shipping_fee' => $this->has_shipping_fee,
-            'bill_tax_value' => $this->bill_tax_value,
             'hs_code' => $this->hs_code,
             'bill_tax_rebate' => $this->bill_tax_rebate,
             'parent_product_id' => $this->parent_product_id,

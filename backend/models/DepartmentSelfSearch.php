@@ -18,7 +18,7 @@ class DepartmentSelfSearch extends PurInfo
     public function rules()
     {
         return [
-            [['pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_value', 'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
+            [['pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee',  'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
             [['master_result','master_mark','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'source', 'member', 'preview_status', 'brocast_status'], 'safe'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice'], 'number'],
         ];
@@ -72,7 +72,6 @@ class DepartmentSelfSearch extends PurInfo
             'pd_purchase_num' => $this->pd_purchase_num,
             'pd_pur_costprice' => $this->pd_pur_costprice,
             'has_shipping_fee' => $this->has_shipping_fee,
-            'bill_tax_value' => $this->bill_tax_value,
             'hs_code' => $this->hs_code,
             'bill_tax_rebate' => $this->bill_tax_rebate,
             'parent_product_id' => $this->parent_product_id,

@@ -151,7 +151,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'group'=>true,  // enable grouping
             ],
             'bill_type',
-            'bill_tax_value',
             'hs_code',
             'bill_tax_rebate',
             'bill_rebate_amount',
