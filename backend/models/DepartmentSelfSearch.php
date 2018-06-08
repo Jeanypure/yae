@@ -49,6 +49,8 @@ class DepartmentSelfSearch extends PurInfo
 
         // add conditions that should always apply here
 
+        $this->master_result = 1;
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
