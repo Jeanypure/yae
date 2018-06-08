@@ -124,7 +124,25 @@ $this->params['breadcrumbs'][] = $this->title;
             'pd_length',
             'pd_width',
             'pd_height',
-            'is_huge',
+            [
+                'attribute'=>'is_huge',
+                'width'=>'100px',
+                'value'=>function ($model, $key, $index, $widget) {
+                    if($model->is_huge==1){
+                        return '是';
+
+                    }else{
+                        return '否';
+                    }
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '是', '0' => '否'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'是否大件'],
+                'group'=>true,  // enable grouping
+            ],
             'pd_weight',
             'pd_throw_weight',
             'pd_count_weight',
