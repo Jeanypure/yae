@@ -58,8 +58,8 @@ class MangerAuditSearch extends PurInfo
             ->andWhere(['in','pur_info_id',$ids])
         ;
         $this->master_result = 3;
-//        $this->audit_a = 1;
-//        $this->audit_b = 1;
+        $this->audit_a = 1;
+        $this->audit_b = 1;
 
         // add conditions that should always apply here
 
