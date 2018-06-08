@@ -172,11 +172,11 @@ class PurInfo extends \yii\db\ActiveRecord
       *
       */
 
-    public function getSampleTrack()
+    public function getSample()
     {
         //第一个参数为要关联的子表模型类名，
         //第二个参数指定 通过子表的 spur_info_id，关联主表的pur_info_id字段
-        return $this->hasOne(SampleTrack::className(), ['spur_info_id' => 'pur_info_id']);
+        return $this->hasOne(Sample::className(), ['spur_info_id' => 'pur_info_id']);
     }
 
 
