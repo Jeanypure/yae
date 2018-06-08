@@ -84,7 +84,7 @@ class AuditSearch extends PurInfo
 
         }
 
-//        echo  $query->createCommand()->getRawSql();die;
+        $this->view_status = 0;
 
         // add conditions that should always apply here
 
