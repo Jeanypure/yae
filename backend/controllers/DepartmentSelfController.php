@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\Sample;
 use Yii;
 use backend\models\PurInfo;
 use backend\models\DepartmentSelfSearch;
@@ -57,9 +58,19 @@ class DepartmentSelfController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+
+        $sample_model = Sample::findOne(['spur_info_id'=>$id]);
+        if(isset($sample_model)&&!empty($sample_model)){
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+                'sample_model' => $sample_model,
+            ]);
+        }else{
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        }
+
     }
 
     /**
@@ -100,19 +111,6 @@ class DepartmentSelfController extends Controller
         ]);
     }
 
-    /**
-     * Deletes an existing PurInfo model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
 
     /**
      * Finds the PurInfo model based on its primary key value.

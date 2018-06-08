@@ -154,6 +154,9 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                     'items'=>[1=>'是', 0=>'否'],
                     'options'=>['placeholder'=>'']],
 
+                'source'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],
+
+
             ]
         ]);
 
@@ -237,8 +240,12 @@ $readonly_js =<<<JS
             $('.label-require').html(function(_,html) {
                 return html.replace(/(.*?)/, "<span style = 'color:red'><big>*$1</big></span>");
             });
-
-
+            
+            
+           var source =  $('#purinfo-source').val();
+           if (source ==0){
+               $("#purinfo-pur-group").attr("readonly","readonly");
+           } 
         });
         
 JS;
