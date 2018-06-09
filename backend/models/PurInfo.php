@@ -46,6 +46,7 @@ class PurInfo extends \yii\db\ActiveRecord
 {
     public $view_status;
     public $submit_manager;
+    public $result;
     public  $spur_info_id;
 
 
