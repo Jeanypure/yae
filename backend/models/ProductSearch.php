@@ -46,12 +46,11 @@ class ProductSearch extends Product
 
         if($creator=='Jenny'||$creator=='admin'||$creator=='David'){
             $query = Product::find()
-                ->andWhere(['accept_status'=>0])
                 ->orderBy('product_id desc');
         }else{
 
             $query = Product::find()
-                ->andWhere(['accept_status'=>0])
+                ->andWhere(['creator'=> $creator])
                 ->orderBy('product_id desc');
 
         }
