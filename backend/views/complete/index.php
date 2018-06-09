@@ -19,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php echo Html::button('取消提交',['class' => 'btn btn-primary' ,'id'=>'un_submit'])?>
 
         <?php echo Html::button('标记完成',['class' => 'btn btn-warning' ,'id'=>'completed'])?>
+        <?php echo Html::button('取消标记',['class' => 'btn btn-default' ,'id'=>'uncompleted'])?>
 
     </p>
 
@@ -92,6 +93,25 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions'=>['placeholder'=>'是否提交'],
 //                'group'=>true,  // enable grouping
             ],
+            [
+                'attribute'=>'pur_complete_status',
+                'width'=>'100px',
+                'value'=>function ($model, $key, $index, $widget) {
+                    if($model->pur_complete_status==1){
+                        return '是';
+
+                    }else{
+                        return '否';
+                    }
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '是', '0' => '否'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'是否标记'],
+            ],
+
 
             [
                 'attribute'=>'master_result',
@@ -234,6 +254,7 @@ $this->params['breadcrumbs'][] = $this->title;
 $commit = Url::toRoute(['commit']);
 $uncommitted = Url::toRoute(['cancel']);
 $completed = Url::toRoute(['completed']);
+$uncompleted = Url::toRoute(['un-completed']);
 $is_submit = <<<JS
 
     //批量提交
@@ -282,10 +303,12 @@ $is_submit = <<<JS
     });
 });
     
+    
+    
   //  标记完成
     $('#completed').on('click',function(){
         var button = $(this);
-        // button.attr('disabled','disabled');
+        button.attr('disabled','disabled');
         var ids =  $('#commit_product').yiiGridView("getSelectedRows");
         console.log(ids);
         if(ids==false) alert('请选择产品!') ;
@@ -294,10 +317,32 @@ $is_submit = <<<JS
          type: 'post',
          data:{id:ids},
          success:function(res){
-           // if(res=='success') alert('标记成功!');
-           if(res=='success') console.log('标记成功!');
-           // button.attr('disabled',false);
-           // location.reload();
+           if(res=='success') alert('标记成功!');
+           button.attr('disabled',false);
+           location.reload();
+         },
+         error: function (jqXHR, textStatus, errorThrown) {
+                    button.attr('disabled',false);
+                }
+      
+    });
+});
+    
+    //取消标记 uncompleted
+    $('#uncompleted').on('click',function(){
+        var button = $(this);
+        button.attr('disabled','disabled');
+        var ids =  $('#commit_product').yiiGridView("getSelectedRows");
+        console.log(ids);
+        if(ids==false) alert('请选择产品!') ;
+        $.ajax({
+         url: "{$uncompleted}", 
+         type: 'post',
+         data:{id:ids},
+         success:function(res){
+           if(res=='success') alert('取消成功!');
+           button.attr('disabled',false);
+           location.reload();
          },
          error: function (jqXHR, textStatus, errorThrown) {
                     button.attr('disabled',false);
