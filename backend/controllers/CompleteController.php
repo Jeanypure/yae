@@ -162,6 +162,7 @@ class CompleteController extends Controller
     public function actionCancel()
     {
         $ids = $_POST['id'];
+
         $product_ids = '';
         foreach ($ids as $k=>$v){
             $product_ids.=$v.',';
@@ -180,6 +181,46 @@ class CompleteController extends Controller
         }
 
 
+    }
+
+    /**
+     * Mark completed
+     */
+    public function  actionCompleted(){
+
+        $ids = $_POST['id'];
+
+
+
+        $product_ids = '';
+        foreach ($ids as $k=>$v){
+            $product_ids.=$v.',';
+        }
+        $ids_str = trim($product_ids,',');
+
+
+        $parent_id_res = Yii::$app->db->createCommand("
+        SELECT parent_product_id FROM pur_info where pur_info_id in ($ids_str)
+        ")->queryAll();
+            $parent_ids = '';
+        foreach ($parent_id_res as $k=>$v){
+            $parent_ids.= $v['parent_product_id'].',';
+
+        }
+        $partent_ids_str = trim($parent_ids,',');
+
+
+        if(isset($ids)&&!empty($ids)){
+            $res = Yii::$app->db->createCommand("
+            update `pur_info` set `pur_compelte_status`= 1 where `pur_info_id` in ($ids_str);
+            update `product` set `compelte_status`= 1 where `product_id` in ($partent_ids_str);
+            ")->execute();
+            if($res){
+                echo 'success';
+            }
+        }else{
+            echo 'error';
+        }
     }
 
 

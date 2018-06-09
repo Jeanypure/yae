@@ -18,6 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php echo Html::button('确认提交',['class' => 'btn btn-info' ,'id'=>'is_submit'])?>
         <?php echo Html::button('取消提交',['class' => 'btn btn-primary' ,'id'=>'un_submit'])?>
 
+        <?php echo Html::button('标记完成',['class' => 'btn btn-warning' ,'id'=>'completed'])?>
+
     </p>
 
 
@@ -231,6 +233,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $commit = Url::toRoute(['commit']);
 $uncommitted = Url::toRoute(['cancel']);
+$completed = Url::toRoute(['completed']);
 $is_submit = <<<JS
 
     //批量提交
@@ -271,6 +274,30 @@ $is_submit = <<<JS
            if(res=='success') alert('取消提交成功!');
            button.attr('disabled',false);
            location.reload();
+         },
+         error: function (jqXHR, textStatus, errorThrown) {
+                    button.attr('disabled',false);
+                }
+      
+    });
+});
+    
+  //  标记完成
+    $('#completed').on('click',function(){
+        var button = $(this);
+        // button.attr('disabled','disabled');
+        var ids =  $('#commit_product').yiiGridView("getSelectedRows");
+        console.log(ids);
+        if(ids==false) alert('请选择产品!') ;
+        $.ajax({
+         url: "{$completed}", 
+         type: 'post',
+         data:{id:ids},
+         success:function(res){
+           // if(res=='success') alert('标记成功!');
+           if(res=='success') console.log('标记成功!');
+           // button.attr('disabled',false);
+           // location.reload();
          },
          error: function (jqXHR, textStatus, errorThrown) {
                     button.attr('disabled',false);
