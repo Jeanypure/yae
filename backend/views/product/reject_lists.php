@@ -41,22 +41,8 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                     'class' => 'yii\grid\ActionColumn',
                     'header' => '操作',
-                    'template' => ' {view} {update} {delete}',
-                    'buttons' => [
-                    'audit' => function ($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-send"></span>', $url, [
-                            'title' => '发送采购',
-                            'data-toggle' => 'modal',
-                            'data-target' => '#audit-modal',
-                            'class' => 'data-audit',
-                            'data-id' => $key,
-                        ] );
-                    },
-                ],
+                    'template' => ' {view} ',
                     'headerOptions' => ['width' => '80'],
-
-
-
             ],
             [
                 'class' => 'yii\grid\Column',
