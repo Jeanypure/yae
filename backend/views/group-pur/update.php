@@ -216,8 +216,7 @@ $readonly_js =<<<JS
             $("#purinfo-ams_logistics_fee").attr("readonly","readonly");
             
             $("#purinfo-amz_retail_price_rmb").attr("readonly","readonly");
-
-            
+           
             $("#purinfo-no_rebate_amount").attr("readonly","readonly");
             
             $("label[for='purinfo-pd_title'] ").addClass("label-require");
@@ -242,9 +241,10 @@ $readonly_js =<<<JS
             });
             
             
+            // purinfo-source
            var source =  $('#purinfo-source').val();
-           if (source ==0){
-               $("#purinfo-pur-group").attr("readonly","readonly");
+           if (source == 0){
+               $("#purinfo-pur_group").attr("readonly","readonly");
            } 
         });
         
