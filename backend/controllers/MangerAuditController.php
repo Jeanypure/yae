@@ -64,6 +64,13 @@ class MangerAuditController extends Controller
 
         if($num > 1){
           if ($model_update->load(Yii::$app->request->post()) ) {
+              //采样状态 入采样流程
+              if(Yii::$app->request->post()['PurInfo']['master_result']==1 ){
+                  Yii::$app->db->createCommand("
+                    INSERT INTO `sample`  (spur_info_id) value ($id)
+                  ")->execute();
+              }
+
               $model_update->preview_status = 1;
               $model_update->save(false);
 
@@ -82,6 +89,12 @@ class MangerAuditController extends Controller
           ]);
       }elseif($num ==1){
           if ($model_update->load(Yii::$app->request->post())) {
+              //采样状态 入采样流程
+              if(Yii::$app->request->post()['PurInfo']['master_result']==1 ){
+                  Yii::$app->db->createCommand("
+                    INSERT INTO `sample`  (spur_info_id) value ($id)
+                  ")->execute();
+              }
               $model_update->preview_status = 1;
               $model_update->save(false);
               return $this->redirect(['index']);
