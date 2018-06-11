@@ -44,17 +44,18 @@ class GroupPurSearch extends PurInfo
     {
         $query = PurInfo::find()
             ->andWhere(['is_submit'=>1])
-            ->andWhere(['not in','brocast_status', [2]])
             ->orderBy('pur_info_id desc');
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-//            'pagination' => [
-//                'pagesize' => '10',
-//            ]
+            'pagination' => [
+                'pagesize' => '30',
+            ]
         ]);
+
+        $this->brocast_status = 0;
 
         $this->load($params);
 
