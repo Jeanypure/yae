@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\PurInfo */
 
 $this->title = $model->pur_info_id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Pur Infos'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', '采样申请'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pur-info-view">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'pur_info_id',
-            'preview_status',
+//            'preview_status',
             'purchaser',
             'pur_group',
             'pd_title',

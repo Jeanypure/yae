@@ -12,12 +12,18 @@ use kartik\daterange\DateRangePicker;
 
 $this->title = Yii::t('app', '采样申请');
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
+<p>
+    <?php echo Html::button('提交申请',['class' => 'btn btn-info' ,'id'=>'sample-submit'])?>
+    <?php echo Html::button('取消提交',['class' => 'btn btn-primary' ,'id'=>'sample-un-submit'])?>
+</p>
 <div class="pur-info-index">
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'id' => 'sample_submit1',
         'export' => false,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -95,6 +101,25 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
             [
+                'attribute'=>'sample_submit1',
+                'width'=>'100px',
+                'value'=>function ($model, $key, $index, $widget) {
+                    if($model->sample_submit1==1){
+                        return '是';
+
+                    }else{
+                        return '否';
+                    }
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '是', '0' => '否'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'是否提交'],
+            ],
+
+            [
                 'attribute'=>'master_result',
                 'value' => function($model) {
                     if($model->master_result==0){
@@ -134,60 +159,67 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
-            //'pd_pic_url:url',
-            //'pd_package',
-            //'pd_length',
-            //'pd_width',
-            //'pd_height',
-            //'is_huge',
-            //'pd_weight',
-            //'pd_throw_weight',
-            //'pd_count_weight',
-            //'pd_material',
-            //'pd_purchase_num',
-            //'pd_pur_costprice',
-            //'has_shipping_fee',
-            //'bill_type',
-            //'hs_code',
-            //'bill_tax_rebate',
-            //'bill_rebate_amount',
-            //'no_rebate_amount',
-            //'retail_price',
-            //'ebay_url:url',
-            //'amazon_url:url',
-            //'url_1688:url',
-            //'else_url:url',
-            //'shipping_fee',
-            //'oversea_shipping_fee',
-            //'transaction_fee',
-            //'gross_profit',
-            //'remark',
-            //'parent_product_id',
-            //'source',
-            //'member',
-            //'preview_status',
-            //'brocast_status',
-            //'master_member',
-            //'master_mark',
-            //'master_result',
-            //'priview_time',
-            //'ams_logistics_fee',
-            //'is_submit',
-            //'pd_create_time',
-            //'is_submit_manager',
-            //'pur_group_status',
-            //'purchaser_leader',
-            //'junior_submit',
-            //'profit_rate',
-            //'gross_profit_amz',
-            //'profit_rate_amz',
-            //'amz_fulfillment_cost',
-            //'selling_on_amz_fee',
-            //'amz_retail_price',
-            //'amz_retail_price_rmb',
-            //'is_assign',
-            //'commit_date',
+
 
         ],
     ]); ?>
 </div>
+
+
+<?php
+// 1采购到部长  2部长到财务 sample_submit1  sample_submit2
+// 提交申请    取消提交
+
+$commit = Url::toRoute(['commit']);
+$uncommitted = Url::toRoute(['cancel']);
+$is_submit = <<<JS
+
+    //批量提交
+    $('#sample-submit').on('click',function(){
+         var button = $(this);
+         button.attr('disabled','disabled');
+        var ids =  $('#sample_submit1').yiiGridView("getSelectedRows");
+        console.log(ids);
+        if(ids==false) alert('请选择产品!') ;
+        $.ajax({
+         url: "{$commit}", 
+         type: 'post',
+         data:{id:ids},
+         success:function(res){
+           if(res=='success') alert('提交产品成功!');     
+           if(res=='success') console.log('提交产品成功!');     
+           button.attr('disabled',false);
+           location.reload();
+         },
+         error: function (jqXHR, textStatus, errorThrown) {
+                    button.attr('disabled',false);
+         }
+      
+    });
+});
+
+//取消提交
+    $('#sample-un-submit').on('click',function(){
+        var button = $(this);
+         button.attr('disabled','disabled');
+        var ids =  $('#sample_submit1').yiiGridView("getSelectedRows");
+        console.log(ids);
+        if(ids==false) alert('请选择产品!') ;
+        $.ajax({
+         url: "{$uncommitted}", 
+         type: 'post',
+         data:{id:ids},
+         success:function(res){
+           if(res=='success') alert('取消提交成功!');
+           button.attr('disabled',false);
+           location.reload();
+         },
+         error: function (jqXHR, textStatus, errorThrown) {
+                    button.attr('disabled',false);
+         }
+      
+    });
+});
+JS;
+$this->registerJs($is_submit);
+?>
