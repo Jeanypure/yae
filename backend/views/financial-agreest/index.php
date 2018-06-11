@@ -1,40 +1,32 @@
 <?php
 
-
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\helpers\Url;
-use kartik\daterange\DateRangePicker;
+
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\PurInfoTrackSearch */
+/* @var $searchModel app\models\FinancialAgreestSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', '采样申请');
+$this->title = Yii::t('app', '财务审批');
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
-<p>
-    <?php echo Html::button('提交申请',['class' => 'btn btn-info' ,'id'=>'sample-submit'])?>
-    <?php echo Html::button('取消提交',['class' => 'btn btn-primary' ,'id'=>'sample-un-submit'])?>
-</p>
 <div class="pur-info-index">
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'id' => 'sample_submit1',
+        'id' => 'sample_submit2',
         'export' => false,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             ['class' => 'yii\grid\CheckboxColumn'],
             ['class' => 'yii\grid\ActionColumn',
                 'header' => '操作',
-                'template' => ' {update}',
+                'template' => '{view} ',
             ],
 
-//            'pur_info_id',
-            'spur_info_id',
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
@@ -47,8 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-
-            'purchaser',
+            [
+                'attribute'=>'purchaser',
+                'value' => function($model) { return $model->purchaser;},
+                'format'=>'html',
+                'label' => '申请人'
+,
+            ],
             [
                 'attribute'=>'pur_group',
                 'value' => function($model) {
@@ -81,7 +78,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'group'=>true,  // enable grouping
 
             ],
-
             [
                 'attribute'=>'pd_title',
                 'value' => function($model) { return $model->pd_title;},
@@ -101,24 +97,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
             [
-                'attribute'=>'sample_submit1',
+                'attribute'=>'has_pay',
                 'width'=>'100px',
                 'value'=>function ($model, $key, $index, $widget) {
-                    if($model->sample_submit1==1){
-                        return '是';
+                    if($model->has_pay==1){
+                        return '已付';
 
                     }else{
-                        return '否';
+                        return '未付';
                     }
                 },
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['1' => '是', '0' => '否'],
+                'filter'=>['1' => '已付', '0' => '未付'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                'filterInputOptions'=>['placeholder'=>'是否提交'],
+                'filterInputOptions'=>['placeholder'=>'是否付款'],
             ],
-
             [
                 'attribute'=>'master_result',
                 'value' => function($model) {
@@ -164,62 +159,3 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 </div>
-
-
-<?php
-// 1采购到部长  2部长到财务 sample_submit1  sample_submit2
-// 提交申请    取消提交
-
-$commit = Url::toRoute(['commit']);
-$uncommitted = Url::toRoute(['cancel']);
-$is_submit = <<<JS
-
-    //批量提交
-    $('#sample-submit').on('click',function(){
-         var button = $(this);
-         button.attr('disabled','disabled');
-        var ids =  $('#sample_submit1').yiiGridView("getSelectedRows");
-        console.log(ids);
-        if(ids==false) alert('请选择产品!') ;
-        $.ajax({
-         url: "{$commit}", 
-         type: 'post',
-         data:{id:ids},
-         success:function(res){
-           if(res=='success') alert('提交产品成功!');     
-           if(res=='success') console.log('提交产品成功!');     
-           button.attr('disabled',false);
-           location.reload();
-         },
-         error: function (jqXHR, textStatus, errorThrown) {
-                    button.attr('disabled',false);
-         }
-      
-    });
-});
-
-//取消提交
-    $('#sample-un-submit').on('click',function(){
-        var button = $(this);
-         button.attr('disabled','disabled');
-        var ids =  $('#sample_submit1').yiiGridView("getSelectedRows");
-        console.log(ids);
-        if(ids==false) alert('请选择产品!') ;
-        $.ajax({
-         url: "{$uncommitted}", 
-         type: 'post',
-         data:{id:ids},
-         success:function(res){
-           if(res=='success') alert('取消提交成功!');
-           button.attr('disabled',false);
-           location.reload();
-         },
-         error: function (jqXHR, textStatus, errorThrown) {
-                    button.attr('disabled',false);
-         }
-      
-    });
-});
-JS;
-$this->registerJs($is_submit);
-?>

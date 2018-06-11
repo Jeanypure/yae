@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use backend\models\PurInfo;
+use backend\models\Sample;
 use backend\models\MinisterAgreestSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -52,63 +53,23 @@ class MinisterAgreestController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+        $sample_model = Sample::findOne(['spur_info_id'=>$id]);
+        if(isset($sample_model)&&!empty($sample_model)){
+             if($sample_model->load(Yii::$app->request->post())&& $sample_model->save()){
+                 return $this->redirect(['index']);
 
-    /**
-     * Creates a new PurInfo model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new PurInfo();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pur_info_id]);
+             }
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+                'sample_model' => $sample_model,
+            ]);
+        }else{
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
-
-    /**
-     * Updates an existing PurInfo model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pur_info_id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Deletes an existing PurInfo model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
     /**
      * Finds the PurInfo model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -123,5 +84,68 @@ class MinisterAgreestController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+
+
+    /**
+     * Commit product
+     * @throws \yii\db\Exception
+     *
+     */
+    public function actionCommit()
+    {
+        $ids = $_POST['id'];
+
+        $product_ids = '';
+        foreach ($ids as $k=>$v){
+            $product_ids.=$v.',';
+        }
+        $ids_str = trim($product_ids,',');
+
+        if(isset($ids_str)&&!empty($ids_str)){
+            $res = Yii::$app->db->createCommand("
+            update `pur_info` set `sample_submit2`= 1 where `pur_info_id` in ($ids_str)
+            ")->execute();
+            if($res){
+                echo 'success';
+            }
+        }else{
+            echo 'error';
+        }
+
+
+
+    }
+
+    /**
+     * Cancel commit product
+     * @throws \yii\db\Exception
+     */
+    public function actionCancel()
+    {
+        $ids = $_POST['id'];
+        if(is_string($_POST['id'])){
+            $ids = [];
+            $ids[] = $_POST['id'];
+        }
+        $product_ids = '';
+        foreach ($ids as $k=>$v){
+            $product_ids.=$v.',';
+        }
+        $ids_str = trim($product_ids,',');
+
+        if(isset($ids_str)&&!empty($ids_str)){
+            $res = Yii::$app->db->createCommand("
+            update `pur_info` set `sample_submit2`= 0 where `pur_info_id` in ($ids_str)
+            ")->execute();
+            if($res){
+                echo 'success';
+            }
+        }else{
+            echo 'error';
+        }
+
+
     }
 }

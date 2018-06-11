@@ -20,21 +20,22 @@ use kartik\widgets\ActiveForm;
         'model'=>$model,
         'form'=>$form,
         'columns'=>6,
-        'contentBefore'=>'<legend class="text-info"><h3>2.样品费用信息</h3></legend>',
+        'contentBefore'=>'<legend class="text-info"><h3>1.样品审核</h3></legend>',
         'attributes'=>[       // 3 column layout
-            'procurement_cost'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'sample_freight'=>['type'=>Form::INPUT_TEXT,
-                'labelOptions'=>['class'=>'label-require'],
-                'options'=>['placeholder'=>'','class'=>'label-require']],
-            'else_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'pay_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'pay_way'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'mark'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'fee_return'=>[
+            'is_agreest'=>[
                 'type'=>Form::INPUT_RADIO_LIST,
+                'label'=>"<span style = 'color:red'><big>*</big></span>是否同意支付样品费",
                 'items'=>[1=>'是', 0=>'否'],
                 'options'=>['placeholder'=>'',]
             ],
+
+//            'is_quality'=>[
+//                'type'=>Form::INPUT_RADIO_LIST,
+//                'label'=>"<span style = 'color:red'><big>*</big></span>质量是否合格",
+//                'items'=>[1=>'是', 0=>'否'],
+//                'options'=>['placeholder'=>'',]
+//            ],
+
             'spur_info_id'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],
 
 //            is_quality,fee_return,audit_mem1,audit_mem2,audit_mem3,applicant
@@ -45,13 +46,15 @@ use kartik\widgets\ActiveForm;
     ?>
 
 
+
+
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn-lg btn-success']) ?>
 
     </div>
     <div class="form-group">
-        <?php echo Html::button('提交申请',['class' => 'btn btn-info' ,'id'=>'is_submit'])?>
-        <?php echo Html::button('取消提交',['class' => 'btn btn-primary' ,'id'=>'un_submit'])?>
+<!--        --><?php //echo Html::button('提交申请',['class' => 'btn btn-info' ,'id'=>'is_submit'])?>
+<!--        --><?php //echo Html::button('取消提交',['class' => 'btn btn-primary' ,'id'=>'un_submit'])?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -42,7 +42,7 @@ class Sample extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['spur_info_id','fee_return'], 'required'],
+            [['spur_info_id','fee_return','is_agreest'], 'required'],
             [['spur_info_id', 'is_audit', 'is_agreest', 'is_quality', 'fee_return', 'audit_mem1', 'audit_mem2', 'audit_mem3', 'applicant'], 'integer'],
             [['procurement_cost', 'sample_freight', 'else_fee', 'pay_amount'], 'number'],
             [['create_date', 'lastop_date'], 'safe'],

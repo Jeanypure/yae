@@ -88,7 +88,7 @@ class PurInfoTrackController extends Controller
         $model = $this->findModel($id);
         $sample_model = Sample::findOne(['spur_info_id'=>$id]);
 
-        if ($sample_model->load(Yii::$app->request->post())&& $sample_model->save() ) {
+        if ($sample_model->load(Yii::$app->request->post())&& $sample_model->save(false) ) {
 
             return $this->redirect(['update', 'id' => $sample_model->spur_info_id]);
         }

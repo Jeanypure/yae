@@ -136,7 +136,7 @@ class DepartmentController extends Controller
         if($ids){
             foreach($ids as $val){
                 $model = $this->findModel($val);
-                $model->accept_status = '接受';
+                $model->accept_status = 1;
                 $model->save(false);
             }
             echo 'success!';
@@ -154,7 +154,7 @@ class DepartmentController extends Controller
         if($ids){
             foreach($ids as $val){
                 $model = $this->findModel($val);
-                $model->accept_status = '拒绝';
+                $model->accept_status = 0;
                 $model->save(false);
             }
             echo 'success!';
