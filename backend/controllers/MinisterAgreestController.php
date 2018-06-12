@@ -148,4 +148,20 @@ class MinisterAgreestController extends Controller
 
 
     }
+
+
+    public function actionQuality($id)
+    {
+        $model = $this->findModel($id);
+
+        if($model->load(Yii::$app->request->post())){
+            $model->is_quality = Yii::$app->request->post()['PurInfo']['is_quality'];
+            $model->save(false);
+            return $this->redirect('index');
+        }
+        return  $this->renderAjax('is_quality', [
+            'model' => $model,
+        ]);
+
+    }
 }

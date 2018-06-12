@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
 //            'pur_info_id',
-            'spur_info_id',
+//            'spur_info_id',
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [

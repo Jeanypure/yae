@@ -29,11 +29,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['class' => 'yii\grid\CheckboxColumn'],
                 ['class' => 'yii\grid\ActionColumn',
                     'header' => '操作',
-                    'template' => '{view} ',
+                    'template' => '{view}  {saved}',
+                    'buttons' => [
+                        'saved' => function ($url, $model, $key) {
+                            return Html::a('<span class="glyphicon glyphicon-saved"></span>', $url, [
+                                'title' => '质量合格',
+                                'data-toggle' => 'modal',
+                                'data-target' => '#audit-modal',
+                                'class' => 'data-audit',
+                                'data-id' => $key,
+                            ] );
+                        },
+                    ],
                 ],
-
-//            'pur_info_id',
-//                'spur_info_id',
                 [
                     'class' => 'yii\grid\Column',
                     'headerOptions' => [
@@ -117,6 +125,27 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     'filterInputOptions'=>['placeholder'=>'是否提交'],
                 ],
+                [
+                    'attribute'=>'is_quality',
+                    'width'=>'100px',
+                    'value'=>function ($model, $key, $index, $widget) {
+                        if($model->is_quality==1){
+                            return '合格';
+
+                        }elseif($model->is_quality==0){
+                            return '不合格';
+                        }else{
+                            return '未检测';
+
+                        }
+                    },
+                    'filterType'=>GridView::FILTER_SELECT2,
+                    'filter'=>['1' => '合格', '0' => '不合格', '2' => '未检测'],
+                    'filterWidgetOptions'=>[
+                        'pluginOptions'=>['allowClear'=>true],
+                    ],
+                    'filterInputOptions'=>['placeholder'=>'质量是否合格'],
+                ],
 
                 [
                     'attribute'=>'master_result',
@@ -163,6 +192,37 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]); ?>
     </div>
+
+<?php
+use yii\bootstrap\Modal;
+// 评审操作
+Modal::begin([
+    'id' => 'audit-modal',
+    'header' => '<h4 class="modal-title">标记产品是否合格</h4>',
+    'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>',
+    'options'=>[
+        'data-backdrop'=>'static',//点击空白处不关闭弹窗
+        'data-keyboard'=>false,
+    ],
+    'size'=> Modal::SIZE_LARGE
+]);
+Modal::end();
+?>
+
+<?php
+$requestAuditUrl = Url::toRoute('quality');
+$auditJs = <<<JS
+        $('.data-audit').on('click', function () {
+            $.get('{$requestAuditUrl}', { id: $(this).closest('tr').data('key') },
+                function (data) {
+                    $('.modal-body').html(data);
+                }  
+            );
+        });
+JS;
+$this->registerJs($auditJs);
+
+?>
 
 
 <?php
