@@ -61,20 +61,19 @@ use kartik\builder\Form;
 
 
         ?>
+        <?php
+        echo Select2::widget([
+            'name' => 'new_member',
+            'data' => $data,
+            'options' => [
+//                'multiple' => true,
+                'placeholder' => '如需要请选择其他部长评审...',
+            ]
+        ]);
+        ?>
 
 
         <div class="form-group">
-            <?php
-               echo Select2::widget([
-                'name' => 'new_member',
-                'data' => $data,
-
-                'options' => [
-                        'placeholder' => '如需要   请选择 其他部长评审...',
-                        'label' => '新评审人',
-                    ]
-            ]);
-            ?>
         </div>
 
         <div class="form-group">
@@ -82,6 +81,8 @@ use kartik\builder\Form;
         </div>
 
         <?php ActiveForm::end(); ?>
+
+
 
     </div>
 

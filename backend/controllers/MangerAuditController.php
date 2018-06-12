@@ -63,9 +63,10 @@ class MangerAuditController extends Controller
        ")->queryAll();
             $data = [] ;
        foreach($leader as $key=>$value){
-           $data[$value['sub_company']] = $value['leader'];
+//           $data[$value['sub_company']] = $value['leader'];
+           $data[$value['leader']] = $value['leader'];
        }
-        $model = $this->findModel($id);
+//       var_dump($data);die;
        $num = sizeof($preview);
        $model_update = $this->findModel($id);
        $exchange_rate = PurInfoController::actionExchangeRate();
@@ -73,6 +74,14 @@ class MangerAuditController extends Controller
 
         if($num > 1){
           if ($model_update->load(Yii::$app->request->post()) ) {
+              $new_member = Yii::$app->request->post()['new_member'];
+              if(!empty($new_member)&&isset($new_member)){ //进入preview
+                  $model_update->new_member = $new_member;
+                  Yii::$app->db->createCommand("
+                    INSERT INTO `preview`  (member2,product_id) value ('$new_member',$id)
+                  ")->execute();
+
+              }
               //采样状态 入采样流程
               if(Yii::$app->request->post()['PurInfo']['master_result']==1 ){
                   Yii::$app->db->createCommand("
@@ -80,7 +89,7 @@ class MangerAuditController extends Controller
                   ")->execute();
               }
 
-              $model_update->preview_status = 1;
+//              $model_update->preview_status = 1;
               $model_update->save(false);
 
               return $this->redirect(['index']);
@@ -164,19 +173,6 @@ class MangerAuditController extends Controller
         ]);
     }
 
-    /**
-     * Deletes an existing PurInfo model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
 
     /**
      * Finds the PurInfo model based on its primary key value.
