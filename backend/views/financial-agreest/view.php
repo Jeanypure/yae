@@ -15,17 +15,24 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <img src="<?php echo $model->pd_pic_url?>" alt="" height="100" width="100">
     </p>
+    <h3> 申请人:
+        <?php
+        echo $model->purchaser;
+        ?>
+
+    </h3>
 
     <?php
     if(!empty($sample_model)&&isset($sample_model)){
         echo  $this->render('sample_view',[
-                'model'=>$sample_model
-            ]
-        )
-        ;
+                'model'=>$sample_model]);
     }
-
     ?>
 
-
 </div>
+
+<?= $this->render('_form', [
+    'model' => $model,
+]) ?>
+
+

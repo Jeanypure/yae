@@ -22,18 +22,45 @@ $this->params['breadcrumbs'][] = $this->title;
             'pay_way',
             'mark',
             'is_audit',
-            'is_agreest',
             [
               'attribute'=> 'is_agreest',
-              'value'=> 'is_agreest',
+              'value'=> function($model){
+                    if($model->is_agreest==1){
+                        return '同意';
+                    }else{
+                        return '不同意';
+                    }
+              },
             ],
-            'is_quality',
-            'fee_return',
+
+//            [
+//                'attribute'=> 'is_quality',
+//                'value'=> function($model){
+//                    if($model->is_quality==1){
+//                        return '合格';
+//                    }elseif($model->is_quality==0){
+//                        return '不合格';
+//                    }else{
+//                        return '未检测';
+//                    }
+//                },
+//            ],
+            [
+                'attribute'=> 'fee_return',
+                'value'=> function($model){
+                    if($model->fee_return==1){
+                        return '是';
+                    }else{
+                        return '否';
+                    }
+                },
+            ],
 //            'audit_mem1',
 //            'audit_mem2',
 //            'audit_mem3',
 //            'applicant',
-//            'create_date',
+//            'purchaser',
+            'create_date',
 //            'lastop_date',
         ],
     ]) ?>

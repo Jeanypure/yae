@@ -65,14 +65,14 @@ class Sample extends \yii\db\ActiveRecord
             'pay_way' => '付款方式',
             'mark' => '备注',
             'is_audit' => '审批状态',
-            'is_agreest' => '是否同意支付样品费',
+            'is_agreest' => '部长是否同意支付样品费',
             'is_quality' => '质量是否合格',
             'fee_return' => '是否退样品费',
             'audit_mem1' => '财务审核人',
             'audit_mem2' => '部长审核人',
             'audit_mem3' => 'Audit Mem3',
             'applicant' => '申请人',
-            'create_date' => 'Create Date',
+            'create_date' => '经理同意采样日期', //经理同意采样日期
             'lastop_date' => 'Lastop Date',
         ];
     }

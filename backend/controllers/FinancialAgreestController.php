@@ -53,14 +53,16 @@ class FinancialAgreestController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
         $sample_model = Sample::findOne(['spur_info_id'=>$id]);
         if(isset($sample_model)&&!empty($sample_model)){
-            if($sample_model->load(Yii::$app->request->post())&& $sample_model->save()){
-                return $this->redirect(['index']);
-
-            }
+                if($model->load(Yii::$app->request->post()) ){
+                    $model->has_pay = Yii::$app->request->post()['PurInfo']['has_pay'];
+                    $model->save(false);
+                    return $this->redirect(['index']);
+                }
             return $this->render('view', [
-                'model' => $this->findModel($id),
+                'model' => $model   ,
                 'sample_model' => $sample_model,
             ]);
         }else{
