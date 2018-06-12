@@ -57,8 +57,25 @@ use kartik\builder\Form;
                 'master_mark'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'','style'=>'height:100px']],
             ]
         ]);
+
+
+
         ?>
 
+
+        <div class="form-group">
+            <?php
+               echo Select2::widget([
+                'name' => 'new_member',
+                'data' => $data,
+
+                'options' => [
+                        'placeholder' => '如需要   请选择 其他部长评审...',
+                        'label' => '新评审人',
+                    ]
+            ]);
+            ?>
+        </div>
 
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-lg']) ?>

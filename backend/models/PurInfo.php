@@ -65,7 +65,7 @@ class PurInfo extends \yii\db\ActiveRecord
     {
 
         return [
-            [['is_quality','sample_submit1','sample_submit2','pur_complete_status','is_assign','junior_submit','pur_group', 'pd_purchase_num', 'parent_product_id','preview_status'], 'integer'],
+            [['brocast_status','is_quality','sample_submit1','sample_submit2','pur_complete_status','is_assign','junior_submit','pur_group', 'pd_purchase_num', 'parent_product_id','preview_status'], 'integer'],
             [['pd_title','pd_title_en','pd_package','pd_length', 'pd_width', 'pd_height','pd_weight',
                 'pd_pur_costprice','bill_tax_rebate','retail_price','pd_purchase_num',
                 'hs_code','has_shipping_fee'], 'required'],
@@ -79,7 +79,7 @@ class PurInfo extends \yii\db\ActiveRecord
             [['member','purchaser', 'pd_length', 'pd_width', 'pd_height', 'bill_type'], 'string', 'max' => 10],
             [['is_submit_manager','is_submit','is_huge', 'has_shipping_fee'], 'string', 'max' => 1],
             [[ 'bill_tax_rebate'], 'string', 'max' => 4],
-            [['brocast_status'], 'string', 'max' => 30],
+            [['new_member'], 'string', 'max' => 30],
             ['ebay_url','url','defaultScheme' => 'http'],
             ['amazon_url','url','defaultScheme' => 'http'],
             ['else_url','url','defaultScheme' => 'http'],
@@ -154,6 +154,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'sample_submit1' => '提交部长',
             'sample_submit2' => '提交财务',
             'is_quality' => '样品质量是否合格',
+            'new_member' => '新的评审人',
 
         ];
     }

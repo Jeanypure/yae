@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\Company;
 use Yii;
 use backend\models\PurInfo;
 use backend\models\MangerAuditSearch;
@@ -57,6 +58,14 @@ class MangerAuditController extends Controller
     {
 
        $preview =   Preview::find()->where(['product_id'=>$id])->all();
+       $leader =   Yii::$app->db->createCommand("
+       select sub_company, leader from `company`
+       ")->queryAll();
+            $data = [] ;
+       foreach($leader as $key=>$value){
+           $data[$value['sub_company']] = $value['leader'];
+       }
+        $model = $this->findModel($id);
        $num = sizeof($preview);
        $model_update = $this->findModel($id);
        $exchange_rate = PurInfoController::actionExchangeRate();
@@ -83,6 +92,7 @@ class MangerAuditController extends Controller
               'num' =>$num,
               'model_update' =>$model_update,
               'exchange_rate' =>$exchange_rate,
+              'data' =>$data,
 
 
 
@@ -107,6 +117,8 @@ class MangerAuditController extends Controller
               'preview' => $preview[0],
               'model_update' =>$model_update,
               'exchange_rate' =>$exchange_rate,
+              'data' =>$data,
+
 
 
           ]);
