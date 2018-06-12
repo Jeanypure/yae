@@ -43,16 +43,32 @@ class PurInfoTrackSearch extends PurInfo
      */
     public function search($params)
     {
-        $query = PurInfo::find()
-            ->select(['
+        $username =  Yii::$app->user->identity->username;
+        if($username=='Jenny'||$username=='David'||$username=='Mark'){
+            $query = PurInfo::find()
+                ->select(['
                     `pur_info`.pur_info_id,
                     `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
                     `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
                     `pur_info`.sample_submit1,
                     `sample`.spur_info_id'])
-            ->joinWith('sample')
-            ->andWhere(['not',['sample.spur_info_id'=>null]])
-        ;
+                ->joinWith('sample')
+                ->andWhere(['not',['sample.spur_info_id'=>null]])
+            ;
+        }else{
+            $query = PurInfo::find()
+                ->select(['
+                    `pur_info`.pur_info_id,
+                    `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
+                    `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
+                    `pur_info`.sample_submit1,
+                    `sample`.spur_info_id'])
+                ->joinWith('sample')
+                ->andWhere(['not',['sample.spur_info_id'=>null]])
+                ->andWhere(['purchaser'=>$username])
+            ;
+        }
+
 //        echo $query->createCommand()->getRawSql();die;
 
         // add conditions that should always apply here
