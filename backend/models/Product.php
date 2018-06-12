@@ -36,7 +36,7 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-//            [['product_purchase_value'], 'number'],
+            [['product_purchase_value'], 'number'],
             [['is_submit','accept_status','group_status','brocast_status','sub_company',], 'integer'],
             [['product_add_time', 'product_update_time'], 'safe'],
             [['product_title_en','product_title','pd_pic_url'], 'required'],
