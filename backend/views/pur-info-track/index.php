@@ -32,9 +32,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'header' => '操作',
                 'template' => ' {update}',
             ],
-
-//            'pur_info_id',
-//            'spur_info_id',
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
@@ -47,7 +44,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-
             'purchaser',
             [
                 'attribute'=>'pur_group',
@@ -117,6 +113,28 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'是否提交'],
+            ],
+            [
+                'attribute'=>'is_quality',
+                'width'=>'100px',
+                'value'=>function ($model, $key, $index, $widget) {
+                    if($model->is_quality==1){
+                        return '合格';
+
+                    }elseif($model->is_quality==0){
+                        return '不合格';
+
+                    }else{
+                        return '未检测';
+
+                    }
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '合格', '0' => '不合格', '2' => '未检测'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'质量是否合格'],
             ],
 
             [

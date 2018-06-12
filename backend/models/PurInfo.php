@@ -153,6 +153,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'pur_complete_status' => '是否完成',
             'sample_submit1' => '提交部长',
             'sample_submit2' => '提交财务',
+            'is_quality' => '样品质量是否合格',
 
         ];
     }
