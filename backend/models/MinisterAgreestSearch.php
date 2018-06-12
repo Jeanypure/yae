@@ -43,14 +43,17 @@ class MinisterAgreestSearch extends PurInfo
     public function search($params)
     {
         $username = Yii::$app->user->identity->username;
+        $res = Company::find()->select('id,sub_company')
+            ->where("leader_id=".Yii::$app->user->identity->getId())->asArray()->one();
 
-
+        $pur_group = $res['id']??'';
         if($username=='Jenny'||$username=='David'||$username=='Mark'){
             $query = PurInfo::find()
                 ->andWhere(['sample_submit1'=>1])
             ;
         }else{ //按部门显示
             $query = PurInfo::find()
+                ->andWhere(['pur_group'=>$pur_group])
                 ->andWhere(['sample_submit1'=>1])
             ;
         }
