@@ -106,9 +106,11 @@ class MangerAuditController extends Controller
             ]);
         }elseif($num ==2){
           if ($model_update->load(Yii::$app->request->post()) ) {
+
               $new_member = Yii::$app->request->post()['PurInfo']['new_member']; //部门ID
               $member2 = Yii::$app->db->createCommand(" select leader from company where sub_company = $new_member
               ")->queryOne();
+
               if($new_member!= $model_update->pur_group){ //进入preview
                   $model_update->pur_group = $new_member;
                   Yii::$app->db->createCommand("
