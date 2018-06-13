@@ -94,9 +94,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'filterInputOptions'=>['placeholder'=>'评审状态'],
             ],
-
-
-
             [
                 'attribute'=>'master_mark',
                 'value' => function($model) { return $model->master_mark;},

@@ -42,8 +42,12 @@ class TeamAuditSearch extends PurInfo
      */
     public function search($params)
     {
+        $username = Yii::$app->user->identity->username;
+        $code = Yii::$app->db->createCommand("
+        select code from purchaser where purchaser= '$username'
+        ")->queryOne();
         $team = Yii::$app->db->createCommand("
-        SELECT `purchaser` FROM purchaser WHERE `role` = 4
+        SELECT `purchaser` FROM purchaser WHERE code = $code[code]
         ")->queryAll();
 
         if(!empty($team)){
@@ -55,15 +59,12 @@ class TeamAuditSearch extends PurInfo
             $members = [];
         }
 
-
         $query = PurInfo::find()
             ->andWhere(['in','purchaser',$members])
             ->andWhere(['junior_submit'=>1])
-            ->andWhere(['is_submit'=>0])
             ->orderBy('pur_info_id desc')
-
         ;
-
+        $this->is_submit = 0 ;
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

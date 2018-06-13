@@ -67,12 +67,52 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
             [
+                'attribute'=>'master_result',
+                'value' => function($model) {
+                    if($model->master_result==0){
+                        return '拒绝';
+                    }elseif($model->master_result==1){
+                        return '采样';
+
+                    }elseif($model->master_result==2){
+                        return '需议价和谈其他条件';
+
+                    }elseif($model->master_result==3){
+                        return '尚未评';
+
+                    }elseif($model->master_result==4){
+                        return '直接下单';
+
+                    }elseif($model->master_result==5){
+                        return '季节产品推迟';
+
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['0' => '拒绝', '1' => '采样', '2' => '需议价和谈其他条件', '3' => '尚未评', '4' => '直接下单', '5' => '季节产品推迟'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'评审状态'],
+            ],
+            [
+                'attribute'=>'master_mark',
+                'value' => function($model) { return $model->master_mark;},
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+            [
                 'attribute'=>'is_submit',
                 'value' => function($model) { if($model->is_submit==1){return '已提交';}else{ return '未提交';} },
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['1' => '是', '0' => '否'],
+                'filter'=>['1' => '已提交', '0' => '未提交'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
