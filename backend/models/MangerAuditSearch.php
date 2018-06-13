@@ -56,6 +56,8 @@ class MangerAuditSearch extends PurInfo
 
         $query = PurInfo::find()
             ->andWhere(['in','pur_info_id',$ids])
+            ->orderBy('pur_info_id desc')
+
         ;
         $this->master_result = 3;
         $this->audit_a = 1;

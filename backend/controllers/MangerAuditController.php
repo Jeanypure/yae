@@ -57,6 +57,10 @@ class MangerAuditController extends Controller
     public function actionView($id)
     {
 
+        $spur_id = Yii::$app->db->createCommand("
+                   select spur_info_id  from sample where spur_info_id = $id
+                  ")->queryOne();
+
        $preview =   Preview::find()->where(['product_id'=>$id])->all();
        $leader =   Yii::$app->db->createCommand("
        select sub_company, leader from `company`
@@ -73,21 +77,18 @@ class MangerAuditController extends Controller
 
         if($num ==3){
             if ($model_update->load(Yii::$app->request->post()) ) {
-//                $new_member = Yii::$app->request->post()['PurInfo']['new_member'];
-//                if($new_member!= $model_update->pur_group){ //插入preview  重新分部
-//                    $model_update->pur_group = $new_member;
-//                    Yii::$app->db->createCommand("
-//                    INSERT INTO `preview`  (member2,product_id) value ('$new_member',$id)
-//                  ")->execute();
-//
-//                }
                 //采样状态 入采样流程
                 if(Yii::$app->request->post()['PurInfo']['master_result']==1 ){
-                    Yii::$app->db->createCommand("
-                    INSERT INTO `sample`  (spur_info_id) value ($id)
-                  ")->execute();
-                }
+                    $spur_id = Yii::$app->db->createCommand("
+                   select spur_info_id  from sample where spur_info_id = $id
+                  ")->queryOne();
+                    if($spur_id['spur_info_id'] != $id){
+                        Yii::$app->db->createCommand("
+                        INSERT INTO `sample`  (spur_info_id) value ($id)
+                      ")->execute();
+                    }
 
+                }
                 $model_update->preview_status = 1;
                 $model_update->save(false);
 
@@ -121,13 +122,18 @@ class MangerAuditController extends Controller
 
                   }
               }
-
-
               //采样状态 入采样流程
               if(Yii::$app->request->post()['PurInfo']['master_result']==1 ){
-                  Yii::$app->db->createCommand("
-                    INSERT INTO `sample`  (spur_info_id) value ($id)
-                  ")->execute();
+                  $spur_id = Yii::$app->db->createCommand("
+                   select spur_info_id  from sample where spur_info_id = $id
+                  ")->queryOne();
+                     if($spur_id['spur_info_id'] != $id){
+                             Yii::$app->db->createCommand("
+                        INSERT INTO `sample`  (spur_info_id) value ($id)
+                      ")->execute();
+                     }
+
+
               }
 
               $model_update->preview_status = 1;
@@ -146,11 +152,19 @@ class MangerAuditController extends Controller
           ]);
         }elseif($num ==1){
           if ($model_update->load(Yii::$app->request->post())) {
+
               //采样状态 入采样流程
               if(Yii::$app->request->post()['PurInfo']['master_result']==1 ){
-                  Yii::$app->db->createCommand("
-                    INSERT INTO `sample`  (spur_info_id) value ($id)
-                  ")->execute();
+                  $spur_id = Yii::$app->db->createCommand("
+                   select spur_info_id  from sample where spur_info_id = $id
+                  ")->queryOne();
+                  if($spur_id['spur_info_id'] != $id){
+                      Yii::$app->db->createCommand("
+                        INSERT INTO `sample`  (spur_info_id) value ($id)
+                      ")->execute();
+                  }
+
+
               }
 
               $model_update->preview_status = 1;
