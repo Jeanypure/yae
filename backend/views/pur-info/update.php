@@ -270,15 +270,19 @@ $compute_js =<<<JS
                 $(":radio[name ='PurInfo[is_huge]'][value='0']").prop("checked","checked");
             }
                           
-            var thow_weight = (height*width*length/5000).toFixed(3); 
+            var thow_weight = (height*width*length/5000).toFixed(3);
             $('#purinfo-pd_throw_weight').val(thow_weight) ;
             var fact_weight = $('#purinfo-pd_weight').val();
             var count_weight;
-            if(fact_weight > thow_weight){
+       
+            if(parseFloat(fact_weight) > parseFloat(thow_weight)){
                 count_weight = fact_weight;
             }else{
                 count_weight = thow_weight;
             }
+                                  
+
+            
             $("#purinfo-pd_count_weight").val(count_weight);
             
             
@@ -293,7 +297,7 @@ $compute_js =<<<JS
             //海运运费估计
             var  shipping_fee;
             var is_huge = $("input[name='PurInfo[is_huge]']:checked").val();
-            console.log(is_huge);
+           
             var shipping_fee;
             if(is_huge==0){
                 shipping_fee = (count_weight*5).toFixed(3);
