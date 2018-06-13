@@ -58,20 +58,25 @@ use kartik\builder\Form;
             ]
         ]);
 
-
-
         ?>
         <?php
-        echo Select2::widget([
-            'name' => 'new_member',
-            'data' => $data,
-            'options' => [
-//                'multiple' => true,
-                'placeholder' => '如需要请选择其他部长评审...',
-            ]
-        ]);
-        ?>
 
+        // Usage with ActiveForm and model
+        echo '<label class="control-label">流转新的部门评审</label>';
+
+            echo $form->field($model, 'new_member')->widget(Select2::classname(), [
+                'data' => $data,
+                'value' => $model->new_member,
+                'options' => [
+                    //    'multiple' => true,
+                    //    'onchange' => 'alert (this.value)',
+                    'placeholder' => '如需要请选择其他部长评审 同时所属部门会改变...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ])->label(false);
+
+        ?>
 
         <div class="form-group">
         </div>

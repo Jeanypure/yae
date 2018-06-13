@@ -49,24 +49,24 @@ class AuditSearch extends PurInfo
     {
         $member = Yii::$app->user->identity->username;
 
-        if($member!='Jenny'&&$member!='admin'&&$member!='David'&&empty($pur_group)){ //审核组
 
+        if($member!='Jenny'&&$member!='admin'&&$member!='David'&&empty($pur_group)){ //审核组
             $query = PurInfo::find()
                 ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager,`preview`.result'])
                 ->joinWith('preview')
                 ->andWhere(['member'=>$member])
                 ->andWhere(['is_submit'=>1])
                 ->andWhere(['member2'=>$member])
-//                ->andWhere(['not', ['pur_group' => null]])
                 ->orderBy('pur_info_id desc')
             ;
 
-        }elseif(!empty($pur_group)){ //部长
+        }elseif(!empty($pur_group)){ //部长 组内的+经理推荐的
             $query = PurInfo::find()
                 ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager,`preview`.result'])
                 ->joinWith('preview')
-                ->andWhere(['is_submit'=>1])
                 ->andWhere(['pur_group'=> $pur_group])
+                ->orWhere(['member2'=>$member])
+                ->andWhere(['is_submit'=>1])
                 ->andWhere(['member2'=>$member])
                 ->orderBy('pur_info_id desc')
             ;

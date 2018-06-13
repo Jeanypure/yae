@@ -72,13 +72,24 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
     <?php
-        if($num>1){
+        if($num == 2){
             echo $this->render('preview_view', [
                 'preview_model' => $preview,
             ]) ;
             echo $this->render('preview_view', [
                 'preview_model' => $preview2,
             ]) ;
+        }elseif($num==3){
+            echo $this->render('preview_view', [
+                'preview_model' => $preview,
+            ]) ;
+            echo $this->render('preview_view', [
+                'preview_model' => $preview2,
+            ]) ;
+            echo $this->render('preview_view', [
+                'preview_model' => $preview3,
+            ]) ;
+
         }else{
             echo $this->render('preview_view', [
                 'preview_model' => $preview,
@@ -95,6 +106,7 @@ $this->params['breadcrumbs'][] = $this->title;
     echo $this->render('update_audit', [
         'model' => $model_update,
         'data' => $data,
+        'num' => $num
     ])
     ?>
 

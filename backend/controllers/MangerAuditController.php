@@ -61,24 +61,58 @@ class MangerAuditController extends Controller
        $leader =   Yii::$app->db->createCommand("
        select sub_company, leader from `company`
        ")->queryAll();
-            $data = [] ;
+
+       $data = [] ;
        foreach($leader as $key=>$value){
-//           $data[$value['sub_company']] = $value['leader'];
-           $data[$value['leader']] = $value['leader'];
+           $data[$value['sub_company']] = $value['leader'];
        }
-//       var_dump($data);die;
+
        $num = sizeof($preview);
        $model_update = $this->findModel($id);
        $exchange_rate = PurInfoController::actionExchangeRate();
 
+        if($num ==3){
+            if ($model_update->load(Yii::$app->request->post()) ) {
+//                $new_member = Yii::$app->request->post()['PurInfo']['new_member'];
+//                if($new_member!= $model_update->pur_group){ //插入preview  重新分部
+//                    $model_update->pur_group = $new_member;
+//                    Yii::$app->db->createCommand("
+//                    INSERT INTO `preview`  (member2,product_id) value ('$new_member',$id)
+//                  ")->execute();
+//
+//                }
+                //采样状态 入采样流程
+                if(Yii::$app->request->post()['PurInfo']['master_result']==1 ){
+                    Yii::$app->db->createCommand("
+                    INSERT INTO `sample`  (spur_info_id) value ($id)
+                  ")->execute();
+                }
 
-        if($num > 1){
+                $model_update->preview_status = 1;
+                $model_update->save(false);
+
+                return $this->redirect(['index']);
+            }
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+                'preview' => $preview[0],
+                'preview2' => $preview[1],
+                'preview3' => $preview[2],
+                'num' =>$num,
+                'model_update' =>$model_update,
+                'exchange_rate' =>$exchange_rate,
+                'data' =>$data,
+
+            ]);
+        }elseif($num ==2){
           if ($model_update->load(Yii::$app->request->post()) ) {
-              $new_member = Yii::$app->request->post()['new_member'];
-              if(!empty($new_member)&&isset($new_member)){ //进入preview
-                  $model_update->new_member = $new_member;
+              $new_member = Yii::$app->request->post()['PurInfo']['new_member']; //部门ID
+              $member2 = Yii::$app->db->createCommand(" select leader from company where sub_company = $new_member
+              ")->queryOne();
+              if($new_member!= $model_update->pur_group){ //进入preview
+                  $model_update->pur_group = $new_member;
                   Yii::$app->db->createCommand("
-                    INSERT INTO `preview`  (member2,product_id) value ('$new_member',$id)
+                    INSERT INTO `preview`  (member2,product_id) value ('$member2[leader]',$id)
                   ")->execute();
 
               }
@@ -89,7 +123,7 @@ class MangerAuditController extends Controller
                   ")->execute();
               }
 
-//              $model_update->preview_status = 1;
+              $model_update->preview_status = 1;
               $model_update->save(false);
 
               return $this->redirect(['index']);
@@ -102,11 +136,8 @@ class MangerAuditController extends Controller
               'model_update' =>$model_update,
               'exchange_rate' =>$exchange_rate,
               'data' =>$data,
-
-
-
           ]);
-      }elseif($num ==1){
+        }elseif($num ==1){
           if ($model_update->load(Yii::$app->request->post())) {
               //采样状态 入采样流程
               if(Yii::$app->request->post()['PurInfo']['master_result']==1 ){
@@ -114,6 +145,7 @@ class MangerAuditController extends Controller
                     INSERT INTO `sample`  (spur_info_id) value ($id)
                   ")->execute();
               }
+
               $model_update->preview_status = 1;
               $model_update->save(false);
               return $this->redirect(['index']);
@@ -127,9 +159,6 @@ class MangerAuditController extends Controller
               'model_update' =>$model_update,
               'exchange_rate' =>$exchange_rate,
               'data' =>$data,
-
-
-
           ]);
 
       }
