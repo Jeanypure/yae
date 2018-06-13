@@ -108,16 +108,21 @@ class MangerAuditController extends Controller
           if ($model_update->load(Yii::$app->request->post()) ) {
 
               $new_member = Yii::$app->request->post()['PurInfo']['new_member']; //部门ID
-              $member2 = Yii::$app->db->createCommand(" select leader from company where sub_company = $new_member
+              if(!empty($new_member)&&isset($new_member)){
+
+                  $member2 = Yii::$app->db->createCommand(" select leader from company where sub_company = $new_member
               ")->queryOne();
 
-              if($new_member!= $model_update->pur_group){ //进入preview
-                  $model_update->pur_group = $new_member;
-                  Yii::$app->db->createCommand("
+                  if($new_member!= $model_update->pur_group){ //进入preview
+                      $model_update->pur_group = $new_member;
+                      Yii::$app->db->createCommand("
                     INSERT INTO `preview`  (member2,product_id) value ('$member2[leader]',$id)
                   ")->execute();
 
+                  }
               }
+
+
               //采样状态 入采样流程
               if(Yii::$app->request->post()['PurInfo']['master_result']==1 ){
                   Yii::$app->db->createCommand("

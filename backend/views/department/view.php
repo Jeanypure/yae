@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="product-view">
 
    <p>
-       <img src="<?php echo $model->pd_pic_url  ;?>" alt="">
+       <img src="<?php echo $model->pd_pic_url  ;?>" alt="" height="100" width="100">
    </p>
 
     <p>
