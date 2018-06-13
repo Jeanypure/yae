@@ -85,6 +85,7 @@ class AuditSearch extends PurInfo
         }
 
         $this->view_status = 0;
+        $this->submit_manager = 0;
 
         // add conditions that should always apply here
 
