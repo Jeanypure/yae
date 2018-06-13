@@ -19,7 +19,7 @@ class CompanySearch extends Company
     {
         return [
             [['id'], 'integer'],
-            [['sub_company', 'department', 'leader', 'memo'], 'safe'],
+            [['has_site','no_site','sub_company', 'department', 'leader', 'memo'], 'safe'],
         ];
     }
 
@@ -64,6 +64,9 @@ class CompanySearch extends Company
 
         $query->andFilterWhere(['like', 'sub_company', $this->sub_company])
             ->andFilterWhere(['like', 'department', $this->department])
+            ->andFilterWhere(['like', 'leader', $this->leader])
+            ->andFilterWhere(['like', 'has_site', $this->has_site])
+            ->andFilterWhere(['like', 'no_site', $this->no_site])
             ->andFilterWhere(['like', 'leader', $this->leader])
             ->andFilterWhere(['like', 'memo', $this->memo]);
 

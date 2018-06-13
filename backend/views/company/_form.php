@@ -17,6 +17,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'department')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'leader')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'has_site')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'no_site')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'memo')->textInput(['maxlength' => true]) ?>
 
