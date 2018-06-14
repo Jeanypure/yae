@@ -48,6 +48,7 @@ class PurInfo extends \yii\db\ActiveRecord
     public $submit_manager;
     public $result;
     public  $spur_info_id;
+    public  $is_agreest;
 
 
     /**
@@ -157,6 +158,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'new_member' => '流转新的评审人',
             'submit1_at' => '提交部长时间',
             'submit2_at' => '提交财务时间',
+            'is_agreest' => '是否同意付费',
 
         ];
     }

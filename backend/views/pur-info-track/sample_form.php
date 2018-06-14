@@ -155,7 +155,8 @@ $compute_js = <<<JS
             var pay_amount;
             var procurement_cost  = $('#sample-procurement_cost').val();
             var sample_freight  = $('#sample-sample_freight').val();
-            pay_amount = parseFloat(procurement_cost) + parseFloat(sample_freight);
+            var else_fee  = $('#sample-else_fee').val();
+            pay_amount = parseFloat(procurement_cost) + parseFloat(sample_freight)+ parseFloat(else_fee);
                 // console.log(pay_amount);
                 $('#sample-pay_amount').val(pay_amount)
          });

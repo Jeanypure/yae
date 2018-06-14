@@ -108,6 +108,26 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ],
                 [
+                    'attribute'=>'is_agreest',
+                    'width'=>'100px',
+                    'value'=>function ($model, $key, $index, $widget) {
+                        if($model->is_agreest==1){
+                            return '同意';
+
+                        }elseif ($model->is_agreest==2){
+                            return '未处理';
+                        }else{
+                            return '不同意';
+                        }
+                    },
+                    'filterType'=>GridView::FILTER_SELECT2,
+                    'filter'=>['1' => '同意', '0' => '不同意', '2' => '未处理'],
+                    'filterWidgetOptions'=>[
+                        'pluginOptions'=>['allowClear'=>true],
+                    ],
+                    'filterInputOptions'=>['placeholder'=>'是否同意付费'],
+                ],
+                [
                     'attribute'=>'sample_submit2',
                     'width'=>'100px',
                     'value'=>function ($model, $key, $index, $widget) {
