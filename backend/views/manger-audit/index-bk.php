@@ -160,7 +160,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'attribute' => 'pd_create_time',
-                'format' => ['date', "php:Y-m-d H:i:s"],
                 'headerOptions' => ['width' => '12%'],
                 'filter' => DateRangePicker::widget([
                     'name' => 'MangerAuditSearch[pd_create_time]',
