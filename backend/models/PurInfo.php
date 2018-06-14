@@ -161,6 +161,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'submit2_at' => '提交财务时间',
             'is_agreest' => '是否同意付费',
             'create_date' => '经理评审时间',
+            'is_purchase' => '确定采购?',
 
         ];
     }

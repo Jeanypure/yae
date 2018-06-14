@@ -161,6 +161,7 @@ class MinisterAgreestController extends Controller
 
         if($model->load(Yii::$app->request->post())){
             $model->is_quality = Yii::$app->request->post()['PurInfo']['is_quality'];
+            $model->is_purchase = Yii::$app->request->post()['PurInfo']['is_purchase'];
             $model->save(false);
             return $this->redirect('index');
         }
@@ -169,4 +170,12 @@ class MinisterAgreestController extends Controller
         ]);
 
     }
+
+        public function actionShare($id){
+            $model = $this->findModel($id);
+
+            return  $this->renderAjax('share', [
+                'model' => $model,
+            ]);
+        }
 }

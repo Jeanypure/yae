@@ -29,13 +29,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['class' => 'yii\grid\CheckboxColumn'],
                 ['class' => 'yii\grid\ActionColumn',
                     'header' => '操作',
-                    'template' => '{view}  {saved}',
+                    'template' => '{view}  {saved} {share}',
                     'buttons' => [
                         'saved' => function ($url, $model, $key) {
                             return Html::a('<span class="glyphicon glyphicon-saved"></span>', $url, [
-                                'title' => '质量合格',
+                                'title' => '质量审核 ',
                                 'data-toggle' => 'modal',
                                 'data-target' => '#audit-modal',
+                                'class' => 'data-audit',
+                                'data-id' => $key,
+                            ] );
+                        },
+                        'share' => function ($url, $model, $key) {
+                            return Html::a('<span class="glyphicon glyphicon-share"></span>', $url, [
+                                'title' => '共享产品',
+                                'data-toggle' => 'modal',
+                                'data-target' => '#share-modal',
                                 'class' => 'data-audit',
                                 'data-id' => $key,
                             ] );
@@ -125,7 +134,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterWidgetOptions'=>[
                         'pluginOptions'=>['allowClear'=>true],
                     ],
-                    'filterInputOptions'=>['placeholder'=>'是否同意付费'],
+                    'filterInputOptions'=>['placeholder'=>'同意付费?'],
                 ],
                 [
                     'attribute'=>'sample_submit2',
@@ -164,7 +173,28 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterWidgetOptions'=>[
                         'pluginOptions'=>['allowClear'=>true],
                     ],
-                    'filterInputOptions'=>['placeholder'=>'质量是否合格'],
+                    'filterInputOptions'=>['placeholder'=>'质量合格?'],
+                ],
+                [
+                    'attribute'=>'is_purchase',
+                    'width'=>'100px',
+                    'value'=>function ($model, $key, $index, $widget) {
+                        if($model->is_purchase==1){
+                            return '采购';
+
+                        }elseif($model->is_purchase==0){
+                            return '不采购';
+                        }else{
+                            return '未决定';
+
+                        }
+                    },
+                    'filterType'=>GridView::FILTER_SELECT2,
+                    'filter'=>['1' => '采购', '0' => '不采购', '2' => '未决定'],
+                    'filterWidgetOptions'=>[
+                        'pluginOptions'=>['allowClear'=>true],
+                    ],
+                    'filterInputOptions'=>['placeholder'=>'确定采购?'],
                 ],
 
                 [
@@ -243,6 +273,19 @@ Modal::begin([
     'size'=> Modal::SIZE_LARGE
 ]);
 Modal::end();
+
+// 分享操作
+Modal::begin([
+    'id' => 'share-modal',
+    'header' => '<h4 class="modal-title">共享到其他区域组</h4>',
+    'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>',
+    'options'=>[
+        'data-backdrop'=>'static',//点击空白处不关闭弹窗
+        'data-keyboard'=>false,
+    ],
+    'size'=> Modal::SIZE_LARGE
+]);
+Modal::end();
 ?>
 
 <?php
@@ -250,6 +293,17 @@ $requestAuditUrl = Url::toRoute('quality');
 $auditJs = <<<JS
         $('.data-audit').on('click', function () {
             $.get('{$requestAuditUrl}', { id: $(this).closest('tr').data('key') },
+                function (data) {
+                    $('.modal-body').html(data);
+                }  
+            );
+        });
+JS;
+$this->registerJs($auditJs);
+$share_url = Url::toRoute('share');
+$auditJs = <<<JS
+        $('.data-audit').on('click', function () {
+            $.get('{$share_url}', { id: $(this).closest('tr').data('key') },
                 function (data) {
                     $('.modal-body').html(data);
                 }  
