@@ -84,6 +84,82 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ],
             [
+                'attribute'=>'brocast_status',
+                'value' => function($model) {
+                    if($model->brocast_status==0){
+                        return '未公示';
+                    }elseif ($model->brocast_status==1){
+                        return '公示中';
+
+                    }else{
+                        return '公示结束';
+
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['0' => '未公示','1' => '公示中', '2' => '公示结束'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'公示状态'],
+//                'group'=>true,  // enable grouping
+
+            ],
+            [
+                'attribute'=>'group_status',
+                'value' => function($model) {
+                    if($model->group_status==0){
+                        return '未分部';
+                    }else{
+                        return '已分部';
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['0' => '未分部', '1' => '已分部'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'分部状态'],
+//                'group'=>true,  // enable grouping
+
+            ],
+            [
+                'attribute'=>'sub_company',
+                'value' => function($model) {
+                    if($model->sub_company==1){
+                        return '一部';
+                    }elseif($model->sub_company==2){
+                        return '二部';
+                    }elseif($model->sub_company==3){
+                        return '三部';
+                    }elseif($model->sub_company==4){
+                        return '四部';
+                    }elseif($model->sub_company==5){
+                        return '五部';
+                    }elseif($model->sub_company==6){
+                        return '六部';
+                    }elseif($model->sub_company==7){
+                        return '七部';
+                    }elseif($model->sub_company==8){
+                        return '八部';
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '一部', '2' => '二部','3' => '三部','4' => '四部','5' => '五部','6' => '六部','7' => '七部','8' => '八部',],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'部门'],
+                'group'=>true,  // enable grouping
+
+            ],
+            [
                 'attribute'=>'is_submit',
                 'width'=>'50px',
                 'value'=>function ($model, $key, $index, $widget) {
