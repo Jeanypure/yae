@@ -49,6 +49,7 @@ class PurInfo extends \yii\db\ActiveRecord
     public $result;
     public  $spur_info_id;
     public  $is_agreest;
+    public  $create_date;
 
 
     /**
@@ -159,6 +160,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'submit1_at' => '提交部长时间',
             'submit2_at' => '提交财务时间',
             'is_agreest' => '是否同意付费',
+            'create_date' => '经理评审时间',
 
         ];
     }
