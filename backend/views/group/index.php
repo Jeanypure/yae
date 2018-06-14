@@ -142,7 +142,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ],
 
-//            'product_purchase_value',
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
@@ -188,9 +187,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-            'product_add_time:date',
-//            'product_update_time:date',
-//            'purchaser',
+            'product_add_time',
 
         ],
     ]); ?>

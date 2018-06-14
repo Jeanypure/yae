@@ -169,6 +169,8 @@ class ProductController extends Controller
     public function actionCommit()
     {
         $ids = $_POST['id'];
+//        $commit_time = date('Y-m-d H:i:s');
+
         $product_ids = '';
         foreach ($ids as $k=>$v){
             $product_ids.=$v.',';
