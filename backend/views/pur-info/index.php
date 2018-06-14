@@ -168,7 +168,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ])
             ],
 
-//            'pd_package',
             'pd_length',
             'pd_width',
             'pd_height',

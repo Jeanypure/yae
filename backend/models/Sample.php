@@ -3,7 +3,7 @@
 namespace backend\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "sample".
  *
@@ -78,4 +78,26 @@ class Sample extends \yii\db\ActiveRecord
             'lastop_date' => 'Lastop Date',
         ];
     }
+
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    # 创建之前
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['create_date', 'lastop_date'],
+                    # 修改之前
+                    \yii\db\ActiveRecord::EVENT_BEFORE_UPDATE => ['lastop_date'],
+                ],
+                #设置默认值
+//                'value' => time()
+                'value' => date('Y-m-d H:i:s')
+            ]
+        ];
+    }
 }
+
+//create_date
+//lastop_date

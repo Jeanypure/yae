@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\helpers\Url;
+use kartik\daterange\DateRangePicker;
+
 
 
 /* @var $this yii\web\View */
@@ -114,6 +116,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'filterInputOptions'=>['placeholder'=>'是否付款'],
             ],
+            [
+                'attribute' => 'pay_at',
+                'headerOptions' => ['width' => '12%'],
+                'filter' => DateRangePicker::widget([
+                    'name' => 'FinancialAgreestSearch[pay_at]',
+                    'value' => Yii::$app->request->get('FinancialAgreestSearch')['pay_at'],
+                    'convertFormat' => true,
+                    'pluginOptions' => [
+                        'locale' => [
+                            'format' => 'Y-m-d H:i:s',
+                            'separator' => '/',
+                        ]
+                    ]
+                ])
+            ],
+
             [
                 'attribute'=>'master_result',
                 'value' => function($model) {

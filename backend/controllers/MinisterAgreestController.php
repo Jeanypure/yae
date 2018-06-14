@@ -96,6 +96,7 @@ class MinisterAgreestController extends Controller
     public function actionCommit()
     {
         $ids = $_POST['id'];
+        $submit2_at = date('Y-m-d H:i:s');
 
         $product_ids = '';
         foreach ($ids as $k=>$v){
@@ -105,7 +106,8 @@ class MinisterAgreestController extends Controller
 
         if(isset($ids_str)&&!empty($ids_str)){
             $res = Yii::$app->db->createCommand("
-            update `pur_info` set `sample_submit2`= 1 where `pur_info_id` in ($ids_str)
+            update `pur_info` set `sample_submit2`= 1 ,`submit2_at` = '$submit2_at'
+            where `pur_info_id` in ($ids_str)
             ")->execute();
             if($res){
                 echo 'success';
@@ -125,6 +127,8 @@ class MinisterAgreestController extends Controller
     public function actionCancel()
     {
         $ids = $_POST['id'];
+        $cancel_at = date('Y-m-d H:i:s');
+
         if(is_string($_POST['id'])){
             $ids = [];
             $ids[] = $_POST['id'];
@@ -137,7 +141,8 @@ class MinisterAgreestController extends Controller
 
         if(isset($ids_str)&&!empty($ids_str)){
             $res = Yii::$app->db->createCommand("
-            update `pur_info` set `sample_submit2`= 0 where `pur_info_id` in ($ids_str)
+            update `pur_info` set `sample_submit2`= 0 ,`cancel2_at` = '$cancel_at'
+            where `pur_info_id` in ($ids_str)
             ")->execute();
             if($res){
                 echo 'success';

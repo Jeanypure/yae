@@ -72,7 +72,7 @@ class PurInfo extends \yii\db\ActiveRecord
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice',
                 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'shipping_fee',
                 'amz_retail_price',
-                'amz_retail_price_rmb','selling_on_amz_fee','amz_fulfillment_cost','ams_logistics_fee','gross_profit_amz','profit_rate_amz', 'profit_rate','oversea_shipping_fee', 'transaction_fee', 'gross_profit'], 'number'],
+               'fact_pay_amount', 'amz_retail_price_rmb','selling_on_amz_fee','amz_fulfillment_cost','ams_logistics_fee','gross_profit_amz','profit_rate_amz', 'profit_rate','oversea_shipping_fee', 'transaction_fee', 'gross_profit'], 'number'],
             [['hs_code','master_result','pd_title', 'pd_title_en', 'remark'], 'string', 'max' => 500],
             [['master_mark','pd_pic_url', 'ebay_url', 'amazon_url', 'url_1688','else_url'], 'string', 'max' => 2000],
             [['pd_package', 'pd_material'], 'string', 'max' => 1000],
@@ -155,6 +155,8 @@ class PurInfo extends \yii\db\ActiveRecord
             'sample_submit2' => '提交财务',
             'is_quality' => '样品质量是否合格',
             'new_member' => '流转新的评审人',
+            'submit1_at' => '提交部长时间',
+            'submit2_at' => '提交财务时间',
 
         ];
     }

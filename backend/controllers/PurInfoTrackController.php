@@ -90,6 +90,7 @@ class PurInfoTrackController extends Controller
 
         if ($sample_model->load(Yii::$app->request->post())&& $sample_model->save(false) ) {
 
+
             return $this->redirect(['update', 'id' => $sample_model->spur_info_id]);
         }
 
@@ -143,7 +144,7 @@ class PurInfoTrackController extends Controller
     public function actionCommit()
     {
         $ids = $_POST['id'];
-
+        $submit1_at = date('Y-m-d H:i:s');
         $product_ids = '';
         foreach ($ids as $k=>$v){
             $product_ids.=$v.',';
@@ -152,7 +153,8 @@ class PurInfoTrackController extends Controller
 
         if(isset($ids_str)&&!empty($ids_str)){
             $res = Yii::$app->db->createCommand("
-            update `pur_info` set `sample_submit1`= 1 where `pur_info_id` in ($ids_str)
+            update `pur_info` set `sample_submit1`= 1,`submit1_at` = '$submit1_at'
+             where `pur_info_id` in ($ids_str)
             ")->execute();
             if($res){
                 echo 'success';
@@ -172,6 +174,8 @@ class PurInfoTrackController extends Controller
     public function actionCancel()
     {
         $ids = $_POST['id'];
+        $cancel_at = date('Y-m-d H:i:s');
+
         if(is_string($_POST['id'])){
             $ids = [];
             $ids[] = $_POST['id'];
@@ -184,7 +188,8 @@ class PurInfoTrackController extends Controller
 
         if(isset($ids_str)&&!empty($ids_str)){
             $res = Yii::$app->db->createCommand("
-            update `pur_info` set `sample_submit1`= 0 where `pur_info_id` in ($ids_str)
+            update `pur_info` set `sample_submit1`= 0 ,`cancel1_at` = '$cancel_at'
+            where `pur_info_id` in ($ids_str)
             ")->execute();
             if($res){
                 echo 'success';
@@ -203,10 +208,14 @@ class PurInfoTrackController extends Controller
     public function actionSingleCommit()
     {
         $ids = $_POST['id'];
+        $submit1_at = date('Y-m-d H:i:s');
         if(isset($ids)&&!empty($ids)){
             $res = Yii::$app->db->createCommand("
-            update `pur_info` set `sample_submit1`= 1 where `pur_info_id` in ($ids)
+            update `pur_info` set `sample_submit1`= 1 ,`submit1_at` = '$submit1_at'
+            where `pur_info_id` in ($ids)
             ")->execute();
+
+
             if($res){
                 echo 'success';
             }
@@ -225,9 +234,11 @@ class PurInfoTrackController extends Controller
     public function actionSingleCancel()
     {
         $ids = $_POST['id'];
+        $cancel_at = date('Y-m-d H:i:s');
         if(isset($ids)&&!empty($ids)){
             $res = Yii::$app->db->createCommand("
-            update `pur_info` set `sample_submit1`= 0 where `pur_info_id` in ($ids)
+            update `pur_info` set `sample_submit1`= 0 ,`cancel1_at` = '$cancel_at'
+            where `pur_info_id` in ($ids)
             ")->execute();
             if($res){
                 echo 'success';
