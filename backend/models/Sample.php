@@ -47,6 +47,8 @@ class Sample extends \yii\db\ActiveRecord
             [['procurement_cost', 'sample_freight', 'else_fee', 'pay_amount'], 'number'],
             [['create_date', 'lastop_date'], 'safe'],
             [['pay_way', 'mark'], 'string', 'max' => 500],
+            [['procurement_cost', 'sample_freight', 'pay_amount','pay_way',], 'required'],
+
         ];
     }
 
