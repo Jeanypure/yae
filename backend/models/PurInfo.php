@@ -179,6 +179,13 @@ class PurInfo extends \yii\db\ActiveRecord
         return $this->hasMany(Preview::className(), ['product_id' => 'pur_info_id']);
     }
 
+  public function getHeadman()
+    {
+        //第一个参数为要关联的子表模型类名，
+        //第二个参数指定 通过子表的product_id，关联主表的pur_info_id字段
+        return $this->hasMany(Headman::className(), ['product_id' => 'pur_info_id']);
+    }
+
 
     /**
       * 一个产品有一个采购跟单申请

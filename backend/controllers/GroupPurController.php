@@ -181,7 +181,6 @@ class GroupPurController extends Controller
     {
         $ids = $_POST['id'];
 
-
         $val = '';
         if($ids){
             foreach ($_POST['id'] as $key=>$value){

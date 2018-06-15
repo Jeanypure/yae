@@ -29,7 +29,7 @@ use kartik\widgets\ActiveForm;
             'is_quality'=>[
                 'type'=>Form::INPUT_RADIO_LIST,
                 'label'=>"<span style = 'color:red'><big>*</big></span>可选的区域组",
-                'items'=>[ 0=>'US',1=>'CA',2=>'AU',3=>'EUR',4=>'JP'],
+                'items'=>[ 1=>'CA',2=>'AU',3=>'EUR',4=>'JP'],
                 'options'=>['placeholder'=>'',]
 
             ],

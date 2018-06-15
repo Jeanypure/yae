@@ -41,3 +41,22 @@ CREATE TABLE `preview` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评审记录表';
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+
+DROP TABLE IF EXISTS `headman_preview`;
+CREATE TABLE `headman_preview` (
+  `preview_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '评审ID',
+  `headman` varchar(30) DEFAULT NULL COMMENT '评审人',
+  `product_id` varchar(20) DEFAULT NULL,
+  `content` varchar(500) DEFAULT '' COMMENT '评审建议',
+  `result` varchar(500) DEFAULT '' COMMENT '评审结果  0采样 1可开发  2拒绝（不合适不跟踪）',
+  `priview_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '评审时间',
+  `ref_url1` varchar(5000) DEFAULT '' COMMENT 'Amazon低价网址',
+  `ref_url2` varchar(5000) DEFAULT '' COMMENT 'eBay低价网址',
+  `ref_url3` varchar(5000) DEFAULT '' COMMENT '1688低价网址',
+  `ref_url4` varchar(5000) DEFAULT '' COMMENT '其他低价网址',
+  `view_status` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'view状态  0 未评审 1 已评审',
+  `saler_view_status` tinyint(1) DEFAULT '0' COMMENT '部长评审0 未评审 1 已评审',
+  `submit_manager` tinyint(1) NOT NULL DEFAULT '0' COMMENT '提交评审 0未提交 1已提交',
+  PRIMARY KEY (`preview_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评审记录表';

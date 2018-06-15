@@ -40,15 +40,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'data-id' => $key,
                             ] );
                         },
-                        'share' => function ($url, $model, $key) {
-                            return Html::a('<span class="glyphicon glyphicon-share"></span>', $url, [
-                                'title' => '共享产品',
-                                'data-toggle' => 'modal',
-                                'data-target' => '#share-modal',
-                                'class' => 'data-audit',
-                                'data-id' => $key,
-                            ] );
-                        },
+//                        'share' => function ($url, $model, $key) {
+//                            return Html::a('<span class="glyphicon glyphicon-share"></span>', $url, [
+//                                'title' => '共享产品',
+//                                'data-toggle' => 'modal',
+//                                'data-target' => '#share-modal',
+//                                'class' => 'data-audit',
+//                                'data-id' => $key,
+//                            ] );
+//                        },
                     ],
                 ],
                 [
@@ -300,17 +300,19 @@ $auditJs = <<<JS
         });
 JS;
 $this->registerJs($auditJs);
-$share_url = Url::toRoute('share');
-$auditJs = <<<JS
-        $('.data-audit').on('click', function () {
-            $.get('{$share_url}', { id: $(this).closest('tr').data('key') },
-                function (data) {
-                    $('.modal-body').html(data);
-                }  
-            );
-        });
-JS;
-$this->registerJs($auditJs);
+
+//$share_url = Url::toRoute('share');
+//
+//$share_js = <<<JS
+//        $('.data-audit').on('click', function () {
+//            $.get('{$share_url}', { id: $(this).closest('tr').data('key') },
+//                function (data) {
+//                    $('.modal-body').html(data);
+//                }
+//            );
+//        });
+//JS;
+//$this->registerJs($share_js);
 
 ?>
 
