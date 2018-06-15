@@ -92,9 +92,6 @@ class GroupPurController extends Controller
         $rate = $this->actionExchangeRate();
 
         if ($model->load(Yii::$app->request->post()) ) {
-//            var_dump(Yii::$app->request->post());die;
-            $model->preview_status = 0;
-            $model->source = Yii::$app->request->post()['PurInfo']['source'];
             $model->save(false);
             return $this->redirect(['index']);
         }

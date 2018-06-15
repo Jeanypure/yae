@@ -169,8 +169,7 @@ class ProductController extends Controller
     public function actionCommit()
     {
         $ids = $_POST['id'];
-//        $commit_time = date('Y-m-d H:i:s');
-
+        $commit_at = date('Y-m-d H:i:s');
         $product_ids = '';
         foreach ($ids as $k=>$v){
             $product_ids.=$v.',';
@@ -179,7 +178,8 @@ class ProductController extends Controller
 
         if(isset($ids)&&!empty($ids)){
            $res = Yii::$app->db->createCommand("
-            update `product` set `is_submit`= 1 where `product_id` in ($ids_str)
+            update `product` set `is_submit`= 1 ,`commit_at`='$commit_at'
+            where `product_id` in ($ids_str)
             ")->execute();
            if($res){
                echo 'success';

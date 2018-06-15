@@ -79,6 +79,7 @@ class Product extends \yii\db\ActiveRecord
             'group_status' => '分部状态',
             'accept_status' => '接受状态',
             'is_submit' => '是否提交',
+            'commit_at' => '提交时间',
 
         ];
     }

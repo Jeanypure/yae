@@ -310,7 +310,7 @@ $is_submit = <<<JS
     //批量提交
     $('#is_submit').on('click',function(){
         var button = $(this);
-        button.attr('disabled','disabled');
+        // button.attr('disabled','disabled');
         var ids =  $('#commit_product').yiiGridView("getSelectedRows");
         console.log(ids);
         if(ids==false) alert('请选择产品!') ;
@@ -319,9 +319,10 @@ $is_submit = <<<JS
          type: 'post',
          data:{id:ids},
          success:function(res){
-           if(res=='success') alert('提交产品成功!');
-           button.attr('disabled',false);
-           location.reload();
+           // if(res=='success') alert('提交产品成功!');
+           if(res=='success') console.log('提交产品成功!');
+           // button.attr('disabled',false);
+           // location.reload();
 
          },
          error: function (jqXHR, textStatus, errorThrown) {

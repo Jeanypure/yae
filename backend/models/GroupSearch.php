@@ -21,7 +21,7 @@ class GroupSearch extends Product
             [['product_id', 'sub_company_id', 'creator_id', 'is_submit'], 'integer'],
             [['product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3',
                 'ref_url4', 'product_add_time', 'product_update_time', 'purchaser', 'creator',
-                'product_status', 'pd_pic_url', 'preview_time', 'preview_mark', 'sub_company', 'group_mark', 'group_time', 'group_update_time', 'group_status', 'brocast_status', 'complete_status', 'accept_status'], 'safe'],
+                'commit_at','product_status', 'pd_pic_url', 'preview_time', 'preview_mark', 'sub_company', 'group_mark', 'group_time', 'group_update_time', 'group_status', 'brocast_status', 'complete_status', 'accept_status'], 'safe'],
             [['product_purchase_value'], 'number'],
         ];
     }
@@ -65,6 +65,11 @@ class GroupSearch extends Product
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
+        }
+
+        if (!empty($this->commit_at)) {
+            $query->andFilterCompare('commit_at', explode('/', $this->commit_at)[0], '>=');//起始时间
+            $query->andFilterCompare('commit_at', explode('/', $this->commit_at)[1], '<');//结束时间
         }
 
         // grid filtering conditions

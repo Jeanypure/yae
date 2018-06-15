@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                     'options'=>['placeholder'=>'','class'=>'label-require']],
                 'pd_title_en'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_pic_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'地址格式:https://XXXX.jpg|png|gif等']],
-                'source'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'可以按需更改 0 销售推荐 1是自主开发']],
+                'source'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'0销售推荐 1自主开发']],
             ],
 
         ]);
@@ -155,7 +155,6 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                     'items'=>[1=>'是', 0=>'否'],
                     'options'=>['placeholder'=>'']],
 
-                'source'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],
 
 
             ]
