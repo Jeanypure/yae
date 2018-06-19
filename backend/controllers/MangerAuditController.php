@@ -88,6 +88,8 @@ class MangerAuditController extends Controller
                       ")->execute();
                     }
 
+                }elseif(Yii::$app->request->post()['PurInfo']['master_result']==1 ){//需要议价和谈其他条件
+
                 }
                 $model_update->preview_status = 1;
                 $model_update->save(false);
@@ -111,8 +113,9 @@ class MangerAuditController extends Controller
               $new_member = Yii::$app->request->post()['PurInfo']['new_member']; //部门ID
               if(!empty($new_member)&&isset($new_member)){
 
-                  $member2 = Yii::$app->db->createCommand(" select leader from company where sub_company = $new_member
-              ")->queryOne();
+                  $member2 = Yii::$app->db->createCommand("
+                     select leader from company where sub_company = $new_member
+                      ")->queryOne();
 
                   if($new_member!= $model_update->pur_group){ //进入preview
                       $model_update->pur_group = $new_member;
@@ -132,8 +135,10 @@ class MangerAuditController extends Controller
                         INSERT INTO `sample`  (spur_info_id) value ($id)
                       ")->execute();
                      }
-
-
+              }elseif(Yii::$app->request->post()['PurInfo']['master_result']==2 ){//需要议价和谈其他条件 保留旧的含税价格
+                 Yii::$app->db->createCommand("
+                    update pur_info set old_costprice = pd_pur_costprice where  pur_info_id=$id
+                 ")->execute();
               }
 
               $model_update->preview_status = 1;

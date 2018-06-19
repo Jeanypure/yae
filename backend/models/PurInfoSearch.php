@@ -85,6 +85,7 @@ class PurInfoSearch extends PurInfo
         $query->andFilterWhere([
             'pur_info_id' => $this->pur_info_id,
             'is_submit' => $this->is_submit,
+            'master_result' => $this->master_result,
             'purchaser' => $this->purchaser,
             'pur_group' => $this->pur_group,
             'pd_weight' => $this->pd_weight,
