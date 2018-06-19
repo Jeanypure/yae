@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => '操作',
-                'template' => '{audit}  {view}',
+                'template' => '{audit} ',
                 'buttons' => [
                     'audit' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-check"></span>', $url, [
@@ -111,8 +111,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
-
-
             [
                 'attribute'=>'master_result',
                 'value' => function($model) {
@@ -200,21 +198,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'result',
                 'value' => function($model) {
                     if($model->result==0){
-                        return '拒绝';
+                        return '不采';
                     }elseif($model->result==1){
-                        return '采样';
-
-                    }elseif($model->result==2){
-                        return '需议价和谈其他条件';
+                        return '采购';
 
                     }elseif($model->result==3){
                         return '尚未评';
-
-                    }elseif($model->result==4){
-                        return '直接下单';
-
-                    }elseif($model->result==5){
-                        return '季节产品推迟';
 
                     }
                 },

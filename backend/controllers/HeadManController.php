@@ -141,8 +141,6 @@ class HeadManController extends Controller
         $purinfo = $this->findModel($id);
         $model_preview = Headman::findOne(['product_id'=>$id,
             'headman'=>Yii::$app->user->identity->username]);
-
-
         if($model_preview)
         { // 审核组 更新评审
             if ($model_preview->load(Yii::$app->request->post()) ) {
@@ -159,22 +157,7 @@ class HeadManController extends Controller
 
             ]);
 
-        }else {
-            $model_preview =  new Headman();
-            if ($model_preview->load(Yii::$app->request->post())) {
-                $model_preview->view_status = 1;
-                $model_preview->save(false);
-                return $this->redirect('index');
-
-            }
-            return  $this->renderAjax('create_audit', [
-                'model_preview' => $model_preview,
-                'id' =>$id,
-                'purinfo'=>$purinfo,
-                'exchange_rate' =>$exchange_rate
-            ]);
         }
-
 
     }
 

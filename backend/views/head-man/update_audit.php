@@ -78,12 +78,9 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
         // Usage with ActiveForm and model
         echo $form->field($model_preview, 'result')->widget(Select2::classname(), [
             'data' => [
-                '0'=>'拒绝',
-                '1'=>'采样',
-                '2'=>'需议价或谈其他条件',
-                '3'=>'未评审',
-                '4'=>'直接下单',
-                '5'=>'季节产品推迟',
+                '0'=>'不采购',
+                '1'=>'采购',
+
             ],
             'options' => ['placeholder' => '选择结果.....'],
             'pluginOptions' => [
@@ -102,10 +99,6 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
         </div>
 
         <?php ActiveForm::end(); ?>
-
-
-
-
 
     </div>
 </div>
@@ -155,8 +148,8 @@ $this->registerJs("
 
 $require_js = <<<JS
     $(function(){
-         $("label[for='preview-content'] ").addClass("label-require");
-         $("label[for='preview-result'] ").addClass("label-require");
+         $("label[for='headman-content'] ").addClass("label-require");
+         $("label[for='headman-result'] ").addClass("label-require");
             
             $('.label-require').html(function(_,html) {
                 return html.replace(/(.*?)/, "<span style = 'color:red'><big>*$1</big></span>");
@@ -178,11 +171,11 @@ $preview_js= <<<JS
          var preview_retail_price = $('#purinfo-retail_price').val(); //评审人填写的  售价 $
          var amz_fee = $('#purinfo-ams_logistics_fee').val(); //amz物流计算器 计算的费用 $
          var shipping_fee  = $('#purinfo-shipping_fee').val(); //海运运费
-         //  //预估毛利= 预计销售价格RMB-含税价格+退税金额-海运运费-海外仓运费-成交费
+         //预估毛利= 预计销售价格RMB-含税价格+退税金额-海运运费-海外仓运费-成交费
          //评审人计算的毛利¥ = (评审人售价$)*rate-含税价格+退税金额-海运运费-(AMZ计算费用$)*rate
             var costprice = $("#purinfo-pd_pur_costprice").val(); //含税价格
             var tax_rebate = $("#purinfo-bill_tax_rebate").val(); //退税率
-            var  preview_profit_float = preview_retail_price * $exchange_rate -(1-tax_rebate/100)*costprice-shipping_fee-amz_fee*$exchange_rate;
+            var preview_profit_float = preview_retail_price * $exchange_rate -(1-tax_rebate/100)*costprice-shipping_fee-amz_fee*$exchange_rate;
             var preview_profit = (preview_profit_float).toFixed(3);
            $('#purinfo-gross_profit').val(preview_profit);
            

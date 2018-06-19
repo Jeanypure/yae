@@ -19,7 +19,6 @@ use Yii;
  * @property string $ref_url3 1688低价网址
  * @property string $ref_url4 其他低价网址
  * @property int $view_status view状态  0 未评审 1 已评审
- * @property int $saler_view_status 部长评审0 未评审 1 已评审
  * @property int $submit_manager 提交评审 0未提交 1已提交
  */
 class Headman extends \yii\db\ActiveRecord
@@ -39,12 +38,12 @@ class Headman extends \yii\db\ActiveRecord
     {
         return [
             [['priview_time'], 'safe'],
-            [['view_status', 'saler_view_status', 'submit_manager'], 'integer'],
+            [['view_status', 'submit_manager'], 'integer'],
             [['headman'], 'string', 'max' => 30],
             [['site'], 'string', 'max' => 10],
             [['product_id'], 'string', 'max' => 20],
             [['content', 'result'], 'string', 'max' => 500],
-            [['ref_url1', 'ref_url2', 'ref_url3', 'ref_url4'], 'string', 'max' => 5000],
+            [['ref_url1', 'ref_url2', 'ref_url3', 'ref_url4','ref_url12', 'ref_url13','ref_url22', 'ref_url23',], 'string', 'max' => 5000],
         ];
     }
 
@@ -58,15 +57,18 @@ class Headman extends \yii\db\ActiveRecord
             'headman' => 'Headman',
             'site' => 'Site',
             'product_id' => 'Product ID',
-            'content' => 'Content',
-            'result' => 'Result',
+            'content' => '评审内容',
+            'result' => '评审结果',
             'priview_time' => 'Priview Time',
-            'ref_url1' => 'Ref Url1',
-            'ref_url2' => 'Ref Url2',
-            'ref_url3' => 'Ref Url3',
-            'ref_url4' => 'Ref Url4',
+            'ref_url1' => 'Amazon参考网址',
+            'ref_url12' => 'Amazon参考网址2',
+            'ref_url13' => 'Amazon参考网址3',
+            'ref_url2' => 'eBay参考网址',
+            'ref_url22' => 'eBay参考网址2',
+            'ref_url23' => 'eBay参考网址3',
+            'ref_url3' => '1688参考网址',
+            'ref_url4' => '其他网址',
             'view_status' => 'View Status',
-            'saler_view_status' => 'Saler View Status',
             'submit_manager' => 'Submit Manager',
         ];
     }
