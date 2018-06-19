@@ -152,27 +152,27 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
-            [
-                'attribute'=>'view_status',
-                'value' => function($model) {
-                    if($model->view_status==1){
-                        return '已评审';
-                    }else{
-                        return '未评审';
-
-                    }
-                },
-                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
-                'format'=>'html',
-                'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['0' => '未评审', '1' => '已评审'],
-                'filterWidgetOptions'=>[
-                    'pluginOptions'=>['allowClear'=>true],
-                ],
-                'filterInputOptions'=>['placeholder'=>'评审状态'],
-//                'group'=>true,  // enable grouping
-
-            ],
+//            [
+//                'attribute'=>'view_status',
+//                'value' => function($model) {
+//                    if($model->view_status==1){
+//                        return '已评审';
+//                    }else{
+//                        return '未评审';
+//
+//                    }
+//                },
+//                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+//                'format'=>'html',
+//                'filterType'=>GridView::FILTER_SELECT2,
+//                'filter'=>['0' => '未评审', '1' => '已评审'],
+//                'filterWidgetOptions'=>[
+//                    'pluginOptions'=>['allowClear'=>true],
+//                ],
+//                'filterInputOptions'=>['placeholder'=>'评审状态'],
+////                'group'=>true,  // enable grouping
+//
+//            ],
             [
                 'attribute'=>'submit_manager',
                 'value' => function($model) {

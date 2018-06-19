@@ -343,7 +343,6 @@ JS;
              // var ams_logistics_fee = $("#purinfo-ams_logistics_fee").val();
              var ams_logistics_fee = (parseFloat(fulfillment_cost) + parseFloat(amz_selling_on_amz_fee)).toFixed(3);
              $("#purinfo-ams_logistics_fee").val(ams_logistics_fee);
-            
              
              //amz 成交费 是 售价的15%
              var amz_transaction_fee = (retail_price*$exchange_rate*0.15).toFixed(3);
