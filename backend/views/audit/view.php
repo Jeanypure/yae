@@ -13,18 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="pur-info-view">
 
     <img src="<?php echo $model->pd_pic_url ?>" alt="" width="100" height="100">
-    <p>
-<!--        --><?php //echo  Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->pur_info_id], ['class' => 'btn btn-primary']) ?>
-        <?php
-//        echo  Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->pur_info_id], [
-//            'class' => 'btn btn-danger',
-//            'data' => [
-//                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-//                'method' => 'post',
-//            ],
-//        ]) ;
-        ?>
-    </p>
 
     <?= DetailView::widget([
         'model' => $model,
