@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <p>
-    <?php echo Html::button('提交部长',['class' => 'btn btn-info' ,'id'=>'sample-submit'])?>
+    <?php echo Html::button('提交给销售部长',['class' => 'btn btn-info' ,'id'=>'sample-submit'])?>
     <?php echo Html::button('取消提交',['class' => 'btn btn-primary' ,'id'=>'sample-un-submit'])?>
 </p>
 <div class="pur-info-index">
