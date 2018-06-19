@@ -61,6 +61,7 @@ class FinancialAgreestController extends Controller
                 if($model->load(Yii::$app->request->post()) ){
                     $model->has_pay = Yii::$app->request->post()['PurInfo']['has_pay'];
                     $model->pay_at = $pay_at;
+                    $model->payer = Yii::$app->user->identity->username;
                     $model->save(false);
                     return $this->redirect(['index']);
                 }

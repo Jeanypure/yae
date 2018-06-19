@@ -11,7 +11,7 @@ use kartik\daterange\DateRangePicker;
 /* @var $searchModel app\models\FinancialAgreestSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', '财务审批');
+$this->title = Yii::t('app', '财务付款');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pur-info-index">
@@ -98,6 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
+            'payer',
             [
                 'attribute'=>'has_pay',
                 'width'=>'100px',

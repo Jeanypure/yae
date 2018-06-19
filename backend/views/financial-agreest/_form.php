@@ -31,6 +31,10 @@ use kartik\widgets\ActiveForm;
                 'items'=>[1=>'是', 0=>'否'],
                 'options'=>['placeholder'=>'',]
             ],
+            'payer'=>[
+                'type'=>Form::INPUT_HIDDEN,
+                'options'=>['placeholder'=>'',]
+            ],
         ],
 
     ]);
