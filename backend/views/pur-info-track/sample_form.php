@@ -20,7 +20,7 @@ use kartik\widgets\ActiveForm;
         'model'=>$model,
         'form'=>$form,
         'columns'=>6,
-        'contentBefore'=>'<legend class="text-info"><h3>2.样品费用信息</h3></legend>',
+        'contentBefore'=>'<legend class="text-info"><h3>1.样品费用信息</h3></legend>',
         'attributes'=>[       // 6 column layout
             'procurement_cost'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'sample_freight'=>['type'=>Form::INPUT_TEXT,

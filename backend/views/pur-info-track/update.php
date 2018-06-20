@@ -16,13 +16,15 @@ $this->title = Yii::t('app', '样品申请: ' . $model->pur_info_id, [
 
     <img src="<?php echo $model->pd_pic_url?>" alt=""  style="height: 100px;width: 100px">
 
+    <?= $this->render('sample_form', [
+        'model' => $sample_model,
+    ]) ?>
+    <legend class="text-info"><h3>2.产品详细信息</h3></legend>
     <?= $this->render('view', [
         'model' => $model,
     ]) ?>
 
 
-    <?= $this->render('sample_form', [
-        'model' => $sample_model,
-    ]) ?>
+
 
 </div>
