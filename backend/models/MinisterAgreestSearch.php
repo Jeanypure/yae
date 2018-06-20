@@ -53,7 +53,7 @@ class MinisterAgreestSearch extends PurInfo
                     `pur_info`.pur_info_id,
                     `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
                     `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
-                    `pur_info`.sample_submit2,`pur_info`.is_quality,`pur_info`.submit2_at,`pur_info`.is_purchase,  
+                    `pur_info`.sample_submit2,`pur_info`.is_quality,`pur_info`.submit2_at,`pur_info`.is_purchase,`pur_info`.submit2_at,  
                     `sample`.spur_info_id,`sample`.is_agreest'
                 ])
                 ->joinWith('sample')
@@ -65,11 +65,12 @@ class MinisterAgreestSearch extends PurInfo
                     `pur_info`.pur_info_id,
                     `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
                     `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
-                    `pur_info`.sample_submit2,`pur_info`.is_quality,`pur_info`.submit1_at,`pur_info`.is_purchase,  
+                    `pur_info`.sample_submit2,`pur_info`.is_quality,`pur_info`.submit1_at,`pur_info`.is_purchase, `pur_info`.submit2_at,  
                     `sample`.spur_info_id,`sample`.is_agreest'])
                 ->joinWith('sample')
                 ->andWhere(['pur_group'=>$pur_group])
                 ->andWhere(['sample_submit1'=>1])
+                ->orderBy('pur_info_id desc')
             ;
         }
 

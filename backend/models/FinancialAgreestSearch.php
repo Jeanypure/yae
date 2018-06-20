@@ -43,7 +43,9 @@ class FinancialAgreestSearch extends PurInfo
     public function search($params)
     {
         $query = PurInfo::find()
+        ->andWhere(['sample_submit1'=>1])
         ->andWhere(['sample_submit2'=>1])
+            ->orderBy('pur_info_id desc')
         ;
 
         // add conditions that should always apply here
