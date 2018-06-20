@@ -112,16 +112,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php  $form = ActiveForm::begin(['id' => 'auto-compute-form'])?>
 <?php
+
 echo Form::widget([
     'model'=>$purinfo,
     'form'=>$form,
     'columns'=>6,
     'contentBefore'=>'<legend class="text-info"><h3>评审数据计算</h3></legend>',
     'attributes'=>[       // 4 column layout
-        'retail_price'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-        'ams_logistics_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-        'gross_profit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-        'profit_rate'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+        'pd_pur_costprice'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],//含税价格
+        'bill_tax_rebate'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],   //退税率
+        'bill_rebate_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],   //退税e
+        'shipping_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']], //海运运费
+        'oversea_shipping_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],//海外仓运费
 
     ]
 ]);
@@ -131,11 +133,26 @@ echo Form::widget([
     'form'=>$form,
     'columns'=>6,
     'attributes'=>[       // 4 column layout
-        'pd_pur_costprice'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],//含税价格
-        'bill_tax_rebate'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],   //退税率
-        'shipping_fee'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']], //海运运费
+        'retail_price'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+        'transaction_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+        'gross_profit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+        'profit_rate'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+
     ]
 ]);
+echo Form::widget([
+    'model'=>$purinfo,
+    'form'=>$form,
+    'columns'=>6,
+    'attributes'=>[       // 4 column layout
+        'amz_retail_price'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+        'ams_logistics_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+        'gross_profit_amz'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+        'profit_rate_amz'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+
+    ]
+]);
+
 
 ?>
 <?php ActiveForm::end(); ?>
@@ -157,9 +174,22 @@ $require_js = <<<JS
          $("label[for='preview-content'] ").addClass("label-require");
          $("label[for='preview-result'] ").addClass("label-require");
             
-            $('.label-require').html(function(_,html) {
-                return html.replace(/(.*?)/, "<span style = 'color:red'><big>*$1</big></span>");
-            });
+        $('.label-require').html(function(_,html) {
+            return html.replace(/(.*?)/, "<span style = 'color:red'><big>*$1</big></span>");
+        });
+            
+            //只读
+             $("#purinfo-pd_pur_costprice").attr("readonly","readonly");
+             $("#purinfo-bill_tax_rebate").attr("readonly","readonly");
+             $("#purinfo-shipping_fee").attr("readonly","readonly");
+             $("#purinfo-oversea_shipping_fee").attr("readonly","readonly");
+             $("#purinfo-transaction_fee").attr("readonly","readonly");
+             $("#purinfo-bill_rebate_amount").attr("readonly","readonly");
+             
+             $("#purinfo-gross_profit").attr("readonly","readonly");
+             $("#purinfo-profit_rate").attr("readonly","readonly");
+             $("#purinfo-gross_profit_amz").attr("readonly","readonly");
+             $("#purinfo-profit_rate_amz").attr("readonly","readonly");
     });
 JS;
 
@@ -173,22 +203,35 @@ $this->registerJs($require_js);
 $preview_js= <<<JS
 
     $('#auto-compute-form').on('change',function(){
-         var preview_retail_price = $('#purinfo-retail_price').val(); //评审人填写的  售价 $
-         var amz_fee = $('#purinfo-ams_logistics_fee').val(); //amz物流计算器 计算的费用 $
-         var shipping_fee  = $('#purinfo-shipping_fee').val(); //海运运费
-         //  //预估毛利= 预计销售价格RMB-含税价格+退税金额-海运运费-海外仓运费-成交费
-         //评审人计算的毛利¥ = (评审人售价$)*rate-含税价格+退税金额-海运运费-(AMZ计算费用$)*rate
-            var costprice = $("#purinfo-pd_pur_costprice").val(); //含税价格
-            var tax_rebate = $("#purinfo-bill_tax_rebate").val(); //退税率
-            var  preview_profit_float = preview_retail_price * $exchange_rate -(1-tax_rebate/100)*costprice-shipping_fee-amz_fee*$exchange_rate;
-            var preview_profit = (preview_profit_float).toFixed(3);
-           $('#purinfo-gross_profit').val(preview_profit);
+         
+        //eBay审核计算的毛利率 预估毛利= 预计销售价格RMB-含税价格+退税金额-海运运费-海外仓运费-成交费
+         var eBay_retail_price = $('#purinfo-retail_price').val(); //评审人填写的  售价 $ eBay
+       
+         var shipping_fee  = $('#purinfo-shipping_fee').val();       //海运运费
+         var oversea_fee  = $('#purinfo-oversea_shipping_fee').val(); //海外仓运费 
+         var transaction_fee  = (eBay_retail_price* $exchange_rate*0.13).toFixed(3);  //成交费 
+            
+         var costprice = $("#purinfo-pd_pur_costprice").val(); //含税价格
+         var tax_rebate = $("#purinfo-bill_tax_rebate").val(); //退税率
            
-                      
-           //审核计算的毛利率 
+         var eBay_profit = (eBay_retail_price * $exchange_rate -(1-tax_rebate/100)*costprice-shipping_fee-oversea_fee-transaction_fee).toFixed(3);
+         $('#purinfo-gross_profit').val(eBay_profit);
+           var profit_rate = (eBay_profit*100/(eBay_retail_price * $exchange_rate)).toFixed(3);
+           $('#purinfo-profit_rate').val(profit_rate);  
+           $('#purinfo-transaction_fee').val(transaction_fee);  
            
-           var profit_rate = (preview_profit*100/(preview_retail_price * $exchange_rate)).toFixed(3);
-           $('#purinfo-profit_rate').val(profit_rate);
+           
+     //amz审核计算
+     //评审人计算的毛利¥ = (评审人售价$)*rate-含税价格+退税金额-海运运费-(AMZ计算费用$)*rate
+
+           var amz_fee = $('#purinfo-ams_logistics_fee').val(); //amz物流计算器 计算的费用 $
+           var amz_retail_price = $('#purinfo-amz_retail_price').val(); //评审人填写的  售价 $ Amazon
+           var amz_profit =(amz_retail_price * $exchange_rate -(1-tax_rebate/100)*costprice-shipping_fee-amz_fee*$exchange_rate).toFixed(3);
+           var profit_rate_amz = (amz_profit*100/(amz_retail_price * $exchange_rate)).toFixed(3);
+          
+           $('#purinfo-gross_profit_amz').val(amz_profit);
+           $('#purinfo-profit_rate_amz').val(profit_rate_amz);
+    
 
     
     });

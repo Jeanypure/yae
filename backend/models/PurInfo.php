@@ -31,7 +31,7 @@ use Yii;
  * @property int $bill_tax_rebate 退税率
  * @property string $bill_rebate_amount 退税金额
  * @property string $no_rebate_amount 预计销售不退税价格RMB
- * @property string $retail_price 预计销售价格$
+ * @property string $retail_price 预计售价$
  * @property string $ebay_url eBay链接
  * @property string $amazon_url amazon链接
  * @property string $url_1688 1688链接
@@ -123,7 +123,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'bill_tax_rebate' => '退税率%',
             'bill_rebate_amount' => '退税金额¥',
             'no_rebate_amount' => 'eBay预计销售价¥',
-            'retail_price' => 'eBay预计销售价格$',
+            'retail_price' => 'eBay预计售价$',
             'ebay_url' => 'eBay低价链接',
             'amazon_url' => 'Amazon低价链接',
             'url_1688' => '1688低价链接',
@@ -150,8 +150,8 @@ class PurInfo extends \yii\db\ActiveRecord
             'profit_rate_amz' => 'Amazon毛利率%',
             'selling_on_amz_fee' => 'Selling on Amazon fees',
             'amz_fulfillment_cost' => 'Total Fulfillment Cost',
-            'amz_retail_price' => 'Amz预计销售价格$',
-            'amz_retail_price_rmb' => 'Amz预计销售价格¥',
+            'amz_retail_price' => 'Amz预计售价$',
+            'amz_retail_price_rmb' => 'Amz预计售价¥',
             'pur_complete_status' => '是否完成',
             'sample_submit1' => '提交部长',
             'sample_submit2' => '提交财务',
