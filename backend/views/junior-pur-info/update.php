@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 
@@ -177,12 +178,27 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             ]
         ]);
 
+        echo Form::widget([
+            'model'=>$model,
+            'form'=>$form,
+            'columns'=>6,
+            'attributes'=>[       // 6 column layout
+                'pur_info_id'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],
+                'master_result'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],
+            ]
+
+        ]);
+
 
         ?>
 
 
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        </div>
+        <div class="form-group">
+            <?=  Html::Button('已议价需重新评审', ['id' => 'reappraisal', 'class' => 'btn btn-primary']) ?>
+
         </div>
 
         <?php ActiveForm::end(); ?>
@@ -240,12 +256,19 @@ $readonly_js =<<<JS
             $("label[for='purinfo-bill_type'] ").addClass("label-require");
             $("label[for='purinfo-amz_retail_price'] ").addClass("label-require");
             $("label[for='purinfo-hs_code'] ").addClass("label-require");
-
-
             
+            //必填*
             $('.label-require').html(function(_,html) {
                 return html.replace(/(.*?)/, "<span style = 'color:red'><big>*$1</big></span>");
             });
+            
+            var master_result = $('#purinfo-master_result').val();
+            if(master_result==2)
+            {
+                $('#reappraisal').show();
+            }else{
+                 $('#reappraisal').hide();
+            }
 
 
         });
@@ -377,6 +400,37 @@ $compute_js =<<<JS
 JS;
 
 $this->registerJs($compute_js);
+
+?>
+
+<?php
+//需要议价和谈其他条件
+$reassessment = Url::toRoute('assessment');
+
+$reJs = <<<JS
+        $('#reappraisal').on('click',function(){
+            var button = $(this);
+            ids = $('#purinfo-pur_info_id').val();
+            button.attr('disabled','disabled');
+            $.ajax({
+            url:'{$reassessment}',
+            type:'post',
+            data:{id:ids},
+            success:function(res){
+                if(res=='success') alert('重新提交评审成功!');
+                button.attr('disabled',false);
+                location.reload();
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                button.attr('disabled',false);
+            }
+            
+            });
+        });
+JS;
+
+$this->registerJs($reJs);
 
 ?>
 

@@ -215,6 +215,9 @@ class PurInfoController extends Controller
 
     }
 
+    /**
+     * @throws \yii\db\Exception
+     */
 
     public function  actionAssessment(){
         $id = $_POST['id'];
@@ -224,7 +227,7 @@ class PurInfoController extends Controller
         ")->execute();
 
        if($res){
-           echo 'success!';
+           echo 'success';
        }
     }
 

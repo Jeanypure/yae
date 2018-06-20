@@ -181,10 +181,9 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             'model'=>$model,
             'form'=>$form,
             'columns'=>6,
-
-            'attributes'=>[       // 1 column layout
-//                'pur_info_id'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']]
-                'pur_info_id'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']]
+            'attributes'=>[       // 6 column layout
+                'pur_info_id'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],
+                'master_result'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],
             ]
 
         ]);
@@ -261,8 +260,15 @@ $readonly_js =<<<JS
                 return html.replace(/(.*?)/, "<span style = 'color:red'><big>*$1</big></span>");
             });
             
+            var master_result = $('#purinfo-master_result').val();
+            console.log(master_result);
+            if(master_result==2)
+            {
+                $('#reappraisal').show();
+            }else{
+                 $('#reappraisal').hide();
+            }
             
-
 
         });
         
