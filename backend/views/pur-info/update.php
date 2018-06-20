@@ -261,7 +261,6 @@ $readonly_js =<<<JS
             });
             
             var master_result = $('#purinfo-master_result').val();
-            console.log(master_result);
             if(master_result==2)
             {
                 $('#reappraisal').show();
