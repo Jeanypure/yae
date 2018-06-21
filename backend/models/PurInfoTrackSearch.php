@@ -19,8 +19,8 @@ class PurInfoTrackSearch extends PurInfo
     {
         return [
 
-            [['is_quality','spur_info_id','sample_submit1','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_value', 'bill_tax_rebate', 'parent_product_id', 'source', 'preview_status', 'brocast_status', 'master_result', 'is_submit', 'is_submit_manager', 'pur_group_status', 'junior_submit', 'is_assign'], 'integer'],
-            [['create_date','submit1_at', 'purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'hs_code', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'else_url', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'member', 'master_member', 'master_mark', 'priview_time', 'pd_create_time', 'purchaser_leader', 'profit_rate', 'gross_profit_amz', 'profit_rate_amz', 'amz_fulfillment_cost', 'selling_on_amz_fee', 'amz_retail_price', 'amz_retail_price_rmb', 'commit_date'], 'safe'],
+            [['has_pay','is_quality','spur_info_id','sample_submit1','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_value', 'bill_tax_rebate', 'parent_product_id', 'source', 'preview_status', 'brocast_status', 'master_result', 'is_submit', 'is_submit_manager', 'pur_group_status', 'junior_submit', 'is_assign'], 'integer'],
+            [['payer','pay_at','create_date','submit1_at', 'purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'hs_code', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'else_url', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'member', 'master_member', 'master_mark', 'priview_time', 'pd_create_time', 'purchaser_leader', 'profit_rate', 'gross_profit_amz', 'profit_rate_amz', 'amz_fulfillment_cost', 'selling_on_amz_fee', 'amz_retail_price', 'amz_retail_price_rmb', 'commit_date'], 'safe'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice', 'ams_logistics_fee'], 'number'],
         ];
     }
@@ -51,11 +51,11 @@ class PurInfoTrackSearch extends PurInfo
                     `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
                     `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
                     `pur_info`.sample_submit1,`pur_info`.is_quality,`pur_info`.submit1_at,
+                    `pur_info`.payer,`pur_info`.has_pay,`pur_info`.pay_at,
                     `sample`.spur_info_id,`sample`.create_date'])
                 ->joinWith('sample')
                 ->andWhere(['not',['sample.spur_info_id'=>null]])
                 ->andWhere(['>=','create_date','2018-06-21 00:00:00'])
-//                create_date
                 ->orderBy('pur_info_id desc')
 
             ;
@@ -65,13 +65,13 @@ class PurInfoTrackSearch extends PurInfo
                     `pur_info`.pur_info_id,
                     `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
                     `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
-                    `pur_info`.sample_submit1,`pur_info`.is_quality,`pur_info`.submit1_at,  
+                    `pur_info`.sample_submit1,`pur_info`.is_quality,`pur_info`.submit1_at, 
+                    `pur_info`.payer,`pur_info`.has_pay,`pur_info`.pay_at, 
                     `sample`.spur_info_id,`sample`.create_date'])
                 ->joinWith('sample')
                 ->andWhere(['not',['sample.spur_info_id'=>null]])
                 ->andWhere(['purchaser'=>$username])
                 ->andWhere(['>=','create_date','2018-06-21 00:00:00'])
-
                 ->orderBy('pur_info_id desc')
             ;
         }
@@ -102,6 +102,7 @@ class PurInfoTrackSearch extends PurInfo
             'pur_info_id' => $this->pur_info_id,
             'sample_submit1' => $this->sample_submit1,
             'spur_info_id' => $this->spur_info_id,
+            'has_pay' => $this->has_pay,
             'pur_group' => $this->pur_group,
             'is_huge' => $this->is_huge,
             'pd_weight' => $this->pd_weight,
@@ -128,6 +129,7 @@ class PurInfoTrackSearch extends PurInfo
         ]);
 
         $query->andFilterWhere(['like', 'purchaser', $this->purchaser])
+            ->andFilterWhere(['like', 'payer', $this->payer])
             ->andFilterWhere(['like', 'pd_title', $this->pd_title])
             ->andFilterWhere(['like', 'pd_title_en', $this->pd_title_en])
             ->andFilterWhere(['like', 'pd_pic_url', $this->pd_pic_url])
