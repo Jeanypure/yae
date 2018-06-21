@@ -150,14 +150,13 @@ $this->registerJs($readonly_js);
 //费用计算
 
 $compute_js = <<<JS
-         $('#w2').on('change',function() {
+         $('#w1').on('change',function() {
             // 付款金额 = 采购成本 + 运费 + 其他费用 
             var pay_amount;
             var procurement_cost  = $('#sample-procurement_cost').val();
             var sample_freight  = $('#sample-sample_freight').val();
             var else_fee  = $('#sample-else_fee').val();
             pay_amount = parseFloat(procurement_cost) + parseFloat(sample_freight)+ parseFloat(else_fee);
-                // console.log(pay_amount);
                 $('#sample-pay_amount').val(pay_amount)
          });
 JS;
