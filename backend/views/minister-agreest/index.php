@@ -238,6 +238,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ],
                 [
+                    'attribute' => 'submit1_at',
+                    'headerOptions' => ['width' => '12%'],
+                    'filter' => DateRangePicker::widget([
+                        'name' => 'MinisterAgreestSearch[submit1_at]',
+                        'value' => Yii::$app->request->get('MinisterAgreestSearch')['submit1_at'],
+                        'convertFormat' => true,
+                        'pluginOptions' => [
+                            'locale' => [
+                                'format' => 'Y-m-d H:i:s',
+                                'separator' => '/',
+                            ]
+                        ]
+                    ])
+                ],
+                [
                     'attribute' => 'submit2_at',
                     'headerOptions' => ['width' => '12%'],
                     'filter' => DateRangePicker::widget([

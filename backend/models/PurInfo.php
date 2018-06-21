@@ -157,7 +157,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'sample_submit2' => '提交财务',
             'is_quality' => '样品质量是否合格',
             'new_member' => '流转新的评审人',
-            'submit1_at' => '提交部长时间',
+            'submit1_at' => '采购提交时间',
             'submit2_at' => '提交财务时间',
             'is_agreest' => '是否同意付费',
             'create_date' => '经理评审时间',
