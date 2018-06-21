@@ -54,6 +54,8 @@ class PurInfoTrackSearch extends PurInfo
                     `sample`.spur_info_id,`sample`.create_date'])
                 ->joinWith('sample')
                 ->andWhere(['not',['sample.spur_info_id'=>null]])
+                ->andWhere(['>=','create_date','2018-06-21 00:00:00'])
+//                create_date
                 ->orderBy('pur_info_id desc')
 
             ;
@@ -68,11 +70,13 @@ class PurInfoTrackSearch extends PurInfo
                 ->joinWith('sample')
                 ->andWhere(['not',['sample.spur_info_id'=>null]])
                 ->andWhere(['purchaser'=>$username])
+                ->andWhere(['>=','create_date','2018-06-21 00:00:00'])
+
                 ->orderBy('pur_info_id desc')
             ;
         }
 
-//        echo $query->createCommand()->getRawSql();die;
+        echo $query->createCommand()->getRawSql();die;
 
         // add conditions that should always apply here
 
