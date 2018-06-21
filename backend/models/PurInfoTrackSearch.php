@@ -76,7 +76,7 @@ class PurInfoTrackSearch extends PurInfo
             ;
         }
 
-        echo $query->createCommand()->getRawSql();die;
+//        echo $query->createCommand()->getRawSql();die;
 
         // add conditions that should always apply here
 
