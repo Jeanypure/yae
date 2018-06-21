@@ -114,6 +114,7 @@ class AuditSearch extends PurInfo
         $query->andFilterWhere([
             'pur_info_id' => $this->pur_info_id,
             'is_submit_manager' => $this->is_submit_manager,
+            'master_result' => $this->master_result,
             'view_status' => $this->view_status,
             'result' => $this->result,
             'submit_manager' => $this->submit_manager,

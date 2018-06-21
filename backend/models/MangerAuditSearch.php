@@ -59,7 +59,7 @@ class MangerAuditSearch extends PurInfo
             ->orderBy('pur_info_id desc')
 
         ;
-        $this->master_result = 3;
+//        $this->master_result = 3;
         $this->audit_a = 1;
         $this->audit_b = 1;
 
