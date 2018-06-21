@@ -22,7 +22,7 @@ class AuditSearch extends PurInfo
     public function rules()
     {
         return [
-            [['is_submit_manager','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
+            [['source','is_submit_manager','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
             [['result','submit_manager','master_mark','master_result','pd_create_time','view_status','preview_status','member','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount',
                 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688','else_url', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark'], 'safe'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice'], 'number'],
@@ -115,6 +115,7 @@ class AuditSearch extends PurInfo
             'pur_info_id' => $this->pur_info_id,
             'is_submit_manager' => $this->is_submit_manager,
             'master_result' => $this->master_result,
+            'source' => $this->source,
             'view_status' => $this->view_status,
             'result' => $this->result,
             'submit_manager' => $this->submit_manager,
