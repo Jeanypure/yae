@@ -43,14 +43,14 @@ class ProductStatusController extends Controller
        $status =  array_column($res,'status');
 
        foreach($res as $key=>$value){
-           $val['vaule'] = $value['num'];
+           $val['value'] = (int)$value['num'];
            $val['name'] = $value['status'];
            $arr[] = $val;
 
 
        }
        $result['status'] = $status;
-       $result['data'] = $arr;
+       $result['num'] = $arr;
 
        echo json_encode($result,true);
 
