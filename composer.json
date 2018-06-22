@@ -22,7 +22,6 @@
         "kartik-v/yii2-grid": "@dev",
         "kartik-v/yii2-widgets": "@dev",
         "kartik-v/yii2-builder": "^1.6",
-        "phpoffice/preadsheetl": "dev-develop",
         "kartik-v/yii2-widget-select2": "@dev",
         "kartik-v/yii2-widget-activeform": "@dev",
         "kartik-v/yii2-editable": "*",

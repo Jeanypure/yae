@@ -1,6 +1,41 @@
 Yii Framework 2 Change Log
 ==========================
 
+2.0.16 under development
+------------------------
+
+- Enh #9133: Added `yii\behaviors\OptimisticLockBehavior` (tunecino)
+- Bug #16104: Fixed `yii\db\pgsql\QueryBuilder::dropIndex()` to prepend index name with schema name (wapmorgan)
+- Bug #16193: Fixed `yii\filters\Cors` to not reflect origin header value when configured to wildcard origins (Jianjun Chen)
+- Bug #16068: Fixed `yii\web\CookieCollection::has` when an expiration param is set to 'until the browser is closed' (OndrejVasicek)
+- Bug #16006: Handle case when `X-Forwarded-Host` header have multiple hosts separated with a comma (pgaultier)
+- Bug #16010: Fixed `yii\filters\ContentNegotiator` behavior when GET parameters contain an array (rugabarbo)
+- Bug #14660: Fixed `yii\caching\DbCache` concurrency issue when set values with the same key (rugabarbo)
+- Bug #15988: Fixed bash completion (alekciy)
+- Bug #15798: Fixed render `yii\grid\RadioButtonColumn::$content` and `yii\grid\CheckboxColumn::$content` (lesha724)
+- Bug #15548: Fixed index names collision in RBAC (gonimar)
+- Bug #15117: Fixed `yii\db\Schema::getTableMetadata` cache refreshing (boboldehampsink)
+- Bug #15875: afterSave for new models flushes unsaved data (shirase)
+- Bug #16073: Fixed regression in Oracle `IN` condition builder for more than 1000 items (cebe)
+- Bug #16120: FileCache: rebuild cache file before touch when different file owner (Slamdunk)
+- Bug #16091: Make `yii\test\InitDbFixture` work with non-SQL DBMS (cebe)
+- Bug #16184: Fixed `yii\base\Widget` to access `stack` property with `self` instead of `static` (yanggs07)
+- Bug #16039: Fixed implicit conversion from `char` to `varbinnary` in MSSQL (vsivsivsi)
+- Bug #16217: Fixed `yii\console\controllers\HelpController` to work well in Windows environment (samdark)
+- Bug #14636: Views can now use relative paths even when using themed views (sammousa)
+- Bug #16245: Fixed `__isset()` in `BaseActiveRecord` not catching errors (sammousa)
+- Bug #16266: Fixed `yii\helpers\BaseStringHelper` where explode would not allow 0 as trim string (Thoulah)
+- Bug #16277: Fixed `yii\db\Query::from()` to respect `yii\db\ExpressionInterface` (noname007)
+- Bug #16280: Fixed `yii\base\Model::getActiveValidators()` to return correct validators for attribute on scenario (paweljankowiak06)
+- Enh #16191: Enhanced `yii\helpers\Inflector` to work correctly with UTF-8 (silverfire)
+- Bug #16252: Fixed `yii\base\DynamicModel` for checking exist property (vuongxuongminh)
+- Bug: Fixed bad instanceof check in `yii\db\Schema::getTableMetadata()` (samdark)
+- Bug #16292: Fixed misconfigured CORS filter exception throwing. Now it throws `InvalidConfigException` in Debug mode (khvalov)
+- Bug #16301: Fixed `yii\web\User::setIdentity()` to clear access check cache while setting identity object to `null` (Izumi-kun)
+- Bug #16322: Fixed strings were not were not compared using timing attack resistant approach while CSRF token validation (samdark, Felix Wiedemann)
+- Chg #16192: `yii\db\Command::logQuery()` is now protected (drlibra)
+- Bug #16377: Fixed `yii\base\Event:off()` undefined index error when event handler does not match (razvanphp)
+
 2.0.15.1 March 21, 2018
 -----------------------
 
@@ -25,7 +60,7 @@ Yii Framework 2 Change Log
 - Bug #15817: Fixed support of deprecated array format type casting in `yii\db\Command::bindValues()` (silverfire)
 - Bug #15822: Fixed `yii\base\Component::off()` not to throw an exception when handler does not exist (silverfire)
 - Bug #15829: Fixed JSONB support in PostgreSQL 9.4 (silverfire)
-- Bug #15836: Fixed nesting of `yii\db\ArrayExpresiion`, `yii\db\JsonExpression` (silverfire)
+- Bug #15836: Fixed nesting of `yii\db\ArrayExpression`, `yii\db\JsonExpression` (silverfire)
 - Bug #15839: Fixed `yii\db\mysql\JsonExpressionBuilder` to cast JSON explicitly (silverfire)
 - Bug #15840: Fixed regression on load fixture data file (leandrogehlen)
 - Bug #15858: Fixed `Undefined offset` error calling `yii\helpers\Html::errorSummary()` with the same error messages for different model attributes (FabrizioCaldarelli, silverfire)

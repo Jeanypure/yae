@@ -10,8 +10,6 @@
 
 namespace SebastianBergmann\Diff\Output;
 
-use SebastianBergmann\Diff\Differ;
-
 /**
  * Builds a diff string representation in a loose unified diff format
  * listing only changes lines. Does not include line numbers.
@@ -40,11 +38,11 @@ final class DiffOnlyOutputBuilder implements DiffOutputBuilderInterface
         }
 
         foreach ($diff as $diffEntry) {
-            if ($diffEntry[1] === Differ::ADDED) {
+            if ($diffEntry[1] === 1 /* ADDED */) {
                 \fwrite($buffer, '+' . $diffEntry[0]);
-            } elseif ($diffEntry[1] === Differ::REMOVED) {
+            } elseif ($diffEntry[1] === 2 /* REMOVED */) {
                 \fwrite($buffer, '-' . $diffEntry[0]);
-            } elseif ($diffEntry[1] === Differ::DIFF_LINE_END_WARNING) {
+            } elseif ($diffEntry[1] === 3 /* WARNING */) {
                 \fwrite($buffer, ' ' . $diffEntry[0]);
 
                 continue; // Warnings should not be tested for line break, it will always be there

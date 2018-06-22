@@ -1,12 +1,4 @@
 <?php
-/*
- * This file is part of PHPUnit.
- *
- * (c) Sebastian Bergmann <sebastian@phpunit.de>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 use PHPUnit\Framework\Constraint\Constraint;
 
 final class CountConstraint extends Constraint
@@ -25,20 +17,20 @@ final class CountConstraint extends Constraint
         return $instance;
     }
 
-    public function matches($other): bool
+    public function matches($other)
     {
         return true;
     }
 
-    public function toString(): string
+    public function toString()
     {
-        return \sprintf(
+        return sprintf(
             'is accepted by %s',
             self::class
         );
     }
 
-    public function count(): int
+    public function count()
     {
         return $this->count;
     }

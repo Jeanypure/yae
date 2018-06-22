@@ -26,10 +26,9 @@ final class DiffOnlyOutputBuilderTest extends TestCase
      * @param string $from
      * @param string $to
      * @param string $header
-     *
      * @dataProvider textForNoNonDiffLinesProvider
      */
-    public function testDiffDoNotShowNonDiffLines(string $expected, string $from, string $to, string $header = ''): void
+    public function testDiffDoNotShowNonDiffLines(string $expected, string $from, string $to, string $header = '')
     {
         $differ = new Differ(new DiffOnlyOutputBuilder($header));
 
