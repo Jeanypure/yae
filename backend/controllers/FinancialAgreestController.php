@@ -65,7 +65,7 @@ class FinancialAgreestController extends Controller
                     $model->save(false);
                     return $this->redirect(['index']);
                 }
-            return $this->render('view', [
+            return $this->renderAjax('view', [
                 'model' => $model   ,
                 'sample_model' => $sample_model,
             ]);
