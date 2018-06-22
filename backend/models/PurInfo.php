@@ -50,6 +50,7 @@ class PurInfo extends \yii\db\ActiveRecord
     public  $spur_info_id;
     public  $is_agreest;
     public  $create_date;
+    public  $pay_amount;
 
 
     /**

@@ -132,7 +132,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]
                 ])
             ],
-
+            'pay_amount',
             [
                 'attribute'=>'master_result',
                 'value' => function($model) {

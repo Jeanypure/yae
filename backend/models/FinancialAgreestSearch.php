@@ -20,7 +20,7 @@ class FinancialAgreestSearch extends PurInfo
         return [
             [['has_pay','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_rebate', 'parent_product_id', 'source', 'preview_status', 'brocast_status', 'master_result', 'is_submit', 'is_submit_manager', 'pur_group_status', 'junior_submit', 'is_assign', 'audit_a', 'audit_b', 'bill_tax_value', 'pur_complete_status', 'pur_compelte_result', 'sample_submit2', 'sample_submit1'], 'integer'],
             [['pay_at','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'hs_code', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'else_url', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'member', 'master_member', 'master_mark', 'priview_time', 'pd_create_time', 'purchaser_leader', 'profit_rate', 'gross_profit_amz', 'profit_rate_amz', 'amz_fulfillment_cost', 'selling_on_amz_fee', 'amz_retail_price', 'amz_retail_price_rmb', 'commit_date'], 'safe'],
-            [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice', 'ams_logistics_fee'], 'number'],
+            [['pay_amount','pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice', 'ams_logistics_fee'], 'number'],
         ];
     }
 
@@ -43,9 +43,17 @@ class FinancialAgreestSearch extends PurInfo
     public function search($params)
     {
         $query = PurInfo::find()
+            ->select(['
+                    `pur_info`.pur_info_id,
+                    `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
+                    `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
+                    `pur_info`.payer,`pur_info`.pay_at,`pur_info`.has_pay,`pur_info`.is_purchase,`pur_info`.submit2_at,`pur_info`.submit1_at,  
+                    `sample`.spur_info_id,`sample`.is_agreest,`sample`.pay_amount'
+            ])
+            ->joinWith('sample')
         ->andWhere(['sample_submit1'=>1])
         ->andWhere(['sample_submit2'=>1])
-            ->orderBy('pur_info_id desc')
+        ->orderBy('pur_info_id desc')
         ;
 
         // add conditions that should always apply here
