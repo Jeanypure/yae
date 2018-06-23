@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['class' => 'yii\grid\CheckboxColumn'],
                 ['class' => 'yii\grid\ActionColumn',
                     'header' => '操作',
-                    'template' => '{view}  {saved} {share}',
+                    'template' => '{view}  {saved} ',
                     'buttons' => [
                         'saved' => function ($url, $model, $key) {
                             return Html::a('<span class="glyphicon glyphicon-saved"></span>', $url, [
@@ -40,15 +40,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'data-id' => $key,
                             ] );
                         },
-//                        'share' => function ($url, $model, $key) {
-//                            return Html::a('<span class="glyphicon glyphicon-share"></span>', $url, [
-//                                'title' => '共享产品',
-//                                'data-toggle' => 'modal',
-//                                'data-target' => '#share-modal',
-//                                'class' => 'data-audit',
-//                                'data-id' => $key,
-//                            ] );
-//                        },
+                        'view' => function ($url, $model, $key) {
+                            return Html::a('<span class="glyphicon glyphicon-share"></span>', $url, [
+                                'title' => '同意付費',
+                                'data-toggle' => 'modal',
+                                'data-target' => '#agree-modal',
+                                'class' => 'data-agree',
+                                'data-id' => $key,
+                            ] );
+                        },
                     ],
                 ],
                 [
@@ -291,8 +291,8 @@ Modal::end();
 
 // 分享操作
 Modal::begin([
-    'id' => 'share-modal',
-    'header' => '<h4 class="modal-title">共享到其他区域组</h4>',
+    'id' => 'agree-modal',
+    'header' => '<h4 class="modal-title">樣品費用明顯</h4>',
     'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>',
     'options'=>[
         'data-backdrop'=>'static',//点击空白处不关闭弹窗
@@ -316,18 +316,18 @@ $auditJs = <<<JS
 JS;
 $this->registerJs($auditJs);
 
-//$share_url = Url::toRoute('share');
-//
-//$share_js = <<<JS
-//        $('.data-audit').on('click', function () {
-//            $.get('{$share_url}', { id: $(this).closest('tr').data('key') },
-//                function (data) {
-//                    $('.modal-body').html(data);
-//                }
-//            );
-//        });
-//JS;
-//$this->registerJs($share_js);
+$share_url = Url::toRoute('view');
+
+$share_js = <<<JS
+        $('.data-agree').on('click', function () {
+            $.get('{$share_url}', { id: $(this).closest('tr').data('key') },
+                function (data) {
+                    $('.modal-body').html(data);
+                }
+            );
+        });
+JS;
+$this->registerJs($share_js);
 
 ?>
 

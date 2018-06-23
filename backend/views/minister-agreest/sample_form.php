@@ -28,17 +28,7 @@ use kartik\widgets\ActiveForm;
                 'items'=>[1=>'是', 0=>'否'],
                 'options'=>['placeholder'=>'',]
             ],
-
-//            'is_quality'=>[
-//                'type'=>Form::INPUT_RADIO_LIST,
-//                'label'=>"<span style = 'color:red'><big>*</big></span>质量是否合格",
-//                'items'=>[1=>'是', 0=>'否'],
-//                'options'=>['placeholder'=>'',]
-//            ],
-
             'spur_info_id'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],
-
-//            is_quality,fee_return,audit_mem1,audit_mem2,audit_mem3,applicant
         ],
 
     ]);
