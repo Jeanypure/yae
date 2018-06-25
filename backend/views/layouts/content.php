@@ -37,9 +37,9 @@ use dmstr\widgets\Alert;
 
 
        <h3>
-           <strong>1 生成图片地址: <a href="http://chuantu.biz/upload.php" target="_blank">http://chuantu.biz/upload.php</a>.</strong>
+           <strong>1 生成图片地址: <a href="https://postimages.org/" target="_blank">https:postimages.org/</a>.</strong>
 
-       </h3>
+
     </section>
 </div>
 
