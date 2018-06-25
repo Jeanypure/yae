@@ -1,12 +1,8 @@
 <?php
-
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\helpers\Url;
 use kartik\daterange\DateRangePicker;
-
-
-
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\FinancialAgreestSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -19,8 +15,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'showPageSummary'=>false,
         'id' => 'sample_submit2',
         'export' => false,
+        'panel'=>['type'=>'primary', 'heading'=>'财务付款'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             ['class' => 'yii\grid\CheckboxColumn'],
@@ -143,7 +141,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]
                 ])
             ],
-            'pay_amount',
+//            'pay_amount',
+            [
+                'class'=>'kartik\grid\FormulaColumn',
+                'header'=>'Pay Amount',
+                'value'=>function ($model, $key, $index, $widget) {
+//                    $p = compact('model', 'key', 'index');
+//                    return $widget->col(4, $p) * $widget->col(5, $p);
+                    return $model->pay_amount;
+                },
+                'mergeHeader'=>true,
+                'width'=>'150px',
+                'hAlign'=>'right',
+                'format'=>['decimal', 2],
+                'pageSummary'=>true
+            ],
             [
                 'attribute'=>'master_result',
                 'value' => function($model) {

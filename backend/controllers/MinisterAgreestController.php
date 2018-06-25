@@ -59,7 +59,7 @@ class MinisterAgreestController extends Controller
                  return $this->redirect(['index']);
 
              }
-            return $this->render('view', [
+            return $this->renderAjax('view', [
                 'model' => $this->findModel($id),
                 'sample_model' => $sample_model,
             ]);

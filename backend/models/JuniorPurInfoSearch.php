@@ -61,6 +61,9 @@ class JuniorPurInfoSearch extends PurInfo
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pagesize' => '10',
+            ]
         ]);
 
         $this->load($params);
@@ -69,6 +72,11 @@ class JuniorPurInfoSearch extends PurInfo
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
+        }
+
+        if (!empty($this->pd_create_time)) {
+            $query->andFilterCompare('pd_create_time', explode('/', $this->pd_create_time)[0], '>=');//起始时间
+            $query->andFilterCompare('pd_create_time', explode('/', $this->pd_create_time)[1], '<');//结束时间
         }
 
         // grid filtering conditions
@@ -91,7 +99,7 @@ class JuniorPurInfoSearch extends PurInfo
             'priview_time' => $this->priview_time,
             'ams_logistics_fee' => $this->ams_logistics_fee,
             'is_submit' => $this->is_submit,
-            'pd_create_time' => $this->pd_create_time,
+
             'is_submit_manager' => $this->is_submit_manager,
             'pur_group_status' => $this->pur_group_status,
         ]);

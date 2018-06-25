@@ -39,7 +39,6 @@ use dmstr\widgets\Alert;
        <h3>
            <strong>1 生成图片地址: <a href="https://postimages.org/" target="_blank">https:postimages.org/</a>.</strong>
 
-
     </section>
 </div>
 
