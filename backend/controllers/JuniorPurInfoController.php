@@ -120,7 +120,14 @@ class JuniorPurInfoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model =  $this->findModel($id);
+        if($model->is_submit!=1){
+            $this->findModel($id)->delete();
+
+        }else{
+            echo '已提交的产品不能删除!';
+
+        }
 
         return $this->redirect(['index']);
     }
