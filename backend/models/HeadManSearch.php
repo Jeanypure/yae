@@ -43,15 +43,23 @@ class HeadManSearch extends PurInfo
     public function search($params)
     {
         $username =  Yii::$app->user->identity->username;
-        $query = PurInfo::find()
-            ->select(['`pur_info`.*,`headman`.view_status,`headman`.submit_manager,`headman`.result,`headman`.headman'])
-            ->joinWith('headman')
-            ->andWhere(['headman' => $username])
-            ->andWhere(['is_purchase' => 1])
-//            ->orWhere(['master_result' => 4])
-            ->orderBy('pur_info_id desc')
-        ;
 
+         if($username=='admin'||$username=='Jenny'||$username=='David'){
+             $query = PurInfo::find()
+                 ->select(['`pur_info`.*,`headman`.view_status,`headman`.submit_manager,`headman`.result,`headman`.headman'])
+                 ->joinWith('headman')
+                 ->andWhere(['is_purchase' => 1])
+                 ->orderBy('pur_info_id desc')
+             ;
+         }else{
+             $query = PurInfo::find()
+                 ->select(['`pur_info`.*,`headman`.view_status,`headman`.submit_manager,`headman`.result,`headman`.headman'])
+                 ->joinWith('headman')
+                 ->andWhere(['headman' => $username])
+                 ->andWhere(['is_purchase' => 1])
+                 ->orderBy('pur_info_id desc')
+             ;
+         }
 
 //        echo  $query->createCommand()->getRawSql();die;
 
