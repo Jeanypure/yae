@@ -14,8 +14,10 @@ $this->title = Yii::t('app', '部长审批');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
     <p>
-        <?php echo Html::button('提交财务',['class' => 'btn btn-info' ,'id'=>'sample-submit'])?>
-        <?php echo Html::button('取消提交',['class' => 'btn btn-primary' ,'id'=>'sample-un-submit'])?>
+        <?php
+//        echo Html::button('同意付样品费',['class' => 'btn btn-info' ,'id'=>'sample-submit'])?>
+        <?php
+//        echo Html::button('不同意',['class' => 'btn btn-primary' ,'id'=>'sample-un-submit'])?>
     </p>
     <div class="pur-info-index">
 
@@ -26,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'export' => false,
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
-                ['class' => 'yii\grid\CheckboxColumn'],
+//                ['class' => 'yii\grid\CheckboxColumn'],
                 ['class' => 'yii\grid\ActionColumn',
                     'header' => '操作',
                     'template' => '{view}  {saved} ',
