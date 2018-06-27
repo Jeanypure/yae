@@ -1,0 +1,95 @@
+ALTER PROCEDURE [dbo].[oaP_statuscount]
+@username varchar(20)
+AS
+BEGIN
+SET nocount ON
+
+SELECT a.item_name as role into #roles FROM [user] AS u LEFT JOIN [auth_assignment] AS a ON a.user_id = u.id WHERE u.username = @username
+
+--2017-11-08 James Ôö¼ÓÓÃ»§
+
+
+-- ²éÑ¯ÓÃ»§¹ÜÏ½ÏÂµÄÓÃ»§
+create table #users(username varchar(20))
+ --EXECUTE oa_P_users @username into #Users
+
+insert into #users EXECUTE oa_P_users @username
+--²úÆ·ÍÆ¼ö¼ÆÊý
+select '²úÆ·ÍÆ¼ö' as moduletype,count(*) as num into #tmpinfo FROM oa_goods WHERE checkStatus='Î´ÈÏÁì'
+
+--ÕýÏò¿ª·¢
+insert into #tmpinfo
+select 'ÕýÏò¿ª·¢',count(*) FROM oa_goods WHERE devStatus='ÕýÏòÈÏÁì' AND ( checkStatus='ÒÑÈÏÁì'  OR checkStatus='´ýÌá½»')
+AND EXISTS(select * from #users as ur where ur.username=oa_goods.developer)
+
+
+--ÄæÏò¿ª·¢
+insert into #tmpinfo
+select 'ÄæÏò¿ª·¢',count(*) FROM oa_goods WHERE  devStatus='ÄæÏòÈÏÁì' AND ( checkStatus='ÒÑÈÏÁì'  OR checkStatus='´ýÌá½»')
+AND EXISTS(select * from #users as ur where ur.username=oa_goods.developer)
+
+
+--´ýÉóÅú
+insert into #tmpinfo
+select '´ýÉóÅú',count(*) FROM oa_goods WHERE  checkStatus='´ýÉóÅú'   AND EXISTS(select * from #users as ur where ur.username=oa_goods.developer)
+
+--ÒÑÉóÅú
+insert into #tmpinfo
+select 'ÒÑÉóÅú',count(*) FROM oa_goods WHERE  checkStatus='ÒÑÉóÅú' AND EXISTS(select * from #users as ur where ur.username=oa_goods.developer)
+
+--Î´Í¨¹ý
+insert into #tmpinfo
+select 'Î´Í¨¹ý',count(*) FROM oa_goods WHERE  checkStatus='Î´Í¨¹ý'  AND EXISTS(select * from #users as ur where ur.username=oa_goods.developer)
+
+--ÊôÐÔÐÅÏ¢
+insert into #tmpinfo
+select 'ÊôÐÔÐÅÏ¢',count(*) FROM oa_goodsinfo WHERE  achieveStatus='´ý´¦Àí'  AND EXISTS(select * from #users as ur where ur.username=oa_goodsinfo.developer)
+
+--Í¼Æ¬ÐÅÏ¢
+--select 'Í¼Æ¬ÐÅÏ¢',count(*) FROM oa_goodsinfo WHERE  picStatus='´ý´¦Àí' AND EXISTS(select * from #users as ur where ur.username=oa_goodsinfo.developer)
+insert into #tmpinfo select 'Í¼Æ¬ÐÅÏ¢',count(*) FROM oa_goodsinfo WHERE  picStatus='´ý´¦Àí' AND EXISTS
+(select * from #users as ur where ur.username=oa_goodsinfo.possessMan1 or ur.username=oa_goodsinfo.developer)
+
+
+--Æ½Ì¨ÐÅÏ¢
+--select 'Æ½Ì¨ÐÅÏ¢',count(*) FROM oa_goodsinfo WHERE  picStatus='ÒÑÍêÉÆ' AND EXISTS(select * from #users as ur where ur.username=oa_goodsinfo.developer)
+--2018-02-08ÐÞ¸Ä
+IF '³¬¼¶¹ÜÀíÔ±' in (select role from  #roles )
+BEGIN
+insert into #tmpinfo select 'Æ½Ì¨ÐÅÏ¢',count(*) FROM oa_goodsinfo WHERE  picStatus='ÒÑÍêÉÆ' AND ISNULL(completeStatus, '')='' AND EXISTS(select * from #users as ur where ur.username=oa_goodsinfo.developer)
+END
+ELSE IF  '²úÆ·¿ª·¢' in (select role from  #roles ) or 'wishÏúÊÛ'  in (select role from  #roles )
+BEGIN
+insert into #tmpinfo select 'Æ½Ì¨ÐÅÏ¢',count(*) FROM oa_goodsinfo WHERE  picStatus='ÒÑÍêÉÆ' AND ISNULL(completeStatus, '') NOT LIKE '%WishÒÑÍêÉÆ%' AND EXISTS(select * from #users as ur where ur.username=oa_goodsinfo.developer)
+END
+ELSE IF  'eBayÏúÊÛ' in (select role from  #roles )
+BEGIN
+insert into #tmpinfo select 'Æ½Ì¨ÐÅÏ¢',count(*) FROM oa_goodsinfo WHERE  picStatus='ÒÑÍêÉÆ' AND ISNULL(completeStatus, '') NOT LIKE '%eBayÒÑÍêÉÆ%' AND EXISTS(select * from #users as ur where ur.username=oa_goodsinfo.developer)
+END
+ELSE
+BEGIN
+insert into #tmpinfo select 'Æ½Ì¨ÐÅÏ¢',count(*) FROM oa_goodsinfo WHERE  picStatus='ÒÑÍêÉÆ' AND EXISTS(select * from #users as ur where ur.username=oa_goodsinfo.developer)
+END
+
+
+--²úÆ·Ä£°å
+insert into #tmpinfo
+select '²úÆ·ÖÐÐÄ',count(*) FROM oa_goodsinfo WHERE  completeStatus !='' AND EXISTS(select * from #users as ur where ur.username=oa_goodsinfo.developer)
+
+
+--ÈÎÎñÖÐÐÄ
+insert into #tmpinfo
+select 'ÈÎÎñÖÐÐÄ',count(*) FROM oa_task t LEFT JOIN oa_taskSendee ts ON t.taskid=ts.taskid LEFT JOIN [user] u ON ts.userid = u.id
+	WHERE  u.username=@username AND ts.status=''
+
+
+
+
+SELECT * FROM #tmpinfo
+
+
+drop table #users
+drop table #tmpinfo
+Drop table #roles
+
+END

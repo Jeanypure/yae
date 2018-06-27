@@ -130,7 +130,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                'filterInputOptions'=>['placeholder'=>'确定采购?'],
+                'filterInputOptions'=>['placeholder'=>'部长采购?'],
             ],
 
             [
@@ -139,7 +139,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     if($model->master_result==0){
                         return '拒绝';
                     }elseif($model->master_result==1){
-                        return '采样';
+                        return '采购';
 
                     }elseif($model->master_result==2){
                         return '需议价和谈其他条件';
@@ -158,7 +158,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['0' => '拒绝', '1' => '采样', '2' => '需议价和谈其他条件', '3' => '尚未评', '4' => '直接下单', '5' => '季节产品推迟'],
+                'filter'=>['0' => '拒绝', '1' => '采购', '2' => '需议价和谈其他条件', '3' => '尚未评', '4' => '直接下单', '5' => '季节产品推迟'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
@@ -174,27 +174,26 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
-//            [
-//                'attribute'=>'view_status',
-//                'value' => function($model) {
-//                    if($model->view_status==1){
-//                        return '已评审';
-//                    }else{
-//                        return '未评审';
-//
-//                    }
-//                },
-//                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
-//                'format'=>'html',
-//                'filterType'=>GridView::FILTER_SELECT2,
-//                'filter'=>['0' => '未评审', '1' => '已评审'],
-//                'filterWidgetOptions'=>[
-//                    'pluginOptions'=>['allowClear'=>true],
-//                ],
-//                'filterInputOptions'=>['placeholder'=>'评审状态'],
-////                'group'=>true,  // enable grouping
-//
-//            ],
+            [
+                'attribute'=>'view_status',
+                'value' => function($model) {
+                    if($model->view_status==1){
+                        return '已评审';
+                    }else{
+                        return '未评审';
+
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['0' => '未评审', '1' => '已评审'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'我的评审'],
+
+            ],
             [
                 'attribute'=>'submit_manager',
                 'value' => function($model) {
@@ -213,7 +212,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'评审状态'],
-//                'group'=>true,  // enable grouping
 
             ],
             [
@@ -232,7 +230,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['0' => '拒绝', '1' => '采样', '2' => '需议价和谈其他条件', '3' => '尚未评', '4' => '直接下单', '5' => '季节产品推迟'],
+                'filter'=>['0' => '拒绝', '1' => '采购', '2' => '需议价和谈其他条件', '3' => '尚未评', '4' => '直接下单', '5' => '季节产品推迟'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],

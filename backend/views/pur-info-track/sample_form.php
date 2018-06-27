@@ -129,6 +129,7 @@ $readonly_js =<<<JS
         $(function(){
             
             $("#sample-pay_amount").attr("readonly","readonly");
+            $("#sample-procurement_cost").attr("readonly","readonly");
             
           
             $("label[for='sample-procurement_cost'] ").addClass("label-require");

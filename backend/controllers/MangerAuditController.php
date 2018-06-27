@@ -72,7 +72,10 @@ class MangerAuditController extends Controller
        }
 
        $num = sizeof($preview);
+
        $model_update = $this->findModel($id);
+       $costprice  =  $model_update->pd_pur_costprice;
+
        $exchange_rate = PurInfoController::actionExchangeRate();
 
         if($num ==3){
@@ -84,7 +87,7 @@ class MangerAuditController extends Controller
                   ")->queryOne();
                     if($spur_id['spur_info_id'] != $id){
                         Yii::$app->db->createCommand("
-                        INSERT INTO `sample`  (spur_info_id) value ($id)
+                        INSERT INTO `sample`  (spur_info_id,procurement_cost) value ($id,'$costprice')
                       ")->execute();
                     }
 
@@ -120,7 +123,7 @@ class MangerAuditController extends Controller
                   if($new_member!= $model_update->pur_group){ //进入preview
                       $model_update->pur_group = $new_member;
                       Yii::$app->db->createCommand("
-                    INSERT INTO `preview`  (member2,product_id) value ('$member2[leader]',$id)
+//                    INSERT INTO `preview`  (member2,product_id) value ('$member2[leader]',$id)
                   ")->execute();
 
                   }
@@ -132,7 +135,7 @@ class MangerAuditController extends Controller
                   ")->queryOne();
                      if($spur_id['spur_info_id'] != $id){
                              Yii::$app->db->createCommand("
-                        INSERT INTO `sample`  (spur_info_id) value ($id)
+                       INSERT INTO `sample`  (spur_info_id,procurement_cost) value ($id,'$costprice')
                       ")->execute();
                      }
               }elseif(Yii::$app->request->post()['PurInfo']['master_result']==2 ){//需要议价和谈其他条件 保留旧的含税价格
@@ -165,7 +168,7 @@ class MangerAuditController extends Controller
                   ")->queryOne();
                   if($spur_id['spur_info_id'] != $id){
                       Yii::$app->db->createCommand("
-                        INSERT INTO `sample`  (spur_info_id) value ($id)
+                        INSERT INTO `sample`  (spur_info_id,procurement_cost) value ($id,'$costprice')
                       ")->execute();
                   }
 

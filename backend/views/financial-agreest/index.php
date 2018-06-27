@@ -15,14 +15,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'showPageSummary'=>false,
+        'showPageSummary'=>true,
+        'pjax'=>true,
+        'striped'=>true,
+        'hover'=>true,
         'id' => 'sample_submit2',
         'export' => false,
-        'panel'=>['type'=>'primary', 'heading'=>'财务付款'],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            ['class' => 'yii\grid\CheckboxColumn'],
-            ['class' => 'yii\grid\ActionColumn',
+            ['class' => 'kartik\grid\SerialColumn'],
+            ['class' => 'kartik\grid\CheckboxColumn'],
+            ['class' => 'kartik\grid\ActionColumn',
                 'header' => '操作',
                 'template' => '{view} ',
                 'buttons' => [
@@ -39,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             [
-                'class' => 'yii\grid\Column',
+//                'class' => 'yii\grid\Column',
                 'headerOptions' => [
                     'width'=>'100'
                 ],
@@ -110,6 +112,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'payer',
             [
                 'attribute'=>'has_pay',
+                'pageSummary'=>'Page Summary',
                 'width'=>'100px',
                 'value'=>function ($model, $key, $index, $widget) {
                     if($model->has_pay==1){
@@ -127,6 +130,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions'=>['placeholder'=>'是否付款'],
             ],
             [
+                'class'=>'kartik\grid\FormulaColumn',
+                'attribute'=>'pay_amount',
+                'width'=>'150px',
+                'hAlign'=>'right',
+                'format'=>['decimal', 3],
+                'pageSummary'=>true
+            ],
+            [
                 'attribute' => 'pay_at',
                 'headerOptions' => ['width' => '12%'],
                 'filter' => DateRangePicker::widget([
@@ -141,21 +152,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]
                 ])
             ],
-//            'pay_amount',
-            [
-                'class'=>'kartik\grid\FormulaColumn',
-                'header'=>'Pay Amount',
-                'value'=>function ($model, $key, $index, $widget) {
-//                    $p = compact('model', 'key', 'index');
-//                    return $widget->col(4, $p) * $widget->col(5, $p);
-                    return $model->pay_amount;
-                },
-                'mergeHeader'=>true,
-                'width'=>'150px',
-                'hAlign'=>'right',
-                'format'=>['decimal', 2],
-                'pageSummary'=>true
-            ],
+
             [
                 'attribute'=>'master_result',
                 'value' => function($model) {

@@ -118,6 +118,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions'=>['placeholder'=>'是否提交'],
             ],
             [
+                'attribute'=>'is_submit',
+                'value' => function($model) { if($model->is_submit==1){return '是';}else{ return '否';} },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '是', '0' => '否'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'主管是否提交'],
+            ],
+            [
                 'attribute' => 'pd_create_time',
                 'headerOptions' => ['width' => '12%'],
                 'filter' => DateRangePicker::widget([

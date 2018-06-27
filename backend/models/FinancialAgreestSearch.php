@@ -55,7 +55,7 @@ class FinancialAgreestSearch extends PurInfo
         ->andWhere(['sample_submit2'=>1])
         ->orderBy('pur_info_id desc')
         ;
-
+        $this->has_pay = 0;
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
