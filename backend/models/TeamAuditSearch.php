@@ -43,27 +43,38 @@ class TeamAuditSearch extends PurInfo
     public function search($params)
     {
         $username = Yii::$app->user->identity->username;
-        $code = Yii::$app->db->createCommand("
+
+
+        if($username == 'Jenny'||$username == 'David'||$username == 'admin'){
+            $query = PurInfo::find()
+
+                ->andWhere(['junior_submit'=>1])
+                ->orderBy('pur_info_id desc')
+            ;
+        }else{
+
+            $code = Yii::$app->db->createCommand("
         select code from purchaser where purchaser= '$username'
         ")->queryOne();
-        $team = Yii::$app->db->createCommand("
+            $team = Yii::$app->db->createCommand("
         SELECT `purchaser` FROM purchaser WHERE code = $code[code]
         ")->queryAll();
 
-        if(!empty($team)){
+            if(!empty($team)){
 
-            foreach($team as $key=>$value){
-                $members[] = $value['purchaser'];
+                foreach($team as $key=>$value){
+                    $members[] = $value['purchaser'];
+                }
+            }else{
+                $members = [];
             }
-        }else{
-            $members = [];
+            $query = PurInfo::find()
+                ->andWhere(['in','purchaser',$members])
+                ->andWhere(['junior_submit'=>1])
+                ->orderBy('pur_info_id desc')
+            ;
         }
 
-        $query = PurInfo::find()
-            ->andWhere(['in','purchaser',$members])
-            ->andWhere(['junior_submit'=>1])
-            ->orderBy('pur_info_id desc')
-        ;
         $this->is_submit = 0 ;
         // add conditions that should always apply here
 
