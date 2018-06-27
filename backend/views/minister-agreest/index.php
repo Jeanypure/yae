@@ -294,7 +294,7 @@ Modal::end();
 // 分享操作
 Modal::begin([
     'id' => 'agree-modal',
-    'header' => '<h4 class="modal-title">樣品費用明顯</h4>',
+    'header' => '<h4 class="modal-title">样品费用信息</h4>',
     'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>',
     'options'=>[
         'data-backdrop'=>'static',//点击空白处不关闭弹窗

@@ -31,17 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $sample_model,
         'attributes' => [
-//            'sample_id',
-//            'spur_info_id',
             'procurement_cost',
             'sample_freight',
             'else_fee',
             'pay_amount',
             'pay_way',
             'mark',
-//            'is_audit',
-//            'is_agreest',
-//            'is_quality',
             ['attribute'=>'fee_return',
                 'value'=>function($model){
                     if($model->fee_return==0){
@@ -51,13 +46,76 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 }
             ],
-
-//            'audit_mem1',
-//            'audit_mem2',
-//            'audit_mem3',
-//            'applicant',
             'create_date',
             'lastop_date',
+        ],
+    ]) ?>
+
+   <h3> 3 产品详情 </h3>
+
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'pur_info_id',
+            'purchaser',
+            'pur_group',
+            'pd_title',
+            'pd_title_en',
+            'pd_pic_url:url',
+            'pd_package',
+            'pd_length',
+            'pd_width',
+            'pd_height',
+            'is_huge',
+            'pd_weight',
+            'pd_throw_weight',
+            'pd_count_weight',
+            'pd_material',
+            'pd_purchase_num',
+            'pd_pur_costprice',
+            'old_costprice',
+            'has_shipping_fee',
+            'bill_type',
+            'hs_code',
+            'bill_tax_rebate',
+            'bill_rebate_amount',
+            [
+                'attribute'=>'ebay_url',
+                'format'=>'raw',
+                'value' => function ($model) {
+                    if (!empty($model->ebay_url)) return "<a href='$model->ebay_url' target='_blank'>".parse_url($model->ebay_url)['host']."</a>";
+
+                },
+            ],
+            [
+                'attribute'=>'amazon_url',
+                'format'=>'raw',
+                'value' => function ($model) {
+                    if (!empty($model->amazon_url)) return "<a href='$model->amazon_url' target='_blank'>".parse_url($model->amazon_url)['host']."</a>";
+
+                },
+            ],
+            [
+                'attribute'=>'url_1688',
+                'format'=>'raw',
+                'value' => function ($model) {
+                    if (!empty($model->url_1688)) return "<a href='$model->url_1688' target='_blank'>".parse_url($model->url_1688)['host']."</a>";
+
+                },
+            ],
+
+            'shipping_fee',
+            'oversea_shipping_fee',
+            'transaction_fee',
+            'retail_price',
+            'no_rebate_amount',
+            'gross_profit',
+            'profit_rate',
+            'amz_retail_price',
+            'amz_retail_price_rmb',
+            'gross_profit_amz',
+            'profit_rate_amz',
+            'remark',
         ],
     ]) ?>
 
