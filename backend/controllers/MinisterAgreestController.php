@@ -58,10 +58,13 @@ class MinisterAgreestController extends Controller
 
         if(isset($sample_model)&&!empty($sample_model)){
              if($sample_model->load(Yii::$app->request->post()) ){
-                 $res = Yii::$app->db->createCommand("
+                 if(Yii::$app->request->post()['Sample']['is_agreest']==1){
+                     $res = Yii::$app->db->createCommand("
                         update `pur_info` set `sample_submit2`= 1 ,`submit2_at` = '$submit2_at'
                         where `pur_info_id` = $id
                         ")->execute();
+                 }
+
                  $sample_model->save();
                  return $this->redirect(['index']);
 
