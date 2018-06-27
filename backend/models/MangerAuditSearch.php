@@ -60,6 +60,7 @@ class MangerAuditSearch extends PurInfo
 
         ;
 //        $this->master_result = 3;
+        $this->preview_status = 0;
         $this->audit_a = 1;
         $this->audit_b = 1;
 
