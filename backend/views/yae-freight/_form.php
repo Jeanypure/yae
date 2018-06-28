@@ -62,12 +62,14 @@ use kartik\builder\Form;
     echo Form::widget([
         'model' => $fee_model,
         'form' => $form,
-        'columns' => 4,
+        'columns' => 6,
         'contentBefore'=>'<legend class="text-info"><h4>2.费用信息</h4></legend>',
         'attributes' => [
-            'description_id' => ['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter username...']],
-            'quantity' => ['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter password...']],
+            'description_id' => ['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter ...']],
+            'quantity' => ['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter ...']],
             'unit_price' => ['type'=>Form::INPUT_TEXT],
+            'currency' => ['type'=>Form::INPUT_TEXT],
+            'amount' => ['type'=>Form::INPUT_TEXT],
 
         ]
     ]);

@@ -38,6 +38,12 @@ use kartik\widgets\ActiveForm;
                 'items'=>[1=>'是', 0=>'否'],
                 'options'=>['placeholder'=>'',]
             ],
+            'sample_return'=>[
+                'type'=>Form::INPUT_RADIO_LIST,
+                'label'=>"<span style = 'color:red'><big>*</big></span>确定样品已退",
+                'items'=>[1=>'是', 0=>'否'],
+                'options'=>['placeholder'=>'',]
+            ],
 
         ],
 
