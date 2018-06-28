@@ -12,7 +12,7 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'console\controllers',
     'aliases' => [
-        '@bower' => '@vendor/bower-asset',
+        '@bower-asset' => '@vendor/bower-asset-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
     'controllerMap' => [
