@@ -68,7 +68,7 @@ class PurInfo extends \yii\db\ActiveRecord
     {
 
         return [
-            [['source','brocast_status','is_quality','sample_submit1','sample_submit2','pur_complete_status','is_assign','junior_submit','pur_group', 'pd_purchase_num', 'parent_product_id','preview_status'], 'integer'],
+            [['sample_return','source','brocast_status','is_quality','sample_submit1','sample_submit2','pur_complete_status','is_assign','junior_submit','pur_group', 'pd_purchase_num', 'parent_product_id','preview_status'], 'integer'],
             [['pd_title','pd_title_en','pd_package','pd_length', 'pd_width', 'pd_height','pd_weight',
                 'pd_pur_costprice','bill_tax_rebate','retail_price','pd_purchase_num',
                 'hs_code','has_shipping_fee'], 'required'],
@@ -163,6 +163,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'is_agreest' => '是否同意付费',
             'create_date' => '经理评审时间',
             'is_purchase' => '确定采购?',
+            'sample_return' => '确定退回样品?',
 
         ];
     }
