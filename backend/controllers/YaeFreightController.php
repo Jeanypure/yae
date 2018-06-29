@@ -5,10 +5,12 @@ namespace backend\controllers;
 use Yii;
 use backend\models\YaeFreight;
 use backend\models\FreightFee;
+use backend\models\FeeCategory;
 use backend\models\YaeFreightSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 
 /**
  * YaeFreightController implements the CRUD actions for YaeFreight model.
@@ -67,6 +69,7 @@ class YaeFreightController extends Controller
     {
         $model = new YaeFreight();
         $fee_model = FreightFee::find()->all();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -90,13 +93,21 @@ class YaeFreightController extends Controller
     {
         $model = $this->findModel($id);
         $fee_model = FreightFee::find()->where(['freight_id'=>$id])->all();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $result  = FeeCategory::find()->orderBy('id')->asArray()->all();
+//        var_dump($result);die
+        if ($model->load(Yii::  $app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $dataProvider = new ActiveDataProvider([
+            'query' => FreightFee::find()->where(['freight_id'=>$id]),
+            'pagination' => [
+                'pageSize' => 30,
+            ],
+        ]);
         return $this->render('update', [
             'model' => $model,
+            'dataProvider' => $dataProvider,
             'fee_model' => $fee_model,
         ]);
     }

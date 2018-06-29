@@ -51,7 +51,7 @@ class FreightFee extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'freight_id' => 'Freight ID',
-            'description_id' => 'Description ID',
+            'description_id' => 'Description',
             'quantity' => 'Quantity',
             'unit_price' => 'Unit Price',
             'currency' => 'Currency',
