@@ -81,7 +81,8 @@ class MangerAuditController extends Controller
         if($num ==3){
             if ($model_update->load(Yii::$app->request->post()) ) {
                 //采样状态 入采样流程
-                if(Yii::$app->request->post()['PurInfo']['master_result']==1 ){
+                if(Yii::$app->request->post()['PurInfo']['master_result']==1 ||
+                    Yii::$app->request->post()['PurInfo']['master_result']==4){
                     $spur_id = Yii::$app->db->createCommand("
                    select spur_info_id  from sample where spur_info_id = $id
                   ")->queryOne();
@@ -91,8 +92,10 @@ class MangerAuditController extends Controller
                       ")->execute();
                     }
 
-                }elseif(Yii::$app->request->post()['PurInfo']['master_result']==1 ){//需要议价和谈其他条件
-
+                }elseif(Yii::$app->request->post()['PurInfo']['master_result']==2 ){//需要议价和谈其他条件
+                    Yii::$app->db->createCommand("
+                    update pur_info set old_costprice = pd_pur_costprice where  pur_info_id=$id
+                     ")->execute();
                 }
                 $model_update->preview_status = 1;
                 $model_update->save(false);
@@ -129,7 +132,8 @@ class MangerAuditController extends Controller
                   }
               }
               //采样状态 入采样流程
-              if(Yii::$app->request->post()['PurInfo']['master_result']==1 ){
+              if(Yii::$app->request->post()['PurInfo']['master_result']==1||
+                  Yii::$app->request->post()['PurInfo']['master_result']==4 ){
                   $spur_id = Yii::$app->db->createCommand("
                    select spur_info_id  from sample where spur_info_id = $id
                   ")->queryOne();
@@ -162,7 +166,8 @@ class MangerAuditController extends Controller
           if ($model_update->load(Yii::$app->request->post())) {
 
               //采样状态 入采样流程
-              if(Yii::$app->request->post()['PurInfo']['master_result']==1 ){
+              if(Yii::$app->request->post()['PurInfo']['master_result']==1 ||
+                  Yii::$app->request->post()['PurInfo']['master_result']==4){
                   $spur_id = Yii::$app->db->createCommand("
                    select spur_info_id  from sample where spur_info_id = $id
                   ")->queryOne();
