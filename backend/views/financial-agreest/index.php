@@ -161,7 +161,24 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]
                 ])
             ],
+            [
+                'attribute'=>'sample_return',
+                'width'=>'100px',
+                'value'=>function ($model, $key, $index, $widget) {
+                    if($model->sample_return==1){
+                        return '是';
 
+                    }else{
+                        return '否';
+                    }
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '是', '0' => '否'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'确定退样品?'],
+            ],
             [
                 'attribute'=>'master_result',
                 'value' => function($model) {
