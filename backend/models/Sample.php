@@ -43,7 +43,7 @@ class Sample extends \yii\db\ActiveRecord
     {
         return [
             [['spur_info_id','fee_return','is_agreest'], 'required'],
-            [['spur_info_id', 'is_audit', 'is_agreest',  'fee_return', 'audit_mem1', 'audit_mem2', 'audit_mem3', 'applicant'], 'integer'],
+            [['spur_info_id', 'is_audit', 'is_agreest',  'fee_return', 'audit_mem1', 'applicant'], 'integer'],
             [['procurement_cost', 'sample_freight', 'else_fee', 'pay_amount'], 'number'],
             [['create_date', 'lastop_date'], 'safe'],
             [['pay_way', 'mark'], 'string', 'max' => 500],
@@ -70,11 +70,14 @@ class Sample extends \yii\db\ActiveRecord
             'is_agreest' => '部长是否同意支付样品费',
             'fee_return' => '是否退样品费',
             'audit_mem1' => '财务审核人',
-            'audit_mem2' => '部长审核人',
-            'audit_mem3' => 'Audit Mem3',
+
             'applicant' => '申请人',
             'create_date' => '经理同意采样日期', //经理同意采样日期
-            'lastop_date' => 'Lastop Date',
+            'lastop_date' => '最近操作日期',
+            'fact_refund' => '实际退款￥',
+            'has_refund' => '是否确定退款?',
+            'sure_remark' => '确定退款人备注',
+            'sure_refund_men' => '确定退款人',
         ];
     }
 

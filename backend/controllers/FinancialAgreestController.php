@@ -76,6 +76,27 @@ class FinancialAgreestController extends Controller
         }
     }
 
+    public function actionFeeBack($id)
+    {
+        $sample_model = Sample::findOne(['spur_info_id'=>$id]);
+        $model = $this->findModel($id);
+          if($sample_model->load(Yii::$app->request->post()) ){
+            $sample_model->fact_refund = Yii::$app->request->post()['Sample']['fact_refund'];
+            $sample_model->has_refund = Yii::$app->request->post()['Sample']['has_refund'];
+            $sample_model->sure_refund_men = Yii::$app->user->identity->username;
+            $sample_model->sure_remark = Yii::$app->request->post()['Sample']['sure_remark'];
+            $sample_model->save();
+            return $this->redirect(['index']);
+
+        }
+        return $this->renderAjax('fee_back',[
+            'model' => $model,
+            'sample_model' => $sample_model
+        ]);
+    }
+
+
+
     /**
      * Creates a new PurInfo model.
      * If creation is successful, the browser will be redirected to the 'view' page.

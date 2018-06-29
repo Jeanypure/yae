@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'kartik\grid\CheckboxColumn'],
             ['class' => 'kartik\grid\ActionColumn',
                 'header' => '操作',
-                'template' => '{view} ',
+                'template' => '{view} {return} ',
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-check"></span>', $url, [
@@ -34,6 +34,15 @@ $this->params['breadcrumbs'][] = $this->title;
                             'data-toggle' => 'modal',
                             'data-target' => '#pay-modal',
                             'class' => 'data-pay',
+                            'data-id' => $key,
+                        ] );
+                    },
+                    'return' => function ($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-backward"></span>', $url, [
+                            'title' => '确定退款',
+                            'data-toggle' => 'modal',
+                            'data-target' => '#return-modal',
+                            'class' => 'data-return',
                             'data-id' => $key,
                         ] );
                     },
@@ -216,12 +225,33 @@ Modal::begin([
     'size'=> Modal::SIZE_LARGE
 ]);
 Modal::end();
+// 退款操作
+Modal::begin([
+    'id' => 'return-modal',
+    'header' => '<h4 class="modal-title">样品费退款到账</h4>',
+    'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>',
+    'options'=>[
+        'data-backdrop'=>'static',//点击空白处不关闭弹窗
+        'data-keyboard'=>false,
+    ],
+    'size'=> Modal::SIZE_LARGE
+]);
+Modal::end();
 ?>
 <?php
-$requestAuditUrl = Url::toRoute('view');
+$requestAuditUrl = Url::toRoute('view');  //样品付款
+$fee_return = Url::toRoute('fee-back');  //样品退款
 $auditJs = <<<JS
         $('.data-pay').on('click', function () {
             $.get('{$requestAuditUrl}', { id: $(this).closest('tr').data('key') },
+                function (data) {
+                    $('.modal-body').html(data);
+                }  
+            );
+        }); 
+
+        $('.data-return').on('click', function () {
+            $.get('{$fee_return}', { id: $(this).closest('tr').data('key') },
                 function (data) {
                     $('.modal-body').html(data);
                 }  

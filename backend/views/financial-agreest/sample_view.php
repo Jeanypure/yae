@@ -27,6 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
               'value'=> function($model){
                     if($model->is_agreest==1){
                         return '同意';
+                    }elseif($model->is_agreest==2){
+                        return '未处理';
                     }else{
                         return '不同意';
                     }
