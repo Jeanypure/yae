@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\YaeFreight */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Yae Freights', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Freights', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="yae-freight-view">

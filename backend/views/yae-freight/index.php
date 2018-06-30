@@ -7,15 +7,12 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\YaeFreightSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Yae Freights';
+$this->title = '货单列表';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="yae-freight-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Create Yae Freight', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Freight', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

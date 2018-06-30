@@ -68,17 +68,13 @@ class YaeFreightController extends Controller
     public function actionCreate()
     {
         $model = new YaeFreight();
-        $fee_model = FreightFee::find()->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->actionFee($model->id);
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
         return $this->render('create', [
             'model' => $model,
-            'fee_model' => $fee_model,
-
-
         ]);
     }
 
@@ -94,7 +90,6 @@ class YaeFreightController extends Controller
         $model = $this->findModel($id);
         $fee_model = FreightFee::find()->where(['freight_id'=>$id])->all();
         $result  = FeeCategory::find()->orderBy('id')->asArray()->all();
-//        var_dump($result);die
         if ($model->load(Yii::  $app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -140,5 +135,18 @@ class YaeFreightController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+    public function  actionFee($freight_id){
+           $fee_to = Yii::$app->db->createCommand("
+            CALL freight_to_fee ($freight_id)
+            ")->execute();
+           if($fee_to){
+               return 'OK!';
+           }
+           return 'error!';
+
+
     }
 }
