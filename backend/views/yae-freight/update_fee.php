@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'freight_id')->textInput() ?>
+        <?= $form->field($model, 'freight_id')->hiddenInput()->label(false) ?>
 
 
         <?php
@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         ?>
 
-        <?= $form->field($model, 'amount')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'amount')->textInput(['maxlength' => true])->hiddenInput()->label(false) ?>
 
         <?php
         echo Form::widget([
@@ -84,17 +84,6 @@ $this->params['breadcrumbs'][] = $this->title;
 $block = <<<JS
         $(function() {
           $('select').css('display','block');
-           $("#freightfee-amount").attr("readonly","readonly");
-        });
-
-        $('#w0').on('change',function() {
-                        console.log(999);
-
-          var amount,quantity,price;
-          quantity = $('#freightfee-quantity').val();
-          price = $('#freightfee-unit_price').val();
-          amount = parseInt(quantity) * parseInt(price);
-          $('#freightfee-amount').val(amount);
         });
 
 JS;

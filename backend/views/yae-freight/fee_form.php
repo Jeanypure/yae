@@ -24,18 +24,6 @@ echo TabularForm::widget([
     'actionColumn' => [
         'class' => '\kartik\grid\ActionColumn',
         'template' => '{delete}',
-        'buttons' => [
-            'delete' => function ($url, $model, $key) {
-                $delete_url = Url::to(['/goodssku/delete','id' => $key]);
-                $options = [
-                    'title' => '删除',
-                    'aria-label' => '删除',
-                    'data-id' => $key,
-                ];
-                return Html::a('<span  class="glyphicon glyphicon-trash"></span>', $delete_url, $options);
-            },
-            'width' => '60px'
-        ],
     ],
     'attributes' => [
 
@@ -79,10 +67,8 @@ echo GridView::widget([
         ['content' =>
             Html::button('<i class="glyphicon glyphicon-plus"></i>', ['type' => 'button', 'title' => Yii::t('kvgrid', 'Add Fee'), 'class' => 'btn btn-success fee-modaldialog',
                 'data-toggle'=>"modal" ,'data-target'=>"#fee-add-modal"
-//                'data-toggle'=>"modal" ,'data-target'=>"#Mymodal"
                 ]
-            ) . ' '.
-            Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['grid-demo'], ['data-pjax' => 0, 'class' => 'btn btn-default', 'title' => Yii::t('kvgrid', 'Reset Grid')])
+            )
         ],
 //        '{export}',
 //        '{toggleData}',
@@ -91,6 +77,7 @@ echo GridView::widget([
     'hover'=>true,
     'responsive'=>true,
     'panel'=>['type'=>'primary', 'heading'=>'Grid Grouping Example'],
+
     'columns'=>[
         ['class'=>'kartik\grid\SerialColumn'],
         ['class'=>'kartik\grid\ActionColumn',
@@ -215,7 +202,7 @@ ActiveForm::end();
 use yii\bootstrap\Modal;
 Modal::begin([
     'id' => 'fee-add-modal',
-    'header' => '<h4 class="modal-title">添加费用hhh</h4>',
+    'header' => '<h4 class="modal-title">添加费用</h4>',
     'footer' =>  '<a href="#" class="btn btn-primary" data-dismiss="modal">关闭</a>',
 ]);
 
@@ -224,9 +211,7 @@ $freight_id= $model->id;
 $js = <<<JS
 $(".fee-modaldialog").click(function(){ 
      
-        $.get('{$add_fee}',
-         // { id: $(this).closest('tr').data('key') },
-         { id: $freight_id }, 
+        $.get('{$add_fee}',{ id: $freight_id }, 
                 function (data) {
                     $('.modal-body').html(data);
                 }  
@@ -274,7 +259,6 @@ $delurl = Url::toRoute('/yae-freight/fee-delete/');
          $(function () {
          $('#sku-table').hide();
         $('.deleteLink').click(function () {
-            console.log(888);
             var tThis =$(this);
             if (confirm("确定要删除这条费用吗？")){
                 $.get('{$delurl}', { id: $(this).closest('tr').data('key') },
