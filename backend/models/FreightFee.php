@@ -14,7 +14,7 @@ use Yii;
  * @property string $unit_price 单价
  * @property string $currency 币种
  * @property string $amount 金额
- * @property string $ramark 备注
+ * @property string $remark 备注
  *
  * @property YaeFreight $freight
  */
@@ -38,7 +38,7 @@ class FreightFee extends \yii\db\ActiveRecord
             [['description_id'], 'required'],
             [['unit_price', 'amount'], 'number'],
             [['currency'], 'string', 'max' => 10],
-            [['ramark'], 'string', 'max' => 100],
+            [['remark'], 'string', 'max' => 100],
             [['freight_id'], 'exist', 'skipOnError' => true, 'targetClass' => YaeFreight::className(), 'targetAttribute' => ['freight_id' => 'id']],
         ];
     }
@@ -56,7 +56,7 @@ class FreightFee extends \yii\db\ActiveRecord
             'unit_price' => 'Unit Price',
             'currency' => 'Currency',
             'amount' => 'Amount',
-            'ramark' => 'Ramark',
+            'remark' => 'Remark',
         ];
     }
 

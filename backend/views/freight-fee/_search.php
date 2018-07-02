@@ -29,7 +29,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'amount') ?>
 
-    <?php // echo $form->field($model, 'ramark') ?>
+    <?php // echo $form->field($model, 'remark') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

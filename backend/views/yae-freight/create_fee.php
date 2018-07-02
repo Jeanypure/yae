@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'form'=>$form,
             'columns'=>1,
             'attributes'=>[       // 1 column layout
-                'ramark'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'','style'=>'height:100px']],
+                'remark'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'','style'=>'height:100px']],
             ]
         ]);
         ?>

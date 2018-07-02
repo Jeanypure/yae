@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'unit_price',
             //'currency',
             //'amount',
-            //'ramark',
+            //'remark',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

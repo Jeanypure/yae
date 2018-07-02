@@ -59,8 +59,8 @@ echo TabularForm::widget([
         ],
         'amount' => ['label' => 'Amount', 'type' => TabularForm::INPUT_TEXT,
             'options' => ['class' => 'amount']],
-        'ramark' => ['label' => 'Ramark', 'type' => TabularForm::INPUT_TEXT,
-            'options' => ['class' => 'ramark'],
+        'remark' => ['label' => 'Ramark', 'type' => TabularForm::INPUT_TEXT,
+            'options' => ['class' => 'remark'],
         ],
 
 
@@ -182,7 +182,7 @@ echo GridView::widget([
             'attribute'=>'remark',
             'width'=>'100px',
             'value'=>function ($model, $key, $index, $widget) {
-                return $model->ramark;
+                return $model->remark;
             },
 
         ],
