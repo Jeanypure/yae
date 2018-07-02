@@ -355,9 +355,6 @@ Modal::begin([
 ]);
 Modal::end();
 ?>
-
-
-
 <?php
 $requestAuditUrl = Url::toRoute('create-audit');
 $auditJs = <<<JS

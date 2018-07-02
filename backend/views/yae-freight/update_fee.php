@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: YM-sale
@@ -18,7 +19,7 @@ $this->title = 'Create Freight Fee';
 $this->params['breadcrumbs'][] = ['label' => 'Freight Fees', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="freight-fee-create">
+<div class="freight-fee-update">
 
     <div class="freight-fee-form">
 
@@ -28,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
         <?php
+
         // Usage with ActiveForm and model
         echo $form->field($model, 'description_id')->widget(Select2::classname(), [
             'data' => $fee_category,
@@ -47,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
         // Usage with ActiveForm and model
         echo $form->field($model, 'currency')->widget(Select2::classname(), [
             'data' => $currency,
-            'options' => ['placeholder' => '选择币种.....'],
+            'options' => ['placeholder' => '选择币种.....','style'=>"display:block"],
             'pluginOptions' => [
                 'allowClear' => true
             ],
@@ -63,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'form'=>$form,
             'columns'=>1,
             'attributes'=>[       // 1 column layout
-                'remark'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'','style'=>'height:100px']],
+                'remark'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'','style'=>'display:block']],
             ]
         ]);
         ?>
@@ -78,17 +80,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
 
-
-
 <?php
 $block = <<<JS
         $(function() {
-          // $('select').css('display','block');
+          $('select').css('display','block');
            $("#freightfee-amount").attr("readonly","readonly");
         });
 
         $('#w0').on('change',function() {
-                
+                        console.log(999);
+
           var amount,quantity,price;
           quantity = $('#freightfee-quantity').val();
           price = $('#freightfee-unit_price').val();

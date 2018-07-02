@@ -8,12 +8,10 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\widgets\ActiveForm;
-//use kartik\builder\Form;
 use kartik\builder\TabularForm;
 use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
 use backend\models\FeeCategory;
-use backend\models\YaeExchangeRate;
 ?>
 <?php $skuForm = ActiveForm::begin(['id' => 'sku-info', 'method' => 'post',]);
 ?>
@@ -68,7 +66,7 @@ echo TabularForm::widget([
 
 ]);
 
-ActiveForm::end();
+
 ?>
 
 <?php
@@ -95,7 +93,27 @@ echo GridView::widget([
     'panel'=>['type'=>'primary', 'heading'=>'Grid Grouping Example'],
     'columns'=>[
         ['class'=>'kartik\grid\SerialColumn'],
-        ['class'=>'kartik\grid\ActionColumn'],
+        ['class'=>'kartik\grid\ActionColumn',
+          'template' => '{view} {update} {delete}',
+            'buttons' => [
+                'update' => function($url, $model, $key){
+                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                        'title' => '编辑费用',
+                        'data-toggle' => 'modal',
+                        'data-target' => '#audit-modal',
+                        'class' => 'data-audit',
+                        'data-id' => $key,
+                    ] );
+                },
+                'delete' => function($url, $model, $key){
+                    return Html::a('' ,['/yae-freight/fee-delete/', 'id' => $model->id], [
+                        'class' => 'glyphicon glyphicon-trash deleteLink',
+
+                    ]);
+                },
+            ],
+
+        ],
         [
             'attribute'=>'description_id',
             'width'=>'310px',
@@ -186,244 +204,10 @@ echo GridView::widget([
             },
 
         ],
-//        [
-//            'attribute'=>'units_in_stock',
-//            'width'=>'150px',
-//            'hAlign'=>'right',
-//            'format'=>['decimal', 0],
-//            'pageSummary'=>true
-//        ],
-//        [
-//            'class'=>'kartik\grid\FormulaColumn',
-//            'header'=>'Amount In Stock',
-//            'value'=>function ($model, $key, $index, $widget) {
-//                $p = compact('model', 'key', 'index');
-//                return $widget->col(4, $p) * $widget->col(5, $p);
-//            },
-//            'mergeHeader'=>true,
-//            'width'=>'150px',
-//            'hAlign'=>'right',
-//            'format'=>['decimal', 2],
-//            'pageSummary'=>true
-//        ],
     ],
 ]);
-
+ActiveForm::end();
 ?>
-
-<?php
-echo GridView::widget([
-    'moduleId' => 'gridviewKrajee', // change the module identifier to use the respective module's settings
-    'dataProvider' => $dataProvider,
-//    'columns' => $columns,
-    // other widget settings
-    'responsive'=>true,
-    'hover'=>true
-]);
-
-
-?>
-
-
-
-<?php
-//editable
-
-// the grid columns setup (only two column entries are shown here
-// you can add more column entries you need for your use case)
-$gridColumns = [
-    ['class'=>'kartik\grid\SerialColumn'],
-    ['class'=>'kartik\grid\ActionColumn'],
-
-// the name column configuration
-    [
-//        'class'=>'kartik\grid\EditableColumn',
-        'attribute'=>'description_id',
-        'value'=>function ($model, $key, $index, $widget) {
-            if($model->description_id==1){
-                return '海运费' ;
-            }elseif ($model->description_id==2){
-                return '关税' ;
-            }elseif ($model->description_id==3){
-                return '车架费' ;
-            }elseif ($model->description_id==4){
-                return '预提费' ;
-            }elseif ($model->description_id==5){
-                return '国外仓租' ;
-            }elseif ($model->description_id==6){
-                return '滞箱费' ;
-            }elseif ($model->description_id==7){
-                return '超时等候费' ;
-            }elseif ($model->description_id==8){
-                return '周末送货费' ;
-            }elseif ($model->description_id==9){
-                return '落箱费' ;
-            }elseif ($model->description_id==10){
-                return '超重许可' ;
-            }elseif ($model->description_id==11){
-                return '其他费用' ;
-            }else{
-                return '其他' ;
-            }
-
-        },
-//        'editableOptions'=>[
-//            'header'=>'quantity',
-//            'inputType'=>\kartik\editable\Editable::INPUT_SPIN,
-//            'options'=>['pluginOptions'=>['min'=>0, 'max'=>5000]]
-//        ],
-        'hAlign'=>'right',
-        'vAlign'=>'middle',
-        'width'=>'100px',
-//        'format'=>['decimal', 2],
-        'pageSummary'=>true
-    ],
-
-// the quantity column configuration
-    [
-        'class'=>'kartik\grid\EditableColumn',
-        'attribute'=>'quantity',
-        'editableOptions'=>[
-            'header'=>'quantity',
-            'inputType'=>\kartik\editable\Editable::INPUT_SPIN,
-            'options'=>['pluginOptions'=>['min'=>0, 'max'=>5000]]
-        ],
-        'hAlign'=>'right',
-        'vAlign'=>'middle',
-        'width'=>'100px',
-        'format'=>['decimal', 2],
-        'pageSummary'=>true
-    ],
-    [
-        'class'=>'kartik\grid\EditableColumn',
-        'attribute'=>'unit_price',
-        'pageSummary'=>true,
-        'editableOptions'=> function ($model, $key, $index) {
-            return [
-                'header'=>'Name',
-                'size'=>'md',
-                'afterInput'=>function ($form, $widget) use ($model, $index) {
-                    return $form->field($model, "quantity")->widget(\kartik\widgets\ColorInput::classname(), [
-                        'showDefaultPalette'=>false,
-                        'options'=>['id'=>"color-{$index}"],
-                        'pluginOptions'=>[
-                            'showPalette'=>true,
-                            'showPaletteOnly'=>true,
-                            'showSelectionPalette'=>true,
-                            'showAlpha'=>false,
-                            'allowEmpty'=>false,
-                            'preferredFormat'=>'name',
-                            'palette'=>[
-                                ["white", "black", "grey", "silver", "gold", "brown"],
-                                ["red", "orange", "yellow", "indigo", "maroon", "pink"],
-                                ["blue", "green", "violet", "cyan", "magenta", "purple"],
-                            ]
-                        ],
-                    ]);
-                }
-            ];
-        }
-    ],
-    [
-        'class'=>'kartik\grid\EditableColumn',
-        'attribute'=>'currency',
-        'pageSummary'=>true,
-        'editableOptions'=> function ($model, $key, $index) {
-            return [
-                'header'=>'Name',
-                'size'=>'md',
-                'afterInput'=>function ($form, $widget) use ($model, $index) {
-                    return $form->field($model, "quantity")->widget(\kartik\widgets\ColorInput::classname(), [
-                        'showDefaultPalette'=>false,
-                        'options'=>['id'=>"color-{$index}"],
-                        'pluginOptions'=>[
-                            'showPalette'=>true,
-                            'showPaletteOnly'=>true,
-                            'showSelectionPalette'=>true,
-                            'showAlpha'=>false,
-                            'allowEmpty'=>false,
-                            'preferredFormat'=>'name',
-                            'palette'=>[
-                                ["white", "black", "grey", "silver", "gold", "brown"],
-                                ["red", "orange", "yellow", "indigo", "maroon", "pink"],
-                                ["blue", "green", "violet", "cyan", "magenta", "purple"],
-                            ]
-                        ],
-                    ]);
-                }
-            ];
-        }
-    ],
-    [
-        'class'=>'kartik\grid\EditableColumn',
-        'attribute'=>'currency',
-        'pageSummary'=>true,
-        'editableOptions'=> function ($model, $key, $index) {
-            return [
-                'header'=>'Name',
-                'size'=>'md',
-                'afterInput'=>function ($form, $widget) use ($model, $index) {
-                    return $form->field($model, "quantity")->widget(\kartik\widgets\ColorInput::classname(), [
-                        'showDefaultPalette'=>false,
-                        'options'=>['id'=>"color-{$index}"],
-                        'pluginOptions'=>[
-                            'showPalette'=>true,
-                            'showPaletteOnly'=>true,
-                            'showSelectionPalette'=>true,
-                            'showAlpha'=>false,
-                            'allowEmpty'=>false,
-                            'preferredFormat'=>'name',
-                            'palette'=>[
-                                ["white", "black", "grey", "silver", "gold", "brown"],
-                                ["red", "orange", "yellow", "indigo", "maroon", "pink"],
-                                ["blue", "green", "violet", "cyan", "magenta", "purple"],
-                            ]
-                        ],
-                    ]);
-                }
-            ];
-        }
-    ],
-    [
-        'class'=>'kartik\grid\EditableColumn',
-        'attribute'=>'amount',
-        'pageSummary'=>true,
-        'editableOptions'=> function ($model, $key, $index) {
-            return [
-                'header'=>'Name',
-                'size'=>'md',
-                'afterInput'=>function ($form, $widget) use ($model, $index) {
-                    return $form->field($model, "quantity")->widget(\kartik\widgets\ColorInput::classname(), [
-                        'showDefaultPalette'=>false,
-                        'options'=>['id'=>"color-{$index}"],
-                        'pluginOptions'=>[
-                            'showPalette'=>true,
-                            'showPaletteOnly'=>true,
-                            'showSelectionPalette'=>true,
-                            'showAlpha'=>false,
-                            'allowEmpty'=>false,
-                            'preferredFormat'=>'name',
-                            'palette'=>[
-                                ["white", "black", "grey", "silver", "gold", "brown"],
-                                ["red", "orange", "yellow", "indigo", "maroon", "pink"],
-                                ["blue", "green", "violet", "cyan", "magenta", "purple"],
-                            ]
-                        ],
-                    ]);
-                }
-            ];
-        }
-    ],
-
-];
-    // the GridView widget (you must use kartik\grid\GridView)
-    echo \kartik\grid\GridView::widget([
-        'dataProvider'=>$dataProvider,
-//        'filterModel'=>$searchModel,
-        'columns'=>$gridColumns
-    ]);
-?>
-
 
 
 
@@ -435,22 +219,11 @@ Modal::begin([
     'footer' =>  '<a href="#" class="btn btn-primary" data-dismiss="modal">关闭</a>',
 ]);
 
-//$add_fee = Url::toRoute('/freight-fee/create');
 $add_fee = Url::toRoute('create-fee');
 $freight_id= $model->id;
 $js = <<<JS
 $(".fee-modaldialog").click(function(){ 
-        // aUrl = $(this).attr('data-url');
-        // aTitle = $(this).attr('data-title');
-        // console.log(aTitle);
-        // console.log(aUrl);
-        //
-        // $($(this).attr('data-target')+" .modal-title").text(aTitle);
-        // $($(this).attr('data-target')).modal("show")
-        //      .find(".modal-body")
-        //      .load(aUrl); 
-        // return false;
-        
+     
         $.get('{$add_fee}',
          // { id: $(this).closest('tr').data('key') },
          { id: $freight_id }, 
@@ -464,3 +237,61 @@ $this->registerJs($js);
 
 Modal::end();
 ?>
+
+
+<?php
+// 费用编辑
+Modal::begin([
+    'id' => 'audit-modal',
+    'header' => '<h4 class="modal-title">编辑费用</h4>',
+    'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>',
+    'options'=>[
+        'data-backdrop'=>'static',//点击空白处不关闭弹窗
+        'data-keyboard'=>false,
+    ],
+    'size'=> Modal::SIZE_LARGE
+]);
+Modal::end();
+?>
+<?php
+$edit_fee = Url::toRoute('update-fee');
+$auditJs = <<<JS
+        $('.data-audit').on('click', function () {
+            $.get('{$edit_fee}', { id: $(this).closest('tr').data('key') },
+                function (data) {
+                    $('.modal-body').html(data);
+                }  
+            );
+        });
+JS;
+$this->registerJs($auditJs);
+
+?>
+
+<?php
+$delurl = Url::toRoute('/yae-freight/fee-delete/');
+ $del_fee = <<<JS
+         $(function () {
+         $('#sku-table').hide();
+        $('.deleteLink').click(function () {
+            console.log(888);
+            var tThis =$(this);
+            if (confirm("确定要删除这条费用吗？")){
+                $.get('{$delurl}', { id: $(this).closest('tr').data('key') },
+                function (data) {
+                    if (data == 1){
+                        $(tThis).parent().parent().remove();
+                        alert('删除成功')
+                    }else{
+                        alert('删除失败')
+                    }
+                })
+            }
+            return false;
+        })
+    })
+JS;
+ $this->registerJs($del_fee);
+?>
+
+

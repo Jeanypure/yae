@@ -22,7 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
-        ]) ?>
+        ])
+        ?>
     </p>
 
     <?= DetailView::widget([

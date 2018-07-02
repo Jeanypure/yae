@@ -205,10 +205,42 @@ class YaeFreightController extends Controller
     public function  actionCreateFee($id){
 
         $model = new FreightFee();
+        $param  = $this->actionParam();
         if(isset($id)&&!empty($id)){
             $model -> freight_id = $id;
             $model->save();
         }
+
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['update', 'id' =>$id]);
+        }
+
+        return $this->renderAjax('create_fee', [
+            'model' => $model,
+            'fee_category' => $param['name_zn'],
+            'currency' => $param['currency'],
+        ]);
+
+    }
+
+    public function  actionUpdateFee($id){
+
+        $model = FreightFee::find()->where(['id'=>$id])->one();
+        $param  = $this->actionParam();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['update','id' =>$model->freight_id ]);
+        }
+
+        return $this->renderAjax('update_fee', [
+            'model' => $model,
+            'fee_category' => $param['name_zn'],
+            'currency' => $param['currency'],
+        ]);
+    }
+
+    public function  actionParam(){
+
         $fee_cate =  FeeCategory::find()->select('id,name_zn')->asArray()->All();
         $cur =  YaeExchangeRate::find()->select('id,currency')->asArray()->All();
         $arr =[];
@@ -220,18 +252,23 @@ class YaeFreightController extends Controller
             $currency[$value['id']] = $value['currency'];
         }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['update', 'id' =>$id]);
-        }
-        return $this->renderAjax('create_fee', [
-            'model' => $model,
-            'fee_category' => $arr,
-            'currency' => $currency,
-        ]);
-
+        $param['name_zn'] = $arr;
+        $param['currency'] = $currency;
+        return $param;
     }
 
-    public function  actionUpdateFee($id){
+    public  function  actionFeeDelete($id){
+
+        $feecat = FreightFee::find()->where(['id'=>$id])->one();
+        if($feecat->delete()) {
+            echo 1;
+            Yii::$app->end();
+        }
+        echo 0;
+        Yii::$app->end();
+
+//        return $this->redirect(['update','id' =>$feecat->freight_id ]);
+
 
     }
 }

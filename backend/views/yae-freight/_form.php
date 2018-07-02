@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
-use kartik\editable\Editable;
 use kartik\builder\Form;
 
 
@@ -51,46 +50,6 @@ use kartik\builder\Form;
         ]
     ]);
     ?>
-
-    <div class="col-sm-4">
-        <div class="form-group">
-            <?php
-            // An advanced usage using a datepicker widget from kartik\widgets and
-            // additional content rendered after the input using a Closure callback
-            echo '<label>ETD</label><br>';
-            echo Editable::widget([
-                'model'=>$model,
-                'attribute'=>'etd',
-                'header' => 'ETD',
-                'asPopover' => true,
-                'size'=>'md',
-                'inputType' => Editable::INPUT_DATE,
-                'options'=>[
-                    'options'=>['placeholder'=>'From date']
-                ]
-            ]);
-            echo '<label>ETA</label><br>';
-            echo Editable::widget([
-                'model'=>$model,
-                'attribute'=>'eta',
-                'header' => 'Date Range',
-                'asPopover' => true,
-                'afterInput'=>function($form, $widget) {
-                    echo $form->field($widget->model, 'eta')->widget(\kartik\widgets\DatePicker::classname(), [
-                        'options'=>['placeholder'=>'To date']
-                    ])->label(false);
-                },
-                'size'=>'md',
-                'inputType' => Editable::INPUT_DATE,
-                'options'=>[
-                    'options'=>['placeholder'=>'From date']
-                ]
-            ]);
-
-            ?>
-        </div>
-    </div>
-
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-lg']) ?>
