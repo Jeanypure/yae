@@ -16,10 +16,11 @@ $this->params['breadcrumbs'][] = 'Update';
         'model' => $model,
 
     ]) ?>
-
     <?=
     $this->render('fee_form',[
+        'model' => $model,
         'fee_model' => $fee_model[0],
+        'id' => 'fee-detail',
         'dataProvider' => $dataProvider,
     ])
     ?>

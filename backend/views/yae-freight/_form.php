@@ -40,7 +40,6 @@ use kartik\builder\Form;
             'eta' => ['type'=>Form::INPUT_TEXT],
         ]
     ]);
-
     echo Form::widget([
         'model' => $model,
         'form' => $form,
@@ -51,9 +50,8 @@ use kartik\builder\Form;
 
         ]
     ]);
-
-
     ?>
+
     <div class="col-sm-4">
         <div class="form-group">
             <?php
