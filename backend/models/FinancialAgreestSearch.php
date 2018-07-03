@@ -53,6 +53,7 @@ class FinancialAgreestSearch extends PurInfo
             ->joinWith('sample')
         ->andWhere(['sample_submit1'=>1])
         ->andWhere(['sample_submit2'=>1])
+        ->andWhere(['is_agreest'=>1])
         ->orderBy('pur_info_id desc')
         ;
         $this->has_pay = 0;
