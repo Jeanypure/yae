@@ -34,8 +34,8 @@ class YaeFreight extends \yii\db\ActiveRecord
     {
         return [
             [['bill_to', 'receiver', 'shipment_id', 'pod', 'pol'], 'required'],
-            [['etd', 'eta'], 'safe'],
-            [['bill_to', 'receiver'], 'string', 'max' => 200],
+            [['etd', 'eta', 'image'], 'safe'],
+            [['bill_to', 'receiver', 'image'], 'string', 'max' => 200],
             [['shipment_id'], 'string', 'max' => 100],
             [['pod', 'pol'], 'string', 'max' => 60],
             [['remark'], 'string', 'max' => 500],
@@ -57,6 +57,7 @@ class YaeFreight extends \yii\db\ActiveRecord
             'etd' => 'ETD',
             'eta' => 'ETA',
             'remark' => 'Remark',
+            'image' => 'Image',
         ];
     }
 }

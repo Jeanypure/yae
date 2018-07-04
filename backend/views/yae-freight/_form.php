@@ -49,6 +49,11 @@ use kartik\builder\Form;
 
         ]
     ]);
+
+
+
+        echo $form->field($model, 'image')->widget('manks\FileInput', []);
+
     ?>
 
     <div class="form-group">
