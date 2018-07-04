@@ -8,7 +8,7 @@
 
 namespace backend\controllers;
 use Yii;
-use linslin\yii2\curl;
+//use linslin\yii2\curl;
 
 class WinitController  extends \yii\base\Controller
 {
