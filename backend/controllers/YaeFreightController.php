@@ -93,13 +93,9 @@ class YaeFreightController extends Controller
      */
     public function actionUpdate($id)
     {
-//        $host = 'yaemart.com.cn';
         $model = $this->findModel($id);
         $fee_model = FreightFee::find()->where(['freight_id'=>$id])->all();
-//        $result  = FeeCategory::find()->orderBy('id')->asArray()->all();
-        if ($model->load(Yii::$app->request->post())) {
-//             $model->image = $host.Yii::$app->request->post()['YaeFreight']['image'];
-             $model->save();
+        if ($model->load(Yii::$app->request->post())&& $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -256,6 +252,49 @@ class YaeFreightController extends Controller
             }
         } catch (\Exception $e) {
             return ['code' => 1, 'msg' => $e->getMessage()];
+        }
+    }
+
+
+    public  function  actionSubmit(){
+        $ids = $_POST['id'];
+        $product_ids = '';
+        foreach ($ids as $k=>$v){
+            $product_ids.=$v.',';
+        }
+        $ids_str = trim($product_ids,',');
+
+        if(isset($ids)&&!empty($ids)){
+            $res = Yii::$app->db->createCommand("
+            update `yae_freight` set  to_minister = 1 where `id` in ($ids_str)
+            ")->execute();
+            if($res){
+                echo 'success';
+            }
+        }else{
+            echo 'error';
+        }
+    }
+
+
+    public  function  actionCancel(){
+
+        $ids = $_POST['id'];
+        $product_ids = '';
+        foreach ($ids as $k=>$v){
+            $product_ids.=$v.',';
+        }
+        $ids_str = trim($product_ids,',');
+
+        if(isset($ids)&&!empty($ids)){
+            $res = Yii::$app->db->createCommand("
+                       update `yae_freight` set  to_minister = 0 where `id` in ($ids_str)
+            ")->execute();
+            if($res){
+                echo 'success';
+            }
+        }else{
+            echo 'error';
         }
     }
 

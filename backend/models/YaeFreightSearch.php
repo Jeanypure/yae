@@ -19,7 +19,7 @@ class YaeFreightSearch extends YaeFreight
     {
         return [
             [['id'], 'integer'],
-            [['bill_to', 'receiver', 'shipment_id', 'pod', 'pol', 'etd', 'eta', 'remark'], 'safe'],
+            [['to_minister','to_financial','mini_deal','fina_deal','mini_res','fina_res','bill_to', 'receiver', 'shipment_id', 'pod', 'pol', 'etd', 'eta', 'remark'], 'safe'],
         ];
     }
 
@@ -60,6 +60,10 @@ class YaeFreightSearch extends YaeFreight
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'to_minister' => $this->to_minister,
+            'to_financial' => $this->to_financial,
+            'mini_deal' => $this->mini_deal,
+            'fina_deal' => $this->fina_deal,
             'etd' => $this->etd,
             'eta' => $this->eta,
         ]);
