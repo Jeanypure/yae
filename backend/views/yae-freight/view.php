@@ -11,7 +11,9 @@ $this->params['breadcrumbs'][] = ['label' => 'Freights', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="yae-freight-view">
-
+<p>
+    <img src="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$model->image;?>" width="100" height="100" alt="" />
+</p>
     <p>
         <?php
         echo Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>

@@ -93,10 +93,13 @@ class YaeFreightController extends Controller
      */
     public function actionUpdate($id)
     {
+//        $host = 'yaemart.com.cn';
         $model = $this->findModel($id);
         $fee_model = FreightFee::find()->where(['freight_id'=>$id])->all();
-        $result  = FeeCategory::find()->orderBy('id')->asArray()->all();
-        if ($model->load(Yii::  $app->request->post()) && $model->save()) {
+//        $result  = FeeCategory::find()->orderBy('id')->asArray()->all();
+        if ($model->load(Yii::$app->request->post())) {
+//             $model->image = $host.Yii::$app->request->post()['YaeFreight']['image'];
+             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
