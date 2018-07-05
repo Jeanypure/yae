@@ -36,5 +36,5 @@ phpunit.phar
 /.vagrant
 
 
-/composer.json
+
 /composer.lock

@@ -1,0 +1,61 @@
+{
+  "name": "yiisoft/yii2-app-advanced",
+  "description": "Yii 2 Advanced Project Template",
+  "keywords": ["yii2", "framework", "advanced", "project template"],
+  "homepage": "http://www.yiiframework.com/",
+  "type": "project",
+  "license": "BSD-3-Clause",
+  "support": {
+    "issues": "https://github.com/yiisoft/yii2/issues?state=open",
+    "forum": "http://www.yiiframework.com/forum/",
+    "wiki": "http://www.yiiframework.com/wiki/",
+    "irc": "irc://irc.freenode.net/yii",
+    "source": "https://github.com/yiisoft/yii2"
+  },
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.4.0",
+    "yiisoft/yii2": "~2.0.6",
+    "yiisoft/yii2-bootstrap": "~2.0.0",
+    "yiisoft/yii2-swiftmailer": "~2.0.0",
+    "mdmsoft/yii2-admin": "~2.0",
+    "dmstr/yii2-adminlte-asset": "2.*",
+
+    "kartik-v/yii2-grid": "@dev",
+    "kartik-v/yii2-widgets": "@dev",
+
+    "kartik-v/yii2-builder": "^1.6",
+    "kartik-v/yii2-dialog": "*",
+    "phpoffice/phpexcel": "dev-develop",
+    "kartik-v/yii2-widget-select2": "@dev",
+    "kartik-v/yii2-editable": "*",
+    "nterms/yii2-pagesize-widget": "*",
+    "kartik-v/yii2-date-range": "dev-master",
+    "yiisoft/yii2-redis": "^2.0",
+    "hisune/echarts-php": "^1.0",
+    "bailangzhan/yii2-webuploader": "dev-master",
+    "linslin/yii2-curl": "*"
+
+
+  },
+  "require-dev": {
+    "yiisoft/yii2-debug": "~2.0.0",
+    "yiisoft/yii2-gii": "~2.0.0",
+    "yiisoft/yii2-faker": "~2.0.0",
+
+    "codeception/base": "^2.2.3",
+    "codeception/verify": "~0.3.1"
+  },
+  "config": {
+    "process-timeout": 1800,
+    "fxp-asset":{
+      "installer-paths": {
+        "npm-asset-library": "vendor/npm",
+        "bower-asset-library": "vendor/bower"
+      }
+    },
+    "platform": {
+      "php": "7.1.9"
+    }
+  }
+}
