@@ -1,11 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
 use kartik\widgets\ActiveForm;
-use kartik\builder\TabularForm;
 use kartik\grid\GridView;
-use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\YaeFreight */

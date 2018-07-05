@@ -4,10 +4,12 @@ namespace backend\controllers;
 
 use Yii;
 use backend\models\YaeFreight;
+use backend\models\FreightFee;
 use backend\models\FinancialDebitSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 
 /**
  * FinancialDebitController implements the CRUD actions for YaeFreight model.
@@ -85,14 +87,25 @@ class FinancialDebitController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $query = FreightFee::find()->indexBy('id')->where(['freight_id'=>$id]); // where `id` is your primary key
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 30,
+            ],
+        ]);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->fina_deal = 1 ;
+            $model->save();
+            return $this->redirect(['index']);
         }
 
-        return $this->render('update', [
+        return $this->renderAjax('update', [
+            'dataProvider' => $dataProvider,
             'model' => $model,
         ]);
+
     }
 
     /**

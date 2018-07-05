@@ -64,7 +64,7 @@ class YaeFreight extends \yii\db\ActiveRecord
             'mini_deal' => 'mini_deal',
             'fina_deal' => 'fina_deal',
             'mini_res' => '部长备注',
-            'fina_res' => 'fina_res',
+            'fina_res' => '财务备注',
         ];
     }
 }

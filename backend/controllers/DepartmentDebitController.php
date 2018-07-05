@@ -100,7 +100,6 @@ class DepartmentDebitController extends Controller
              $model->mini_deal = 1 ;
              $model->to_financial = 1 ;
              $model->save();
-//            return $this->redirect(['view', 'id' => $model->id]);
             return $this->redirect(['index']);
         }
 
