@@ -20,7 +20,7 @@ class FreightFeeSearch extends FreightFee
         return [
             [['id', 'freight_id', 'description_id', 'quantity'], 'integer'],
             [['unit_price', 'amount'], 'number'],
-            [['currency', 'ramark'], 'safe'],
+            [['currency', 'remark'], 'safe'],
         ];
     }
 
@@ -69,7 +69,7 @@ class FreightFeeSearch extends FreightFee
         ]);
 
         $query->andFilterWhere(['like', 'currency', $this->currency])
-            ->andFilterWhere(['like', 'ramark', $this->ramark]);
+            ->andFilterWhere(['like', 'remark', $this->remark]);
 
         return $dataProvider;
     }

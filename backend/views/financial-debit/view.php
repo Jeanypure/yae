@@ -7,25 +7,22 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\YaeFreight */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Freights', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Yae Freights', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="yae-freight-view">
-<p>
-    <img src="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$model->image;?>" width="100" height="100" alt="" />
-</p>
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
     <p>
-        <?php
-        echo Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?php
-        echo Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
-        ])
-        ?>
+        ]) ?>
     </p>
 
     <?= DetailView::widget([
@@ -40,6 +37,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'etd',
             'eta',
             'remark',
+            'image',
+            'to_minister',
+            'to_financial',
+            'mini_deal',
+            'fina_deal',
+            'mini_res',
+            'fina_res',
         ],
     ]) ?>
 

@@ -8,9 +8,9 @@ use yii\data\ActiveDataProvider;
 use backend\models\YaeFreight;
 
 /**
- * YaeFreightSearch represents the model behind the search form of `backend\models\YaeFreight`.
+ * DepartmentDebitSearch represents the model behind the search form of `backend\models\YaeFreight`.
  */
-class YaeFreightSearch extends YaeFreight
+class DepartmentDebitSearch extends YaeFreight
 {
     /**
      * {@inheritdoc}
@@ -18,8 +18,8 @@ class YaeFreightSearch extends YaeFreight
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['to_minister','to_financial','mini_deal','fina_deal','mini_res','fina_res','bill_to', 'receiver', 'shipment_id', 'pod', 'pol', 'etd', 'eta', 'remark'], 'safe'],
+            [['id', 'to_minister', 'to_financial', 'mini_deal', 'fina_deal'], 'integer'],
+            [['bill_to', 'receiver', 'shipment_id', 'pod', 'pol', 'etd', 'eta', 'remark', 'image', 'mini_res', 'fina_res'], 'safe'],
         ];
     }
 
@@ -60,12 +60,12 @@ class YaeFreightSearch extends YaeFreight
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'etd' => $this->etd,
+            'eta' => $this->eta,
             'to_minister' => $this->to_minister,
             'to_financial' => $this->to_financial,
             'mini_deal' => $this->mini_deal,
             'fina_deal' => $this->fina_deal,
-            'etd' => $this->etd,
-            'eta' => $this->eta,
         ]);
 
         $query->andFilterWhere(['like', 'bill_to', $this->bill_to])
@@ -73,7 +73,10 @@ class YaeFreightSearch extends YaeFreight
             ->andFilterWhere(['like', 'shipment_id', $this->shipment_id])
             ->andFilterWhere(['like', 'pod', $this->pod])
             ->andFilterWhere(['like', 'pol', $this->pol])
-            ->andFilterWhere(['like', 'remark', $this->remark]);
+            ->andFilterWhere(['like', 'remark', $this->remark])
+            ->andFilterWhere(['like', 'image', $this->image])
+            ->andFilterWhere(['like', 'mini_res', $this->mini_res])
+            ->andFilterWhere(['like', 'fina_res', $this->fina_res]);
 
         return $dataProvider;
     }

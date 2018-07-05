@@ -2,25 +2,25 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use kartik\grid\GridView;
 use yii\widgets\Pjax;
-
+use kartik\grid\GridView;
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\YaeFreightSearch */
+/* @var $searchModel backend\models\FinancialDebitSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '货单列表';
+$this->title = 'Yae Freights';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="yae-freight-index">
 
-        <?= Html::a('Create', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::button('提交部长核对', ['id' => 'to_mini', 'class' => 'btn btn-primary']) ;?>
-        <?=  Html::button('取消提交', ['id' => 'cancel', 'class' => 'btn btn-info']) ?>
+    <?php Pjax::begin(); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
+    <p>
+        <?php
+//        echo  Html::a('Create Yae Freight', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php Pjax::begin(['id' => 'debit-list']) ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -30,7 +30,19 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             ['class' => 'yii\grid\CheckboxColumn'],
             ['class' => 'yii\grid\ActionColumn',
-                'header' => '操作'
+                'header' => '操作',
+                'template' => '{view} {audit}',
+                'buttons' => [
+                    'audit' => function ($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-check"></span>', $url, [
+                            'title' => '评审',
+                            'data-toggle' => 'modal',
+                            'data-target' => '#audit-modal',
+                            'class' => 'data-audit',
+                            'data-id' => $key,
+                        ] );
+                    },
+                ],
             ],
             'shipment_id',
             [
@@ -150,83 +162,36 @@ $this->params['breadcrumbs'][] = $this->title;
             'fina_res',
         ],
     ]); ?>
-    <?php Pjax::end() ?>
+    <?php Pjax::end(); ?>
 </div>
 
+
 <?php
- $js = <<<JS
-   $(function() {
-     $('h3').remove();
-   });
-JS;
- $this->registerJs($js);
+use yii\bootstrap\Modal;
+// 评审操作
+Modal::begin([
+    'id' => 'audit-modal',
+    'header' => '<h4 class="modal-title">费用明细</h4>',
+    'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>',
+    'options'=>[
+        'data-backdrop'=>'static',//点击空白处不关闭弹窗
+        'data-keyboard'=>false,
+    ],
+    'size'=> Modal::SIZE_LARGE
+]);
+Modal::end();
 ?>
-
 <?php
-$submit = Url::toRoute('submit');
-$unsubmit = Url::toRoute('cancel');
-//提交评审
-$is_submit_manager =<<<JS
-    $('#to_mini').on('click',function() {
-            var button = $(this);
-            button.attr('disabled','disabled');
-            var ids = $("#debit").yiiGridView("getSelectedRows");
-            console.log(ids);
-            if(ids.length ==0) alert('请选择产品后再操作!');
-            $.ajax({
-            url:'{$submit}',
-            type:'post',
-            data:{id:ids},
-            success:function(res){
-                // if(res=='success') alert('提交成功!');
-                //  button.attr('disabled',false);
-                // location.reload();
-                if(res=='success') {
-                     button.attr('disabled',false);
-                     $.pjax.reload({container:"#debit-list"});  //Reload GridView
-                }
-               
-
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                button.attr('disabled',false);
-            }
-            
-            });
-      
-    });
-//取消提交
-
-    $('#cancel').on('click',function() {
-                var button = $(this);
-                button.attr('disabled','disabled');
-                var ids = $("#debit").yiiGridView("getSelectedRows");
-                console.log(ids);
-                if(ids.length ==0) alert('请选择产品后再操作!');
-                $.ajax({
-                url:'{$unsubmit}',
-                type:'post',
-                data:{id:ids},
-                success:function(res){
-                    // if(res=='success') alert('取消成功!');
-                    // button.attr('disabled',false);
-                    // location.reload();
-                     if(res=='success') {
-                     button.attr('disabled',false);
-                     $.pjax.reload({container:"#debit-list"});  //Reload GridView
-                }
-    
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    button.attr('disabled',false);
-                }
-                
-                });
-          
+$requestAuditUrl = Url::toRoute('update');
+$auditJs = <<<JS
+        $('.data-audit').on('click', function () {
+            $.get('{$requestAuditUrl}', { id: $(this).closest('tr').data('key') },
+                function (data) {
+                    $('.modal-body').html(data);
+                }  
+            );
         });
 JS;
+$this->registerJs($auditJs);
 
-
-
-$this->registerJs($is_submit_manager);
 ?>
