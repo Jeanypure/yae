@@ -153,6 +153,15 @@ echo Form::widget([
     ]
 ]);
 
+echo Form::widget([
+    'model'=>$purinfo,
+    'form'=>$form,
+    'columns'=>6,
+    'attributes'=>[       // 4 column layout
+        'trading_company'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],
+    ]
+]);
+
 
 ?>
 <?php ActiveForm::end(); ?>
@@ -238,6 +247,23 @@ $preview_js= <<<JS
 
 JS;
 $this->registerJs($preview_js);
+?>
+
+<?php
+//供应商 是 1  提示可能 不退税
+$remaind = <<<JS
+    $(function() {
+      var is_trading = $('#purinfo-trading_company').val();
+      if(is_trading == 1){
+           var str = '供应商是贸易公司可能不退税!';
+          alert(str);
+      } 
+    });
+JS;
+$this->registerJs($remaind);
+
+
+
 ?>
 
 

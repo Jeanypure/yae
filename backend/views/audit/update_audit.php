@@ -123,7 +123,7 @@ echo Form::widget([
     'attributes'=>[       // 4 column layout
         'pd_pur_costprice'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],//含税价格
         'bill_tax_rebate'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],   //退税率
-            'bill_rebate_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],   //退税e
+        'bill_rebate_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],   //退税e
         'shipping_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']], //海运运费
         'oversea_shipping_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],//海外仓运费
 
@@ -151,6 +151,16 @@ echo Form::widget([
         'ams_logistics_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
         'gross_profit_amz'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
         'profit_rate_amz'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+
+    ]
+]);
+echo Form::widget([
+    'model'=>$purinfo,
+    'form'=>$form,
+    'columns'=>6,
+    'attributes'=>[       // 4 column layout
+        'trading_company'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],
+
 
     ]
 ]);
@@ -241,4 +251,19 @@ JS;
 $this->registerJs($preview_js);
 ?>
 
+<?php
+//供应商 是 1  提示可能 不退税
+$remaind = <<<JS
+    $(function() {
+      var is_trading = $('#purinfo-trading_company').val();
+      if(is_trading == 1){
+          var str = "供应商是贸易公司可能不退税!";
+          alert(str);
+      } 
+    });
+JS;
+$this->registerJs($remaind);
 
+
+
+?>
