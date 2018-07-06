@@ -41,7 +41,7 @@ class DepartmentDebitSearch extends YaeFreight
      */
     public function search($params)
     {
-        $query = YaeFreight::find();
+        $query = YaeFreight::find()->where(['to_minister'=> 1]);
 
         // add conditions that should always apply here
 
