@@ -27,7 +27,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'pd_length',
             'pd_width',
             'pd_height',
-            'is_huge',
+            [
+                'attribute'=>'is_huge',
+                'format'=>'raw',
+                'value' => function ($model) {
+                    if($model->is_huge ==1 ){
+                        return '是';
+                    }else{
+                        return '否';
+                    }
+                },
+            ],
+
             'pd_weight',
             'pd_throw_weight',
             'pd_count_weight',
@@ -35,7 +46,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'pd_purchase_num',
             'pd_pur_costprice',
             'old_costprice',
-            'has_shipping_fee',
+            [
+                'attribute'=>'has_shipping_fee',
+                'format'=>'raw',
+                'value' => function ($model) {
+                    if($model->has_shipping_fee ==1 ){
+                        return '是';
+                    }else{
+                        return '否';
+                    }
+                },
+            ],
+
             'bill_type',
             'hs_code',
             'bill_tax_rebate',
@@ -77,6 +99,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'gross_profit_amz',
             'profit_rate_amz',
             'remark',
+            [
+                'attribute'=>'trading_company',
+                'format'=>'raw',
+                'value' => function ($model) {
+                        if($model->trading_company ==1 ){
+                            return '是';
+                        }else{
+                            return '否';
+                        }
+                },
+            ],
+
         ],
     ]) ?>
 

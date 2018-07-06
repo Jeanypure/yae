@@ -267,12 +267,11 @@ $readonly_js =<<<JS
                 return html.replace(/(.*?)/, "<span style = 'color:red'><big>*$1</big></span>");
             });
             
-            if(master_result==2)
-            {
-                $('#reappraisal').show();
-            }else{
-                 $('#reappraisal').hide();
-            }
+            $("#reappraisal").hide();
+
+            var master_result = $('#purinfo-master_result').val();
+            if(master_result==2){ $('#reappraisal').show();}
+
 
 
         });
