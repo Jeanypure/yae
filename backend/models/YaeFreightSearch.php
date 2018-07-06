@@ -41,7 +41,15 @@ class YaeFreightSearch extends YaeFreight
      */
     public function search($params)
     {
-        $query = YaeFreight::find();
+        $username = Yii::$app->user->identity->username;
+        if($username=='Jenny'||$username=='Winnie'||$username=='David'||$username=='Mark'){
+            $query = YaeFreight::find();
+
+        }else{
+            $query = YaeFreight::find()
+                ->andWhere(['builder'=>$username])
+            ;
+        }
 
         // add conditions that should always apply here
 
