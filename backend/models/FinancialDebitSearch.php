@@ -41,7 +41,9 @@ class FinancialDebitSearch extends YaeFreight
      */
     public function search($params)
     {
-        $query = YaeFreight::find();
+        $query = YaeFreight::find()
+        ->andWhere(['to_financial'=>1])
+        ;
 
         // add conditions that should always apply here
 

@@ -157,11 +157,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions'=>['placeholder'=>'财务处理?'],
 
             ],
-
-
-
             'mini_res',
             'fina_res',
+            'builder',
+            'build_at',
+            'update_at',
         ],
     ]); ?>
     <?php Pjax::end() ?>

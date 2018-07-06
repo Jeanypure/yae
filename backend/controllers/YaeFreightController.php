@@ -75,7 +75,9 @@ class YaeFreightController extends Controller
     {
         $model = new YaeFreight();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->builder = Yii::$app->user->identity->username;
+            $model->save();
             $this->actionFee($model->id);
             return $this->redirect(['view', 'id' => $model->id]);
         }

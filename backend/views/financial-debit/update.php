@@ -98,6 +98,8 @@ $this->params['breadcrumbs'][] = 'Update';
                         return 'CAD';
                     }elseif ($model->currency==4){
                         return 'EUR';
+                    }elseif ($model->currency==5){
+                        return 'RMB';
                     }
 
                 },
