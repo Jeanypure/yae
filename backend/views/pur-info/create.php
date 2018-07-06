@@ -150,6 +150,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     'label'=>"<span style = 'color:red'><big>*</big></span>是否含运费",
                     'items'=>[1=>'是', 0=>'否'],
                     'options'=>['placeholder'=>'']],
+                'trading_company'=>[
+                    'type'=>Form::INPUT_RADIO_LIST,
+                    'label'=>"<span style = 'color:red'><big>*</big></span>供应商是否是贸易公司",
+                    'items'=>[1=>'是', 0=>'否'],
+                    'options'=>['placeholder'=>'']],
+
 
             ]
         ]);
