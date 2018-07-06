@@ -171,7 +171,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                'filterInputOptions'=>['placeholder'=>'评审状态'],
+                'filterInputOptions'=>['placeholder'=>'是否评'],
 //                'group'=>true,  // enable grouping
 
             ],
