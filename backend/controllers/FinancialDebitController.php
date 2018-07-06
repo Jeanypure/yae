@@ -96,6 +96,10 @@ class FinancialDebitController extends Controller
         ]);
 
         if ($model->load(Yii::$app->request->post()) ) {
+            $payer = Yii::$app->user->identity->username;
+            $pay_at = date('Y-m-d H:i:s');
+            $model->payer = $payer ;
+            $model->pay_at = $pay_at ;
             $model->fina_deal = 1 ;
             $model->save();
             return $this->redirect(['index']);
