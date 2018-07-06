@@ -33,6 +33,27 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'bill_to',
+            [
+                'attribute'=>'bill_to',
+                'format'=>'raw',
+                'value' => function ($model) {
+                    if($model->bill_to ==1 ){
+                        return '上海商舟船舶用品有限公司';
+                    }elseif($model->bill_to ==2 ){
+                        return '上海雅耶贸易有限公司';
+                    }elseif($model->bill_to ==3 ){
+                        return '上海朗探贸易有限公司';
+                    }elseif($model->bill_to ==4 ){
+                        return '上海域聪贸易有限公司';
+                    }elseif($model->bill_to ==5 ){
+                        return '上海朋侯贸易有限公司';
+                    }elseif($model->bill_to ==6 ){
+                        return '上海客尊贸易有限公司';
+                    }
+
+                },
+            ],
+
             'receiver',
             'shipment_id',
             'pod',
