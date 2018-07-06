@@ -41,7 +41,21 @@ class DepartmentDebitSearch extends YaeFreight
      */
     public function search($params)
     {
-        $query = YaeFreight::find()->where(['to_minister'=> 1]);
+        $username = Yii::$app->user->identity->username;
+        $res = Company::find()->select('id,sub_company')
+            ->where("leader_id=".Yii::$app->user->identity->getId())->asArray()->one();
+
+        $pur_group = $res['id']??'';
+        if($username=='Jenny'||$username=='David'||$username=='Mark'||$username=='Winnie') {
+            $query = YaeFreight::find()->where(['to_minister'=> 1]);
+
+        }else{
+            $query = YaeFreight::find()
+                ->where(['to_minister'=> 1])
+                ->andWhere(['bill_to'=>$pur_group])
+            ;
+
+        }
 
         // add conditions that should always apply here
 
