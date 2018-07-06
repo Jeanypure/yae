@@ -21,6 +21,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'no_site')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'memo')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'full_name')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

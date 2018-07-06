@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'has_site',
             'no_site',
             'memo',
+            'full_name',
         ],
     ]) ?>
 
