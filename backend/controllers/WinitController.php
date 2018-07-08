@@ -40,11 +40,10 @@ class WinitController  extends \yii\base\Controller
 
 
     public  function actionRequest(){
-      $base_url = 'http://api.winit.com.cn/ADInterface/api';
-      $data = '{"action":"queryWarehouse","app_key":"amarinestore@gmail.com","data":{},"format":"json","language":"zh_CN","platform":"YYNETSUITE","sign":"564B2C2916E11B39A1BA11CD68ADAAD4","sign_method":"md5","timestamp":"","version":"1.0","client_id":"NDK1ODCWMZITMDRMNC00YZJILWFLMMITZGQYOTFKOTDJNWZM","client_sign":"237E38239B723F1A3453615DAEB50B4E"}';
-      echo $this->actionDoCurlPostRequest($base_url, $data);
-
-
+        $param  =  Yii::$app->request->post();
+        $base_url = $param['url'];
+        $data = json_encode($param['data'],JSON_FORCE_OBJECT);
+        echo $this->actionDoCurlPostRequest($base_url, $data);
     }
 
     public function actionDoCurlPostRequest($url,$requestString,$timeout = 5){
