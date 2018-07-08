@@ -40,10 +40,15 @@ class WinitController  extends \yii\base\Controller
 
 
     public  function actionRequest(){
-        $param  =  Yii::$app->request->post();
-        $base_url = $param['url'];
-        $data = json_encode($param['data'],JSON_FORCE_OBJECT);
-        echo $this->actionDoCurlPostRequest($base_url, $data);
+        if(Yii::$app->request->isGet){
+            echo '请用POST请求!';
+        }else{
+            $param  =  Yii::$app->request->post();
+            $base_url = $param['url'];
+            $data = json_encode($param['data'],JSON_FORCE_OBJECT);
+            echo $this->actionDoCurlPostRequest($base_url, $data);
+        }
+
     }
 
     public function actionDoCurlPostRequest($url,$requestString,$timeout = 5){
