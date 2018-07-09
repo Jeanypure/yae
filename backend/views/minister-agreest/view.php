@@ -39,10 +39,23 @@ $this->params['breadcrumbs'][] = $this->title;
             'mark',
             ['attribute'=>'fee_return',
                 'value'=>function($model){
-                    if($model->fee_return==0){
+                    if($model->fee_return==1){
                         return "是";
-                    }else{
+                    }elseif($model->fee_return==0){
                         return "否";
+                    }elseif($model->fee_return==2){
+                        return "其他";
+                    }
+                }
+            ],
+            ['attribute'=>'for_free',
+                'value'=>function($model){
+                    if($model->for_free==1){
+                        return "是";
+                    }elseif($model->for_free==0){
+                        return "否";
+                    }elseif($model->for_free==2){
+                        return "其他";
                     }
                 }
             ],

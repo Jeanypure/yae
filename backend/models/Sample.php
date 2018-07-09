@@ -25,6 +25,7 @@ use yii\behaviors\TimestampBehavior;
  * @property int $applicant 申请人
  * @property string $create_date 创建时间
  * @property string $lastop_date 最后处理时间
+ * @property int $for_free 批量采购是否赠送样品 默认是2  0否 1是
  */
 class Sample extends \yii\db\ActiveRecord
 {
@@ -43,7 +44,7 @@ class Sample extends \yii\db\ActiveRecord
     {
         return [
             [['spur_info_id','fee_return','is_agreest'], 'required'],
-            [['spur_info_id', 'is_audit', 'is_agreest',  'fee_return', 'audit_mem1', 'applicant'], 'integer'],
+            [['for_free', 'spur_info_id', 'is_audit', 'is_agreest',  'fee_return', 'audit_mem1', 'applicant'], 'integer'],
             [['procurement_cost', 'sample_freight', 'else_fee', 'pay_amount'], 'number'],
             [['create_date', 'lastop_date'], 'safe'],
             [['pay_way', 'mark'], 'string', 'max' => 500],
@@ -68,9 +69,8 @@ class Sample extends \yii\db\ActiveRecord
             'mark' => '备注',
             'is_audit' => '审批状态',
             'is_agreest' => '部长是否同意支付样品费',
-            'fee_return' => '是否退样品费',
+            'fee_return' => '能否退样品退样品费?',
             'audit_mem1' => '财务审核人',
-
             'applicant' => '申请人',
             'create_date' => '经理同意采样日期', //经理同意采样日期
             'lastop_date' => '最近操作日期',
@@ -78,6 +78,7 @@ class Sample extends \yii\db\ActiveRecord
             'has_refund' => '是否确定退款?',
             'sure_remark' => '确定退款人备注',
             'sure_refund_men' => '确定退款人',
+            'for_free' => '批量采购是否赠送样品(即不退样品只退样品费)?',
         ];
     }
 

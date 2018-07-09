@@ -39,9 +39,23 @@ use kartik\widgets\ActiveForm;
 
             'pay_way'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'mark'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'']],
+        ],
+
+    ]);
+    echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>6,
+        'attributes'=>[       // 6 column layout
             'fee_return'=>[
                 'type'=>Form::INPUT_RADIO_LIST,
-                'label'=>"<span style = 'color:red'><big>*</big></span>是否退样品费",
+                'label'=>"<span style = 'color:red'><big>*</big></span>能否退样品退样品费?",
+                'items'=>[1=>'是', 0=>'否'],
+                'options'=>['placeholder'=>'',]
+            ],
+            'for_free'=>[
+                'type'=>Form::INPUT_RADIO_LIST,
+                'label'=>"批量采购是否赠送样品(即不退样品只退样品费)?",
                 'items'=>[1=>'是', 0=>'否'],
                 'options'=>['placeholder'=>'',]
             ],
