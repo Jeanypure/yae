@@ -5,7 +5,7 @@ namespace backend\models;
 use Yii;
 
 /**
- * This is the model class for table "yae_freight".
+ * This is the model class for table "{{%yae_freight}}".
  *
  * @property int $id ID
  * @property string $bill_to 付款方
@@ -13,9 +13,25 @@ use Yii;
  * @property string $shipment_id 货单号
  * @property string $pod 目的港
  * @property string $pol 装货港
- * @property string $etd 预计离泊时间
- * @property string $eta 预计到达时间
  * @property string $remark 备注
+ * @property string $image 图片地址
+ * @property int $to_minister 0 未提交 1 已提交
+ * @property int $to_financial 0 未提交 1 已提交
+ * @property int $mini_deal 0 未处理 1 已处理
+ * @property int $fina_deal 0 未处理 1 已处理
+ * @property string $mini_res 部长处理结果
+ * @property string $fina_res 财务处理结果
+ * @property string $builder 建单人
+ * @property string $build_at 建单时间
+ * @property string $update_at 更新时间
+ * @property string $payer 付款人
+ * @property string $pay_at 付款时间
+ * @property string $etd ETD
+ * @property string $eta ETA
+ * @property string $contract_no 合同号
+ * @property string $debit_no 单号号
+ *
+ * @property FreightFee[] $freightFees
  */
 class YaeFreight extends \yii\db\ActiveRecord
 {
@@ -24,7 +40,7 @@ class YaeFreight extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'yae_freight';
+        return '{{%yae_freight}}';
     }
 
     /**
@@ -34,12 +50,14 @@ class YaeFreight extends \yii\db\ActiveRecord
     {
         return [
             [['bill_to', 'receiver', 'shipment_id', 'pod', 'pol'], 'required'],
-            [['builder','build_at','update_at','to_minister','to_financial','mini_deal','fina_deal','mini_res','fina_res',
-                'etd', 'eta', 'image'], 'safe'],
-            [['mini_res','fina_res','bill_to', 'receiver', 'image'], 'string', 'max' => 200],
+            [['to_minister', 'to_financial', 'mini_deal', 'fina_deal'], 'integer'],
+            [['build_at', 'update_at', 'pay_at', 'etd', 'eta'], 'safe'],
+            [['bill_to', 'receiver', 'image', 'mini_res', 'fina_res'], 'string', 'max' => 200],
             [['shipment_id'], 'string', 'max' => 100],
-            [['pod', 'pol'], 'string', 'max' => 60],
+            [['pod', 'pol', 'builder'], 'string', 'max' => 60],
             [['remark'], 'string', 'max' => 500],
+            [['payer'], 'string', 'max' => 30],
+            [['contract_no', 'debit_no'], 'string', 'max' => 32],
         ];
     }
 
@@ -53,24 +71,33 @@ class YaeFreight extends \yii\db\ActiveRecord
             'bill_to' => 'Bill To',
             'receiver' => 'Receiver',
             'shipment_id' => 'Shipment ID',
-            'pod' => 'P.O.D',
-            'pol' => 'P.O.L',
-            'etd' => 'ETD',
-            'eta' => 'ETA',
+            'pod' => 'Pod',
+            'pol' => 'Pol',
             'remark' => 'Remark',
             'image' => 'Image',
-            'to_minister' => 'to_minister',
-            'to_financial' => 'to_financial',
-            'mini_deal' => 'mini_deal',
-            'fina_deal' => 'fina_deal',
-            'mini_res' => '部长备注',
-            'fina_res' => '财务备注',
-            'builder' => '创建人',
-            'build_at' => '创建时间',
-            'update_at' => '最近修改时间',
-//            builder
-//build_at
-//update_at
+            'to_minister' => 'To Minister',
+            'to_financial' => 'To Financial',
+            'mini_deal' => 'Mini Deal',
+            'fina_deal' => 'Fina Deal',
+            'mini_res' => 'Mini Res',
+            'fina_res' => 'Fina Res',
+            'builder' => 'Builder',
+            'build_at' => 'Build At',
+            'update_at' => 'Update At',
+            'payer' => 'Payer',
+            'pay_at' => 'Pay At',
+            'etd' => 'Etd',
+            'eta' => 'Eta',
+            'contract_no' => '合同号',
+            'debit_no' => '单号',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFreightFees()
+    {
+        return $this->hasMany(FreightFee::className(), ['freight_id' => 'id']);
     }
 }

@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'bill_to',
+
             [
                 'attribute'=>'bill_to',
                 'format'=>'raw',
@@ -53,8 +53,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 },
             ],
-
             'receiver',
+            'contract_no',
+            'debit_no',
             'shipment_id',
             'pod',
             'pol',

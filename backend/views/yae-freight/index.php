@@ -32,7 +32,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn',
                 'header' => '操作'
             ],
-            'shipment_id',
             [
                 'attribute'=>'bill_to',
                 'value' => function($model) {
@@ -65,6 +64,19 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
+            'contract_no',
+            'debit_no',
+            'shipment_id',
+//            [
+//                'attribute'=>'shipment_id',
+//                'value' => function($model) { return $model->shipment_id;},
+//                'contentOptions'=> ['style' => 'width: 20%; word-wrap: break-word;'],
+//                'format'=>'raw',
+//                'headerOptions' => [
+//                    'width'=>'20%'
+//                ],
+//            ],
+
             'pod',
             'pol',
             'etd',
