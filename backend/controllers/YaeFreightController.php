@@ -77,9 +77,8 @@ class YaeFreightController extends Controller
 
         if ($model->load(Yii::$app->request->post()) ) {
             $model->builder = Yii::$app->user->identity->username;
-
             $model->save();
-            $this->actionFee($model->id);
+//            $this->actionFee($model->id);
             return $this->redirect(['view', 'id' => $model->id]);
         }
         return $this->render('create', [
@@ -103,7 +102,6 @@ class YaeFreightController extends Controller
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
         $query = FreightFee::find()->indexBy('id')->where(['freight_id'=>$id]); // where `id` is your primary key
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -111,6 +109,9 @@ class YaeFreightController extends Controller
                 'pageSize' => 30,
             ],
         ]);
+
+        //        $this->actionFee($model->id);
+
 
         return $this->render('update', [
             'model' => $model,

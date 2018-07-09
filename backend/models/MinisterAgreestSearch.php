@@ -54,7 +54,7 @@ class MinisterAgreestSearch extends PurInfo
                     `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
                     `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
                     `pur_info`.sample_submit2,`pur_info`.is_quality,`pur_info`.submit2_at,`pur_info`.is_purchase,`pur_info`.submit2_at,`pur_info`.submit1_at,`pur_info`.sample_return,  
-                    `sample`.spur_info_id,`sample`.is_agreest'
+                    `sample`.spur_info_id,`sample`.is_agreest,`sample`.for_free'
                 ])
                 ->joinWith('sample')
                 ->andWhere(['sample_submit1'=>1])
@@ -66,7 +66,7 @@ class MinisterAgreestSearch extends PurInfo
                     `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
                     `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
                     `pur_info`.sample_submit2,`pur_info`.is_quality,`pur_info`.submit1_at,`pur_info`.is_purchase, `pur_info`.submit2_at,`pur_info`.submit1_at,`pur_info`.sample_return,   
-                    `sample`.spur_info_id,`sample`.is_agreest'])
+                    `sample`.spur_info_id,`sample`.is_agreest,`sample`.for_free'])
                 ->joinWith('sample')
                 ->andWhere(['pur_group'=>$pur_group])
                 ->andWhere(['sample_submit1'=>1])

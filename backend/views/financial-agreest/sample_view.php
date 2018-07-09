@@ -57,11 +57,19 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 },
             ],
-//            'audit_mem1',
-//            'audit_mem2',
-//            'audit_mem3',
-//            'applicant',
-//            'purchaser',
+            [
+                'attribute'=> 'for_free',
+                'value'=> function($model){
+                    if($model->for_free==1){
+                        return '是';
+                    }elseif($model->for_free==0){
+                        return '否';
+                    }elseif($model->for_free==2){
+                        return '其他';
+                    }
+                },
+            ],
+
             'create_date',
 //            'lastop_date',
         ],

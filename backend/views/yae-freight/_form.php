@@ -43,8 +43,10 @@ use kartik\select2\Select2;
             'form' => $form,
             'columns' => 4,
             'attributes' => [
-                'receiver' => ['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter ...']],
-                'shipment_id' => ['type'=>Form::INPUT_TEXT],
+                'receiver' => ['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'contract_no' => ['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'debit_no' => ['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'shipment_id' => ['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'多个 Shipment ID , 号分割']],
 
             ]
         ]);
