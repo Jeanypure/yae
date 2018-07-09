@@ -69,7 +69,7 @@ class Sample extends \yii\db\ActiveRecord
             'mark' => '备注',
             'is_audit' => '审批状态',
             'is_agreest' => '部长是否同意支付样品费',
-            'fee_return' => '是否退样品退样品费',
+            'fee_return' => '能否退样品退样品费?',
             'audit_mem1' => '财务审核人',
             'applicant' => '申请人',
             'create_date' => '经理同意采样日期', //经理同意采样日期
@@ -78,7 +78,7 @@ class Sample extends \yii\db\ActiveRecord
             'has_refund' => '是否确定退款?',
             'sure_remark' => '确定退款人备注',
             'sure_refund_men' => '确定退款人',
-            'for_free' => '批量采购是否赠送样品',
+            'for_free' => '批量采购是否赠送样品(即不退样品只退样品费)?',
         ];
     }
 
