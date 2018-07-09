@@ -55,7 +55,7 @@ use kartik\widgets\ActiveForm;
             ],
             'for_free'=>[
                 'type'=>Form::INPUT_RADIO_LIST,
-                'label'=>"批量采购是否赠送样品",
+                'label'=>"批量采购是否赠送样品(即不退样品只退样品费)?",
                 'items'=>[1=>'是', 0=>'否'],
                 'options'=>['placeholder'=>'',]
             ],
