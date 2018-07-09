@@ -49,7 +49,7 @@ use kartik\widgets\ActiveForm;
         'attributes'=>[       // 6 column layout
             'fee_return'=>[
                 'type'=>Form::INPUT_RADIO_LIST,
-                'label'=>"<span style = 'color:red'><big>*</big></span>是否退样品退样费",
+                'label'=>"<span style = 'color:red'><big>*</big></span>能否退样品退样品费?",
                 'items'=>[1=>'是', 0=>'否'],
                 'options'=>['placeholder'=>'',]
             ],
