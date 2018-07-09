@@ -48,7 +48,7 @@ class FinancialAgreestSearch extends PurInfo
                     `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
                     `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
                     `pur_info`.payer,`pur_info`.pay_at,`pur_info`.has_pay,`pur_info`.sample_return, 
-                    `sample`.pay_amount'
+                    `sample`.pay_amount,`sample`.for_free'
             ])
             ->joinWith('sample')
         ->andWhere(['sample_submit1'=>1])

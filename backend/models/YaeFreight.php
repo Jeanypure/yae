@@ -10,7 +10,7 @@ use Yii;
  * @property int $id ID
  * @property string $bill_to 付款方
  * @property string $receiver 收款方
- * @property string $shipment_id 货单号
+ * @property string $shipment_id FBA单号
  * @property string $pod 目的港
  * @property string $pol 装货港
  * @property string $remark 备注
@@ -49,11 +49,10 @@ class YaeFreight extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['bill_to', 'receiver', 'shipment_id', 'pod', 'pol'], 'required'],
+            [['bill_to', 'receiver', 'pod', 'pol'], 'required'],
             [['to_minister', 'to_financial', 'mini_deal', 'fina_deal'], 'integer'],
             [['build_at', 'update_at', 'pay_at', 'etd', 'eta'], 'safe'],
-            [['bill_to', 'receiver', 'image', 'mini_res', 'fina_res'], 'string', 'max' => 200],
-            [['shipment_id'], 'string', 'max' => 100],
+            [['bill_to', 'receiver', 'shipment_id', 'image', 'mini_res', 'fina_res'], 'string', 'max' => 200],
             [['pod', 'pol', 'builder'], 'string', 'max' => 60],
             [['remark'], 'string', 'max' => 500],
             [['payer'], 'string', 'max' => 30],
@@ -88,8 +87,8 @@ class YaeFreight extends \yii\db\ActiveRecord
             'pay_at' => 'Pay At',
             'etd' => 'Etd',
             'eta' => 'Eta',
-            'contract_no' => '合同号',
-            'debit_no' => '单号',
+            'contract_no' => 'Contract No',
+            'debit_no' => 'Debit No',
         ];
     }
 
