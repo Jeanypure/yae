@@ -48,7 +48,7 @@ class WinitController  extends \yii\base\Controller
             $data = json_encode($param['data'],JSON_FORCE_OBJECT);
             $request_date = date('Y-m-d H:m:s');
              Yii::$app->db->createCommand("
-             insert into winit_api (`url`,`action`,`request_date`) values ('$base_url','$data','$request_date')
+             insert into winit_api (`url`,`action`,`request_date`) values ('$base_url','{$data}','$request_date')
              ")->execute();
             echo $this->actionDoCurlPostRequest($base_url, $data);
         }
