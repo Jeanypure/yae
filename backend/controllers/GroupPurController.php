@@ -90,8 +90,20 @@ class GroupPurController extends Controller
     {
         $model = $this->findModel($id);
         $rate = $this->actionExchangeRate();
-
         if ($model->load(Yii::$app->request->post()) ) {
+            if($model->brocast_status == 2){ //如果结束公示在更新部门 同步更新评审表的member2
+                try{
+                $pur_group = Yii::$app->request->post()['PurInfo']['pur_group'];
+                $result  =   Yii::$app->db->createCommand("
+                 update `preview` set `member2`= (select leader from company where sub_company= $pur_group)
+                 where `product_id`=$id   and   `member2`  in (select leader from company )
+                ")->execute();
+
+                }catch(Exception $e){
+                    throw new Exception();
+                }
+
+            }
             $model->save(false);
             return $this->redirect(['index']);
         }
