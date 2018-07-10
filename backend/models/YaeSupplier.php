@@ -20,6 +20,19 @@ use Yii;
  * @property string $pay_name 收款人名称
  * @property string $pay_bank 收款银行备注,填写银行名称，支行名称
  * @property string $sup_remark 注意事项
+ * @property int $pay_cycleTime_type 支付周期类型 1日结,2周结,3半月结,4月结,5隔月结 0 其他
+ * @property int $account_type 供应商结算方式：1、货到付款。2、款到发货。3、周期结算。4、售后付款。5、默认方式（针对市场随意采购，无具体供应商信息的类型）
+ * @property string $account_proportion 预付比例%
+ * @property int $has_cooperate 是否为合作过的供应商 0 否 1是 
+ * @property string $bill_img1 发票01
+ * @property string $bill_img1_name_unit 发票01的开票品名和单位
+ * @property string $bill_img2 发票02
+ * @property string $bill_img2_name_unit 发票02的开票品名和单位
+ * @property string $complete_num 资料提交齐全度%
+ * @property int $licence_pass 营业执照审核通过 0 否 1 是 2未审核
+ * @property int $bill_pass 开票资质审核通过 0 否 1 是 2未审核
+ * @property int $bank_data_pass 银行信息审核通过0 否 1 是 2未审核
+ * @property string $supplier_address 供应商地址
  */
 class YaeSupplier extends \yii\db\ActiveRecord
 {
@@ -37,13 +50,20 @@ class YaeSupplier extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['bill_type'], 'integer'],
+            [['bill_type', 'pay_cycleTime_type', 'account_type', 'has_cooperate', 'licence_pass', 'bill_pass', 'bank_data_pass'], 'integer'],
             [['supplier_code', 'bill_unit', 'submitter'], 'string', 'max' => 32],
             [['supplier_name', 'pd_bill_name'], 'string', 'max' => 64],
-            [['business_licence', 'bank_account_data'], 'string', 'max' => 200],
-            [['pay_card', 'pay_name', 'pay_bank'], 'string', 'max' => 128],
+            [['business_licence', 'bank_account_data', 'bill_img1', 'bill_img2'], 'string', 'max' => 200],
+            [['pay_card', 'pay_name', 'pay_bank', 'bill_img1_name_unit', 'bill_img2_name_unit'], 'string', 'max' => 128],
             [['sup_remark'], 'string', 'max' => 256],
+            [['account_proportion', 'complete_num'], 'string', 'max' => 20],
+            [['supplier_address'], 'string', 'max' => 216],
             [['supplier_code'], 'unique'],
+            [['supplier_code','supplier_name','supplier_address','pay_cycleTime_type','account_type','account_proportion',
+                'has_cooperate','submitter','pay_bank','pay_card','pay_name','pd_bill_name','bill_unit','bill_type',
+                'business_licence','bank_account_data'
+            ],
+                'required'],
         ];
     }
 
@@ -56,16 +76,30 @@ class YaeSupplier extends \yii\db\ActiveRecord
             'id' => 'ID',
             'supplier_code' => '供应商代码',
             'supplier_name' => '供应商名称',
+            'supplier_address' => '供应商地址',
             'pd_bill_name' => '开票品名',
             'bill_unit' => '开票单位',
-            'submitter' => '资料提交人',
+            'submitter' => '默认产品开发员',
             'bill_type' => '开票类型',
-            'business_licence' => '供应商执照',
+            'business_licence' => '营业执照',
             'bank_account_data' => '银行开户资料',
             'pay_card' => '收款卡号',
             'pay_name' => '收款人名称',
-            'pay_bank' => '支行名称',
+            'pay_bank' => '开户银行',
             'sup_remark' => '注意事项',
+            'pay_cycleTime_type' => '支付周期类型',
+            'account_type' => '结算方式',
+            'account_proportion' => '预付比例%',
+            'has_cooperate' => '是否合作过',
+            'bill_img1' => '发票01',
+            'bill_img1_name_unit' => '发票01的开票品名和单位',
+            'bill_img2' => '发票02',
+            'bill_img2_name_unit' => '发票02的开票品名和单位',
+            'complete_num' => '资料提交齐全度%',
+            'licence_pass' => '营业执照审核通过',
+            'bill_pass' => '开票资质审核通过',
+            'bank_data_pass' => '银行信息审核通过',
         ];
+
     }
 }

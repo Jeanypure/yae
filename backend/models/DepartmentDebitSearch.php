@@ -5,12 +5,12 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\YaeFreight;
+use backend\models\YaeSupplier;
 
 /**
- * DepartmentDebitSearch represents the model behind the search form of `backend\models\YaeFreight`.
+ * DepartmentDebitSearch represents the model behind the search form of `backend\models\YaeSupplier`.
  */
-class DepartmentDebitSearch extends YaeFreight
+class DepartmentDebitSearch extends YaeSupplier
 {
     /**
      * {@inheritdoc}
@@ -18,8 +18,8 @@ class DepartmentDebitSearch extends YaeFreight
     public function rules()
     {
         return [
-            [['id', 'to_minister', 'to_financial', 'mini_deal', 'fina_deal'], 'integer'],
-            [['bill_to', 'receiver', 'shipment_id', 'pod', 'pol', 'etd', 'eta', 'remark', 'image', 'mini_res', 'fina_res'], 'safe'],
+            [['id', 'bill_type', 'pay_cycleTime_type', 'account_type', 'has_cooperate', 'licence_pass', 'bill_pass', 'bank_data_pass'], 'integer'],
+            [['supplier_code', 'supplier_name', 'pd_bill_name', 'bill_unit', 'submitter', 'business_licence', 'bank_account_data', 'pay_card', 'pay_name', 'pay_bank', 'sup_remark', 'account_proportion', 'bill_img1', 'bill_img1_name_unit', 'bill_img2', 'bill_img2_name_unit', 'complete_num'], 'safe'],
         ];
     }
 
@@ -41,21 +41,7 @@ class DepartmentDebitSearch extends YaeFreight
      */
     public function search($params)
     {
-        $username = Yii::$app->user->identity->username;
-        $res = Company::find()->select('id,sub_company')
-            ->where("leader_id=".Yii::$app->user->identity->getId())->asArray()->one();
-
-        $pur_group = $res['id']??'';
-        if($username=='Jenny'||$username=='David'||$username=='Mark'||$username=='Winnie') {
-            $query = YaeFreight::find()->where(['to_minister'=> 1]);
-
-        }else{
-            $query = YaeFreight::find()
-                ->where(['to_minister'=> 1])
-                ->andWhere(['bill_to'=>$pur_group])
-            ;
-
-        }
+        $query = YaeSupplier::find();
 
         // add conditions that should always apply here
 
@@ -74,23 +60,32 @@ class DepartmentDebitSearch extends YaeFreight
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'etd' => $this->etd,
-            'eta' => $this->eta,
-            'to_minister' => $this->to_minister,
-            'to_financial' => $this->to_financial,
-            'mini_deal' => $this->mini_deal,
-            'fina_deal' => $this->fina_deal,
+            'bill_type' => $this->bill_type,
+            'pay_cycleTime_type' => $this->pay_cycleTime_type,
+            'account_type' => $this->account_type,
+            'has_cooperate' => $this->has_cooperate,
+            'licence_pass' => $this->licence_pass,
+            'bill_pass' => $this->bill_pass,
+            'bank_data_pass' => $this->bank_data_pass,
         ]);
 
-        $query->andFilterWhere(['like', 'bill_to', $this->bill_to])
-            ->andFilterWhere(['like', 'receiver', $this->receiver])
-            ->andFilterWhere(['like', 'shipment_id', $this->shipment_id])
-            ->andFilterWhere(['like', 'pod', $this->pod])
-            ->andFilterWhere(['like', 'pol', $this->pol])
-            ->andFilterWhere(['like', 'remark', $this->remark])
-            ->andFilterWhere(['like', 'image', $this->image])
-            ->andFilterWhere(['like', 'mini_res', $this->mini_res])
-            ->andFilterWhere(['like', 'fina_res', $this->fina_res]);
+        $query->andFilterWhere(['like', 'supplier_code', $this->supplier_code])
+            ->andFilterWhere(['like', 'supplier_name', $this->supplier_name])
+            ->andFilterWhere(['like', 'pd_bill_name', $this->pd_bill_name])
+            ->andFilterWhere(['like', 'bill_unit', $this->bill_unit])
+            ->andFilterWhere(['like', 'submitter', $this->submitter])
+            ->andFilterWhere(['like', 'business_licence', $this->business_licence])
+            ->andFilterWhere(['like', 'bank_account_data', $this->bank_account_data])
+            ->andFilterWhere(['like', 'pay_card', $this->pay_card])
+            ->andFilterWhere(['like', 'pay_name', $this->pay_name])
+            ->andFilterWhere(['like', 'pay_bank', $this->pay_bank])
+            ->andFilterWhere(['like', 'sup_remark', $this->sup_remark])
+            ->andFilterWhere(['like', 'account_proportion', $this->account_proportion])
+            ->andFilterWhere(['like', 'bill_img1', $this->bill_img1])
+            ->andFilterWhere(['like', 'bill_img1_name_unit', $this->bill_img1_name_unit])
+            ->andFilterWhere(['like', 'bill_img2', $this->bill_img2])
+            ->andFilterWhere(['like', 'bill_img2_name_unit', $this->bill_img2_name_unit])
+            ->andFilterWhere(['like', 'complete_num', $this->complete_num]);
 
         return $dataProvider;
     }

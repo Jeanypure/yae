@@ -41,6 +41,32 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'sup_remark') ?>
 
+    <?php // echo $form->field($model, 'pay_cycleTime_type') ?>
+
+    <?php // echo $form->field($model, 'account_type') ?>
+
+    <?php // echo $form->field($model, 'account_proportion') ?>
+
+    <?php // echo $form->field($model, 'has_cooperate') ?>
+
+    <?php // echo $form->field($model, 'bill_img1') ?>
+
+    <?php // echo $form->field($model, 'bill_img1_name_unit') ?>
+
+    <?php // echo $form->field($model, 'bill_img2') ?>
+
+    <?php // echo $form->field($model, 'bill_img2_name_unit') ?>
+
+    <?php // echo $form->field($model, 'complete_num') ?>
+
+    <?php // echo $form->field($model, 'licence_pass') ?>
+
+    <?php // echo $form->field($model, 'bill_pass') ?>
+
+    <?php // echo $form->field($model, 'bank_data_pass') ?>
+
+    <?php // echo $form->field($model, 'supplier_address') ?>
+
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>

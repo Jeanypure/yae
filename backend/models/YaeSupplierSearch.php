@@ -18,8 +18,8 @@ class YaeSupplierSearch extends YaeSupplier
     public function rules()
     {
         return [
-            [['id', 'bill_type'], 'integer'],
-            [['supplier_code', 'supplier_name', 'pd_bill_name', 'bill_unit', 'submitter', 'business_licence', 'bank_account_data', 'pay_card', 'pay_name', 'pay_bank', 'sup_remark'], 'safe'],
+            [['id', 'bill_type', 'pay_cycleTime_type', 'account_type', 'has_cooperate', 'licence_pass', 'bill_pass', 'bank_data_pass'], 'integer'],
+            [['supplier_code', 'supplier_name', 'pd_bill_name', 'bill_unit', 'submitter', 'business_licence', 'bank_account_data', 'pay_card', 'pay_name', 'pay_bank', 'sup_remark', 'account_proportion', 'bill_img1', 'bill_img1_name_unit', 'bill_img2', 'bill_img2_name_unit', 'complete_num', 'supplier_address'], 'safe'],
         ];
     }
 
@@ -61,6 +61,12 @@ class YaeSupplierSearch extends YaeSupplier
         $query->andFilterWhere([
             'id' => $this->id,
             'bill_type' => $this->bill_type,
+            'pay_cycleTime_type' => $this->pay_cycleTime_type,
+            'account_type' => $this->account_type,
+            'has_cooperate' => $this->has_cooperate,
+            'licence_pass' => $this->licence_pass,
+            'bill_pass' => $this->bill_pass,
+            'bank_data_pass' => $this->bank_data_pass,
         ]);
 
         $query->andFilterWhere(['like', 'supplier_code', $this->supplier_code])
@@ -73,7 +79,14 @@ class YaeSupplierSearch extends YaeSupplier
             ->andFilterWhere(['like', 'pay_card', $this->pay_card])
             ->andFilterWhere(['like', 'pay_name', $this->pay_name])
             ->andFilterWhere(['like', 'pay_bank', $this->pay_bank])
-            ->andFilterWhere(['like', 'sup_remark', $this->sup_remark]);
+            ->andFilterWhere(['like', 'sup_remark', $this->sup_remark])
+            ->andFilterWhere(['like', 'account_proportion', $this->account_proportion])
+            ->andFilterWhere(['like', 'bill_img1', $this->bill_img1])
+            ->andFilterWhere(['like', 'bill_img1_name_unit', $this->bill_img1_name_unit])
+            ->andFilterWhere(['like', 'bill_img2', $this->bill_img2])
+            ->andFilterWhere(['like', 'bill_img2_name_unit', $this->bill_img2_name_unit])
+            ->andFilterWhere(['like', 'complete_num', $this->complete_num])
+            ->andFilterWhere(['like', 'supplier_address', $this->supplier_address]);
 
         return $dataProvider;
     }

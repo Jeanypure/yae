@@ -65,8 +65,10 @@ class YaeSupplierController extends Controller
     public function actionCreate()
     {
         $model = new YaeSupplier();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $username = Yii::$app->user->identity->username;
+        if ($model->load(Yii::$app->request->post()) ) {
+             $model->submitter = $username;
+             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
