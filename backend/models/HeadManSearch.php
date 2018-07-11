@@ -60,7 +60,7 @@ class HeadManSearch extends PurInfo
                  ->orderBy('pur_info_id desc')
              ;
          }
-
+        $this->view_status = 0 ;
 //        echo  $query->createCommand()->getRawSql();die;
 
         // add conditions that should always apply here
