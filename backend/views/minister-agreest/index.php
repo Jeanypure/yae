@@ -281,7 +281,7 @@ use yii\bootstrap\Modal;
 // 评审操作
 Modal::begin([
     'id' => 'audit-modal',
-    'header' => '<h4 class="modal-title">标记产品是否合格</h4>',
+    'header' => '<h4 class="modal-title">标记样品是否合格</h4>',
     'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>',
     'options'=>[
         'data-backdrop'=>'static',//点击空白处不关闭弹窗

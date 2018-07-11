@@ -28,13 +28,13 @@ use kartik\widgets\ActiveForm;
         'attributes'=>[       // 3 column layout
             'is_quality'=>[
                 'type'=>Form::INPUT_RADIO_LIST,
-                'label'=>"<span style = 'color:red'><big>*</big></span>样品质量是否合格",
+                'label'=>"<span style = 'color:red'><big>*</big></span>样品质量是否合格?",
                 'items'=>[1=>'是', 0=>'否'],
                 'options'=>['placeholder'=>'',]
             ],
             'is_purchase'=>[
                 'type'=>Form::INPUT_RADIO_LIST,
-                'label'=>"<span style = 'color:red'><big>*</big></span>是否采购",
+                'label'=>"<span style = 'color:red'><big>*</big></span>是否采购?",
                 'items'=>[1=>'是', 0=>'否'],
                 'options'=>['placeholder'=>'',]
             ],
