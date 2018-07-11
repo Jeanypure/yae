@@ -163,7 +163,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                'filterInputOptions'=>['placeholder'=>'评审状态'],
+                'filterInputOptions'=>['placeholder'=>'评审结果'],
             ],
             [
                 'attribute'=>'master_mark',

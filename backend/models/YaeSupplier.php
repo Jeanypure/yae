@@ -79,7 +79,7 @@ class YaeSupplier extends \yii\db\ActiveRecord
             'supplier_address' => '供应商地址',
             'pd_bill_name' => '开票品名',
             'bill_unit' => '开票单位',
-            'submitter' => '默认产品开发员',
+            'submitter' => '资料提交人',
             'bill_type' => '开票类型',
             'business_licence' => '营业执照',
             'bank_account_data' => '银行开户资料',
