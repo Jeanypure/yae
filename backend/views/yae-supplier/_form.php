@@ -129,17 +129,27 @@ use kartik\select2\Select2;
     echo Form::widget([
         'model'=>$model,
         'form'=>$form,
-        'columns'=>4,
+        'columns'=>6,
         'contentBefore'=>'<legend class="text-info"><h3>5.发票相关</h3></legend>',
         'attributes'=>[       // 3 column layout
             'bill_img1_name_unit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'bill_img2_name_unit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
         ],
 
     ]);
 
     echo $form->field($model, 'bill_img1')->widget('manks\FileInput', []);
-    echo $form->field($model, 'bill_img1')->widget('manks\FileInput', []);
+
+    echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>4,
+        'attributes'=>[       // 3 column layout
+            'bill_img2_name_unit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+        ],
+
+    ]);
+
+    echo $form->field($model, 'bill_img2')->widget('manks\FileInput', []);
 
     ?>
 
