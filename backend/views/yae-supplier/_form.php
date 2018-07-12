@@ -1,8 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-//use yii\widgets\ActiveForm;
-//use yii\helpers\Url;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\select2\Select2;
@@ -32,6 +30,7 @@ use kartik\select2\Select2;
     ]);
     echo $form->field($model, 'business_licence')->widget('manks\FileInput', []);
     ?>
+    <?= $form->field($model, 'bl_img_address') ?>
 
     <?php
     echo Form::widget([
@@ -123,6 +122,7 @@ use kartik\select2\Select2;
 
     ?>
 
+    <?= $form->field($model, 'bank_img_add') ?>
 
 
     <?php
@@ -138,6 +138,8 @@ use kartik\select2\Select2;
     ]);
 
     echo $form->field($model, 'bill_img1')->widget('manks\FileInput', []);
+        echo  $form->field($model, 'bill01_img_add') ;
+
 
     echo Form::widget([
         'model'=>$model,
@@ -150,7 +152,7 @@ use kartik\select2\Select2;
     ]);
 
     echo $form->field($model, 'bill_img2')->widget('manks\FileInput', []);
-
+    echo  $form->field($model, 'bill02_img_add') ;
     ?>
 
     <?php
@@ -195,3 +197,21 @@ use kartik\select2\Select2;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$tupian_address = <<<JS
+    $(function(){
+        var business_licence,bank_account_data,bill_img1,bill_img2;  //營業執照
+        business_licence = $('#yaesupplier-business_licence').val();
+        bank_account_data = $('#yaesupplier-bank_account_data').val();
+        bill_img1 = $('#yaesupplier-bill_img1').val();
+        bill_img2 = $('#yaesupplier-bill_img2').val();
+        $('#yaesupplier-bl_img_address').val('http://yaemart.com.cn/'+business_licence)
+        $('#yaesupplier-bank_img_add').val('http://yaemart.com.cn/'+bank_account_data)
+        $('#yaesupplier-bill01_img_add').val('http://yaemart.com.cn/'+bill_img1)
+        $('#yaesupplier-bill02_img_add').val('http://yaemart.com.cn/'+bill_img2)
+    })
+JS;
+$this->registerJs($tupian_address);
+
+?>

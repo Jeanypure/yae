@@ -36,6 +36,11 @@ use Yii;
  */
 class YaeSupplier extends \yii\db\ActiveRecord
 {
+
+    public  $bl_img_address;
+    public  $bank_img_add;
+    public  $bill01_img_add;
+    public  $bill02_img_add;
     /**
      * {@inheritdoc}
      */
@@ -99,7 +104,12 @@ class YaeSupplier extends \yii\db\ActiveRecord
             'licence_pass' => '营业执照审核通过',
             'bill_pass' => '开票资质审核通过',
             'bank_data_pass' => '银行信息审核通过',
+            'bl_img_address' => '营业执照图片地址',
+            'bank_img_add' => '银行开户资料图片地址',
+            'bill01_img_add' => '发票01图片地址',
+            'bill02_img_add' => '发票02图片地址',
         ];
 
     }
 }
+
