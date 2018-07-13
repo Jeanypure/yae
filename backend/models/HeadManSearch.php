@@ -55,6 +55,7 @@ class HeadManSearch extends PurInfo
              $query = PurInfo::find()
                  ->select(['`pur_info`.*,`headman`.view_status,`headman`.submit_manager,`headman`.result,`headman`.headman'])
                  ->joinWith('headman')
+                 ->distinct()
                  ->andWhere(['headman' => $username])
                  ->andWhere(['is_purchase' => 1])
                  ->orderBy('pur_info_id desc')
