@@ -126,4 +126,59 @@ class YaeSupplierController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    /**
+     * Commit product
+     * @throws \yii\db\Exception
+     */
+    public function actionCommit()
+    {
+        $ids = $_POST['id'];
+        $product_ids = '';
+        foreach ($ids as $k=>$v){
+            $product_ids.=$v.',';
+        }
+        $ids_str = trim($product_ids,',');
+
+        if(isset($ids)&&!empty($ids)){
+            $res = Yii::$app->db->createCommand("
+            update `yae_supplier` set `is_submit_vendor`= 1 where `id` in ($ids_str)
+            ")->execute();
+            if($res){
+                echo 'success';
+            }
+        }else{
+            echo 'error';
+        }
+
+
+    }
+
+    /**
+     * Cancel commit product
+     * @throws \yii\db\Exception
+     */
+    public function actionCancel()
+    {
+        $ids = $_POST['id'];
+        $product_ids = '';
+        foreach ($ids as $k=>$v){
+            $product_ids.=$v.',';
+        }
+        $ids_str = trim($product_ids,',');
+
+        if(isset($ids)&&!empty($ids)){
+            $res = Yii::$app->db->createCommand("
+             update `yae_supplier` set `is_submit_vendor`= 0 where `id` in ($ids_str)
+            ")->execute();
+            if($res){
+                echo 'success';
+            }
+        }else{
+            echo 'error';
+        }
+
+
+    }
+
 }

@@ -1,7 +1,9 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use kartik\grid\GridView;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\YaeSupplierSearch */
@@ -10,23 +12,63 @@ use kartik\grid\GridView;
 $this->title = '供应商列表';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="yae-supplier-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <div class="yae-supplier-index">
     <p>
-        <?= Html::a('Create Yae Supplier', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Supplier', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php echo Html::button('确认提交',['class' => 'btn btn-info' ,'id'=>'is_submit'])?>
+        <?php echo Html::button('取消提交',['class' => 'btn btn-primary' ,'id'=>'un_submit'])?>
+
     </p>
+        <?php  Pjax::begin(['id' => 'vendors'])?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'id' => 'commit_vendor',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\CheckboxColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'header' => '操作'
+            ],
+
+            [
+                'class' => 'yii\grid\Column',
+                'headerOptions' => [
+                    'width'=>'100'
+                ],
+                'header' => '图片',
+                'content' => function ($model, $key, $index, $column){
+                    return "<img src='" .$model->business_licence. "' width='100' height='100'>";
+
+
+                }
+            ],
+
             'supplier_code',
             'supplier_name',
             'supplier_address',
+            [
+                'attribute'=>'is_submit_vendor',
+                'value' => function($model) {
+                    if($model->is_submit_vendor==1){
+                        return '已提交';
+                    }else{
+                        return '未提交';
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '是', '0' => '否'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'提交?'],
+
+            ],
+
             'pd_bill_name',
             'bill_unit',
             'submitter',
@@ -44,7 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['1' => '是', '0' => '否'],
+                'filter'=>['0' => '16%专票','1' => '3%专票','2' => '增值税普通发票', ],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
@@ -199,9 +241,23 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'bill_pass',
 //            'bank_data_pass',
             'sup_remark',
-            ],
+        ],
     ]); ?>
-</div>
+
+        <?php  Pjax::end()?>
+
+    </div>
+
+<?php
+
+$this->registerJs(
+    '$("document").ready(function(){ 
+        $("#new_country").on("pjax:end", function() {
+            $.pjax.reload({container:"#vendors"});  //Reload GridView
+        });
+    });'
+);
+?>
 
 <?php
 
@@ -213,6 +269,72 @@ $del_h3 = <<<JS
 JS;
 
 $this->registerJs($del_h3);
+
+
+?>
+
+<?php
+
+// 标记产品状态    0 uncommitted  1 commit
+//功能放到 index 批量提交    取消提交
+
+$commit = Url::toRoute(['commit']);
+$uncommitted = Url::toRoute(['cancel']);
+$is_submit = <<<JS
+
+    //批量提交
+    $('#is_submit').on('click',function(){
+         var button = $(this);
+         button.attr('disabled','disabled');
+        var ids =  $('#commit_vendor').yiiGridView("getSelectedRows");
+        console.log(ids);
+        if(ids==false) alert('请选择产品!') ;
+        $.ajax({
+         url: "{$commit}", 
+         type: 'post',
+         data:{id:ids},
+         success:function(res){
+           // if(res=='success') alert('提交产品成功!');     
+           button.attr('disabled',false);
+              $.pjax.reload({container:"#vendors"});  //Reload GridView
+           // location.reload();
+         },
+         error: function (jqXHR, textStatus, errorThrown) {
+                    button.attr('disabled',false);
+         }
+      
+    });
+});
+
+//取消提交
+    $('#un_submit').on('click',function(){
+        var button = $(this);
+         button.attr('disabled','disabled');
+        var ids =  $('#commit_vendor').yiiGridView("getSelectedRows");
+        console.log(ids);
+        if(ids==false) alert('请选择产品!') ;
+        $.ajax({
+         url: "{$uncommitted}", 
+         type: 'post',
+         data:{id:ids},
+         success:function(res){
+           // if(res=='success') alert('取消提交成功!');
+           button.attr('disabled',false);
+           $.pjax.reload({container:"#vendors"});  //Reload GridView
+
+           // location.reload();
+         },
+         error: function (jqXHR, textStatus, errorThrown) {
+                    button.attr('disabled',false);
+         }
+      
+    });
+});
+JS;
+
+$this->registerJs($is_submit);
+
+
 
 
 ?>

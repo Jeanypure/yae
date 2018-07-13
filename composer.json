@@ -34,7 +34,8 @@
     "yiisoft/yii2-redis": "^2.0",
     "hisune/echarts-php": "^1.0",
     "bailangzhan/yii2-webuploader": "dev-master",
-    "linslin/yii2-curl": "*"
+    "linslin/yii2-curl": "*",
+    "aliyuncs/oss-sdk-php": "dev-master"
 
 
   },

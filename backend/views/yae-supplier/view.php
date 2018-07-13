@@ -11,9 +11,9 @@ $this->params['breadcrumbs'][] = ['label' => 'Yae Suppliers', 'url' => ['index']
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="yae-supplier-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
+    <p>
+        <img src="<?php echo $model->business_licence ?>" alt="" width="100" height="100" >
+    </p>
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
@@ -58,3 +58,9 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 </div>
+
+
+
+
+
+
