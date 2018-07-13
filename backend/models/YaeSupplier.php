@@ -33,6 +33,7 @@ use Yii;
  * @property int $bill_pass 开票资质审核通过 0 否 1 是 2未审核
  * @property int $bank_data_pass 银行信息审核通过0 否 1 是 2未审核
  * @property string $supplier_address 供应商地址
+ * @property int $check_status 审核结果 0不通过 1通过 2半通过 3未处理
  */
 class YaeSupplier extends \yii\db\ActiveRecord
 {
@@ -55,18 +56,19 @@ class YaeSupplier extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['is_submit_vendor','bill_type', 'pay_cycleTime_type', 'account_type', 'has_cooperate', 'licence_pass', 'bill_pass', 'bank_data_pass'], 'integer'],
+            [['check_status','is_submit_vendor','bill_type', 'pay_cycleTime_type', 'account_type', 'has_cooperate', 'licence_pass', 'bill_pass', 'bank_data_pass'], 'integer'],
             [['supplier_code', 'bill_unit', 'submitter'], 'string', 'max' => 32],
             [['supplier_name', 'pd_bill_name'], 'string', 'max' => 64],
             [['business_licence', 'bank_account_data', 'bill_img1', 'bill_img2'], 'string', 'max' => 200],
             [['pay_card', 'pay_name', 'pay_bank', 'bill_img1_name_unit', 'bill_img2_name_unit'], 'string', 'max' => 128],
             [['sup_remark'], 'string', 'max' => 256],
-            [['account_proportion', 'complete_num'], 'string', 'max' => 20],
+            [['account_proportion', 'complete_num', 'checker'], 'string', 'max' => 20],
             [['supplier_address'], 'string', 'max' => 216],
+            [['check_memo'], 'string', 'max' => 300],
             [['supplier_code'], 'unique'],
             [['supplier_code','supplier_name','supplier_address','pay_cycleTime_type','account_type','account_proportion',
                 'has_cooperate','submitter','pay_bank','pay_card','pay_name','pd_bill_name','bill_unit','bill_type',
-                'business_licence','bank_account_data'
+                'business_licence','bank_account_data','check_status'
             ],
                 'required'],
         ];
@@ -109,6 +111,8 @@ class YaeSupplier extends \yii\db\ActiveRecord
             'bill01_img_add' => '发票01图片地址',
             'bill02_img_add' => '发票02图片地址',
             'is_submit_vendor' => '提交审核?',
+            'check_status' => '审核状态',
+            'check_memo' => '审核人备注',
         ];
 
     }
