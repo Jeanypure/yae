@@ -56,7 +56,7 @@ class YaeSupplier extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['check_status','is_submit_vendor','bill_type', 'pay_cycleTime_type', 'account_type', 'has_cooperate', 'licence_pass', 'bill_pass', 'bank_data_pass'], 'integer'],
+            [['into_eccang_status','check_status','is_submit_vendor','bill_type', 'pay_cycleTime_type', 'account_type', 'has_cooperate', 'licence_pass', 'bill_pass', 'bank_data_pass'], 'integer'],
             [['supplier_code', 'bill_unit', 'submitter'], 'string', 'max' => 32],
             [['supplier_name', 'pd_bill_name'], 'string', 'max' => 64],
             [['business_licence', 'bank_account_data', 'bill_img1', 'bill_img2'], 'string', 'max' => 200],
@@ -113,6 +113,7 @@ class YaeSupplier extends \yii\db\ActiveRecord
             'is_submit_vendor' => '提交审核?',
             'check_status' => '审核状态',
             'check_memo' => '审核人备注',
+            'checker' => '审核人',
         ];
 
     }

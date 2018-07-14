@@ -42,25 +42,28 @@ $this->params['breadcrumbs'][] = $this->title;
             'supplier_name',
             'supplier_address',
             [
-                'attribute'=>'is_submit_vendor',
+                'attribute'=>'check_status',
                 'value' => function($model) {
-                    if($model->is_submit_vendor==1){
-                        return '已提交';
+                    if($model->check_status==1){
+                        return '通过';
+                    }elseif ($model->check_status==2){
+                        return '半通过';
+                    }elseif ($model->check_status==0){
+                        return '不通过';
                     }else{
-                        return '未提交';
+                        return '未处理';
                     }
                 },
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['1' => '是', '0' => '否'],
+                'filter'=>['0' => '不通过','1' => '通过','2' => '半通过','3' => '未处理',],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                'filterInputOptions'=>['placeholder'=>'提交?'],
+                'filterInputOptions'=>['placeholder'=>'审核状态'],
 
             ],
-
             'pd_bill_name',
             'bill_unit',
             'submitter',
