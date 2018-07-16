@@ -7,10 +7,16 @@ use kartik\grid\GridView;
 /* @var $searchModel backend\models\AuditSupplierSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Yae Suppliers';
+$this->title = '供应商列表-审核';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="yae-supplier-index">
+    <p>
+        <?php echo Html::button('导出到易仓',['class' => 'btn btn-success' ,'id'=>'is_submit'])?>
+        <?php echo Html::button('标记已导ERP',['class' => 'btn btn-info' ,'id'=>'is_submit'])?>
+        <?php echo Html::button('取消标记',['class' => 'btn btn-primary' ,'id'=>'un_submit'])?>
+
+    </p>
 
     <?php Pjax::begin(); ?>
     <?= GridView::widget([
@@ -64,6 +70,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions'=>['placeholder'=>'审核状态'],
 
             ],
+            'create_date',
+            'into_eccang_date',
+            'check_date',
             'pd_bill_name',
             'bill_unit',
             'submitter',

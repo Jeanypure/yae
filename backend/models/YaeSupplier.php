@@ -71,6 +71,8 @@ class YaeSupplier extends \yii\db\ActiveRecord
                 'business_licence','bank_account_data','check_status'
             ],
                 'required'],
+            [['into_eccang_date','create_date','update_date','update_date','check_date' ], 'safe'],
+
         ];
     }
 
@@ -114,6 +116,12 @@ class YaeSupplier extends \yii\db\ActiveRecord
             'check_status' => '审核状态',
             'check_memo' => '审核人备注',
             'checker' => '审核人',
+            'into_eccang_status' => '是否导入易仓',
+            'into_eccang_date' => '导入日期',
+            'create_date' => '创建日期',
+            'update_date' => '更新日期',
+            'submit_date' => '提交日期',
+            'check_date' => '审核日期',
         ];
 
     }

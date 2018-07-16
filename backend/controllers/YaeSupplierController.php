@@ -87,8 +87,11 @@ class YaeSupplierController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $update_date = date('Y-m-d H:i:s');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->update_date = $update_date;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

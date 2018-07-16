@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions'=>['placeholder'=>'提交?'],
 
             ],
-
+            'create_date',
 //            'pd_bill_name',
 //            'bill_unit',
             'submitter',

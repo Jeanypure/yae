@@ -18,8 +18,8 @@ class YaeSupplierSearch extends YaeSupplier
     public function rules()
     {
         return [
-            [['is_submit_vendor','id', 'bill_type', 'pay_cycleTime_type', 'account_type', 'has_cooperate', 'licence_pass', 'bill_pass', 'bank_data_pass'], 'integer'],
-            [['check_status','check_memo','checker','supplier_code', 'supplier_name', 'pd_bill_name', 'bill_unit', 'submitter', 'business_licence', 'bank_account_data', 'pay_card', 'pay_name', 'pay_bank', 'sup_remark', 'account_proportion', 'bill_img1', 'bill_img1_name_unit', 'bill_img2', 'bill_img2_name_unit', 'complete_num', 'supplier_address'], 'safe'],
+            [['check_status','is_submit_vendor','id', 'bill_type', 'pay_cycleTime_type', 'account_type', 'has_cooperate', 'licence_pass', 'bill_pass', 'bank_data_pass'], 'integer'],
+            [['create_date','check_memo','checker','supplier_code', 'supplier_name', 'pd_bill_name', 'bill_unit', 'submitter', 'business_licence', 'bank_account_data', 'pay_card', 'pay_name', 'pay_bank', 'sup_remark', 'account_proportion', 'bill_img1', 'bill_img1_name_unit', 'bill_img2', 'bill_img2_name_unit', 'complete_num', 'supplier_address'], 'safe'],
         ];
     }
 
