@@ -88,6 +88,7 @@ class AuditSupplierController extends Controller
         $username = Yii::$app->user->identity->username;
         if ($model->load(Yii::$app->request->post()) ) {
             $model-> checker = $username;
+            $model-> check_date = date('Y-m-d H:i:s');
             $model->save();
             return $this->redirect(['index']);
         }
