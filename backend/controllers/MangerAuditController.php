@@ -77,25 +77,31 @@ class MangerAuditController extends Controller
        $costprice  =  $model_update->pd_pur_costprice;
 
        $exchange_rate = PurInfoController::actionExchangeRate();
-
+       $sid =  $this->actionCheckSample($id); //样品表的id
         if($num ==3){
             if ($model_update->load(Yii::$app->request->post()) ) {
                 //采样状态 入采样流程
                 if(Yii::$app->request->post()['PurInfo']['master_result']==1 ||
                     Yii::$app->request->post()['PurInfo']['master_result']==4){
-                    $spur_id = Yii::$app->db->createCommand("
-                   select spur_info_id  from sample where spur_info_id = $id
-                  ")->queryOne();
-                    if($spur_id['spur_info_id'] != $id){
+                    $sid =  $this->actionCheckSample($id);
+                    if($sid != $id){
                         Yii::$app->db->createCommand("
                         INSERT INTO `sample`  (spur_info_id,procurement_cost) value ($id,'$costprice')
                       ")->execute();
                     }
 
-                }elseif(Yii::$app->request->post()['PurInfo']['master_result']==2 ){//需要议价和谈其他条件
-                    Yii::$app->db->createCommand("
-                    update pur_info set old_costprice = pd_pur_costprice where  pur_info_id=$id
-                     ")->execute();
+                }else{
+                    if($sid === $id){ //拿样状态修改其他状态 从拿样流程中删除
+                        Yii::$app->db->createCommand("
+                       delete from sample where spur_info_id= $sid
+                      ")->execute();
+                    }
+                    if(Yii::$app->request->post()['PurInfo']['master_result']==2 ){//需要议价和谈其他条件
+                        Yii::$app->db->createCommand("
+                        update pur_info set old_costprice = pd_pur_costprice where  pur_info_id=$id
+                         ")->execute();
+                    }
+
                 }
                 $model_update->preview_status = 1;
                 $model_update->save(false);
@@ -117,6 +123,7 @@ class MangerAuditController extends Controller
           if ($model_update->load(Yii::$app->request->post()) ) {
 
               $new_member = Yii::$app->request->post()['PurInfo']['new_member']; //部门ID
+              $sid =  $this->actionCheckSample($id);
               if(!empty($new_member)&&isset($new_member)){
 
                   $member2 = Yii::$app->db->createCommand("
@@ -134,18 +141,23 @@ class MangerAuditController extends Controller
               //采样状态 入采样流程
               if(Yii::$app->request->post()['PurInfo']['master_result']==1||
                   Yii::$app->request->post()['PurInfo']['master_result']==4 ){
-                  $spur_id = Yii::$app->db->createCommand("
-                   select spur_info_id  from sample where spur_info_id = $id
-                  ")->queryOne();
-                     if($spur_id['spur_info_id'] != $id){
+                     if($sid != $id){
                              Yii::$app->db->createCommand("
                        INSERT INTO `sample`  (spur_info_id,procurement_cost) value ($id,'$costprice')
                       ")->execute();
                      }
-              }elseif(Yii::$app->request->post()['PurInfo']['master_result']==2 ){//需要议价和谈其他条件 保留旧的含税价格
-                 Yii::$app->db->createCommand("
-                    update pur_info set old_costprice = pd_pur_costprice where  pur_info_id=$id
-                 ")->execute();
+              }else{
+
+                  if($sid === $id){ //拿样状态修改其他状态 从拿样流程中删除
+                      Yii::$app->db->createCommand("
+                       delete from sample where spur_info_id= $sid
+                      ")->execute();
+                  }
+                  if(Yii::$app->request->post()['PurInfo']['master_result']==2 ){//需要议价和谈其他条件 保留旧的含税价格
+                     Yii::$app->db->createCommand("
+                        update pur_info set old_costprice = pd_pur_costprice where  pur_info_id=$id
+                     ")->execute();
+                 }
               }
 
               $model_update->preview_status = 1;
@@ -168,17 +180,24 @@ class MangerAuditController extends Controller
               //采样状态 入采样流程
               if(Yii::$app->request->post()['PurInfo']['master_result']==1 ||
                   Yii::$app->request->post()['PurInfo']['master_result']==4){
-                  $spur_id = Yii::$app->db->createCommand("
-                   select spur_info_id  from sample where spur_info_id = $id
-                  ")->queryOne();
-                  if($spur_id['spur_info_id'] != $id){
+                  if($sid != $id){
                       Yii::$app->db->createCommand("
                         INSERT INTO `sample`  (spur_info_id,procurement_cost) value ($id,'$costprice')
                       ")->execute();
                   }
-
-
+              }else{
+                  if($sid === $id){ //拿样状态修改其他状态 从拿样流程中删除
+                      Yii::$app->db->createCommand("
+                       delete from sample where spur_info_id= $sid
+                      ")->execute();
+                  }
+                  if(Yii::$app->request->post()['PurInfo']['master_result']==2 ){//需要议价和谈其他条件 保留旧的含税价格
+                      Yii::$app->db->createCommand("
+                        update pur_info set old_costprice = pd_pur_costprice where  pur_info_id=$id
+                     ")->execute();
+                  }
               }
+
 
               $model_update->preview_status = 1;
               $model_update->save(false);
@@ -277,6 +296,16 @@ class MangerAuditController extends Controller
 
 
 
+
+    }
+
+
+    public function actionCheckSample($id){
+        $spur_id = Yii::$app->db->createCommand("
+                   select spur_info_id  from sample where spur_info_id = $id
+                  ")->queryOne();
+
+        return $spur_id['spur_info_id'];
 
     }
 
