@@ -101,10 +101,9 @@ class AuditSupplierController extends Controller
 
     public function actionExport(){
         $objPHPExcel = new \PHPExcel();
-//        *以下就是对处理Excel里的数据， 横着取数据，主要是这一步，其他基本都不要改*/
 
 //mysql查询语
-        $data=YaeSupplier::find()->asArray()->all();
+        $data = YaeSupplier::find()->asArray()->all();
 
         $header_arr = [
             'A1'=>'供应商代码',
@@ -137,9 +136,13 @@ class AuditSupplierController extends Controller
             'AB1'=>'店铺网址',
             'AC1'=>'组织机构(代码)',
         ];
+
+        $pay_cycleTime_type = [0 => '其他',1 => '日结', 2 => '周结',3 => '半月结',4 => '月结',5 => '隔月结'];
+        $account_type = [1 => '货到付款', 2 => '款到发货',3 => '周期结算',4 => '售后付款',5 => '默认方式' ];
+
         //设置表格头的输出
         foreach($header_arr as $key=>$value){
-            $objPHPExcel->setActiveSheetIndex()->setCellValue("$key", "$value");
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue("$key", "$value");
         }
 
         foreach($data as $k=>$v) {
@@ -148,8 +151,11 @@ class AuditSupplierController extends Controller
             //Excel的第A列，uid是你查出数组的键值，下面以此类推
             ->setCellValue('A'.$num, $v['supplier_code'])
             ->setCellValue('B'.$num, $v['supplier_name'])
-            ->setCellValue('C'.$num, $v['submitter'])
-            ->setCellValue('D'.$num, $v['business_licence']);
+            ->setCellValue('H'.$num, $v['submitter'])
+            ->setCellValue('J'.$num, $pay_cycleTime_type[$v['pay_cycleTime_type']])
+            ->setCellValue('K'.$num, $account_type[$v['account_type']])
+            ->setCellValue('M'.$num, '现金')
+            ;
         }
 
         //数据结束
@@ -157,8 +163,41 @@ class AuditSupplierController extends Controller
         ob_start();
         $objPHPExcel->getActiveSheet()->setTitle('供应商信息');
         $objPHPExcel->setActiveSheetIndex(0);
+
+
+
+        //创建第二个工作表
+        $msgWorkSheet = new \PHPExcel_Worksheet($objPHPExcel, '联系方式'); //创建一个工作表
+        $objPHPExcel->addSheet($msgWorkSheet); //插入工作表
+        $objPHPExcel->setActiveSheetIndex(1); //切换到新创建的工作表
+        $header_arr2 = [
+            'A1' => '供应商代码',
+            'B1' => '联系人',
+            'C1' => '联系电话',
+            'D1' => '中文联系地址',
+            'E1' => '联系邮编',
+            'F1' => 'FAX',
+            'G1' => '英文联系地址',
+            'H1' => 'QQ',
+            'I1' => '微信',
+            'J1' => '旺旺',
+            'K1' => 'Skype',
+        ];
+        //设置表格头的输出
+        foreach($header_arr2 as $key=>$value){
+            $objPHPExcel->setActiveSheetIndex(1)->setCellValue("$key", "$value");
+        }
+        //写入多行数据
+        foreach($data as $k=>$v){
+            $k = $k+2;
+            /* @func 设置列 */
+            $objPHPExcel->getactivesheet()->setcellvalue('A'.$k, $v['supplier_code']);
+            $objPHPExcel->getactivesheet()->setcellvalue('B'.$k, $v['supplier_name']);
+            $objPHPExcel->getactivesheet()->setcellvalue('C'.$k, $v['submitter']);
+        }
+
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="供应商.xls"');
+        header('Content-Disposition: attachment;filename="易仓供应商-联系人模板.xls"');
         header('Cache-Control: max-age=0');
         $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
         $objWriter->save('php://output');
