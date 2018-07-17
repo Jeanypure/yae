@@ -10,9 +10,3 @@ return [
 
     ]
 ];
-//OSS_ACCESS_ID  AccessKeyId
-//OSS_ACCESS_KEY  AccessKeySecret
-//
-//OSS_ENDPOINT
-//
-//OSS_TEST_BUCKET AccessKeySecret

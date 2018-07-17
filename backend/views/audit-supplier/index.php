@@ -12,7 +12,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="yae-supplier-index">
     <p>
-        <?php echo Html::button('导出到易仓',['class' => 'btn btn-success' ,'id'=>'is_submit'])?>
+        <?= Html::a('导出易仓excel', ['export'], ['class' => 'btn btn-success']) ?>
+
+<!--        --><?php //echo Html::button('导出易仓excel',['class' => 'btn btn-success' ,'id'=>'is_submit'])?>
         <?php echo Html::button('标记已导ERP',['class' => 'btn btn-info' ,'id'=>'is_submit'])?>
         <?php echo Html::button('取消标记',['class' => 'btn btn-primary' ,'id'=>'un_submit'])?>
 
