@@ -173,6 +173,8 @@ class AuditSupplierController extends Controller
         $msgWorkSheet = new \PHPExcel_Worksheet($objPHPExcel, '联系方式'); //创建一个工作表
         $objPHPExcel->addSheet($msgWorkSheet); //插入工作表
         $objPHPExcel->setActiveSheetIndex(1); //切换到新创建的工作表
+
+
         $header_arr2 = [
             'A1' => '供应商代码',
             'B1' => '联系人',
@@ -204,6 +206,12 @@ class AuditSupplierController extends Controller
                 ->setcellvalue('J'.$k, $v['contact_wangwang'])
                 ->setcellvalue('K'.$k, $v['skype']);
         }
+        //创建第3个工作表
+        $msgWorkSheet = new \PHPExcel_Worksheet($objPHPExcel, '基础数据——主营品类'); //创建一个工作表
+        $objPHPExcel->addSheet($msgWorkSheet); //插入工作表
+        //创建第4个工作表
+        $msgWorkSheet = new \PHPExcel_Worksheet($objPHPExcel, '基础数据——主营品类'); //创建一个工作表
+        $objPHPExcel->addSheet($msgWorkSheet); //插入工作表
 
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="易仓供应商-联系人模板.xls"');
