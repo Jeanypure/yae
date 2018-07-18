@@ -210,7 +210,7 @@ class AuditSupplierController extends Controller
         $msgWorkSheet = new \PHPExcel_Worksheet($objPHPExcel, '基础数据——主营品类'); //创建一个工作表
         $objPHPExcel->addSheet($msgWorkSheet); //插入工作表
         //创建第4个工作表
-        $msgWorkSheet = new \PHPExcel_Worksheet($objPHPExcel, '基础数据——主营品类'); //创建一个工作表
+        $msgWorkSheet = new \PHPExcel_Worksheet($objPHPExcel, '基础数据——银行'); //创建一个工作表
         $objPHPExcel->addSheet($msgWorkSheet); //插入工作表
 
         header('Content-Type: application/vnd.ms-excel');
