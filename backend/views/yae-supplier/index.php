@@ -30,7 +30,19 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             ['class' => 'yii\grid\CheckboxColumn'],
             ['class' => 'yii\grid\ActionColumn',
-                'header' => '操作'
+                'header' => '操作',
+                'template' => '{add} {view} {update} {delete}',
+                'buttons' => [
+                    'add' => function ($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-plus"></span>', $url, [
+                            'title' => '添加联系人',
+                            'data-toggle' => 'modal',
+                            'data-target' => '#add-modal',
+                            'class' => 'data-contact',
+                            'data-id' => $key,
+                        ] );
+                    },
+                ],
             ],
 
             [
@@ -283,16 +295,37 @@ $this->params['breadcrumbs'][] = $this->title;
 
     </div>
 
-<?php
 
-$this->registerJs(
-    '$("document").ready(function(){ 
-        $("#new_country").on("pjax:end", function() {
-            $.pjax.reload({container:"#vendors"});  //Reload GridView
-        });
-    });'
-);
+<?php
+use yii\bootstrap\Modal;
+// 评审操作
+Modal::begin([
+    'id' => 'add-modal',
+    'header' => '<h4 class="modal-title">添加联系人</h4>',
+    'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>',
+    'options'=>[
+        'data-backdrop'=>'static',//点击空白处不关闭弹窗
+        'data-keyboard'=>false,
+    ],
+    'size'=> Modal::SIZE_LARGE
+]);
+Modal::end();
 ?>
+<?php
+$requestAuditUrl = Url::toRoute('add-contact');
+$auditJs = <<<JS
+        $('.data-contact').on('click', function () {
+            $.get('{$requestAuditUrl}', { id: $(this).closest('tr').data('key') },
+                function (data) {
+                    $('.modal-body').html(data);
+                }  
+            );
+        });
+JS;
+$this->registerJs($auditJs);
+
+?>
+
 
 <?php
 

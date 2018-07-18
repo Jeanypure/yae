@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\YaeSupplier;
 use backend\models\YaeSupplierSearch;
+use backend\models\SupplierContact;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -181,6 +182,39 @@ class YaeSupplierController extends Controller
             echo 'error';
         }
 
+
+    }
+
+
+    public function actionAddContact($id){
+        $model = new SupplierContact();
+        $username = Yii::$app->user->identity->username;
+
+        $supplier_model =  SupplierContact::find()
+                        ->where(['supplier_id'=>$id,'username'=>$username])
+                        ->one();
+
+        if(isset($supplier_model)){  //更新
+
+            if ($supplier_model->load(Yii::$app->request->post())&& $supplier_model->save() ) {
+                return $this->redirect(['index']);
+            }
+
+            return $this->renderAjax('contact_create', [
+                'model' => $supplier_model,
+            ]);
+        }else{            //创建
+            if ($model->load(Yii::$app->request->post()) ) {
+                $model->username = $username;
+                $model->supplier_id = $id ;
+                $model->save();
+                return $this->redirect(['index']);
+            }
+
+            return $this->renderAjax('contact_create', [
+                'model' => $model,
+            ]);
+        }
 
     }
 
