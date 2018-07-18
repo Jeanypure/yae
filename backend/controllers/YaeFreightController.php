@@ -364,4 +364,10 @@ class YaeFreightController extends Controller
     }
 
 
+    public function actionExport($id = null ){
+        echo 666;
+        var_dump($id);
+    }
+
+
 }

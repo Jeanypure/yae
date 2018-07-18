@@ -17,6 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::button('提交部长核对', ['id' => 'to_mini', 'class' => 'btn btn-primary']) ;?>
         <?=  Html::button('取消提交', ['id' => 'cancel', 'class' => 'btn btn-info']) ?>
+    <?php echo Html::button('导出选中项',['class' => 'btn btn-warning' ,'id'=>'export-freight-fee'])?>
+
 
     </p>
 
@@ -261,4 +263,36 @@ JS;
 
 
 $this->registerJs($is_submit_manager);
+?>
+
+<?php
+$export = Url::toRoute(['export']);
+$export_debit =<<<JS
+        $(function() {
+          $('#export-freight-fee').on('click',function() {
+                 var button = $(this);
+                 button.attr('disabled','disabled');
+                var ids =  $('#debit').yiiGridView("getSelectedRows");
+                var str_id  = ids.toString();
+                    console.log(ids);
+                    console.log(str_id);
+                if(ids==false) alert('请选择产品!') ;
+                $.ajax({
+                 url: "{$export}", 
+                 type: 'get',
+                 data:{id:str_id},
+                 success:function(res){
+                   button.attr('disabled',false);
+                   window.location.href = '{$export}'+'?id='+str_id;
+                 },
+                 error: function (jqXHR, textStatus, errorThrown) {
+                            button.attr('disabled',false);
+                 }
+                  });
+             });
+        });
+JS;
+
+$this->registerJs($export_debit);
+
 ?>
