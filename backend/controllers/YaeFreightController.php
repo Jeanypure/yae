@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\YaeFreight;
 use backend\models\FreightFee;
+use backend\models\FreightFeeSearch;
 use backend\models\FeeCategory;
 use backend\models\YaeExchangeRate;
 use backend\models\YaeFreightSearch;
@@ -74,15 +75,19 @@ class YaeFreightController extends Controller
     public function actionCreate()
     {
         $model = new YaeFreight();
+        $param = $this->actionParam();
 
         if ($model->load(Yii::$app->request->post()) ) {
             $model->builder = Yii::$app->user->identity->username;
+            //创建费用
+           $fee_cat =  Yii::$app->request->post()['YaeFreight']['fee_cateid'];
             $model->save();
-//            $this->actionFee($model->id);
+            $this->actionFee($model->id,$fee_cat);
             return $this->redirect(['view', 'id' => $model->id]);
         }
         return $this->render('create', [
             'model' => $model,
+            'fee_category' => $param['name_zn']
         ]);
     }
 
@@ -99,10 +104,13 @@ class YaeFreightController extends Controller
         $fee_model = FreightFee::find()->where(['freight_id'=>$id])->all();
         if ($model->load(Yii::$app->request->post())) {
             $model->update_at = date('Y-m-d H:i:s');
-            $model->save();
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         }
         $query = FreightFee::find()->indexBy('id')->where(['freight_id'=>$id]); // where `id` is your primary key
+        $searchModel = new FreightFeeSearch;
+//        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -110,12 +118,10 @@ class YaeFreightController extends Controller
             ],
         ]);
 
-        //        $this->actionFee($model->id);
-
-
         return $this->render('update', [
             'model' => $model,
             'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
             'fee_model' => $fee_model,
         ]);
     }
@@ -151,15 +157,27 @@ class YaeFreightController extends Controller
     }
 
 
-    public function  actionFee($freight_id){
-           $fee_to = Yii::$app->db->createCommand("
-            CALL freight_to_fee ($freight_id)
-            ")->execute();
-           if($fee_to){
-               return 'OK!';
-           }
-           return 'error!';
+    public function  actionFee($freight_id,$fee_cat){
+        $table = 'freight_fee';
+        $arr_key = ['freight_id','description_id'];
+        $arr = [];
+        $freight_id = [$freight_id];
+        foreach ($fee_cat as $key=>$value){
+            $val = [$value];
+            $new_array = array_merge($freight_id,$val);
 
+            $arr[] = $new_array;
+
+        }
+
+        $res = $this->actionMultArray2Insert($table,$arr_key, $arr, $split = '`');
+
+        $to_freight_fee = Yii::$app->db->createCommand($res)->execute();
+        if($to_freight_fee){
+            return 'success!';
+        }else{
+            return 'error!';
+        }
 
     }
 
@@ -303,5 +321,47 @@ class YaeFreightController extends Controller
             echo 'error';
         }
     }
+
+
+    /**
+
+     * 多条数据同时转化成插入SQL语句
+
+     * @ CreatBy:IT自由职业者
+
+     * @param string $table 表名
+
+     * @$arr_key是表字段名的key：$arr_key=array("field1","field2","field3")
+
+     * @param array $arr是字段值 数组示例 arrat(("a","b","c"), ("bbc","bbb","caaa"),('add',"bppp","cggg"))
+
+     * @return string
+
+     */
+
+    public  function actionMultArray2Insert($table,$arr_key, $arr, $split = '`') {
+
+        $arrValues = array();
+
+        if (empty($table) || !is_array($arr_key) || !is_array($arr)) {
+
+            return false;
+
+        }
+
+        $sql = "INSERT INTO %s( %s ) values %s ";
+
+        foreach ($arr as $k => $v) {
+
+            $arrValues[$k] = "'".implode("','",array_values($v))."'";
+
+        }
+
+        $sql = sprintf($sql, $table, "{$split}" . implode("{$split} ,{$split}", $arr_key) . "{$split}", "(" . implode(") , (", array_values($arrValues)) . ")");
+
+        return $sql;
+
+    }
+
 
 }

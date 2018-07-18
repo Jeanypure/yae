@@ -29,7 +29,7 @@ class FeeCategory extends \yii\db\ActiveRecord
     {
         return [
             [['name_en', 'name_zn'], 'required'],
-            [['name_en', 'name_zn'], 'string', 'max' => 100],
+            [['name_en', ], 'string', 'max' => 100],
             [['remark'], 'string', 'max' => 200],
         ];
     }

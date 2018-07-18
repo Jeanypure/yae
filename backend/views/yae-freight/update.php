@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = 'Update';
         'fee_model' => $fee_model[0],
         'id' => 'fee-detail',
         'dataProvider' => $dataProvider,
+        'searchModel' => $searchModel,
     ])
     ?>
 </div>

@@ -60,7 +60,7 @@ echo TabularForm::widget([
 <?php
 echo GridView::widget([
     'dataProvider'=>$dataProvider,
-//    'filterModel'=>$searchModel,
+    'filterModel'=>$searchModel,
     'showPageSummary'=>true,
     'pjax'=>true,
     'toolbar' =>  [
