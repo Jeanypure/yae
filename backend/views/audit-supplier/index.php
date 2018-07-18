@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\Pjax;
 use kartik\grid\GridView;
 /* @var $this yii\web\View */
@@ -12,9 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="yae-supplier-index">
     <p>
-        <?= Html::a('导出易仓excel', ['export'], ['class' => 'btn btn-success']) ?>
-
-<!--        --><?php //echo Html::button('导出易仓excel',['class' => 'btn btn-success' ,'id'=>'is_submit'])?>
+        <?php echo Html::button('导出易仓excel',['class' => 'btn btn-success' ,'id'=>'export-eccang'])?>
         <?php echo Html::button('标记已导ERP',['class' => 'btn btn-info' ,'id'=>'is_submit'])?>
         <?php echo Html::button('取消标记',['class' => 'btn btn-primary' ,'id'=>'un_submit'])?>
 
@@ -24,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'id' => 'commit_vendor',
+        'id' => 'audit_supplier',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             ['class' => 'yii\grid\CheckboxColumn'],
@@ -251,3 +250,33 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
     <?php Pjax::end(); ?>
 </div>
+<?php
+  $export = Url::toRoute(['export']);
+  $export_eccang =<<<JS
+        $(function() {
+          $('#export-eccang').on('click',function() {
+                 var button = $(this);
+                 button.attr('disabled','disabled');
+                var ids =  $('#audit_supplier').yiiGridView("getSelectedRows");
+                var id = ids[0];
+
+                if(ids==false) alert('请选择产品!') ;
+                $.ajax({
+                 url: "{$export}", 
+                 type: 'get',
+                 data:{id:id},
+                 success:function(res){
+                   button.attr('disabled',false);
+                   window.location.href = '{$export}'+'?id='+id;
+                 },
+                 error: function (jqXHR, textStatus, errorThrown) {
+                            button.attr('disabled',false);
+                 }
+                  });
+             });
+        });
+JS;
+
+  $this->registerJs($export_eccang);
+
+?>

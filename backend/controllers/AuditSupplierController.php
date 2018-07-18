@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use backend\models\YaeSupplier;
+use backend\models\SupplierContact;
 use backend\models\AuditSupplierSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -99,11 +100,15 @@ class AuditSupplierController extends Controller
     }
 
 
-    public function actionExport(){
+    public function actionExport($id){
         $objPHPExcel = new \PHPExcel();
+        //mysql查询语
+        $data = YaeSupplier::find()->asArray()->where(['id'=>$id])->one();
 
-//mysql查询语
-        $data = YaeSupplier::find()->asArray()->all();
+        $contants = SupplierContact::find()
+            ->asArray()
+            ->where(['supplier_id'=>$id])
+            ->all();
 
         $header_arr = [
             'A1'=>'供应商代码',
@@ -144,19 +149,17 @@ class AuditSupplierController extends Controller
         foreach($header_arr as $key=>$value){
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue("$key", "$value");
         }
-
-        foreach($data as $k=>$v) {
-            $num= $k+2;
+            $num= 2;
             $objPHPExcel->setActiveSheetIndex(0)
             //Excel的第A列，uid是你查出数组的键值，下面以此类推
-            ->setCellValue('A'.$num, $v['supplier_code'])
-            ->setCellValue('B'.$num, $v['supplier_name'])
-            ->setCellValue('H'.$num, $v['submitter'])
-            ->setCellValue('J'.$num, $pay_cycleTime_type[$v['pay_cycleTime_type']])
-            ->setCellValue('K'.$num, $account_type[$v['account_type']])
+            ->setCellValue('A'.$num, $data['supplier_code'])
+            ->setCellValue('B'.$num, $data['supplier_name'])
+            ->setCellValue('H'.$num, $data['submitter'])
+            ->setCellValue('J'.$num, $pay_cycleTime_type[$data['pay_cycleTime_type']])
+            ->setCellValue('K'.$num, $account_type[$data['account_type']])
             ->setCellValue('M'.$num, '现金')
             ;
-        }
+
 
         //数据结束
         ob_end_clean();
@@ -187,13 +190,19 @@ class AuditSupplierController extends Controller
         foreach($header_arr2 as $key=>$value){
             $objPHPExcel->setActiveSheetIndex(1)->setCellValue("$key", "$value");
         }
-        //写入多行数据
-        foreach($data as $k=>$v){
+
+//        写入多行数据
+        foreach($contants as $k=>$v){
             $k = $k+2;
             /* @func 设置列 */
-            $objPHPExcel->getactivesheet()->setcellvalue('A'.$k, $v['supplier_code']);
-            $objPHPExcel->getactivesheet()->setcellvalue('B'.$k, $v['supplier_name']);
-            $objPHPExcel->getactivesheet()->setcellvalue('C'.$k, $v['submitter']);
+            $objPHPExcel->getactivesheet()->setcellvalue('A'.$k, $data['supplier_code'])
+                ->setcellvalue('B'.$k, $v['contact_name'])
+                ->setcellvalue('C'.$k, $v['contact_tel'])
+                ->setcellvalue('D'.$k, $v['contact_address'])
+                ->setcellvalue('F'.$k, $v['contact_qq'])
+                ->setcellvalue('I'.$k, $v['contact_wechat'])
+                ->setcellvalue('J'.$k, $v['contact_wangwang'])
+                ->setcellvalue('K'.$k, $v['skype']);
         }
 
         header('Content-Type: application/vnd.ms-excel');
