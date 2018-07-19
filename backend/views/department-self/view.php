@@ -15,51 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="pur-info-view">
     <img src="<?php echo $model->pd_pic_url?>" alt="" style="height: 100px;width: 100px">
 
-
-
-
-    <?php if(!empty($sample_model)&&isset($sample_model)){ ?>
-        <div class="pur-info-form">
-
-            <?php $form = ActiveForm::begin(); ?>
-            <div class="form-group">
-                <?= Html::submitButton(Yii::t('app', '同意'), ['class' => 'btn btn-success']) ?>
-                <?= Html::submitButton(Yii::t('app', '不同意'), ['class' => 'btn btn-danger']) ?>
-
-            </div>
-
-
-            <?php ActiveForm::end(); ?>
-
-        </div>
-        <h3> 1 样品费用信息  </h3>
-                   <?= DetailView::widget([
-        'model' => $sample_model,
-        'attributes' => [
-//            'sample_id',
-//            'spur_info_id',
-            'procurement_cost',
-            'sample_freight',
-            'else_fee',
-            'pay_amount',
-            'pay_way',
-            'mark',
-            'is_audit',
-            'is_agreest',
-            'is_quality',
-            'fee_return',
-//            'audit_mem1',
-//            'audit_mem2',
-//            'audit_mem3',
-            'applicant',
-            'create_date',
-            'lastop_date',
-        ],
-
-     ]) ?>
-            <?php }?>
-
-    <h3>2 产品信息 </h3>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [

@@ -80,9 +80,12 @@ class YaeFreightController extends Controller
         if ($model->load(Yii::$app->request->post()) ) {
             $model->builder = Yii::$app->user->identity->username;
             //创建费用
-           $fee_cat =  Yii::$app->request->post()['YaeFreight']['fee_cateid'];
-            $model->save();
-            $this->actionFee($model->id,$fee_cat);
+           $res = $model->save(false);
+           if($res){
+               $fee_cat =  Yii::$app->request->post()['YaeFreight']['fee_cateid'];
+               $this->actionFee($model->id,$fee_cat);
+           }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
         return $this->render('create', [
@@ -365,8 +368,24 @@ class YaeFreightController extends Controller
 
 
     public function actionExport($id = null ){
-        echo 666;
-        var_dump($id);
+        var_dump($id);die;
+        $objPHPExcel = new \PHPExcel();
+        $data =
+        $header = [
+            'A1' => '付款人',
+            'B1' => '收款人',
+            'C1' => '合同号',
+            'D1' => '单号',
+            'E1' => 'rmb',
+            'F1' => 'usd',
+            'G1' => 'cad',
+            'H1' => '备注',
+
+        ];
+
+
+
+
     }
 
 
