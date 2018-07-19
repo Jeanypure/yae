@@ -41,7 +41,15 @@ class YaeSupplierSearch extends YaeSupplier
      */
     public function search($params)
     {
-        $query = YaeSupplier::find();
+        $username = Yii::$app->user->identity->username;
+        if($username=='Jenny'||$username=='David'||$username=='Mark'){
+            $query = YaeSupplier::find();
+
+        }else{
+            $query = YaeSupplier::find()->andWhere(['submitter'=>$username]);
+
+        }
+
 
         // add conditions that should always apply here
 
