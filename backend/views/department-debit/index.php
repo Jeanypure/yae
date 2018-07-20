@@ -41,7 +41,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                 ],
             ],
-            'shipment_id',
             [
                 'attribute'=>'bill_to',
                 'value' => function($model) {
@@ -64,6 +63,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => [
                     'width'=>'80%'
                 ],
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>[ '1' => '商舟', '2' => '雅耶', '3' => '朗探', '4' => '域聪', '5' => '朋侯', '6' => '客尊'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'付款人'],
             ],
 
             [
@@ -75,6 +80,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
+            'contract_no',
+            'debit_no',
+            'shipment_id',
+
             'pod',
             'pol',
             'etd',

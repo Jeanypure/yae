@@ -19,7 +19,7 @@ class FinancialDebitSearch extends YaeFreight
     {
         return [
             [['id', 'to_minister', 'to_financial', 'mini_deal', 'fina_deal'], 'integer'],
-            [['bill_to', 'receiver', 'shipment_id', 'pod', 'pol', 'etd', 'eta', 'remark', 'image', 'mini_res', 'fina_res'], 'safe'],
+            [['contract_no','debit_no','bill_to', 'receiver', 'shipment_id', 'pod', 'pol', 'etd', 'eta', 'remark', 'image', 'mini_res', 'fina_res'], 'safe'],
         ];
     }
 
