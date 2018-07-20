@@ -368,9 +368,7 @@ class YaeFreightController extends Controller
 
 
     public function actionExport($id = null ){
-        var_dump($id);die;
         $objPHPExcel = new \PHPExcel();
-        $data =
         $header = [
             'A1' => '付款人',
             'B1' => '收款人',
@@ -379,12 +377,74 @@ class YaeFreightController extends Controller
             'E1' => 'rmb',
             'F1' => 'usd',
             'G1' => 'cad',
-            'H1' => '备注',
+            'H1' => 'gbp',
+            'I1' => 'eur',
+            'J1' => '备注',
 
         ];
+        $sql = "
+                SELECT 
+                t.bill_to,
+                t.receiver,
+                t.contract_no,
+                t.debit_no,
+                t.remark,
+                MAX(CASE e.currency WHEN 5 THEN e.amount ELSE 0 END ) RMB,
+                MAX(CASE e.currency WHEN 3 THEN e.amount ELSE 0 END ) CAD,
+                MAX(CASE e.currency WHEN 1 THEN e.amount ELSE 0 END ) USD,
+                MAX(CASE e.currency WHEN 2 THEN e.amount ELSE 0 END ) GBP,
+                MAX(CASE e.currency WHEN 4 THEN e.amount ELSE 0 END ) EUR
+                FROM yae_freight  t 
+                LEFT JOIN freight_fee e ON e.freight_id=t.id
+                WHERE t.id IN (18,19,20)
+                GROUP BY t.bill_to,
+                t.receiver,
+                t.contract_no,
+                t.debit_no;
+        ";
 
+       $data =  Yii::$app->db->createCommand($sql)->queryAll();
+        //设置表格头的输出
+        foreach($header as $key=>$value){
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue("$key", "$value");
+        }
+        foreach ($data as $k =>$v){
+            $num= 2;
+            $num = $num+$k;
+            $objPHPExcel->setActiveSheetIndex(0)
+                //Excel的第A列，uid是你查出数组的键值，下面以此类推
+                ->setCellValue('A'.$num, $v['bill_to'])
+                ->setCellValue('B'.$num, $v['receiver'])
+                ->setCellValue('C'.$num, $v['contract_no'])
+                ->setCellValue('D'.$num, $v['debit_no'])
+                ->setCellValue('E'.$num, $v['RMB'])
+                ->setCellValue('F'.$num, $v['USD'])
+                ->setCellValue('G'.$num, $v['CAD'])
+                ->setCellValue('H'.$num, $v['GBP'])
+                ->setCellValue('I'.$num, $v['EUR'])
+            ;
+        }
+        $sum  = count($data) + 2;
+        $v  = count($data) + 1;
 
+        $objPHPExcel->setActiveSheetIndex(0)
+            //Excel的第A列，uid是你查出数组的键值，下面以此类推
+            ->setCellValue('D'.$sum, '汇总')
+            ->setCellValue('E'.$sum, "=SUM(E2:E{$v})")
+            ->setCellValue('F'.$sum, "=SUM(F2:F{$v})")
+            ->setCellValue('G'.$sum, "=SUM(G2:G{$v})")
+            ->setCellValue('H'.$sum, "=SUM(H2:H{$v})")
+            ->setCellValue('I'.$sum, "=SUM(I2:I{$v})")
+        ;
 
+        //数据结束
+        ob_end_clean();
+        ob_start();
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="货代费用表格.xls"');
+        header('Cache-Control: max-age=0');
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter->save('php://output');
 
     }
 
