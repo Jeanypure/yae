@@ -404,6 +404,12 @@ class YaeFreightController extends Controller
         ";
 
        $data =  Yii::$app->db->createCommand($sql)->queryAll();
+       $company = Yii::$app->db->createCommand("select sub_company,memo from company")->queryAll();
+       $company_arr = [];
+       foreach($company as $key=>$val){
+           $company_arr[$val['sub_company']]  = $val['memo'];
+       }
+
         //设置表格头的输出
         foreach($header as $key=>$value){
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue("$key", "$value");
@@ -413,7 +419,7 @@ class YaeFreightController extends Controller
             $num = $num+$k;
             $objPHPExcel->setActiveSheetIndex(0)
                 //Excel的第A列，uid是你查出数组的键值，下面以此类推
-                ->setCellValue('A'.$num, $v['bill_to'])
+                ->setCellValue('A'.$num, $company_arr[$v['bill_to']])
                 ->setCellValue('B'.$num, $v['receiver'])
                 ->setCellValue('C'.$num, $v['contract_no'])
                 ->setCellValue('D'.$num, $v['debit_no'])
@@ -424,18 +430,17 @@ class YaeFreightController extends Controller
                 ->setCellValue('I'.$num, $v['EUR'])
             ;
         }
+
+        //汇总项
         $sum  = count($data) + 2;
         $v  = count($data) + 1;
-
         $objPHPExcel->setActiveSheetIndex(0)
-            //Excel的第A列，uid是你查出数组的键值，下面以此类推
-            ->setCellValue('D'.$sum, '汇总')
-            ->setCellValue('E'.$sum, "=SUM(E2:E{$v})")
-            ->setCellValue('F'.$sum, "=SUM(F2:F{$v})")
-            ->setCellValue('G'.$sum, "=SUM(G2:G{$v})")
-            ->setCellValue('H'.$sum, "=SUM(H2:H{$v})")
-            ->setCellValue('I'.$sum, "=SUM(I2:I{$v})")
-        ;
+                ->setCellValue('D'.$sum, '汇总')
+                ->setCellValue('E'.$sum, "=SUM(E2:E{$v})")
+                ->setCellValue('F'.$sum, "=SUM(F2:F{$v})")
+                ->setCellValue('G'.$sum, "=SUM(G2:G{$v})")
+                ->setCellValue('H'.$sum, "=SUM(H2:H{$v})")
+                ->setCellValue('I'.$sum, "=SUM(I2:I{$v})") ;
 
         //数据结束
         ob_end_clean();
