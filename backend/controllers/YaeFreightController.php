@@ -148,7 +148,13 @@ class YaeFreightController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        if($model->to_minister == 1){
+            echo 'error!';           //已提交不能删除1
+        }else{
+            $this->findModel($id)->delete();
+
+        }
 
         return $this->redirect(['index']);
     }
@@ -265,6 +271,7 @@ class YaeFreightController extends Controller
     public  function  actionFeeDelete($id){
 
         $feecat = FreightFee::find()->where(['id'=>$id])->one();
+
         if($feecat->delete()) {
             echo 1;
             Yii::$app->end();
