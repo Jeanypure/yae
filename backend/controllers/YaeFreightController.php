@@ -104,6 +104,19 @@ class YaeFreightController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+
+        $total = Yii::$app->db->createCommand("SELECT 
+                        CASE currency WHEN 1 THEN 'USD'
+                        WHEN 2 THEN 'GBP' 
+                        WHEN 3 THEN 'CAD' 
+                        WHEN 4 THEN 'EUR' 
+                        WHEN 5 THEN 'RMB'
+                        ELSE '其他'
+                        END AS currency, 
+                         SUM(amount) as total
+                        from freight_fee WHERE freight_id=1
+                        GROUP BY currency;
+")->queryAll();
         $fee_model = FreightFee::find()->where(['freight_id'=>$id])->all();
         if ($model->load(Yii::$app->request->post())) {
             $model->update_at = date('Y-m-d H:i:s');
@@ -111,9 +124,6 @@ class YaeFreightController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
         $query = FreightFee::find()->indexBy('id')->where(['freight_id'=>$id]); // where `id` is your primary key
-        $searchModel = new FreightFeeSearch;
-//        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -124,8 +134,8 @@ class YaeFreightController extends Controller
         return $this->render('update', [
             'model' => $model,
             'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel,
             'fee_model' => $fee_model,
+            'total' => $total,
         ]);
     }
 

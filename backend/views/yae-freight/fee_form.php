@@ -56,12 +56,11 @@ echo TabularForm::widget([
 
 
 ?>
-
 <?php
 echo GridView::widget([
     'dataProvider'=>$dataProvider,
-    'filterModel'=>$searchModel,
-    'showPageSummary'=>true,
+//    'filterModel'=>$searchModel,
+    'showPageSummary'=>false,
     'pjax'=>true,
     'toolbar' =>  [
         ['content' =>
@@ -137,9 +136,10 @@ echo GridView::widget([
             'filterWidgetOptions'=>[
                 'pluginOptions'=>['allowClear'=>true],
             ],
-            'filterInputOptions'=>['placeholder'=>'Any supplier'],
+            'filterInputOptions'=>['placeholder'=>'Any category'],
             'group'=>true,  // enable grouping
-            'pageSummary'=>'Page Summary',
+//            'pageSummary'=>'Page Summary',
+//            'pageSummaryOptions'=>['class'=>'text-right text-warning'],
         ],
         [
             'attribute'=>'quantity',
@@ -147,7 +147,7 @@ echo GridView::widget([
             'value'=>function ($model, $key, $index, $widget) {
                 return $model->quantity;
             },
-            'pageSummary'=>true,
+//            'pageSummary'=>true,
 
 
         ],
@@ -162,7 +162,6 @@ echo GridView::widget([
         [
             'attribute'=>'currency',
             'width'=>'100px',
-
             'value'=>function ($model, $key, $index, $widget) {
                 if($model->currency==1){
                     return 'USD';
@@ -177,13 +176,43 @@ echo GridView::widget([
                 }
 
             },
+//            'filterType'=>GridView::FILTER_SELECT2,
+//            'filter'=>[1=>'USD',2=>'GBP',4=>'CAD',5=>'RMB',6=>'EUR'],
+//            'filterWidgetOptions'=>[
+//                'pluginOptions'=>['allowClear'=>true],
+//            ],
+//            'filterInputOptions'=>['placeholder'=>'Any category'],
+//            'group'=>true,  // enable grouping
+//            'subGroupOf'=>1,// supplier column index is the parent group,
+//            'groupFooter'=>function ($model, $key, $index, $widget) { // Closure method
+//                return [
+//                    'mergeColumns'=>[[5]], // columns to merge in summary
+//                    'content'=>[              // content to show in each summary cell
+//                        5=>'Summary (' . $model->currency. ')',
+//                        4=>GridView::F_AVG,
+//                        5=>GridView::F_SUM,
+//                        6=>GridView::F_SUM,
+//                    ],
+//                    'contentFormats'=>[      // content reformatting for each summary cell
+//                        4=>['format'=>'number', 'decimals'=>2],
+//                        5=>['format'=>'number', 'decimals'=>0],
+//                        6=>['format'=>'number', 'decimals'=>2],
+//                    ],
+//                    'contentOptions'=>[      // content html attributes for each summary cell
+//                        4=>['style'=>'text-align:right'],
+//                        5=>['style'=>'text-align:right'],
+//                        6=>['style'=>'text-align:right'],
+//                    ],
+//                    // html attributes for group summary row
+//                    'options'=>['class'=>'success','style'=>'font-weight:bold;']
+//                ];
+//            },
 
         ],
         [
             'attribute'=>'amount',
-
-            'pageSummary'=>true,
-            'pageSummaryOptions'=>['class'=>'text-left text-warning'],
+//            'pageSummary'=>true,
+//            'pageSummaryOptions'=>['class'=>'text-left text-warning'],
         ],
         [
             'attribute'=>'remark',
@@ -197,6 +226,9 @@ echo GridView::widget([
 ]);
 ActiveForm::end();
 ?>
+
+
+
 
 
 
