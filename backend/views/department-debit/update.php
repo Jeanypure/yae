@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\grid\GridView;
+use yii\widgets\DetailView;
+
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\YaeFreight */
@@ -19,22 +21,96 @@ $this->params['breadcrumbs'][] = 'Update';
         <p>
             <img src="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$model->image;?>" width="100" height="100" alt="" />
         </p>
-        <h3>1需要确认</h3><h4>Shipment ID : <?php echo $model->shipment_id; ?></h4>
-        <?php $form = ActiveForm::begin(); ?>
-        <?= $form->field($model, 'mini_res')->textarea(['maxlength' => true]) ?>
-        <?= Html::submitButton('已确认', ['class' => 'btn btn-success']) ?>
-        <?php ActiveForm::end(); ?>
+        <h3>1 需确认信息</h3>
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                [
+                    'attribute'=>'bill_to',
+                    'format'=>'raw',
+                    'value' => function ($model) {
+                        if($model->bill_to ==1 ){
+                            return '上海商舟船舶用品有限公司';
+                        }elseif($model->bill_to ==2 ){
+                            return '上海雅耶贸易有限公司';
+                        }elseif($model->bill_to ==3 ){
+                            return '上海朗探贸易有限公司';
+                        }elseif($model->bill_to ==4 ){
+                            return '上海域聪贸易有限公司';
+                        }elseif($model->bill_to ==5 ){
+                            return '上海朋侯贸易有限公司';
+                        }elseif($model->bill_to ==6 ) {
+                            return '上海客尊贸易有限公司';
+                        }else{
+                            return '其他';
+                        }
+                    },
+                ],
+                'receiver',
+                'shipment_id',
+                'pod',
+                'pol',
+                'etd',
+                'eta',
+                'remark',
+                [
+                    'attribute'=>'to_minister',
+                    'format'=>'raw',
+                    'value' => function ($model) {
+                        if($model->to_minister ==1 ){
+                            return '已提交';
+                        }else{
+                            return '未提交';
+                        }
+                    },
+                ],
+                [
+                    'attribute'=>'to_financial',
+                    'format'=>'raw',
+                    'value' => function ($model) {
+                        if($model->to_financial ==1 ){
+                            return '已提交';
+                        }else{
+                            return '未提交';
+                        }
+                    },
+                ],
+                [
+                    'attribute'=>'mini_deal',
+                    'format'=>'raw',
+                    'value' => function ($model) {
+                        if($model->mini_deal ==1 ){
+                            return '已处理';
+                        }else{
+                            return '未处理';
+                        }
+                    },
+                ],
+                [
+                    'attribute'=>'fina_deal',
+                    'format'=>'raw',
+                    'value' => function ($model) {
+                        if($model->fina_deal ==1 ){
+                            return '已处理';
+                        }else{
+                            return '未处理';
+                        }
+                    },
+                ],
+                'mini_res',
+                'fina_res',
+            ],
+        ]) ?>
+
+
     </div>
-    <h3>2费用项</h3>
+    <h3>2 费用项</h3>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'showPageSummary'=>true,
         'columns' => [
             ['class'=>'kartik\grid\SerialColumn'],
 
-//            'id',
-//            'freight_id',
-//            'description_id',
             [
                 'attribute'=>'description_id',
                 'width'=>'310px',
@@ -90,7 +166,6 @@ $this->params['breadcrumbs'][] = 'Update';
             [
                 'attribute'=>'currency',
                 'width'=>'100px',
-
                 'value'=>function ($model, $key, $index, $widget) {
                     if($model->currency==1){
                         return 'USD';
@@ -109,8 +184,6 @@ $this->params['breadcrumbs'][] = 'Update';
             ],
             [
                 'attribute'=>'amount',
-
-                'pageSummary'=>true,
                 'pageSummaryOptions'=>['class'=>'text-left text-warning'],
             ],
             [
@@ -123,6 +196,24 @@ $this->params['breadcrumbs'][] = 'Update';
             ],
         ],
     ]); ?>
+    <h3>3 按币种汇总</h3>
+    <?php
+    echo '<table class="kv-grid-table table table-hover table-bordered table-striped kv-table-wrap">';
+    echo '<thead><tr><th>Currency</th><th>Total</th></tr></thead>';
+    foreach ($total as $k=>$v){
+        echo '<tr><td>';
+        echo $v['currency'];
+        echo '</td><td>';
+        echo $v['total'];
+        echo '</td></tr>';
+    }
+    echo '</table>';
 
+    ?>
+    <h3>4 备注</h3>
+    <?php $form = ActiveForm::begin(); ?>
+    <?= $form->field($model, 'mini_res')->textarea(['maxlength' => true]) ?>
+    <?= Html::submitButton('已确认', ['class' => 'btn btn-success']) ?>
+    <?php ActiveForm::end(); ?>
 
 </div>

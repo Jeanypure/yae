@@ -12,11 +12,9 @@ $this->title = '部门货代';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="yae-freight-index">
+    <?php echo Html::button('导出选中项',['class' => 'btn btn-warning' ,'id'=>'export-freight-fee'])?>
 
     <?php Pjax::begin(); ?>
-
-    <p>
-    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -28,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\CheckboxColumn'],
             ['class' => 'yii\grid\ActionColumn',
                 'header' => '操作',
-                'template' => '{view} {audit}',
+                'template' => '{audit}',
                 'buttons' => [
                     'audit' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-check"></span>', $url, [
@@ -214,5 +212,37 @@ $auditJs = <<<JS
         });
 JS;
 $this->registerJs($auditJs);
+
+?>
+
+<?php
+$export = Url::toRoute(['export']);
+$export_debit =<<<JS
+        $(function() {
+          $('#export-freight-fee').on('click',function() {
+                 var button = $(this);
+                 button.attr('disabled','disabled');
+                var ids =  $('#debit').yiiGridView("getSelectedRows");
+                var str_id  = ids.toString();
+                    console.log(ids);
+                    console.log(str_id);
+                if(ids==false) alert('请选择产品!') ;
+                $.ajax({
+                 url: "{$export}", 
+                 type: 'get',
+                 data:{id:str_id},
+                 success:function(res){
+                   button.attr('disabled',false);
+                   window.location.href = '{$export}'+'?id='+str_id;
+                 },
+                 error: function (jqXHR, textStatus, errorThrown) {
+                            button.attr('disabled',false);
+                 }
+                  });
+             });
+        });
+JS;
+
+$this->registerJs($export_debit);
 
 ?>

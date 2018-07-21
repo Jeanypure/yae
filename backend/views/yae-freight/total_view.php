@@ -7,7 +7,7 @@
  */
 ?>
 
-<h4>币种 汇总</h4>
+<h4>按币种汇总</h4>
 
 <?php
 echo '<table class="kv-grid-table table table-hover table-bordered table-striped kv-table-wrap">';

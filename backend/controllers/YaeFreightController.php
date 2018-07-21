@@ -114,7 +114,7 @@ class YaeFreightController extends Controller
                         ELSE '其他'
                         END AS currency, 
                          SUM(amount) as total
-                        from freight_fee WHERE freight_id=1
+                        from freight_fee WHERE freight_id= $id
                         GROUP BY currency;
 ")->queryAll();
         $fee_model = FreightFee::find()->where(['freight_id'=>$id])->all();
@@ -406,7 +406,7 @@ class YaeFreightController extends Controller
                 MAX(CASE e.currency WHEN 4 THEN e.amount ELSE 0 END ) EUR
                 FROM yae_freight  t 
                 LEFT JOIN freight_fee e ON e.freight_id=t.id
-                WHERE t.id IN (18,19,20)
+                WHERE t.id IN ($id)
                 GROUP BY t.bill_to,
                 t.receiver,
                 t.contract_no,

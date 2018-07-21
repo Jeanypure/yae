@@ -8,19 +8,13 @@ use kartik\grid\GridView;
 /* @var $searchModel backend\models\FinancialDebitSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Yae Freights';
+$this->title = '财务费用检查';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="yae-freight-index">
+    <?php echo Html::button('导出选中项',['class' => 'btn btn-warning' ,'id'=>'export-freight-fee'])?>
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?php
-//        echo  Html::a('Create Yae Freight', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -31,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\CheckboxColumn'],
             ['class' => 'yii\grid\ActionColumn',
                 'header' => '操作',
-                'template' => '{view} {audit}',
+                'template' => '{audit}',
                 'buttons' => [
                     'audit' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-check"></span>', $url, [
@@ -99,25 +93,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
-//            [
-//                'attribute'=>'to_minister',
-//                'value' => function($model) {
-//                    if($model->to_minister==1){
-//                        return '是';
-//                    }else{
-//                        return '否';
-//
-//                    }
-//                },
-//                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
-//                'format'=>'html',
-//                'filterType'=>GridView::FILTER_SELECT2,
-//                'filter'=>['0' => '否', '1' => '是'],
-//                'filterWidgetOptions'=>[
-//                    'pluginOptions'=>['allowClear'=>true],
-//                ],
-//                'filterInputOptions'=>['placeholder'=>'提交部长?'],
-//            ],
             [
                 'attribute'=>'to_financial',
                 'value' => function($model) {
@@ -219,3 +194,36 @@ JS;
 $this->registerJs($auditJs);
 
 ?>
+
+<?php
+$export = Url::toRoute(['export']);
+$export_debit =<<<JS
+        $(function() {
+          $('#export-freight-fee').on('click',function() {
+                 var button = $(this);
+                 button.attr('disabled','disabled');
+                var ids =  $('#debit').yiiGridView("getSelectedRows");
+                var str_id  = ids.toString();
+                    console.log(ids);
+                    console.log(str_id);
+                if(ids==false) alert('请选择产品!') ;
+                $.ajax({
+                 url: "{$export}", 
+                 type: 'get',
+                 data:{id:str_id},
+                 success:function(res){
+                   button.attr('disabled',false);
+                   window.location.href = '{$export}'+'?id='+str_id;
+                 },
+                 error: function (jqXHR, textStatus, errorThrown) {
+                            button.attr('disabled',false);
+                 }
+                  });
+             });
+        });
+JS;
+
+$this->registerJs($export_debit);
+
+?>
+
