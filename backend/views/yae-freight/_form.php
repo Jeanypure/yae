@@ -23,7 +23,7 @@ use kartik\select2\Select2;
             echo $form->field($model, 'bill_to')->widget(Select2::classname(), [
                 'data' => [
                     '1'=>'上海商舟船舶用品有限公司',
-                    '2'=>'上海雅耶贸易有限公司',
+                    '2'=>'雅耶国际贸易（上海）有限公司',
                     '3'=>'上海朗探贸易有限公司',
                     '4'=>'上海域聪贸易有限公司',
                     '5'=>'上海朋侯贸易有限公司',

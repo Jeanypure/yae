@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     if($model->bill_to ==1 ){
                         return '上海商舟船舶用品有限公司';
                     }elseif($model->bill_to ==2 ){
-                        return '上海雅耶贸易有限公司';
+                        return '雅耶国际贸易（上海）有限公司';
                     }elseif($model->bill_to ==3 ){
                         return '上海朗探贸易有限公司';
                     }elseif($model->bill_to ==4 ){
