@@ -2,29 +2,31 @@
 /**
  * Created by PhpStorm.
  * User: YM-sale
- * Date: 2018/6/22
- * Time: 14:00
+ * Date: 2018/7/24
+ * Time: 9:34
  */
 use yii\helpers\Url;
+use kartik\daterange\DateRangePicker;
+use kartik\widgets\ActiveForm;
+$form = ActiveForm::begin();
+// DateRangePicker with ActiveForm and model. Check the `required` model validation for
+// the attribute. This also features configuration of Bootstrap input group addon.
+//echo $form->field($model, 'create_date', [
+//    'addon'=>['prepend'=>['content'=>'<i class="glyphicon glyphicon-calendar"></i>']],
+//    'options'=>['class'=>'drp-container form-group']
+//])->widget(DateRangePicker::classname(), [
+//    'useWithAddon'=>true
+//]);
 
-$this->title = '状态分布';
-$cat = Url::toRoute('compute');
 $sample_source = Url::toRoute('sample');
 $js = <<< JS
 //设置背景色
 $('body').css('background','#FFF');
-//删除H1
+//删除H3
+// $('h1').remove();
 $('h3').remove();
         $(function () {
-                $.ajax({
-                    url:'{$cat}', 
-                    success:function (data) {
-                        // var da = JSON.parse(data);  //推荐方法
-                        console.log(data);
-                      init_chart(data);
-                     
-                    }
-                });
+               
                 $.ajax({
                     url:'{$sample_source}', 
                     success:function (data) {
@@ -47,103 +49,32 @@ $('h3').remove();
 JS;
 $this->registerJs($js);
 ?>
-
 <!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
-    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts-en.common.js"></script>
 </head>
 
 <body>
 <div class="row">
-    <div class="col-md-12">
-        <div class="loading" style="display: none;">
-<!--            <center><img src="/assets/img/loading.gif"></center>-->
-        </div>
-    </div>
+    <h4>评审时间</h4>
+
+
 </div>
 <div class="row">
-     <div class="col-md-12">
-         <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-         <div id="main" style="height:400px"></div>
-     </div>
+    <div id="pie-nest" style="width: 1000px;height:600px;"></div>
+
+
 </div>
-<div class="row">
-     <div class="col-md-12">
-         <h2>近30天拿样来源</h2>
-         <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-         <div id="sample-source" style="width: 1200px;height:800px;"></div>
-     </div>
-</div>
+<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
 
 
-
-<!-- ECharts单文件引入 标签式单文件引入-->
-<!--<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts-en.common.js"></script>
-
-<script type="text/javascript">
-    function init_chart(row_data) {
-        // 基于准备好的dom，初始化echarts图表
-        var myChart = echarts.init(document.getElementById('main'));
-        var data = eval("(" + row_data + ")");
-        var status,result;
-        status = data.status;
-        result = data.num;
-        option = {
-            title : {
-                text: '产品状态分布',
-                subtext: '来源支持管理部',
-                x:'center'
-            },
-            tooltip : {
-                trigger: 'item',
-                formatter: "{a} <br/>{b} : {c} ({d}%)"
-            },
-            legend: {
-                orient : 'vertical',
-                x : 'left',
-                data:status
-            },
-            toolbox: {
-                show : true,
-                feature : {
-                    mark : {show: true},
-                    dataView : {show: true, readOnly: false},
-                    magicType : {
-                        show: true,
-                        type: ['pie', 'funnel'],
-                        option: {
-                            funnel: {
-                                x: '25%',
-                                width: '50%',
-                                funnelAlign: 'left',
-                                max: 2000
-                            }
-                        }
-                    },
-                    restore : {show: true},
-                    saveAsImage : {show: true}
-                }
-            },
-            calculable : true,
-            series : [
-                {
-                    name:'评审状态',
-                    type:'pie',
-                    radius : '55%',
-                    center: ['50%', '60%'],
-                    data : result
-                }
-            ]
-        };
-        myChart.setOption(option);
-    }
-</script>
 <script>
     function  sample_chart(sample_data) {
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('sample-source'));
+        var myChart = echarts.init(document.getElementById('pie-nest'));
         var data = eval("(" + sample_data + ")");
         var status,result;
         status = data.status;
@@ -177,10 +108,10 @@ $this->registerJs($js);
                     },
                     data:
                         [
-                       /* {value:335, name:'直达', selected:true},
-                        {value:679, name:'营销广告'},
-                        {value:1548, name:'搜索引擎'}*/
-                    ]
+                            /* {value:335, name:'直达', selected:true},
+                             {value:679, name:'营销广告'},
+                             {value:1548, name:'搜索引擎'}*/
+                        ]
                 },
                 {
                     name:'拿样来源',
@@ -237,6 +168,5 @@ $this->registerJs($js);
         myChart.setOption(option);
     }
 </script>
-
-
 </body>
+</html>
