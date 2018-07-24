@@ -25,37 +25,14 @@ use kartik\widgets\ActiveForm;
     ]);
     echo '</div>';
 
-//Extension of above scenario using separate start and end attributes
-// but without a model. You can set the initial value within
-// `startInputOptions` and `endInputOptions`.
-echo '<div class="input-group drp-container">';
-$addon = <<< HTML
-<span class="input-group-addon">
-    <i class="glyphicon glyphicon-calendar"></i>
-</span>
-HTML;
-echo DateRangePicker::widget([
-        'name'=>'kvdate2',
-        'useWithAddon'=>true,
-        'convertFormat'=>true,
-        'startAttribute' => 'from_date',
-        'endAttribute' => 'to_date',
-        'startInputOptions' => ['value' => '2017-06-11'],
-        'endInputOptions' => ['value' => '2017-07-20'],
-        'pluginOptions'=>[
-            'locale'=>['format' => 'Y-m-d'],
-        ]
-    ]) . $addon;
-echo '</div>';
-
 ?>
 
 
-<div class="form-group">
+<div class="form-group pull-right">
         <?php
 //        echo Html::submitButton(Yii::t('app', '查询'), ['class' => 'btn btn-success']) ?>
     <?php
-        echo  Html::button('查询', ['id' => 'date-str', 'class' => 'btn btn-primary'])
+        echo  Html::button('查询', ['id' => 'date-str', 'class' => 'btn btn-primary btn-lg '])
          ;?>
 
 </div>
@@ -226,7 +203,7 @@ $submit_date =<<<JS
             type:'post',
             data:{date_range_2:date_range},
             success:function(res){
-                 // sample_chart(data);
+                 sample_chart(res);
                 
                 console.log(res);
                 // if(res=='success') alert('提交成功!');
