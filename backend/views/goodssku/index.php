@@ -7,13 +7,11 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\GoodsskuSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Goodsskus';
+$this->title = '产品档案';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="goodssku-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a('Create Goodssku', ['create'], ['class' => 'btn btn-success']) ?>

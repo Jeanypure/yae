@@ -32,7 +32,7 @@ use kartik\widgets\ActiveForm;
         <?php
 //        echo Html::submitButton(Yii::t('app', '查询'), ['class' => 'btn btn-success']) ?>
     <?php
-        echo  Html::button('查询', ['id' => 'date-str', 'class' => 'btn btn-primary btn-lg '])
+        echo  Html::button('查询', ['id' => 'date-str', 'class' => 'btn btn-primary '])
          ;?>
 
 </div>
