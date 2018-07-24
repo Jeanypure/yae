@@ -6,18 +6,62 @@
  * Time: 9:34
  */
 use yii\helpers\Url;
+use yii\helpers\Html;
 use kartik\daterange\DateRangePicker;
 use kartik\widgets\ActiveForm;
-$form = ActiveForm::begin();
-// DateRangePicker with ActiveForm and model. Check the `required` model validation for
-// the attribute. This also features configuration of Bootstrap input group addon.
-//echo $form->field($model, 'create_date', [
-//    'addon'=>['prepend'=>['content'=>'<i class="glyphicon glyphicon-calendar"></i>']],
-//    'options'=>['class'=>'drp-container form-group']
-//])->widget(DateRangePicker::classname(), [
-//    'useWithAddon'=>true
-//]);
+?>
+<?php
+    $form = ActiveForm::begin();
 
+
+    // DateRangePicker in a dropdown format (uneditable/hidden input) and uses the preset dropdown.
+    echo '<label class="control-label">Date Range</label>';
+    echo '<div class="drp-container">';
+    echo DateRangePicker::widget([
+        'name'=>'date_range_2',
+        'presetDropdown'=>true,
+        'hideInput'=>true,
+
+    ]);
+    echo '</div>';
+
+//Extension of above scenario using separate start and end attributes
+// but without a model. You can set the initial value within
+// `startInputOptions` and `endInputOptions`.
+echo '<div class="input-group drp-container">';
+$addon = <<< HTML
+<span class="input-group-addon">
+    <i class="glyphicon glyphicon-calendar"></i>
+</span>
+HTML;
+echo DateRangePicker::widget([
+        'name'=>'kvdate2',
+        'useWithAddon'=>true,
+        'convertFormat'=>true,
+        'startAttribute' => 'from_date',
+        'endAttribute' => 'to_date',
+        'startInputOptions' => ['value' => '2017-06-11'],
+        'endInputOptions' => ['value' => '2017-07-20'],
+        'pluginOptions'=>[
+            'locale'=>['format' => 'Y-m-d'],
+        ]
+    ]) . $addon;
+echo '</div>';
+
+?>
+
+
+<div class="form-group">
+        <?php
+//        echo Html::submitButton(Yii::t('app', '查询'), ['class' => 'btn btn-success']) ?>
+    <?php
+        echo  Html::button('查询', ['id' => 'date-str', 'class' => 'btn btn-primary'])
+         ;?>
+
+</div>
+
+<?php ActiveForm::end(); ?>
+<?php
 $sample_source = Url::toRoute('sample');
 $js = <<< JS
 //设置背景色
@@ -54,15 +98,11 @@ $this->registerJs($js);
 <head>
     <meta charset="utf-8">
     <!-- 引入 echarts.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts-en.common.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts-en.common.js"></script>
 </head>
 
 <body>
-<div class="row">
-    <h4>评审时间</h4>
 
-
-</div>
 <div class="row">
     <div id="pie-nest" style="width: 1000px;height:600px;"></div>
 
@@ -168,5 +208,39 @@ $this->registerJs($js);
         myChart.setOption(option);
     }
 </script>
+
 </body>
 </html>
+
+<?php
+$submit = Url::toRoute('sample');
+$submit_date =<<<JS
+    $('#date-str').on('click',function() {
+         var button = $(this);
+            button.attr('disabled','disabled');
+            var date_range = $("#w1").val();
+            console.log(date_range);
+            // if(ids.length ==0) alert('请选择产品后再操作!');
+            $.ajax({
+            url:'{$submit}',
+            type:'post',
+            data:{date_range_2:date_range},
+            success:function(res){
+                 // sample_chart(data);
+                
+                console.log(res);
+                // if(res=='success') alert('提交成功!');
+                button.attr('disabled',false);
+                // location.reload();
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                button.attr('disabled',false);
+            }
+            });
+    });
+JS;
+
+$this->registerJs($submit_date);
+
+?>

@@ -20,21 +20,23 @@ class SampleSourceController extends Controller
      */
     public function actionIndex()
     {
-        $model = new PurInfo();
-        return $this->render('index',[
-            'model' => $model
-        ]);
+
+        return $this->render('index');
     }
 
     public function actionSample(){
-        $sql = "SELECT 
-                o.purchaser,
-                count(purchaser) as total
+
+        $firstday = date('Y-m-d', strtotime("-30 day"));
+        $lastday = date('Y-m-d', strtotime("-1 day"));
+
+        $sql = "SELECT  o.purchaser,count(purchaser) as total
                 FROM  sample e
                 LEFT JOIN pur_info o ON o.pur_info_id = e.spur_info_id
                 WHERE o.master_result='1' 
+                 AND  DATE_FORMAT(e.create_date,'%Y-%m-%d') between  '$firstday' and '$lastday' 
                 GROUP BY purchaser
                 ORDER BY total desc ;";
+
         $res = Yii::$app->db->createCommand($sql)->queryAll();
         $status =  array_column($res,'purchaser');
         foreach($res as $key=>$value){

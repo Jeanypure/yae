@@ -80,7 +80,8 @@ $this->registerJs($js);
 
 <!-- ECharts单文件引入 标签式单文件引入-->
 <!--<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts-en.common.js"></script>
+<script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts-en.common.js"></script>
+
 
 <script type="text/javascript">
     function init_chart(row_data) {
