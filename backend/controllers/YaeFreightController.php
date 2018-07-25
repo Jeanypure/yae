@@ -214,7 +214,7 @@ class YaeFreightController extends Controller
 
            $quantity = Yii::$app->request->post()['FreightFee']['quantity'];
            $unit_price = Yii::$app->request->post()['FreightFee']['unit_price'];
-           $model->amount = intval($quantity) * floatval($unit_price);
+           $model->amount = floatval($quantity) * floatval($unit_price);
            if($model->save()){
                return $this->redirect(['update', 'id' =>$id]);
 
@@ -236,7 +236,7 @@ class YaeFreightController extends Controller
         if ($model->load(Yii::$app->request->post()) ) {
             $quantity = Yii::$app->request->post()['FreightFee']['quantity'];
             $unit_price = Yii::$app->request->post()['FreightFee']['unit_price'];
-            $model->amount = intval($quantity) * floatval($unit_price);
+            $model->amount = floatval($quantity) * floatval($unit_price);
             if($model->save()){
                 return $this->redirect(['update','id' =>$model->freight_id ]);
             }

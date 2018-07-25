@@ -34,9 +34,9 @@ class FreightFee extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['freight_id', 'description_id', 'quantity'], 'integer'],
+            [['freight_id', 'description_id'], 'integer'],
             [['description_id'], 'required'],
-            [['unit_price', 'amount'], 'number'],
+            [['unit_price', 'amount', 'quantity'], 'number'],
             [['currency'], 'string', 'max' => 10],
             [['remark'], 'string', 'max' => 100],
             [['freight_id'], 'exist', 'skipOnError' => true, 'targetClass' => YaeFreight::className(), 'targetAttribute' => ['freight_id' => 'id']],
