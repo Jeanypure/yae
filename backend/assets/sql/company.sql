@@ -20,6 +20,25 @@ CREATE TABLE `yae_freight` (
 `remark` varchar(500)  comment '备注',
 
 )ENGINE=InnoDB default  charset =utf8
+ENGINE=InnoDB default  charset =utf8
+
+-- 采购公司	工厂	采购合同号	品名	单位	数量	金额	报关合同协议号	采购	SKU
+
+CREATE TABLE new_contract(
+`id` int(11) not  null  primary  key  AUTO_INCREMENT COMMENT 'ID',
+`buy_company` varchar(200) not  null default '' comment '采购公司',
+`factory` varchar(200) not  null default '' comment '工厂',
+`purchase_contract_no` varchar(60) not  null default '' comment '采购合同号',
+`product_name` varchar(200) not  null default '' comment '品名',
+`unit` varchar(20) not  null default '' comment '单位',
+`quantity`  int(10) not  null default 0 comment '数量',
+`amount` decimal(18,2) not  null default 0.00  comment '金额',
+`declare_no` varchar(60) not  null default '' comment '报关合同协议号',
+`purchaser` varchar(20) not  null default '' comment '采购',
+`sku` varchar(60) not  null default '' comment 'SKU',
+)ENGINE=InnoDB default  charset =utf8
+
+insert  into table  new_contract (buy_company,factory,purchase_contract_no,product_name,unit,quantity,amount,declare_no,purchaser) values ();
 
 
 --
