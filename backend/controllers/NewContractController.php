@@ -45,12 +45,18 @@ class NewContractController extends Controller
     }
 
 
+  public function actionBantchExport($id){
+        $arr_id = explode(',',$id);
+        foreach ($arr_id as $k=>$v){
+            $this->actionExport($v);
 
+        }
+  }
 
     public function actionExport($id = null ){
         $objPHPExcel = new \PHPExcel();
         $sql = " SELECT  buy_company,factory,purchase_contract_no,product_name,unit,quantity,amount,declare_no,
-                purchaser,sku  FROM new_contract where  id = 1;  ";
+                purchaser,sku  FROM new_contract where  id =$id;  ";
 
         $da =  Yii::$app->db->createCommand($sql)->queryAll();
         $data = $da[0];
@@ -270,10 +276,10 @@ class NewContractController extends Controller
 
 
 
-    public function actionSend( ){
+    public function actionSend($id){
         $objPHPExcel = new \PHPExcel();
         $sql = " SELECT  buy_company,factory,purchase_contract_no,product_name,unit,quantity,amount,declare_no,
-                purchaser,sku  FROM new_contract where  id = 1;  ";
+                purchaser,sku  FROM new_contract where  id = $id;  ";
 
         $da =  Yii::$app->db->createCommand($sql)->queryAll();
         $data = $da[0];

@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'id' => 'contract',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             ['class' => 'yii\grid\CheckboxColumn'],
@@ -33,8 +34,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{audit}',
                 'buttons' => [
                     'audit' => function ($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-check"></span>', $url, [
-                            'title' => '评审',
+                        return Html::a('<span class="glyphicon glyphicon-export"></span>', $url, [
+                            'title' => '导出合同',
                             'data-toggle' => 'modal',
                             'data-target' => '#audit-modal',
                             'class' => 'data-audit',
@@ -73,19 +74,24 @@ $this->registerJs($js);
 ?>
 
 <?php
-$export = Url::toRoute(['export']);
+$export = Url::toRoute(['bantch-export']);
 $send = Url::toRoute(['send']);
 $export_debit =<<<JS
         $(function() {
           $('#export-contact').on('click',function() {
                  var button = $(this);
                  button.attr('disabled','disabled');
+                 var ids = $("#contract").yiiGridView("getSelectedRows");
+                 var str_id  = ids.toString();
+                console.log(str_id);
+                if(ids.length ==0) alert('请选择产品后再操作!');
                 $.ajax({
                  url: "{$export}", 
                  type: 'get',
+                 data:{id:str_id},
                  success:function(res){
                    button.attr('disabled',false);
-                   window.location.href = '{$export}';
+                   window.location.href = '{$export}'+'?id='+str_id;
                  },
                  error: function (jqXHR, textStatus, errorThrown) {
                             button.attr('disabled',false);
@@ -95,12 +101,17 @@ $export_debit =<<<JS
           $('#export-delivery').on('click',function() {
                  var button = $(this);
                  button.attr('disabled','disabled');
+                 var ids = $("#contract").yiiGridView("getSelectedRows");
+                 var str_id  = ids.toString();
+                 console.log(str_id);
+                if(ids.length ==0) alert('请选择产品后再操作!');
                 $.ajax({
                  url: "{$send}", 
                  type: 'get',
+                 data:{id:str_id},
                  success:function(res){
                    button.attr('disabled',false);
-                   window.location.href = '{$send}';
+                   window.location.href = '{$send}'+'?id='+str_id;
                  },
                  error: function (jqXHR, textStatus, errorThrown) {
                             button.attr('disabled',false);
