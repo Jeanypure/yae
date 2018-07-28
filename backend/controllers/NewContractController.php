@@ -48,6 +48,7 @@ class NewContractController extends Controller
   public function actionBantchExport($id){
         $arr_id = explode(',',$id);
         foreach ($arr_id as $k=>$v){
+
             $this->actionExport($v);
 
         }
@@ -190,12 +191,12 @@ class NewContractController extends Controller
         );
         $objPHPExcel->getActiveSheet()->getStyle( 'A2:J10')->applyFromArray($styleThinBlackBorderOutline);
         $objPHPExcel->getActiveSheet()->getStyle( 'A1:J1')->applyFromArray($Outline);
-
+        $filename = $data['purchase_contract_no']."采购合同".date('Y_m_d').".xls";
         //数据结束
         ob_end_clean();
         ob_start();
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="采购合同.xls"');
+        header("Content-Disposition: attachment;filename= $filename");
         header('Cache-Control: max-age=0');
         $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
         $objWriter->save('php://output');

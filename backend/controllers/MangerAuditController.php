@@ -60,6 +60,7 @@ class MangerAuditController extends Controller
         $spur_id = Yii::$app->db->createCommand("
                    select spur_info_id  from sample where spur_info_id = $id
                   ")->queryOne();
+        $master_member = Yii::$app->user->identity->username;
 
        $preview =   Preview::find()->where(['product_id'=>$id])->all();
        $leader =   Yii::$app->db->createCommand("
@@ -103,6 +104,7 @@ class MangerAuditController extends Controller
                     }
 
                 }
+                $model_update->master_member = $master_member;
                 $model_update->preview_status = 1;
                 $model_update->save(false);
 
@@ -159,7 +161,7 @@ class MangerAuditController extends Controller
                      ")->execute();
                  }
               }
-
+              $model_update->master_member = $master_member;
               $model_update->preview_status = 1;
               $model_update->save(false);
 
@@ -198,7 +200,7 @@ class MangerAuditController extends Controller
                   }
               }
 
-
+              $model_update->master_member = $master_member;
               $model_update->preview_status = 1;
               $model_update->save(false);
               return $this->redirect(['index']);
