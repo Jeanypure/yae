@@ -121,7 +121,7 @@ class YaeFreightController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->update_at = date('Y-m-d H:i:s');
             $model->save(false);
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['yae-freight/update', 'id' => $model->id]);
         }
         $query = FreightFee::find()->indexBy('id')->where(['freight_id'=>$id]); // where `id` is your primary key
         $dataProvider = new ActiveDataProvider([

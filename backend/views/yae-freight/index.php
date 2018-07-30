@@ -99,6 +99,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
             [
+                'attribute'=>'minister',
+                'value' => function($model) { return $model->minister;},
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+            [
                 'attribute'=>'to_minister',
                 'value' => function($model) {
                     if($model->to_minister==1){
