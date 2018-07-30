@@ -84,7 +84,23 @@ use kartik\select2\Select2;
         echo $form->field($model, 'image')->widget('manks\FileInput', []);
 
         ?>
-
+    <?php
+    // Usage with ActiveForm and model
+    echo $form->field($model, 'minister')->widget(Select2::classname(), [
+        'data' => [
+            1 =>'Sue',
+            2 =>'Bianca',
+            3 =>'Molly',
+            4 =>'Joe',
+            5 =>'John',
+            6 =>'Laura',
+        ],
+        'options' => ['multiple' => false,'placeholder' => '选择销售部长.....'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ])
+    ?>
     </div>
 
     <div class="form-group">

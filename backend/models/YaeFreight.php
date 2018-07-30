@@ -49,7 +49,7 @@ class YaeFreight extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['bill_to', 'receiver', 'pod', 'pol'], 'required'],
+            [['minister','bill_to', 'receiver', 'pod', 'pol'], 'required'],
             [['to_minister', 'to_financial', 'mini_deal', 'fina_deal'], 'integer'],
             [['build_at', 'update_at', 'pay_at', 'etd', 'eta'], 'safe'],
             [['bill_to', 'receiver', 'shipment_id', 'image', 'mini_res', 'fina_res'], 'string', 'max' => 200],
@@ -89,6 +89,7 @@ class YaeFreight extends \yii\db\ActiveRecord
             'eta' => 'Eta',
             'contract_no' => 'Contract No',
             'debit_no' => 'Debit No',
+            'minister' => 'Minister',
         ];
     }
 

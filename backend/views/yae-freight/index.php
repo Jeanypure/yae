@@ -276,7 +276,7 @@ $export_debit =<<<JS
                 var str_id  = ids.toString();
                     console.log(ids);
                     console.log(str_id);
-                if(ids==false) alert('请选择产品!') ;
+                if(ids==false) alert('请选择!') ;
                 $.ajax({
                  url: "{$export}", 
                  type: 'get',
