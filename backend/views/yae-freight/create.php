@@ -103,12 +103,12 @@ $this->params['breadcrumbs'][] = $this->title;
         // Usage with ActiveForm and model
         echo $form->field($model, 'minister')->widget(Select2::classname(), [
             'data' => [
-                    1 =>'Sue',
-                    2 =>'Bianca',
-                    3 =>'Molly',
-                    4 =>'Joe',
-                    5 =>'John',
-                    6 =>'Laura',
+                'Sue' => 'Sue',
+                'Bianca' => 'Bianca',
+                'Molly' => 'Molly',
+                'Joe' => 'Joe',
+                'John' => 'John',
+                'Laura' => 'Laura',
             ],
             'options' => ['multiple' => false,'placeholder' => '选择销售部长.....'],
             'pluginOptions' => [
