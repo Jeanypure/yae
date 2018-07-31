@@ -99,5 +99,7 @@ class YaeFreight extends \yii\db\ActiveRecord
     public function getFreightFees()
     {
         return $this->hasMany(FreightFee::className(), ['freight_id' => 'id']);
+
     }
+
 }

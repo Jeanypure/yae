@@ -17,8 +17,9 @@ $this->params['breadcrumbs'][] = 'Update';
     ]) ?>
 
 
-    <?=
-    $this->render('fee_form',[
+    <?php
+
+    echo $this->render('fee_form',[
         'model' => $model,
         'fee_model' => $fee_model[0],
         'id' => 'fee-detail',
@@ -27,9 +28,6 @@ $this->params['breadcrumbs'][] = 'Update';
     ])
     ?>
     <?php
-        echo  $this->render('total_view',[
-                'total' => $total
-            ]
-            )
+        echo  $this->render('total_view',['total' => $total])
     ?>
 </div>

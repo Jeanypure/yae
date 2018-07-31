@@ -42,7 +42,9 @@ class FreightFeeSearch extends FreightFee
      */
     public function search($params)
     {
-        $query = FreightFee::find();
+//        $query = FreightFee::find();
+        $query = FreightFee::find()->alias('e');
+        $query->joinWith(['fee_category as y']);
 
         // add conditions that should always apply here
 

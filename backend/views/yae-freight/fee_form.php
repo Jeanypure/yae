@@ -16,50 +16,8 @@ use backend\models\FeeCategory;
 <?php $skuForm = ActiveForm::begin(['id' => 'sku-info', 'method' => 'post',]);
 ?>
 <?php
-
-echo TabularForm::widget([
-    'dataProvider' => $dataProvider,
-    'id' => 'sku-table',
-    'form' => $skuForm,
-    'actionColumn' => [
-        'class' => '\kartik\grid\ActionColumn',
-        'template' => '{delete}',
-    ],
-    'attributes' => [
-
-        'freight_id' => ['label' => 'freight_id', 'type' => TabularForm::INPUT_TEXT,
-            'options' => ['class' => 'freight_id'],
-        ],
-        'description_id' => ['label' => 'Description', 'type' => TabularForm::INPUT_TEXT,
-            'options' => ['class' => 'description_id'],
-
-        ],
-        'quantity' => ['label' => 'Quantity', 'type' => TabularForm::INPUT_TEXT,
-            'options' => ['class' => 'quantity']
-        ],
-        'unit_price' => ['label' => 'Unit Price', 'type' => TabularForm::INPUT_TEXT,
-            'options' => ['class' => 'unit_price']
-        ],
-        'currency' => ['label' => 'Cur', 'type' => TabularForm::INPUT_TEXT,
-            'options' => ['class' => 'currency'],
-        ],
-        'amount' => ['label' => 'Amount', 'type' => TabularForm::INPUT_TEXT,
-            'options' => ['class' => 'amount']],
-        'remark' => ['label' => 'Ramark', 'type' => TabularForm::INPUT_TEXT,
-            'options' => ['class' => 'remark'],
-        ],
-
-
-    ],
-
-]);
-
-
-?>
-<?php
 echo GridView::widget([
     'dataProvider'=>$dataProvider,
-//    'filterModel'=>$searchModel,
     'showPageSummary'=>false,
     'pjax'=>true,
     'toolbar' =>  [
@@ -68,10 +26,12 @@ echo GridView::widget([
                 'data-toggle'=>"modal" ,'data-target'=>"#fee-add-modal"
                 ]
             )
+
         ],
 //        '{export}',
 //        '{toggleData}',
     ],
+
     'striped'=>true,
     'hover'=>true,
     'responsive'=>true,
@@ -101,45 +61,9 @@ echo GridView::widget([
 
         ],
         [
-            'attribute'=>'description_id',
+            'attribute'=>'name_zn',
             'width'=>'310px',
-            'value'=>function ($model, $key, $index, $widget) {
-                if($model->description_id==1){
-                    return '海运费' ;
-                }elseif ($model->description_id==2){
-                    return '关税' ;
-                }elseif ($model->description_id==3){
-                    return '车架费' ;
-                }elseif ($model->description_id==4){
-                    return '预提费' ;
-                }elseif ($model->description_id==5){
-                    return '国外仓租' ;
-                }elseif ($model->description_id==6){
-                    return '滞箱费' ;
-                }elseif ($model->description_id==7){
-                    return '超时等候费' ;
-                }elseif ($model->description_id==8){
-                    return '周末送货费' ;
-                }elseif ($model->description_id==9){
-                    return '落箱费' ;
-                }elseif ($model->description_id==10){
-                    return '超重许可' ;
-                }elseif ($model->description_id==11){
-                    return '其他费用' ;
-                }else{
-                    return '其他' ;
-                }
 
-            },
-            'filterType'=>GridView::FILTER_SELECT2,
-            'filter'=>ArrayHelper::map(FeeCategory::find()->orderBy('id')->asArray()->all(), 'id', 'name_zn'),
-            'filterWidgetOptions'=>[
-                'pluginOptions'=>['allowClear'=>true],
-            ],
-            'filterInputOptions'=>['placeholder'=>'Any category'],
-            'group'=>true,  // enable grouping
-//            'pageSummary'=>'Page Summary',
-//            'pageSummaryOptions'=>['class'=>'text-right text-warning'],
         ],
         [
             'attribute'=>'quantity',
@@ -176,43 +100,10 @@ echo GridView::widget([
                 }
 
             },
-//            'filterType'=>GridView::FILTER_SELECT2,
-//            'filter'=>[1=>'USD',2=>'GBP',4=>'CAD',5=>'RMB',6=>'EUR'],
-//            'filterWidgetOptions'=>[
-//                'pluginOptions'=>['allowClear'=>true],
-//            ],
-//            'filterInputOptions'=>['placeholder'=>'Any category'],
-//            'group'=>true,  // enable grouping
-//            'subGroupOf'=>1,// supplier column index is the parent group,
-//            'groupFooter'=>function ($model, $key, $index, $widget) { // Closure method
-//                return [
-//                    'mergeColumns'=>[[5]], // columns to merge in summary
-//                    'content'=>[              // content to show in each summary cell
-//                        5=>'Summary (' . $model->currency. ')',
-//                        4=>GridView::F_AVG,
-//                        5=>GridView::F_SUM,
-//                        6=>GridView::F_SUM,
-//                    ],
-//                    'contentFormats'=>[      // content reformatting for each summary cell
-//                        4=>['format'=>'number', 'decimals'=>2],
-//                        5=>['format'=>'number', 'decimals'=>0],
-//                        6=>['format'=>'number', 'decimals'=>2],
-//                    ],
-//                    'contentOptions'=>[      // content html attributes for each summary cell
-//                        4=>['style'=>'text-align:right'],
-//                        5=>['style'=>'text-align:right'],
-//                        6=>['style'=>'text-align:right'],
-//                    ],
-//                    // html attributes for group summary row
-//                    'options'=>['class'=>'success','style'=>'font-weight:bold;']
-//                ];
-//            },
 
         ],
         [
             'attribute'=>'amount',
-//            'pageSummary'=>true,
-//            'pageSummaryOptions'=>['class'=>'text-left text-warning'],
         ],
         [
             'attribute'=>'remark',

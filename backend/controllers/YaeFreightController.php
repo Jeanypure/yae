@@ -123,7 +123,11 @@ class YaeFreightController extends Controller
             $model->save(false);
             return $this->redirect(['yae-freight/update', 'id' => $model->id]);
         }
-        $query = FreightFee::find()->indexBy('id')->where(['freight_id'=>$id]); // where `id` is your primary key
+        $query = FreightFee::find()->alias('e')
+                ->leftJoin('fee_category y','e.description_id=y.id')
+                ->select('e.*,y.name_zn')
+                ->indexBy('id')->where(['freight_id'=>$id]); // where `id` is your primary key
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [

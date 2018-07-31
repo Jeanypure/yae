@@ -20,6 +20,7 @@ use Yii;
  */
 class FreightFee extends \yii\db\ActiveRecord
 {
+    public $name_zn;
     /**
      * {@inheritdoc}
      */
@@ -57,6 +58,7 @@ class FreightFee extends \yii\db\ActiveRecord
             'currency' => 'Currency',
             'amount' => 'Amount',
             'remark' => 'Remark',
+            'name_zn' => 'Description',
         ];
     }
 
@@ -67,4 +69,12 @@ class FreightFee extends \yii\db\ActiveRecord
     {
         return $this->hasOne(YaeFreight::className(), ['id' => 'freight_id']);
     }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFeeCategory()
+    {
+        return $this->hasOne(FeeCategory::className(), ['id' => 'description_id']);
+    }
+
 }

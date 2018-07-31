@@ -97,10 +97,22 @@ return [
 
         'formatter' => [
             'dateFormat' => 'yyyy.MM.dd',
-//            'dateFormat' => 'dd.MM.yyyy',
             'decimalSeparator' => ',',
             'thousandSeparator' => ' ',
             'currencyCode' => 'EUR',
+        ],
+        'i18n' => [
+            'translations' => [
+                'app' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                ],
+                'kvgrid' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                ],
+
+            ],
         ],
     ],
     'as access' => [
@@ -110,11 +122,9 @@ return [
             //controller/action
             'site/*',
             'admin/*',
-//            'user/*',
-//            '/*',
+
         ]
     ],
-
     'params' => $params,
     'language' => 'zh-CN',
 
