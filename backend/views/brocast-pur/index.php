@@ -89,6 +89,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     if (!empty($model->ebay_url)) return "<a href='$model->ebay_url' target='_blank'>".parse_url($model->ebay_url)['host']."</a>";
                 }
             ],
+            [
+                'class' => 'yii\grid\Column',
+                'headerOptions' => [
+                    'width'=>'100'
+                ],
+                'header' => '1688链接',
+                'content' => function ($model, $key, $index, $column){
+                    if (!empty($model->url_1688)) return "<a href='$model->url_1688' target='_blank'>".parse_url($model->url_1688)['host']."</a>";
+                }
+            ],
 
         ],
     ]); ?>

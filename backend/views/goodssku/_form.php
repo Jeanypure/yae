@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use kartik\widgets\ActiveForm;
+use kartik\builder\Form;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Goodssku */
@@ -10,51 +11,112 @@ use yii\widgets\ActiveForm;
 
 <div class="goodssku-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL]); ?>
+    <?php
+    echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>6,
+        'contentBefore'=>'<legend class="text-info"><h3>1.基本信息</h3></legend>',
+        'attributes'=>[       // 3 column layout
+            'sku'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'old_sku'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'pd_title'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'pd_title_en'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
-    <?= $form->field($model, 'sku')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'declared_value')->textInput(['maxlength' => true]) ?>
+        ],
 
-    <?= $form->field($model, 'currency_code')->textInput(['maxlength' => true]) ?>
+    ]);
+    echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>6,
+        'attributes'=>[       // 3 column layout
+            'declared_value'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'currency_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'is_quantity_check'=>['type'=>Form::INPUT_RADIO_LIST, 'items'=>[1=>'是', 0=>'否'],'options'=>['placeholder'=>'']],
+            'contain_battery'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[1=>'是', 0=>'否'], 'options'=>['placeholder'=>'']],
+        ],
 
-    <?= $form->field($model, 'old_sku')->textInput(['maxlength' => true]) ?>
+    ]);
+    echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>6,
+        'contentBefore'=>'<legend class="text-info"><h3>2.尺寸重量</h3></legend>',
+        'attributes'=>[       // 3 column layout
+            'pd_length'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'pd_width'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'pd_height'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'pd_weight'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+        ],
+    ]);
+    echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>6,
+        'attributes'=>[       // 3 column layout
 
-    <?= $form->field($model, 'is_quantity_check')->textInput() ?>
+            'ctn_length'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'ctn_width'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'ctn_height'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'ctn_fact_weight'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'qty_of_ctn'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
-    <?= $form->field($model, 'contain_battery')->textInput() ?>
+        ],
 
-    <?= $form->field($model, 'qty_of_ctn')->textInput() ?>
+    ]);
+    echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>6,
+        'contentBefore'=>'<legend class="text-info"><h3>3 其他信息</h3></legend>',
+        'attributes'=>[       // 3 column layout
+            'vendor_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'origin_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'min_order_num'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'pd_get_days'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
-    <?= $form->field($model, 'ctn_length')->textInput(['maxlength' => true]) ?>
+        ],
 
-    <?= $form->field($model, 'ctn_width')->textInput(['maxlength' => true]) ?>
+    ]);
+    echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>6,
+        'attributes'=>[       // 6 column layout
+            'pd_costprice_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'pd_costprice'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'bill_name'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'bill_unit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'brand'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+        ],
 
-    <?= $form->field($model, 'ctn_height')->textInput(['maxlength' => true]) ?>
+    ]);
 
-    <?= $form->field($model, 'ctn_fact_weight')->textInput(['maxlength' => true]) ?>
+     echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>1,
 
-    <?= $form->field($model, 'sale_company')->textInput(['maxlength' => true]) ?>
+        'attributes'=>[       // 3 column layout
+            'sale_company'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
-    <?= $form->field($model, 'vendor_code')->textInput(['maxlength' => true]) ?>
+        ],
 
-    <?= $form->field($model, 'origin_code')->textInput(['maxlength' => true]) ?>
+    ]); echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>1,
+         'contentBefore'=>'<legend class="text-info"><h3>4.附加信息</h3></legend>',
+        'attributes'=>[       // 3 column layout
+            'sku_mark'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'']],
 
-    <?= $form->field($model, 'min_order_num')->textInput() ?>
+        ],
 
-    <?= $form->field($model, 'pd_get_days')->textInput() ?>
-
-    <?= $form->field($model, 'pd_costprice_code')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'pd_costprice')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'bill_name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'bill_unit')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'brand')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'sku_mark')->textInput(['maxlength' => true]) ?>
+    ]);
+    ?>
 
     <?= $form->field($model, 'pur_info_id')->textInput() ?>
 

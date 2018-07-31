@@ -9,6 +9,8 @@ use Yii;
  *
  * @property int $sku_id 产品ID
  * @property string $sku
+ * @property string $pd_title 产品名称
+ * @property string $pd_title_en 产品英文名称
  * @property string $declared_value 申报价值
  * @property string $currency_code 申报币种
  * @property string $old_sku 曾用SKU
@@ -56,6 +58,9 @@ class Goodssku extends \yii\db\ActiveRecord
             [['vendor_code', 'pd_costprice_code'], 'string', 'max' => 30],
             [['origin_code'], 'string', 'max' => 216],
             [['bill_name'], 'string', 'max' => 50],
+            [['pd_title', 'pd_title_en'], 'string', 'max' => 300],
+            [['pd_length','pd_width','pd_height','pd_weight','pd_creator',], 'string', 'max' =>10 ],
+
         ];
     }
 
@@ -66,29 +71,36 @@ class Goodssku extends \yii\db\ActiveRecord
     {
         return [
             'sku_id' => 'Sku ID',
-            'sku' => 'Sku',
-            'declared_value' => 'Declared Value',
-            'currency_code' => 'Currency Code',
-            'old_sku' => 'Old Sku',
-            'is_quantity_check' => 'Is Quantity Check',
-            'contain_battery' => 'Contain Battery',
-            'qty_of_ctn' => 'Qty Of Ctn',
-            'ctn_length' => 'Ctn Length',
-            'ctn_width' => 'Ctn Width',
-            'ctn_height' => 'Ctn Height',
-            'ctn_fact_weight' => 'Ctn Fact Weight',
-            'sale_company' => 'Sale Company',
-            'vendor_code' => 'Vendor Code',
-            'origin_code' => 'Origin Code',
-            'min_order_num' => 'Min Order Num',
-            'pd_get_days' => 'Pd Get Days',
-            'pd_costprice_code' => 'Pd Costprice Code',
-            'pd_costprice' => 'Pd Costprice',
-            'bill_name' => 'Bill Name',
-            'bill_unit' => 'Bill Unit',
-            'brand' => 'Brand',
-            'sku_mark' => 'Sku Mark',
+            'sku' => 'SKU',
+            'declared_value' => '申报价值',
+            'currency_code' => '申报币种',
+            'old_sku' => '曾用SKU',
+            'is_quantity_check' => '是否需要质检',
+            'contain_battery' => '是否包含电池',
+            'qty_of_ctn' => '单箱数量',
+            'ctn_length' => '箱长',
+            'ctn_width' => '箱宽',
+            'ctn_height' => '箱高',
+            'ctn_fact_weight' => '单箱实际重量',
+            'sale_company' => '在卖公司',
+            'vendor_code' => '默认供应商代码',
+            'origin_code' => '供应商规格型号',
+            'min_order_num' => '最少起订量',
+            'pd_get_days' => '预估交期(天)',
+            'pd_costprice_code' => '采购币种',
+            'pd_costprice' => '采购价',
+            'bill_name' => '开票品名',
+            'bill_unit' => '开票单位',
+            'brand' => '产品品牌',
+            'sku_mark' => '备注',
             'pur_info_id' => 'Pur Info ID',
+            'pd_title' => '产品名称',
+            'pd_title_en' => '产品英文名称',
+            'pd_length' => '长cm',
+            'pd_width' => '宽cm',
+            'pd_height' => '高cm',
+            'pd_weight' => '产品重量(kg)',
+            'pd_creator' => '产品开发人员',
         ];
     }
 }
