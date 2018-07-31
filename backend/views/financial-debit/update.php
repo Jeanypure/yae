@@ -110,38 +110,9 @@ $this->params['breadcrumbs'][] = 'Update';
         'columns' => [
             ['class'=>'kartik\grid\SerialColumn'],
             [
-                'attribute'=>'description_id',
+                'attribute'=>'name_zn',
                 'width'=>'310px',
-                'value'=>function ($model, $key, $index, $widget) {
-                    if($model->description_id==1){
-                        return '海运费' ;
-                    }elseif ($model->description_id==2){
-                        return '关税' ;
-                    }elseif ($model->description_id==3){
-                        return '车架费' ;
-                    }elseif ($model->description_id==4){
-                        return '预提费' ;
-                    }elseif ($model->description_id==5){
-                        return '国外仓租' ;
-                    }elseif ($model->description_id==6){
-                        return '滞箱费' ;
-                    }elseif ($model->description_id==7){
-                        return '超时等候费' ;
-                    }elseif ($model->description_id==8){
-                        return '周末送货费' ;
-                    }elseif ($model->description_id==9){
-                        return '落箱费' ;
-                    }elseif ($model->description_id==10){
-                        return '超重许可' ;
-                    }elseif ($model->description_id==11){
-                        return '其他费用' ;
-                    }else{
-                        return '其他' ;
-                    }
 
-                },
-                'group'=>true,  // enable grouping
-                'pageSummary'=>'Page Summary',
             ],
             [
                 'attribute'=>'quantity',

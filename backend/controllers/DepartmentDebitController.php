@@ -100,7 +100,11 @@ class DepartmentDebitController extends Controller
                         from freight_fee WHERE freight_id=$id
                         GROUP BY currency;
         ")->queryAll();
-        $query = FreightFee::find()->indexBy('id')->where(['freight_id'=>$id]); // where `id` is your primary key
+//        $query = FreightFee::find()->indexBy('id')->where(['freight_id'=>$id]); // where `id` is your primary key
+        $query = FreightFee::find()->alias('e')
+            ->leftJoin('fee_category y','e.description_id=y.id')
+            ->select('e.*,y.name_zn')
+            ->indexBy('id')->where(['freight_id'=>$id]); // where `id` is your primary key
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
