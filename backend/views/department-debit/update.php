@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = 'Update';
         <p>
             <img src="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$model->image;?>" width="100" height="100" alt="" />
         </p>
+
         <h3>1 需确认信息</h3>
         <?= DetailView::widget([
             'model' => $model,

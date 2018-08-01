@@ -14,6 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <img src="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$model->image;?>" width="100" height="100" alt="" />
     </p>
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
