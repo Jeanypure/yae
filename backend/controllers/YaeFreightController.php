@@ -5,7 +5,6 @@ namespace backend\controllers;
 use Yii;
 use backend\models\YaeFreight;
 use backend\models\FreightFee;
-use backend\models\FreightFeeSearch;
 use backend\models\FeeCategory;
 use backend\models\YaeExchangeRate;
 use backend\models\YaeFreightSearch;
@@ -14,10 +13,12 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
 
-use yii\helpers\Json;
 
 use common\components\Upload;
 use yii\web\Response;
+
+use backend\models\UploadForm;
+use yii\web\UploadedFile;
 
 /**
  * YaeFreightController implements the CRUD actions for YaeFreight model.
@@ -77,14 +78,14 @@ class YaeFreightController extends Controller
         $model = new YaeFreight();
         $param = $this->actionParam();
 
-        if ($model->load(Yii::$app->request->post()) ) {
+        if ($model->load(Yii::$app->request->post())) {
             $model->builder = Yii::$app->user->identity->username;
             //创建费用
-           $res = $model->save(false);
-           if($res){
-               $fee_cat =  Yii::$app->request->post()['YaeFreight']['fee_cateid'];
-               $this->actionFee($model->id,$fee_cat);
-           }
+            $res = $model->save(false);
+            if ($res) {
+                $fee_cat = Yii::$app->request->post()['YaeFreight']['fee_cateid'];
+                $this->actionFee($model->id, $fee_cat);
+            }
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -117,16 +118,16 @@ class YaeFreightController extends Controller
                         from freight_fee WHERE freight_id= $id
                         GROUP BY currency;
 ")->queryAll();
-        $fee_model = FreightFee::find()->where(['freight_id'=>$id])->all();
+        $fee_model = FreightFee::find()->where(['freight_id' => $id])->all();
         if ($model->load(Yii::$app->request->post())) {
             $model->update_at = date('Y-m-d H:i:s');
             $model->save(false);
             return $this->redirect(['yae-freight/update', 'id' => $model->id]);
         }
         $query = FreightFee::find()->alias('e')
-                ->leftJoin('fee_category y','e.description_id=y.id')
-                ->select('e.*,y.name_zn')
-                ->indexBy('id')->where(['freight_id'=>$id]); // where `id` is your primary key
+            ->leftJoin('fee_category y', 'e.description_id=y.id')
+            ->select('e.*,y.name_zn')
+            ->indexBy('id')->where(['freight_id' => $id]); // where `id` is your primary key
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -153,9 +154,9 @@ class YaeFreightController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        if($model->to_minister == 1){
+        if ($model->to_minister == 1) {
             echo 'error!';           //已提交不能删除1
-        }else{
+        } else {
             $this->findModel($id)->delete();
 
         }
@@ -180,49 +181,51 @@ class YaeFreightController extends Controller
     }
 
 
-    public function  actionFee($freight_id,$fee_cat){
+    public function actionFee($freight_id, $fee_cat)
+    {
         $table = 'freight_fee';
-        $arr_key = ['freight_id','description_id'];
+        $arr_key = ['freight_id', 'description_id'];
         $arr = [];
         $freight_id = [$freight_id];
-        foreach ($fee_cat as $key=>$value){
+        foreach ($fee_cat as $key => $value) {
             $val = [$value];
-            $new_array = array_merge($freight_id,$val);
+            $new_array = array_merge($freight_id, $val);
 
             $arr[] = $new_array;
 
         }
 
-        $res = $this->actionMultArray2Insert($table,$arr_key, $arr, $split = '`');
+        $res = $this->actionMultArray2Insert($table, $arr_key, $arr, $split = '`');
 
         $to_freight_fee = Yii::$app->db->createCommand($res)->execute();
-        if($to_freight_fee){
+        if ($to_freight_fee) {
             return 'success!';
-        }else{
+        } else {
             return 'error!';
         }
 
     }
 
-    public function  actionCreateFee($id){
+    public function actionCreateFee($id)
+    {
 
         $model = new FreightFee();
-        $param  = $this->actionParam();
-        if(isset($id)&&!empty($id)){
-            $model -> freight_id = $id;
+        $param = $this->actionParam();
+        if (isset($id) && !empty($id)) {
+            $model->freight_id = $id;
             $model->save();
         }
 
 
-        if ($model->load(Yii::$app->request->post()) ) {
+        if ($model->load(Yii::$app->request->post())) {
 
-           $quantity = Yii::$app->request->post()['FreightFee']['quantity'];
-           $unit_price = Yii::$app->request->post()['FreightFee']['unit_price'];
-           $model->amount = floatval($quantity) * floatval($unit_price);
-           if($model->save()){
-               return $this->redirect(['update', 'id' =>$id]);
+            $quantity = Yii::$app->request->post()['FreightFee']['quantity'];
+            $unit_price = Yii::$app->request->post()['FreightFee']['unit_price'];
+            $model->amount = floatval($quantity) * floatval($unit_price);
+            if ($model->save()) {
+                return $this->redirect(['update', 'id' => $id]);
 
-           }
+            }
         }
 
         return $this->renderAjax('create_fee', [
@@ -233,16 +236,17 @@ class YaeFreightController extends Controller
 
     }
 
-    public function  actionUpdateFee($id){
+    public function actionUpdateFee($id)
+    {
 
-        $model = FreightFee::find()->where(['id'=>$id])->one();
-        $param  = $this->actionParam();
-        if ($model->load(Yii::$app->request->post()) ) {
+        $model = FreightFee::find()->where(['id' => $id])->one();
+        $param = $this->actionParam();
+        if ($model->load(Yii::$app->request->post())) {
             $quantity = Yii::$app->request->post()['FreightFee']['quantity'];
             $unit_price = Yii::$app->request->post()['FreightFee']['unit_price'];
             $model->amount = floatval($quantity) * floatval($unit_price);
-            if($model->save()){
-                return $this->redirect(['update','id' =>$model->freight_id ]);
+            if ($model->save()) {
+                return $this->redirect(['update', 'id' => $model->freight_id]);
             }
 
         }
@@ -254,16 +258,17 @@ class YaeFreightController extends Controller
         ]);
     }
 
-    public function  actionParam(){
+    public function actionParam()
+    {
 
-        $fee_cate =  FeeCategory::find()->select('id,name_zn')->asArray()->All();
-        $cur =  YaeExchangeRate::find()->select('id,currency')->asArray()->All();
-        $arr =[];
-        $currency =[];
-        foreach($fee_cate as $key=>$value){
+        $fee_cate = FeeCategory::find()->select('id,name_zn')->asArray()->All();
+        $cur = YaeExchangeRate::find()->select('id,currency')->asArray()->All();
+        $arr = [];
+        $currency = [];
+        foreach ($fee_cate as $key => $value) {
             $arr[$value['id']] = $value['name_zn'];
         }
-        foreach($cur as $key=>$value){
+        foreach ($cur as $key => $value) {
             $currency[$value['id']] = $value['currency'];
         }
 
@@ -272,11 +277,12 @@ class YaeFreightController extends Controller
         return $param;
     }
 
-    public  function  actionFeeDelete($id){
+    public function actionFeeDelete($id)
+    {
 
-        $feecat = FreightFee::find()->where(['id'=>$id])->one();
+        $feecat = FreightFee::find()->where(['id' => $id])->one();
 
-        if($feecat->delete()) {
+        if ($feecat->delete()) {
             echo 1;
             Yii::$app->end();
         }
@@ -304,66 +310,62 @@ class YaeFreightController extends Controller
     }
 
 
-    public  function  actionSubmit(){
+    public function actionSubmit()
+    {
         $ids = $_POST['id'];
         $product_ids = '';
-        foreach ($ids as $k=>$v){
-            $product_ids.=$v.',';
+        foreach ($ids as $k => $v) {
+            $product_ids .= $v . ',';
         }
-        $ids_str = trim($product_ids,',');
+        $ids_str = trim($product_ids, ',');
 
-        if(isset($ids)&&!empty($ids)){
+        if (isset($ids) && !empty($ids)) {
             $res = Yii::$app->db->createCommand("
             update `yae_freight` set  to_minister = 1 where `id` in ($ids_str)
             ")->execute();
-            if($res){
+            if ($res) {
                 echo 'success';
             }
-        }else{
+        } else {
             echo 'error';
         }
     }
 
 
-    public  function  actionCancel(){
+    public function actionCancel()
+    {
 
         $ids = $_POST['id'];
         $product_ids = '';
-        foreach ($ids as $k=>$v){
-            $product_ids.=$v.',';
+        foreach ($ids as $k => $v) {
+            $product_ids .= $v . ',';
         }
-        $ids_str = trim($product_ids,',');
+        $ids_str = trim($product_ids, ',');
 
-        if(isset($ids)&&!empty($ids)){
+        if (isset($ids) && !empty($ids)) {
             $res = Yii::$app->db->createCommand("
                        update `yae_freight` set  to_minister = 0 where `id` in ($ids_str)
             ")->execute();
-            if($res){
+            if ($res) {
                 echo 'success';
             }
-        }else{
+        } else {
             echo 'error';
         }
     }
 
 
     /**
-
      * 多条数据同时转化成插入SQL语句
-
      * @ CreatBy:IT自由职业者
-
      * @param string $table 表名
-
      * @$arr_key是表字段名的key：$arr_key=array("field1","field2","field3")
-
      * @param array $arr是字段值 数组示例 arrat(("a","b","c"), ("bbc","bbb","caaa"),('add',"bppp","cggg"))
-
      * @return string
-
      */
 
-    public  function actionMultArray2Insert($table,$arr_key, $arr, $split = '`') {
+    public function actionMultArray2Insert($table, $arr_key, $arr, $split = '`')
+    {
 
         $arrValues = array();
 
@@ -377,7 +379,7 @@ class YaeFreightController extends Controller
 
         foreach ($arr as $k => $v) {
 
-            $arrValues[$k] = "'".implode("','",array_values($v))."'";
+            $arrValues[$k] = "'" . implode("','", array_values($v)) . "'";
 
         }
 
@@ -388,7 +390,8 @@ class YaeFreightController extends Controller
     }
 
 
-    public function actionExport($id = null ){
+    public function actionExport($id = null)
+    {
         $objPHPExcel = new \PHPExcel();
         $header = [
             'A1' => '付款人',
@@ -424,44 +427,43 @@ class YaeFreightController extends Controller
                 t.debit_no;
         ";
 
-       $data =  Yii::$app->db->createCommand($sql)->queryAll();
-       $company = Yii::$app->db->createCommand("select sub_company,memo from company")->queryAll();
-       $company_arr = [];
-       foreach($company as $key=>$val){
-           $company_arr[$val['sub_company']]  = $val['memo'];
-       }
+        $data = Yii::$app->db->createCommand($sql)->queryAll();
+        $company = Yii::$app->db->createCommand("select sub_company,memo from company")->queryAll();
+        $company_arr = [];
+        foreach ($company as $key => $val) {
+            $company_arr[$val['sub_company']] = $val['memo'];
+        }
 
         //设置表格头的输出
-        foreach($header as $key=>$value){
+        foreach ($header as $key => $value) {
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue("$key", "$value");
         }
-        foreach ($data as $k =>$v){
-            $num= 2;
-            $num = $num+$k;
+        foreach ($data as $k => $v) {
+            $num = 2;
+            $num = $num + $k;
             $objPHPExcel->setActiveSheetIndex(0)
                 //Excel的第A列，uid是你查出数组的键值，下面以此类推
-                ->setCellValue('A'.$num, $company_arr[$v['bill_to']])
-                ->setCellValue('B'.$num, $v['receiver'])
-                ->setCellValue('C'.$num, $v['contract_no'])
-                ->setCellValue('D'.$num, $v['debit_no'])
-                ->setCellValue('E'.$num, $v['RMB'])
-                ->setCellValue('F'.$num, $v['USD'])
-                ->setCellValue('G'.$num, $v['CAD'])
-                ->setCellValue('H'.$num, $v['GBP'])
-                ->setCellValue('I'.$num, $v['EUR'])
-            ;
+                ->setCellValue('A' . $num, $company_arr[$v['bill_to']])
+                ->setCellValue('B' . $num, $v['receiver'])
+                ->setCellValue('C' . $num, $v['contract_no'])
+                ->setCellValue('D' . $num, $v['debit_no'])
+                ->setCellValue('E' . $num, $v['RMB'])
+                ->setCellValue('F' . $num, $v['USD'])
+                ->setCellValue('G' . $num, $v['CAD'])
+                ->setCellValue('H' . $num, $v['GBP'])
+                ->setCellValue('I' . $num, $v['EUR']);
         }
 
         //汇总项
-        $sum  = count($data) + 2;
-        $v  = count($data) + 1;
+        $sum = count($data) + 2;
+        $v = count($data) + 1;
         $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue('D'.$sum, '汇总')
-                ->setCellValue('E'.$sum, "=SUM(E2:E{$v})")
-                ->setCellValue('F'.$sum, "=SUM(F2:F{$v})")
-                ->setCellValue('G'.$sum, "=SUM(G2:G{$v})")
-                ->setCellValue('H'.$sum, "=SUM(H2:H{$v})")
-                ->setCellValue('I'.$sum, "=SUM(I2:I{$v})") ;
+            ->setCellValue('D' . $sum, '汇总')
+            ->setCellValue('E' . $sum, "=SUM(E2:E{$v})")
+            ->setCellValue('F' . $sum, "=SUM(F2:F{$v})")
+            ->setCellValue('G' . $sum, "=SUM(G2:G{$v})")
+            ->setCellValue('H' . $sum, "=SUM(H2:H{$v})")
+            ->setCellValue('I' . $sum, "=SUM(I2:I{$v})");
 
         //数据结束
         ob_end_clean();
@@ -473,6 +475,10 @@ class YaeFreightController extends Controller
         $objWriter->save('php://output');
 
     }
+
+
+
+
 
 
 }

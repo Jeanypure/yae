@@ -1,38 +1,42 @@
--- 					海关申报代码	英文申报品名	中文申报品名	申报价值	申报币种	采购价	采购币种	默认供应商代码	销售价格	销售运费	建立原因	供应商产品地址	供应商品号	款式代码	成品	运营方式	贴标容易度	产品销售状态	销售负责人	开发负责人	自定义分类	是否需要质检	组织机构（代码）	申报说明	是否包含电池	是否为仿制品	最小采购量	交期	中文描述	英文描述	净重	EAN码	产品单位代码		UPC码
+BEGIN
+-- 判断这个ID 此item 是新记录 还是旧记录
+	DECLARE c_num int;
+	SELECT COUNT(*)  INTO c_num FROM `pur_info`
+	WHERE `source`=0  AND `parent_product_id`=@id;
+
+if c_num = 0  -- 新纪录
+then
+
+	-- 是新记录 插入
+
+				 INSERT INTO `pur_info`
+				 (parent_product_id,pd_title_en,pd_title,amazon_url,ebay_url,url_1688,pd_pic_url,source,purchaser,preview_status,pur_group)
+
+					SELECT
+						 @id,
+						 t.`product_title_en`,
+						 t.`product_title`,
+							t.`ref_url1`,
+							t.`ref_url2`,
+							t.`ref_url3`,
+							t.`pd_pic_url`,
+						 '0',
+						 t.`purchaser`,
+						 '0',
+						 `sub_company`
+					FROM `product` t WHERE t.`product_id`= @id;
+
+	 -- 旧记录 就更新
+ELSE       -- 旧记录 做更新
+
+		UPDATE `pur_info` o
+		INNER JOIN (SELECT`product_id`,`purchaser` FROM `product`) t on o.`parent_product_id`=t.`product_id`
+		set  o.`purchaser` = t.`purchaser`,o.`preview_status`='0'
+		WHERE o.`parent_product_id`= @id;
 
 
-CREATE TABLE `yae_product_file` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '产品档案ID',
-  `sku` varchar(60) NOT NULL DEFAULT '' comment '产品SKU',
-    `pd_title` varchar(300) NOT NULL DEFAULT '' COMMENT '产品名称',
-    `pd_title_en` varchar(300) NOT NULL DEFAULT '' COMMENT '产品英文名称',
-  `pd_category_code` varchar(30) NOT NULL DEFAULT '' COMMENT '产品品类(代码)',
-  `pd_weight` decimal(10,3) DEFAULT '0.000' COMMENT '重量',
-  `pd_length` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '长cm',
-  `pd_width` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '宽cm',
-  `pd_height` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '高cm',
-  `declared_value` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '申报价值',
-  `currency_code` varchar(5) NOT NULL DEFAULT '' COMMENT '申报币种',
-  `old_sku` varchar(60) NOT NULL DEFAULT '' COMMENT '曾用SKU',
-  `is_quantity_check` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0:不质检;1:质检',
-  `contain_battery` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '含电池:  0,不含 1:含',
-  `qty_of_ctn` int(10) NOT NULL DEFAULT '0' COMMENT '单箱数量',
-  `ctn_length` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '箱长',
-  `ctn_width` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '箱宽',
-  `ctn_height` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '箱高',
-  `ctn_fact_weight` decimal(10,3) NOT NULL DEFAULT '0.000' COMMENT '单箱实际重量(KG)',
-  `sale_company` varchar(100) NOT NULL DEFAULT '' COMMENT '销售公司',
-  `vendor_code` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '默认供应商代码',
-  `origin_code` varchar(216) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '供应商品号 供应商规格型号',
-  `min_order_num` int(10) NOT NULL DEFAULT '0' COMMENT '最少起订量',
-  `pd_get_days` int(11) NOT NULL DEFAULT '1' COMMENT '交期',
-  `pd_costprice_code` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '采购币种',
-  `pd_costprice` decimal(10,3) NOT NULL DEFAULT '0.000' COMMENT '采购价',
-  `bill_name` varchar(50) NOT NULL DEFAULT '' COMMENT '开票品名',
-  `bill_unit` varchar(5) NOT NULL DEFAULT '' COMMENT '开票单位 EA(单个) KG(公斤) MT(米) CASE(盒) PC(件) SET(套)',
-  `brand` varchar(100) NOT NULL DEFAULT '' COMMENT '产品品牌',
-  `sku_mark` varchar(100) NOT NULL DEFAULT '' COMMENT '备注',
-  `pur_info_id` int(11) NOT NULL DEFAULT '0' COMMENT 'pur_info_id表主键',
-  PRIMARY KEY (`sku_id`),
-  KEY `pur_info_id` (`pur_info_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='产品档案';
+
+
+END IF;
+
+END

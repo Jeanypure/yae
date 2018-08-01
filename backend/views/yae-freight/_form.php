@@ -14,7 +14,7 @@ use kartik\select2\Select2;
 
 <div class="yae-freight-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
     <legend class="text-info"><h4>1.基本信息</h4></legend>
     <div class="row">
         <div class="col-sm-3">
@@ -99,8 +99,9 @@ use kartik\select2\Select2;
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ])
+    ]);
     ?>
+
     </div>
 
     <div class="form-group">
