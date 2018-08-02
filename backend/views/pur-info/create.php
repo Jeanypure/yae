@@ -248,41 +248,47 @@ JS;
         $this->registerJs($readonly_js);
     ?>
 
-    <?php
-    //计算是否是大件
+<?php
+//计算是否是大件
 
-    $compute_js =<<<JS
+$compute_js =<<<JS
         $('#w0').on('change',function() {
             var height = $("#purinfo-pd_height").val();
             var width = $("#purinfo-pd_width").val();
             var length = $("#purinfo-pd_length").val();
             
-            if(height>=20){
+            var height_in = $("#purinfo-pd_height").val()*0.39.toFixed(3);
+            var width_in = $("#purinfo-pd_width").val()*0.39.toFixed(3);
+            var length_in = $("#purinfo-pd_length").val()*0.39.toFixed(3);
+           
+            if(parseFloat(height_in)>=8){
                 $(":radio[name ='PurInfo[is_huge]'][value='1']").prop("checked","checked");
-            }else if(width>=35){
+            }else if(parseFloat(width_in)>=14){
                 $(":radio[name ='PurInfo[is_huge]'][value='1']").prop("checked","checked");
-            }else if(length>=45){
+            }else if(parseFloat(length_in)>=18 ){
                 $(":radio[name ='PurInfo[is_huge]'][value='1']").prop("checked","checked");
             }else{
                 $(":radio[name ='PurInfo[is_huge]'][value='0']").prop("checked","checked");
             }
                           
-            var thow_weight = (height*width*length/5000).toFixed(3); 
+            var amz_pound_weight = (height_in*width_in*length_in/139).toFixed(3); // amz计算重量 单位 磅
+            var thow_weight = (height_in*width_in*length_in*0.45/139).toFixed(3); //抛重 kg
+           
             $('#purinfo-pd_throw_weight').val(thow_weight) ;
             var fact_weight = $('#purinfo-pd_weight').val();
             var count_weight;
-            if(fact_weight > thow_weight){
+       
+            if(parseFloat(fact_weight) > parseFloat(thow_weight)){
                 count_weight = fact_weight;
             }else{
                 count_weight = thow_weight;
             }
+            
             $("#purinfo-pd_count_weight").val(count_weight);
-            
-            
             //tax
             var costprice = $("#purinfo-pd_pur_costprice").val(); //含税价格
             var tax_rebate = $("#purinfo-bill_tax_rebate").val(); //退税率
-            var bill_rebate_amount = tax_rebate * costprice/100;       //退税金额
+            var bill_rebate_amount = (tax_rebate * costprice/100).toFixed(3);       //退税金额
             // $("#purinfo-bill_rebate_amount").val(amount_rebate);
             $("#purinfo-bill_rebate_amount").val(bill_rebate_amount);
             
@@ -290,7 +296,7 @@ JS;
             //海运运费估计
             var  shipping_fee;
             var is_huge = $("input[name='PurInfo[is_huge]']:checked").val();
-            console.log(is_huge);
+           
             var shipping_fee;
             if(is_huge==0){
                 shipping_fee = (count_weight*5).toFixed(3);
@@ -300,15 +306,36 @@ JS;
             $("#purinfo-shipping_fee").val(shipping_fee);
             
             //海外仓运费预估 purinfo-oversea_shipping_fee 
-            // ().toFixed(3)
+            //是大件在判断
+             //小号 中号 大号 特殊大件
+             //small_huge 小号  70磅  长60in 宽30in 长度+周长130in 
+             //middle_huge 中号  150磅  长108in  长度+周长 130in 
+             //big_huge 大号  150磅  长108in  长度+周长 165in 
+             //else_huge 特殊大件  >150磅  长60in 宽30in  >长度+周长165in 
+             var oversea_fee;
             
-            var oversea_fee;
-            if(count_weight<=1){
+            if(is_huge==1){
+                var perimeter = (width_in+height_in)*2 ; //周长
+                var len_cir = length_in+perimeter;
+                if(amz_pound_weight<70 && length_in < 60 && width_in< 30 && len_cir< 130){ //small_huge = 1;
+                    oversea_fee = ((8.13 + (amz_pound_weight-2)*0.38)*$exchange_rate).toFixed(3);
+                }else if(amz_pound_weight<150 && length_in < 108  && len_cir< 130){ // middle_huge = 1;
+                    oversea_fee = ((9.44 + (amz_pound_weight-2)*0.38)*$exchange_rate).toFixed(3);
+                }else if(amz_pound_weight<150 && length_in < 108  && len_cir< 165){ // big_huge=1;
+                     oversea_fee = ((73.18 + (amz_pound_weight-90)*0.79)*$exchange_rate).toFixed(3);
+                }else if(amz_pound_weight>150 || length_in > 108  || len_cir> 165){ //else_huge = 1;
+                     oversea_fee = ((137.32 +(amz_pound_weight-90)*0.91)*$exchange_rate).toFixed(3);
+                }
+                
+            }else if(is_huge==0){
+                if(count_weight<=1){
                 oversea_fee = (6.5*$exchange_rate).toFixed(3); //$exchange_rate 是美元汇率
-            }else{
-                // oversea_fee = (count_weight-1)*1.2*$exchange_rate+6.5*$exchange_rate;
-                oversea_fee = (((count_weight-1)*1.2+6.5)*$exchange_rate).toFixed(3) ;
+                }else{
+                    // oversea_fee = (count_weight-1)*1.2*$exchange_rate+6.5*$exchange_rate;
+                    oversea_fee = (((count_weight-1)*1.2+6.5)*$exchange_rate).toFixed(3) ;
+                }
             }
+            
             $("#purinfo-oversea_shipping_fee").val(oversea_fee);
             
             
@@ -349,10 +376,7 @@ JS;
              // var ams_logistics_fee = $("#purinfo-ams_logistics_fee").val();
              var ams_logistics_fee = (parseFloat(fulfillment_cost) + parseFloat(amz_selling_on_amz_fee)).toFixed(3);
              $("#purinfo-ams_logistics_fee").val(ams_logistics_fee);
-             
-             //amz 成交费 是 售价的15%
-             var amz_transaction_fee = (retail_price*$exchange_rate*0.15).toFixed(3);
-             
+            
              //amz 毛利¥
              //amz 毛利率%
              
@@ -360,16 +384,16 @@ JS;
             gross_profit_amz = (amz_retail_price_rmb-costprice+(bill_rebate_amount)-(ams_logistics_fee*$exchange_rate)-shipping_fee).toFixed(3) ;
             $("#purinfo-gross_profit_amz").val(gross_profit_amz);
 
-           
              //amz毛利率
             var profit_rate_amz = (gross_profit_amz*100/amz_retail_price_rmb).toFixed(3);
              $("#purinfo-profit_rate_amz").val(profit_rate_amz);
+             
           
             
         });
 
 JS;
 
-    $this->registerJs($compute_js);
+$this->registerJs($compute_js);
 
-    ?>
+?>
