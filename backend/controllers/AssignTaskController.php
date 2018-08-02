@@ -135,6 +135,7 @@ class AssignTaskController extends Controller
 
     public function actionPickMember()
     {
+
         $audit_member = Yii::$app->db->createCommand("
                             SELECT p.`purchaser` from `purchaser` p  WHERE  p.`role` =1
                          ")->queryAll();
@@ -143,13 +144,18 @@ class AssignTaskController extends Controller
 
         if ($model->load(Yii::$app->request->post()) ) {
            $member = Yii::$app->request->post()["PurInfo"]["member"];
-           $pur_info_ids =  Yii::$app->session['ids'];
-           $pur_ids = '';
-           foreach ($pur_info_ids as $key=>$value){
-               $pur_ids.=$value.',';
 
-           }
-           $ids_str = rtrim($pur_ids,',');
+            if(!empty(Yii::$app->session['ids'])){
+                $pur_info_ids =  Yii::$app->session['ids'];
+                $pur_ids = '';
+                $ids_str = '';
+                foreach ($pur_info_ids as $key=>$value){
+                    $pur_ids.=$value.',';
+
+                }
+                $ids_str = rtrim($pur_ids,',');
+            }
+
             try{
                 $result =   Yii::$app->db->createCommand(" 
                             update `pur_info` set `member`= '$member',`is_assign`=1  where pur_info_id in ($ids_str);
@@ -179,11 +185,27 @@ class AssignTaskController extends Controller
             ")->queryOne();
 
             if($count_num['number']!= 0){ //更新原来的member2
+                $preview_id = Yii::$app->db->createCommand("
+            select preview_id from `preview` where `product_id` in (467) 
+            and `member2` in ( SELECT p.`purchaser` from `purchaser` p  WHERE  p.`role` =1)
+            
+            ")->queryAll();
+                if(!empty($preview_id)){
+                    $preid = '';
+                    $previewid = '';
+                    foreach ($preview_id as $k=>$v){
+                        $previewid .= $v['preview_id'].',';
+                    }
+                    $preid  = rtrim($previewid,',');
+                }
+
 
                 try{//分配的同时 preview无此产品 插入  存在则更新preview表
-                    $update_member2 = Yii::$app->db->createCommand("
-                    update `preview` set `member2`= '$member' where `product_id` in ($ids_str);
+                    $update_member = Yii::$app->db->createCommand("
                     update `pur_info` set `member`= '$member' ,`is_assign`=1   where pur_info_id in ($ids_str);
+                    ")->execute();
+                    $preview_member2 = Yii::$app->db->createCommand("
+                    update `preview` set `member2`= '$member'  where preview_id in  ($preid);
                     ")->execute();
                 }
                 catch(Exception $e){
@@ -197,10 +219,6 @@ class AssignTaskController extends Controller
                     throw new Exception();
                 }
             }
-
-
-
-
 
           if(empty($result)){
               unset(Yii::$app->session['ids']);

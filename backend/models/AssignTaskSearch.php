@@ -47,6 +47,7 @@ class AssignTaskSearch extends PurInfo
         $query = PurInfo::find()
             ->andwhere(['is_submit'=>1])
             ->andwhere(['not',['purchaser'=>'null']])
+            ->orderBy('pur_info_id desc')
         ;
 
         // add conditions that should always apply here
