@@ -352,7 +352,7 @@ $compute_js =<<<JS
              //else_huge 特殊大件  >150磅  长60in 宽30in  >长度+周长165in 
              var oversea_fee =0 ;
             if(is_huge==1){
-                amz_pound_count_weight = amz_pound_count_weight+1; //大件要加上包装 1磅
+                amz_pound_count_weight = parseFloat(amz_pound_count_weight)+1; //大件要加上包装 1磅
                 var perimeter = (width_in+height_in)*2 ; //周长   
                 var len_cir = length_in+perimeter;
                 if(amz_pound_count_weight<70 && length_in < 60 && width_in< 30 && len_cir< 130){ //small_huge = 1;
