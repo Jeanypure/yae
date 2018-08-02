@@ -106,6 +106,7 @@ class MangerAuditController extends Controller
                 }
                 $model_update->master_member = $master_member;
                 $model_update->preview_status = 1;
+                $model_update->priview_time = date('Y-m-d H:i:s');
                 $model_update->save(false);
 
                 return $this->redirect(['index']);
@@ -163,6 +164,7 @@ class MangerAuditController extends Controller
               }
               $model_update->master_member = $master_member;
               $model_update->preview_status = 1;
+              $model_update->priview_time = date('Y-m-d H:i:s');
               $model_update->save(false);
 
               return $this->redirect(['index']);
@@ -202,6 +204,7 @@ class MangerAuditController extends Controller
 
               $model_update->master_member = $master_member;
               $model_update->preview_status = 1;
+              $model_update->priview_time = date('Y-m-d H:i:s');
               $model_update->save(false);
               return $this->redirect(['index']);
 

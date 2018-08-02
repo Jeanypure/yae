@@ -139,7 +139,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     if($model->master_result==0){
                         return '拒绝';
                     }elseif($model->master_result==1){
-                        return '采购';
+                        return '采样';
 
                     }elseif($model->master_result==2){
                         return '需议价和谈其他条件';
