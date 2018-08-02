@@ -247,7 +247,6 @@ $this->params['breadcrumbs'][] = $this->title;
 JS;
         $this->registerJs($readonly_js);
     ?>
-
 <?php
 //计算是否是大件
 
@@ -271,7 +270,7 @@ $compute_js =<<<JS
                 $(":radio[name ='PurInfo[is_huge]'][value='0']").prop("checked","checked");
             }
                           
-            var amz_pound_weight = (height_in*width_in*length_in/139).toFixed(3); // amz计算重量 单位 磅
+            var amz_pound_weight = (height_in*width_in*length_in/139).toFixed(3); // amz计算重量 抛重 单位 磅
             var thow_weight = (height_in*width_in*length_in*0.45/139).toFixed(3); //抛重 kg
            
             $('#purinfo-pd_throw_weight').val(thow_weight) ;
@@ -284,9 +283,11 @@ $compute_js =<<<JS
                 count_weight = thow_weight;
             }
             
+            var amz_pound_count_weight = (count_weight*2.2).toFixed(3); //amz 商品重量 体积重量 较大值  磅
             $("#purinfo-pd_count_weight").val(count_weight);
             //tax
-            var costprice = $("#purinfo-pd_pur_costprice").val(); //含税价格
+            var costprice = parseFloat($("#purinfo-pd_pur_costprice").val()); //含税价格
+           
             var tax_rebate = $("#purinfo-bill_tax_rebate").val(); //退税率
             var bill_rebate_amount = (tax_rebate * costprice/100).toFixed(3);       //退税金额
             // $("#purinfo-bill_rebate_amount").val(amount_rebate);
@@ -312,22 +313,21 @@ $compute_js =<<<JS
              //middle_huge 中号  150磅  长108in  长度+周长 130in 
              //big_huge 大号  150磅  长108in  长度+周长 165in 
              //else_huge 特殊大件  >150磅  长60in 宽30in  >长度+周长165in 
-             var oversea_fee;
-            
+             var oversea_fee =0 ;
             if(is_huge==1){
-                var perimeter = (width_in+height_in)*2 ; //周长
+                var perimeter = (width_in+height_in)*2 ; //周长   
                 var len_cir = length_in+perimeter;
-                if(amz_pound_weight<70 && length_in < 60 && width_in< 30 && len_cir< 130){ //small_huge = 1;
-                    oversea_fee = ((8.13 + (amz_pound_weight-2)*0.38)*$exchange_rate).toFixed(3);
-                }else if(amz_pound_weight<150 && length_in < 108  && len_cir< 130){ // middle_huge = 1;
-                    oversea_fee = ((9.44 + (amz_pound_weight-2)*0.38)*$exchange_rate).toFixed(3);
-                }else if(amz_pound_weight<150 && length_in < 108  && len_cir< 165){ // big_huge=1;
-                     oversea_fee = ((73.18 + (amz_pound_weight-90)*0.79)*$exchange_rate).toFixed(3);
-                }else if(amz_pound_weight>150 || length_in > 108  || len_cir> 165){ //else_huge = 1;
-                     oversea_fee = ((137.32 +(amz_pound_weight-90)*0.91)*$exchange_rate).toFixed(3);
+                if(amz_pound_count_weight<70 && length_in < 60 && width_in< 30 && len_cir< 130){ //small_huge = 1;
+                    oversea_fee = ((8.13 + (amz_pound_count_weight-2)*0.38)*$exchange_rate).toFixed(3);
+                }else if(amz_pound_count_weight<150 && length_in < 108  && len_cir< 130){ // middle_huge = 1;
+                    oversea_fee = ((9.44 + (amz_pound_count_weight-2)*0.38)*$exchange_rate).toFixed(3);
+                }else if(amz_pound_count_weight<150 && length_in < 108  && len_cir< 165){ // big_huge=1;
+                     oversea_fee = ((73.18 + (amz_pound_count_weight-90)*0.79)*$exchange_rate).toFixed(3);
+                }else if(amz_pound_count_weight>150 || length_in > 108  || len_cir> 165){ //else_huge = 1;
+                     oversea_fee = ((137.32 +(amz_pound_count_weight-90)*0.91)*$exchange_rate).toFixed(3);
                 }
                 
-            }else if(is_huge==0){
+            }else{
                 if(count_weight<=1){
                 oversea_fee = (6.5*$exchange_rate).toFixed(3); //$exchange_rate 是美元汇率
                 }else{
@@ -335,10 +335,10 @@ $compute_js =<<<JS
                     oversea_fee = (((count_weight-1)*1.2+6.5)*$exchange_rate).toFixed(3) ;
                 }
             }
-            
+
             $("#purinfo-oversea_shipping_fee").val(oversea_fee);
-            
-            
+                               
+         
             //成交费 purinfo-transaction_fee
             var transaction_fee;
             var retail_price = $("#purinfo-retail_price").val(); //预计销售价格 $
@@ -346,23 +346,27 @@ $compute_js =<<<JS
             $("#purinfo-transaction_fee").val(transaction_fee);
             
             //预计销售额 RMB  purinfo-no_rebate_amount
-            var no_rebate_amount = (retail_price*$exchange_rate).toFixed(3)
+            var no_rebate_amount = parseFloat((retail_price*$exchange_rate)).toFixed(3)
             
             $("#purinfo-no_rebate_amount").val(no_rebate_amount);
             
             //预估毛利 purinfo-gross_profit
             //预估毛利= 预计销售价格RMB-含税价格+退税金额-海运运费-海外仓运费-成交费
             var gross_profit;
-            //含税价格 costprice
-            gross_profit = (no_rebate_amount-costprice+(bill_rebate_amount)-(shipping_fee)-(oversea_fee)-transaction_fee).toFixed(3) ;
+                                        
+
+            //含税价格 costprice 
+            gross_profit = (parseFloat(no_rebate_amount)- parseFloat(costprice)+ parseFloat(bill_rebate_amount)- parseFloat(shipping_fee)- parseFloat(oversea_fee)- parseFloat(transaction_fee)).toFixed(3) ;
+             
             $("#purinfo-gross_profit").val(gross_profit);
               //毛利率--eBay
             var profit_rate = (gross_profit*100/no_rebate_amount).toFixed(3);
              $("#purinfo-profit_rate").val(profit_rate);
              
                 //amz 最低售价 $ rmb
-            var amz_retail_price = $("#purinfo-amz_retail_price").val();
+            var amz_retail_price = $("#purinfo-amz_retail_price").val() ;
             var amz_retail_price_rmb = (amz_retail_price*$exchange_rate).toFixed(3);
+           
             $("#purinfo-amz_retail_price_rmb").val(amz_retail_price_rmb);
              
              //amz   amz_fulfillment_cost
@@ -381,7 +385,7 @@ $compute_js =<<<JS
              //amz 毛利率%
              
             var gross_profit_amz;
-            gross_profit_amz = (amz_retail_price_rmb-costprice+(bill_rebate_amount)-(ams_logistics_fee*$exchange_rate)-shipping_fee).toFixed(3) ;
+            gross_profit_amz = (parseFloat(amz_retail_price_rmb)-parseFloat(costprice)+parseFloat(bill_rebate_amount)-parseFloat(ams_logistics_fee*$exchange_rate)-parseFloat(shipping_fee)).toFixed(3) ;
             $("#purinfo-gross_profit_amz").val(gross_profit_amz);
 
              //amz毛利率
