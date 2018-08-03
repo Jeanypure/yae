@@ -58,7 +58,10 @@ class MinisterAgreestSearch extends PurInfo
                 ])
                 ->joinWith('sample')
                 ->andWhere(['sample_submit1'=>1])
+                ->orderBy('pur_info_id desc')
             ;
+
+            $this->is_agreest = 2;
         }else{ //按部门显示
             $query = PurInfo::find()
                 ->select(['
@@ -72,6 +75,8 @@ class MinisterAgreestSearch extends PurInfo
                 ->andWhere(['sample_submit1'=>1])
                 ->orderBy('pur_info_id desc')
             ;
+
+            $this->is_agreest = 2;
         }
 
 
