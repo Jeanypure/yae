@@ -23,6 +23,7 @@ use kartik\builder\Form;
             'old_sku'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'pd_title'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'pd_title_en'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'image_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
 
         ],
@@ -71,7 +72,7 @@ use kartik\builder\Form;
         'model'=>$model,
         'form'=>$form,
         'columns'=>6,
-        'contentBefore'=>'<legend class="text-info"><h3>3 其他信息</h3></legend>',
+        'contentBefore'=>'<legend class="text-info"><h3>3.供应商信息</h3></legend>',
         'attributes'=>[       // 3 column layout
             'vendor_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'origin_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
@@ -95,17 +96,8 @@ use kartik\builder\Form;
 
     ]);
 
+
      echo Form::widget([
-        'model'=>$model,
-        'form'=>$form,
-        'columns'=>1,
-
-        'attributes'=>[       // 3 column layout
-            'sale_company'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-
-        ],
-
-    ]); echo Form::widget([
         'model'=>$model,
         'form'=>$form,
         'columns'=>1,
@@ -116,9 +108,18 @@ use kartik\builder\Form;
         ],
 
     ]);
+    echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>1,
+        'attributes'=>[       // 3 column layout
+            'sale_company'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+
+        ],
+
+    ]);
     ?>
 
-    <?= $form->field($model, 'pur_info_id')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

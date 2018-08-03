@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Goodssku */
 
-$this->title = '创建产品档案';
-$this->params['breadcrumbs'][] = ['label' => 'Goodsskus', 'url' => ['index']];
+$this->title = 'Create';
+$this->params['breadcrumbs'][] = ['label' => '产品档案', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="goodssku-create">

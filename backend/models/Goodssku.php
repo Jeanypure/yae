@@ -61,6 +61,7 @@ class Goodssku extends \yii\db\ActiveRecord
             [['pd_title', 'pd_title_en'], 'string', 'max' => 300],
             [['pd_length','pd_width','pd_height','pd_weight','pd_creator',], 'string', 'max' =>10 ],
             [['image_url'], 'string', 'max' =>500 ],
+            [['sku_create_date','sku_update_date' ], 'safe'],
 
         ];
     }
@@ -103,6 +104,8 @@ class Goodssku extends \yii\db\ActiveRecord
             'pd_weight' => '产品重量(kg)',
             'pd_creator' => '产品开发人员',
             'image_url' => '图片地址',
+            'sku_create_date' => '创建档案时间',
+            'sku_update_date' => '创建档案时间',
         ];
     }
 }

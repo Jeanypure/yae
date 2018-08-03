@@ -66,7 +66,9 @@ class GoodsskuController extends Controller
     {
         $model = new Goodssku();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->pd_creator = Yii::$app->user->identity->username;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->sku_id]);
         }
 
@@ -87,6 +89,7 @@ class GoodsskuController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->sku_update_date = date('Y-m-d H:i:s');
             return $this->redirect(['view', 'id' => $model->sku_id]);
         }
 

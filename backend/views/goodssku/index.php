@@ -63,11 +63,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'is_quantity_check',
             'contain_battery',
             'qty_of_ctn',
-            'ctn_length',
+           /* 'ctn_length',
             'ctn_width',
             'ctn_height',
-            'ctn_fact_weight',
-            'sale_company',
+            'ctn_fact_weight',*/
+           /* 'sale_company',
             'vendor_code',
             'origin_code',
             'min_order_num',
@@ -76,9 +76,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'pd_costprice',
             'bill_name',
             'bill_unit',
-            'brand',
+            'brand',*/
             'sku_mark',
-            //'pur_info_id',
 
         ],
     ]); ?>

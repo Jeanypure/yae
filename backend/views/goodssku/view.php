@@ -12,7 +12,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="goodssku-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <p>
+        <img src="<?php echo $model->image_url ?>" alt="" height="100" width="100">
+    </p>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->sku_id], ['class' => 'btn btn-primary']) ?>
