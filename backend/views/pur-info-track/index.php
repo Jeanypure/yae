@@ -137,6 +137,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions'=>['placeholder'=>'质量是否合格'],
             ],
             [
+                'attribute'=>'is_purchase',
+                'width'=>'100px',
+                'value'=>function ($model, $key, $index, $widget) {
+                    if($model->is_purchase==1){
+                        return '采购';
+
+                    }elseif($model->is_purchase==0){
+                        return '不采购';
+                    }else{
+                        return '未决定';
+
+                    }
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '采购', '0' => '不采购', '2' => '未决定'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'是否确定采购?'],
+            ],
+            [
                 'attribute'=>'is_agreest',
                 'width'=>'100px',
                 'value'=>function ($model, $key, $index, $widget) {

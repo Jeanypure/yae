@@ -25,7 +25,38 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn',
                 'header' => '操作'
             ],
+            [
+                'class' => 'yii\grid\Column',
+                'headerOptions' => [
+                    'width'=>'100'
+                ],
+                'header' => '图片',
+                'content' => function ($model, $key, $index, $column){
+                    return "<img src='" .$model->image_url. "' width='100' height='100'>";
+
+
+                }
+            ],
             'sku',
+
+            [
+                'attribute'=>'pd_title',
+                'value' => function($model) { return $model->pd_title;},
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
+            [
+                'attribute'=>'pd_title_en',
+                'value' => function($model) { return $model->pd_title_en;},
+                'contentOptions'=> ['style' => 'width: 50%; overflow:auto;word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
             'declared_value',
             'currency_code',
             'old_sku',

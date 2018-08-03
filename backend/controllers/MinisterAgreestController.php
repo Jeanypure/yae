@@ -173,13 +173,16 @@ class MinisterAgreestController extends Controller
             $model->is_quality = Yii::$app->request->post()['PurInfo']['is_quality'];
             $model->is_purchase = Yii::$app->request->post()['PurInfo']['is_purchase'];
 
-            if(Yii::$app->request->post()['PurInfo']['is_purchase']==1){// 确定采购, 入区组长表
+            if(Yii::$app->request->post()['PurInfo']['is_purchase']==1){// 确定采购, 1入区组长表  2 入产品档案表
                 $count = Yii::$app->db->createCommand("
                 select count(*) as num from headman where product_id=$id
                 ")->queryOne();
                 if(empty($count['num'])){ //第一次 插入
                     $this->actionToHeadman($id);
                 }
+                $sql = " SET @id = $id;
+                        CALL purinfo_to_goodssku (@id);";
+                $res    = Yii::$app->db->createCommand($sql)->execute();
             }
 
             $model->save(false);

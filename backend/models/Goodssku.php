@@ -60,6 +60,7 @@ class Goodssku extends \yii\db\ActiveRecord
             [['bill_name'], 'string', 'max' => 50],
             [['pd_title', 'pd_title_en'], 'string', 'max' => 300],
             [['pd_length','pd_width','pd_height','pd_weight','pd_creator',], 'string', 'max' =>10 ],
+            [['image_url'], 'string', 'max' =>500 ],
 
         ];
     }
@@ -101,6 +102,7 @@ class Goodssku extends \yii\db\ActiveRecord
             'pd_height' => '高cm',
             'pd_weight' => '产品重量(kg)',
             'pd_creator' => '产品开发人员',
+            'image_url' => '图片地址',
         ];
     }
 }
