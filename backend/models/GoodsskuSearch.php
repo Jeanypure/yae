@@ -42,10 +42,19 @@ class GoodsskuSearch extends Goodssku
      */
     public function search($params)
     {
-        $query = Goodssku::find()
-            ->orderBy('sku_id desc')
+        $username = Yii::$app->user->identity->username;
 
-        ;
+        if($username=='Mark'||$username=='Jenny'||$username=='David'){
+            $query = Goodssku::find()
+                ->orderBy('sku_id desc')
+            ;
+        }else{
+            $query = Goodssku::find()
+                ->andWhere(['pd_creator' => $username])
+                ->orderBy('sku_id desc')
+            ;
+        }
+
 
         // add conditions that should always apply here
 
