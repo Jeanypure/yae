@@ -44,6 +44,7 @@ class SkuVendor extends \yii\db\ActiveRecord
             [['pd_costprice_code'], 'string', 'max' => 30],
             [['bill_unit'], 'string', 'max' => 5],
             [['brand', 'remark'], 'string', 'max' => 100],
+            [['bill_name'], 'string', 'max' => 50],
         ];
     }
 
@@ -55,17 +56,18 @@ class SkuVendor extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'sku_id' => 'Sku ID',
-            'vendor_code' => 'Vendor Code',
-            'origin_code' => 'Origin Code',
-            'min_order_num' => 'Min Order Num',
-            'pd_get_days' => 'Pd Get Days',
-            'pd_costprice_code' => 'Pd Costprice Code',
-            'pd_costprice' => 'Pd Costprice',
-            'bill_unit' => 'Bill Unit',
-            'brand' => 'Brand',
-            'create_date' => 'Create Date',
-            'update_date' => 'Update Date',
-            'remark' => 'Remark',
+            'vendor_code' => '供应商代码',
+            'origin_code' => '供应商规格型号',
+            'min_order_num' => '最少起订量',
+            'pd_get_days' => '预估交期(天)',
+            'pd_costprice_code' => '采购币种',
+            'pd_costprice' => '采购价',
+            'bill_name' => '开票品名',
+            'bill_unit' => '开票单位',
+            'brand' => '产品品牌',
+            'create_date' => '创建日期',
+            'update_date' => '更新日期',
+            'remark' => '备注',
         ];
     }
 }

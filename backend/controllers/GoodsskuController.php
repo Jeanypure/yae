@@ -4,10 +4,12 @@ namespace backend\controllers;
 
 use Yii;
 use backend\models\Goodssku;
+use backend\models\SkuVendor;
 use backend\models\GoodsskuSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 
 /**
  * GoodsskuController implements the CRUD actions for Goodssku model.
@@ -93,8 +95,21 @@ class GoodsskuController extends Controller
             return $this->redirect(['view', 'id' => $model->sku_id]);
         }
 
+        $query = SkuVendor::find();
+        $vendor_model = SkuVendor::find()->where(['sku_id' => $id])->all();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 30,
+            ],
+        ]);
+
         return $this->render('update', [
             'model' => $model,
+            'dataProvider' => $dataProvider,
+            'vendor_model' => $vendor_model[0],
+            'sku_id'=>$id
         ]);
     }
 
@@ -127,4 +142,32 @@ class GoodsskuController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public  function  actionVendorUpdate(){
+        $vendor_model = new SkuVendor();
+
+        if ($vendor_model->load(Yii::$app->request->post()) ) {
+            $vendor_model->update_date = date('Y-m-d H:i:s');
+            $vendor_model->save();
+            return $this->redirect(['view', 'id' => $vendor_model->sku_id]);
+        }
+
+        return $this->renderAjax('vendor_update', [
+            'model' => $vendor_model,
+        ]);
+    }
+
+     public  function  actionVendorCreate(){
+         $vendor_model = new SkuVendor();
+
+         if ($vendor_model->load(Yii::$app->request->post()) ) {
+             $vendor_model->save();
+             return $this->redirect(['view', 'id' => $vendor_model->sku_id]);
+         }
+
+         return $this->renderAjax('vendor_create', [
+             'model' => $vendor_model,
+         ]);
+     }
+
 }

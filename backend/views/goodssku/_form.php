@@ -68,7 +68,7 @@ use kartik\builder\Form;
         ],
 
     ]);
-    echo Form::widget([
+    /*echo Form::widget([
         'model'=>$model,
         'form'=>$form,
         'columns'=>6,
@@ -94,14 +94,14 @@ use kartik\builder\Form;
             'brand'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
         ],
 
-    ]);
+    ]);*/
 
 
      echo Form::widget([
         'model'=>$model,
         'form'=>$form,
         'columns'=>1,
-         'contentBefore'=>'<legend class="text-info"><h3>4.附加信息</h3></legend>',
+         'contentBefore'=>'<legend class="text-info"><h3>3.备注信息</h3></legend>',
         'attributes'=>[       // 3 column layout
             'sku_mark'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'']],
 
@@ -122,7 +122,7 @@ use kartik\builder\Form;
 
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-lg']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

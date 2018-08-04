@@ -7,14 +7,9 @@
  */
 use yii\helpers\Html;
 use yii\helpers\Url;
-use kartik\widgets\ActiveForm;
-use kartik\builder\TabularForm;
 use kartik\grid\GridView;
-use yii\helpers\ArrayHelper;
-use backend\models\FeeCategory;
 ?>
-<?php $skuForm = ActiveForm::begin(['id' => 'sku-info', 'method' => 'post',]);
-?>
+
 <?php
 echo GridView::widget([
     'dataProvider'=>$dataProvider,
@@ -28,14 +23,12 @@ echo GridView::widget([
             )
 
         ],
-//        '{export}',
-//        '{toggleData}',
     ],
 
     'striped'=>true,
     'hover'=>true,
     'responsive'=>true,
-    'panel'=>['type'=>'primary', 'heading'=>'Grid Grouping Example'],
+    'panel'=>['type'=>'primary', 'heading'=>'供应商信息'],
 
     'columns'=>[
         ['class'=>'kartik\grid\SerialColumn'],
@@ -115,7 +108,6 @@ echo GridView::widget([
         ],
     ],
 ]);
-ActiveForm::end();
 ?>
 
 
