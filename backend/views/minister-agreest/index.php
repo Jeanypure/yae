@@ -207,6 +207,58 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     'filterInputOptions'=>['placeholder'=>'确定采购?'],
                 ],
+                [
+                    'attribute'=>'has_arrival',
+                    'width'=>'100px',
+                    'value'=>function ($model, $key, $index, $widget) {
+                        if($model->has_arrival==1){
+                            return '已到货';
+
+                        }else{
+                            return '未到货';
+
+                        }
+                    },
+                    'filterType'=>GridView::FILTER_SELECT2,
+                    'filter'=>['1' => '已到货', '0' => '未到货'],
+                    'filterWidgetOptions'=>[
+                        'pluginOptions'=>['allowClear'=>true],
+                    ],
+                    'filterInputOptions'=>['placeholder'=>'是否到货'],
+                ],
+
+                [
+                    'attribute'=>'minister_result',
+                    'value' => function($model) {
+                        if($model->minister_result==0){
+                            return '未判断';
+                        }elseif($model->minister_result==1){
+                            return '半价产品';
+
+                        }elseif($model->minister_result==2){
+                            return '新品';
+
+                        }elseif($model->minister_result==3){
+                            return '推送产品';
+
+                        }elseif($model->minister_result==4){
+                            return '简单重复';
+
+                        }
+                    },
+                    'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                    'format'=>'html',
+                    'filterType'=>GridView::FILTER_SELECT2,
+                    'filter'=>['0' => '未判断', '1' => '半价产品', '2' => '新品', '3' => '推送产品', '4' => '简单重复'],
+                    'filterWidgetOptions'=>[
+                        'pluginOptions'=>['allowClear'=>true],
+                    ],
+                    'filterInputOptions'=>['placeholder'=>'部长判断'],
+                ],
+                [
+                    'attribute' => 'write_date',
+                    'headerOptions' => ['width' => '12%'],
+                ],
 
                 [
                     'attribute'=>'master_result',

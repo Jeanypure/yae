@@ -51,6 +51,9 @@ class PurInfo extends \yii\db\ActiveRecord
     public  $is_agreest;
     public  $create_date;
     public  $pay_amount;
+    public  $has_arrival;
+    public  $minister_result;
+    public  $write_date;
 
 
     /**
@@ -87,7 +90,7 @@ class PurInfo extends \yii\db\ActiveRecord
             ['amazon_url','url','defaultScheme' => 'http'],
             ['else_url','url','defaultScheme' => 'http'],
             ['url_1688','url','defaultScheme' => 'http'],
-            [['pd_create_time', ], 'safe'],
+            [['pd_create_time','write_date' ], 'safe'],
             [['sample_return', ], 'integer'],
 
         ];
@@ -166,6 +169,9 @@ class PurInfo extends \yii\db\ActiveRecord
             'is_purchase' => '确定采购?',
             'sample_return' => '确定退回样品?',
             'trading_company' => '供应商是否是贸易公司',
+            'has_arrival' => '是否到货?',
+            'minister_result' => '部长判断',
+            'write_date' => '到货日期',
 
         ];
     }
