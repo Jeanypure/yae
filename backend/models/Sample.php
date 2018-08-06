@@ -44,10 +44,11 @@ class Sample extends \yii\db\ActiveRecord
     {
         return [
             [['spur_info_id','fee_return','is_agreest'], 'required'],
-            [['for_free', 'spur_info_id', 'is_audit', 'is_agreest',  'fee_return', 'audit_mem1', 'applicant'], 'integer'],
+            [['minister_result','has_arrival','for_free', 'spur_info_id', 'is_audit', 'is_agreest',  'fee_return', 'audit_mem1', 'applicant'], 'integer'],
             [['procurement_cost', 'sample_freight', 'else_fee', 'pay_amount'], 'number'],
-            [['create_date', 'lastop_date'], 'safe'],
+            [['write_date','arrival_date','create_date', 'lastop_date'], 'safe'],
             [['pay_way', 'mark'], 'string', 'max' => 500],
+            [['minister_reason'], 'string', 'max' => 100],
             [['procurement_cost', 'sample_freight', 'pay_amount','pay_way',], 'required'],
 
         ];
@@ -79,9 +80,13 @@ class Sample extends \yii\db\ActiveRecord
             'sure_remark' => '确定退款人备注',
             'sure_refund_men' => '确定退款人',
             'for_free' => '批量采购是否赠送样品(即不退样品只退样品费)?',
+            'has_arrival' => '是否到货',
+            'arrival_date' => '到货标记日期',
+            'write_date' => '到货日期',
+            'minister_result' => '部长判断',
+            'minister_reason' => '备注',
         ];
     }
-
 
     public function behaviors()
     {

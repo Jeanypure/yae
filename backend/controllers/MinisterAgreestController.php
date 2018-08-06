@@ -194,13 +194,18 @@ class MinisterAgreestController extends Controller
 
     }
 
-        public function actionShare($id){
+    public function actionArrival($id){
 
-            $model = $this->findModel($id);
+        $sample_model = Sample::findOne(['spur_info_id'=>$id]);
+        if($sample_model->load(Yii::$app->request->post()) ){
+            $sample_model->arrival_date = date('Y-m-d');
+            $sample_model->save();
+            return $this->redirect(['index']);
 
-            return  $this->renderAjax('share', [
-                'model' => $model,
-            ]);
+        }
+        return  $this->renderAjax('arrival', [
+            'model' => $sample_model,
+        ]);
         }
 
     /**
@@ -298,4 +303,6 @@ class MinisterAgreestController extends Controller
             return $sql;
 
         }
+
+
 }

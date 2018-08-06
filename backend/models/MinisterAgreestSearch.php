@@ -103,6 +103,7 @@ class MinisterAgreestSearch extends PurInfo
         $query->andFilterWhere([
             'pur_info_id' => $this->pur_info_id,
             'is_agreest' => $this->is_agreest,
+            'is_purchase' => $this->is_purchase,
             'pur_group' => $this->pur_group,
             'is_huge' => $this->is_huge,
             'sample_return' => $this->sample_return,

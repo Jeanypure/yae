@@ -18,11 +18,16 @@ class SampleSearch extends Sample
     public function rules()
     {
         return [
-            [['sample_id', 'spur_info_id', 'is_audit', 'is_agreest', 'is_quality', 'fee_return', 'audit_mem1', 'audit_mem2', 'audit_mem3', 'applicant'], 'integer'],
+            [['has_arrival','sample_id', 'spur_info_id', 'is_audit', 'is_agreest', 'is_quality', 'fee_return', 'audit_mem1', 'audit_mem2', 'audit_mem3', 'applicant'], 'integer'],
             [['procurement_cost', 'sample_freight', 'else_fee', 'pay_amount'], 'number'],
-            [['pay_way', 'mark', 'create_date', 'lastop_date'], 'safe'],
+            [['arrival_date','write_date','minister_result','minister_reason','pay_way', 'mark', 'create_date', 'lastop_date'], 'safe'],
         ];
     }
+
+
+
+
+
 
     /**
      * {@inheritdoc}
@@ -76,10 +81,15 @@ class SampleSearch extends Sample
             'applicant' => $this->applicant,
             'create_date' => $this->create_date,
             'lastop_date' => $this->lastop_date,
+            'has_arrival' => $this->has_arrival,
+            'arrival_date' => $this->arrival_date,
+            'write_date' => $this->write_date,
+            'minister_result' => $this->minister_result,
         ]);
 
         $query->andFilterWhere(['like', 'pay_way', $this->pay_way])
-            ->andFilterWhere(['like', 'mark', $this->mark]);
+            ->andFilterWhere(['like', 'mark', $this->mark])
+            ->andFilterWhere(['like', 'minister_reason', $this->minister_reason]);
 
         return $dataProvider;
     }

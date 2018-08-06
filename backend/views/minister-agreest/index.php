@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //                ['class' => 'yii\grid\CheckboxColumn'],
                 ['class' => 'yii\grid\ActionColumn',
                     'header' => '操作',
-                    'template' => '{view}  {saved} ',
+                    'template' => '{view}  {saved} {arrival} ',
                     'buttons' => [
                         'saved' => function ($url, $model, $key) {
                             return Html::a('<span class="glyphicon glyphicon-saved"></span>', $url, [
@@ -48,6 +48,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'data-toggle' => 'modal',
                                 'data-target' => '#agree-modal',
                                 'class' => 'data-agree',
+                                'data-id' => $key,
+                            ] );
+                        },
+                        'arrival' => function ($url, $model, $key) {
+                            return Html::a('<span class="fa fa-truck"></span>', $url, [
+                                'title' => '确认到货',
+                                'data-toggle' => 'modal',
+                                'data-target' => '#arrival-modal',
+                                'class' => 'data-arrival',
                                 'data-id' => $key,
                             ] );
                         },
@@ -291,10 +300,23 @@ Modal::begin([
 ]);
 Modal::end();
 
-// 分享操作
+//费用
 Modal::begin([
     'id' => 'agree-modal',
     'header' => '<h4 class="modal-title">样品费用信息</h4>',
+    'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>',
+    'options'=>[
+        'data-backdrop'=>'static',//点击空白处不关闭弹窗
+        'data-keyboard'=>false,
+    ],
+    'size'=> Modal::SIZE_LARGE
+]);
+Modal::end();
+
+// 到货确认操作
+Modal::begin([
+    'id' => 'arrival-modal',
+    'header' => '<h4 class="modal-title">到货确认</h4>',
     'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>',
     'options'=>[
         'data-backdrop'=>'static',//点击空白处不关闭弹窗
@@ -330,6 +352,20 @@ $share_js = <<<JS
         });
 JS;
 $this->registerJs($share_js);
+
+//到货确认
+$arrival_url = Url::toRoute('arrival');
+$arrival_js = <<<JS
+     $('.data-arrival').on('click', function () {
+            $.get('{$arrival_url}', { id: $(this).closest('tr').data('key') },
+                function (data) {
+                    $('.modal-body').html(data);
+                }
+            );
+        });
+JS;
+$this->registerJs($arrival_js);
+
 
 ?>
 
