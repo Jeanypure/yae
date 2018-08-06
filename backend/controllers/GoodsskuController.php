@@ -95,7 +95,7 @@ class GoodsskuController extends Controller
             return $this->redirect(['view', 'id' => $model->sku_id]);
         }
 
-        $query = SkuVendor::find();
+        $query = SkuVendor::find()->andwhere(['sku_id' => $id]);
         $vendor_model = SkuVendor::find()->where(['sku_id' => $id])->all();
 
         $dataProvider = new ActiveDataProvider([
@@ -143,31 +143,52 @@ class GoodsskuController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public  function  actionVendorUpdate(){
-        $vendor_model = new SkuVendor();
+    public  function  actionVendorUpdate($id){
+
+        $vendor_model =  SkuVendor::findOne($id);
 
         if ($vendor_model->load(Yii::$app->request->post()) ) {
             $vendor_model->update_date = date('Y-m-d H:i:s');
-            $vendor_model->save();
-            return $this->redirect(['view', 'id' => $vendor_model->sku_id]);
+            if($vendor_model->save()){
+                return $this->redirect(['update', 'id' => $vendor_model->sku_id]);
+            }
+
         }
 
         return $this->renderAjax('vendor_update', [
             'model' => $vendor_model,
+            'sku_id' => $id,
         ]);
     }
 
-     public  function  actionVendorCreate(){
+     public  function  actionVendorCreate($id){
          $vendor_model = new SkuVendor();
-
          if ($vendor_model->load(Yii::$app->request->post()) ) {
-             $vendor_model->save();
-             return $this->redirect(['view', 'id' => $vendor_model->sku_id]);
+                 if($vendor_model->save()){
+                     return $this->redirect(['update', 'id' => $vendor_model->sku_id]);
+                 }
+
+         }else{
+             if (isset($id) && !empty($id)) {
+                 $vendor_model->sku_id = $id;
+                 $vendor_model->save();
+             }
          }
 
          return $this->renderAjax('vendor_create', [
              'model' => $vendor_model,
          ]);
+     }
+
+     public  function  actionVendorDelete($id){
+         $vendor = SkuVendor::find()->where(['id' => $id])->one();
+
+         if ($vendor->delete()) {
+             echo 1;
+             Yii::$app->end();
+         }
+         echo 0;
+         Yii::$app->end();
      }
 
 }
