@@ -198,7 +198,7 @@ class MinisterAgreestController extends Controller
 
         $sample_model = Sample::findOne(['spur_info_id'=>$id]);
         if($sample_model->load(Yii::$app->request->post()) ){
-            $sample_model->arrival_date = date('Y-m-d');
+            $sample_model->arrival_date = date('Y-m-d H:i:s');
             $sample_model->save();
             return $this->redirect(['index']);
 
