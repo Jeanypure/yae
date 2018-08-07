@@ -36,7 +36,7 @@ class PurchaserController extends Controller
     public function actionIndex()
     {
         $searchModel = new PurchaserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'index');
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -124,4 +124,17 @@ class PurchaserController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
+
+    public function actionGrade()
+    {
+        $searchModel = new PurchaserSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'grade');
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
 }

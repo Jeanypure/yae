@@ -39,10 +39,16 @@ class PurchaserSearch extends Purchaser
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$cat)
     {
         $query = Purchaser::find();
 
+        if($cat == 'grade'){
+            $query = Purchaser::find()
+                ->andWhere(['has_used'=>1])
+                ->andWhere(['in','code',[1,2,3]])
+            ;
+        }
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
