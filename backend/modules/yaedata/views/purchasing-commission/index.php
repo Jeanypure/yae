@@ -5,14 +5,11 @@
  * Date: 2018/8/7
  * Time: 13:20
  */
-use yii\helpers\Html;
 use kartik\grid\GridView;
-use yii\helpers\Url;
-
 
 echo GridView::widget([
     'dataProvider'=>$dataProvider,
-//    'filterModel'=>$searchModel,
+    'filterModel'=>$searchModel,
     'showPageSummary'=>true,
     'pjax'=>true,
     'striped'=>true,
@@ -20,13 +17,13 @@ echo GridView::widget([
     'panel'=>['type'=>'primary', 'heading'=>'采购提成列表'],
     'columns'=>[
         ['class'=>'kartik\grid\SerialColumn'],
-       /* [
-            'attribute'=>'pd_pic_url',
-            'width'=>'10px',
-            'hAlign'=>'right',
-            'format'=>[ 'image'],
+        /* [
+             'attribute'=>'pd_pic_url',
+             'width'=>'10px',
+             'hAlign'=>'right',
+             'format'=>[ 'image'],
 
-        ],*/
+         ],*/
 
         /*[
             'attribute'=>'supplier_id',
@@ -99,15 +96,15 @@ echo GridView::widget([
             'attribute'=>'weight',
             'label'=>'个数',
         ],
-
-       /* [
-            'attribute'=>'unit_price',
-            'width'=>'150px',
-            'hAlign'=>'right',
-            'format'=>['decimal', 2],
-            'pageSummary'=>true,
-            'pageSummaryFunc'=>GridView::F_AVG
-        ],*/
+        /*
+                 [
+                     'attribute'=>'unit_price',
+                     'width'=>'150px',
+                     'hAlign'=>'right',
+                     'format'=>['decimal', 2],
+                     'pageSummary'=>true,
+                     'pageSummaryFunc'=>GridView::F_AVG
+                 ],*/
         [
             'attribute'=>'grade',
             'label'=>'等级',
@@ -121,7 +118,7 @@ echo GridView::widget([
             'header'=>'新品提成1',
             'value'=>function ($model, $key, $index, $widget) {
                 $p = compact('model', 'key', 'index');
-                return $widget->col(8, $p) * $widget->col(9, $p) * $widget->col(10, $p);
+                return $widget->col(8, $p) * $widget->col(9, $p) * $widget->col(10, $p)/10;
             },
             'mergeHeader'=>true,
             'width'=>'150px',

@@ -15,7 +15,15 @@ use yii\data\ActiveDataProvider;
 
 class CommissionSearch extends PurInfo
 {
-
+    public function rules()
+    {
+        return [
+            [['minister_result','is_purchase','has_arrival','source','pur_info_id'], 'integer'],
+            [['write_date','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url',
+                ], 'safe'],
+            [['grade','weight','unit_price', 'pd_pur_costprice'], 'number'],
+        ];
+    }
     public function Search($params)
     {
 
@@ -35,7 +43,6 @@ class CommissionSearch extends PurInfo
             ->joinWith('sample as e')
             ->leftJoin('purchaser AS pr','pr.purchaser = po.purchaser')
             ->andWhere(['po.is_purchase'=>1])
-
             ->orderBy('po.pur_info_id desc')
         ;
 
@@ -63,18 +70,25 @@ class CommissionSearch extends PurInfo
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'pur_info_id' => $this->pur_info_id,
+            'po.pur_info_id' => $this->pur_info_id,
+            'po.is_purchase' => $this->is_purchase,
+            'e.minister_result' => $this->minister_result,
+            'e.has_arrival' => $this->has_arrival,
+            'e.write_date' => $this->write_date,
+            'pr.grade' => $this->grade,
+            'weight' => $this->weight,
+            'unit_price' => $this->unit_price,
 
 //            'source' => $this->source,
         ]);
 
-        $query->andFilterWhere(['like', 'purchaser', $this->purchaser])
-            ->andFilterWhere(['like', 'pd_title', $this->pd_title])
-            ->andFilterWhere(['like', 'pd_title_en', $this->pd_title_en])
-            ->andFilterWhere(['like', 'pd_pic_url', $this->pd_pic_url])
+        $query->andFilterWhere(['like', 'po.purchaser', $this->purchaser])
+            ->andFilterWhere(['like', 'po.pd_title', $this->pd_title])
+            ->andFilterWhere(['like', 'po.pd_title_en', $this->pd_title_en])
+            ->andFilterWhere(['like', 'po.pd_pic_url', $this->pd_pic_url])
 
 
-            ->andFilterWhere(['like', 'remark', $this->remark])
+            ->andFilterWhere(['like', 'po.remark', $this->remark])
         ;
 
         return $dataProvider;
