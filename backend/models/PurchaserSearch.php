@@ -19,7 +19,7 @@ class PurchaserSearch extends Purchaser
     {
         return [
             [['id', 'role'], 'integer'],
-            [['purchaser', 'memo', 'code'], 'safe'],
+            [['has_used', 'grade','purchaser', 'memo', 'code'], 'safe'],
         ];
     }
 
@@ -67,6 +67,8 @@ class PurchaserSearch extends Purchaser
         $query->andFilterWhere([
             'id' => $this->id,
             'role' => $this->role,
+            'has_used' => $this->has_used,
+            'grade' => $this->grade,
         ]);
 
         $query->andFilterWhere(['like', 'purchaser', $this->purchaser])

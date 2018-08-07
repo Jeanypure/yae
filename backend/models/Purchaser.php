@@ -30,10 +30,11 @@ class Purchaser extends \yii\db\ActiveRecord
     {
         return [
             [['purchaser'], 'required'],
-            [['role'], 'integer'],
+            [['has_used','role'], 'integer'],
             [['purchaser'], 'string', 'max' => 20],
             [['memo'], 'string', 'max' => 500],
             [['code'], 'string', 'max' => 30],
+            [['grade'], 'string', 'max' => 3],
         ];
     }
 
@@ -44,10 +45,14 @@ class Purchaser extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'purchaser' => 'Purchaser',
-            'role' => 'Role',
-            'memo' => 'Memo',
-            'code' => '部门',
+            'purchaser' => '英文名',
+            'role' => '角色',
+            'memo' => '备注',
+            'code' => '采购组',
+            'has_used' => '是否在用',
+            'grade' => '提成级别',
+
+
         ];
     }
 }

@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="purchaser-index">
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Purchaser'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', '添加记录'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -24,9 +24,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 //            'id',
             'purchaser',
-            'role',
+//            'role',
             'memo',
             'code',
+            'has_used',
+            'grade',
+
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
