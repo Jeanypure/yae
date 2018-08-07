@@ -10,6 +10,9 @@ namespace backend\modules\yaedata\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\data\SqlDataProvider;
+use backend\models\PurInfo;
+use backend\models\CommissionSearch;
+use yii\data\ActiveDataProvider;
 
 class PurchasingCommissionController extends Controller
 {
@@ -61,5 +64,24 @@ class PurchasingCommissionController extends Controller
             ]
             );
     }
+
+    public function actionTest()
+    {
+
+        $searchModel = new CommissionSearch();
+
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('test', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+       /* return $this->render('test',[
+                'dataProvider'=>$provider,
+            ]);*/
+    }
+
+
 
 }

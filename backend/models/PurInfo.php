@@ -54,6 +54,10 @@ class PurInfo extends \yii\db\ActiveRecord
     public  $has_arrival;
     public  $minister_result;
     public  $write_date;
+//    public  $purchaser;
+    public  $unit_price;
+    public  $weight;
+    public  $grade;
 
 
     /**
@@ -207,6 +211,15 @@ class PurInfo extends \yii\db\ActiveRecord
         //第一个参数为要关联的子表模型类名，
         //第二个参数指定 通过子表的 spur_info_id，关联主表的pur_info_id字段
         return $this->hasOne(Sample::className(), ['spur_info_id' => 'pur_info_id']);
+    }
+
+    public function getPurchaser()
+    {
+        //第一个参数为要关联的子表模型类名，
+        //第二个参数指定 通过子表的 purchaser，关联主表的purchaser字段
+        return
+            $this->hasOne(Purchaser::className(), ['`purchaser`.`purchaser`' => '`pur_info`.`purchaser`'])
+            ;
     }
 
 

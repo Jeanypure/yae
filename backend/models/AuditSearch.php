@@ -5,7 +5,6 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\PurInfo;
 
 /**
  * AuditSearch represents the model behind the search form of `backend\models\PurInfo`.
