@@ -173,7 +173,18 @@ class MinisterAgreestController extends Controller
             $model->is_quality = Yii::$app->request->post()['PurInfo']['is_quality'];
             $model->is_purchase = Yii::$app->request->post()['PurInfo']['is_purchase'];
 
-            if(Yii::$app->request->post()['PurInfo']['is_purchase']==1){// 确定采购, 1入区组长表  2 入产品档案表
+            if(Yii::$app->request->post()['PurInfo']['is_purchase']==1){// 确定采购, 1入区组长表   2 入产品档案表
+                //  3 若 source=0 更新樣品表 minister_result=3 推送產品
+                if($model->source == 0){
+                    try{
+                        Yii::$app->db->createCommand("
+                        update sample set minister_result=3 where spur_info_id=$id;
+                    ")->execute();
+                    }catch(\Exception  $exception){
+                        throw $exception;
+                    }
+
+                }
                 $count = Yii::$app->db->createCommand("
                 select count(*) as num from headman where product_id=$id
                 ")->queryOne();

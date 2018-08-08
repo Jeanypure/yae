@@ -78,8 +78,8 @@ class CommissionSearch extends PurInfo
                 ->joinWith('sample as e')
                 ->leftJoin('purchaser AS pr','pr.purchaser = po.purchaser')
                 ->andWhere(['po.is_purchase'=>1])
+                ->andWhere(['po.pur_group'=>$sub_id])
                 ->orderBy('po.pur_info_id desc');
-            $this->pur_group = $sub_id;
         }else{ //采购
             $query = PurInfo::find()->alias('po')
                 ->select(["po.`pur_info_id`,po.`pur_group`,po.`source`,po.`pd_title`,
@@ -97,11 +97,11 @@ class CommissionSearch extends PurInfo
                 ->joinWith('sample as e')
                 ->leftJoin('purchaser AS pr','pr.purchaser = po.purchaser')
                 ->andWhere(['po.is_purchase'=>1])
+                ->andWhere(['po.purchaser'=>$username])
                 ->orderBy('po.pur_info_id desc');
-            $this->purchaser = $username;
         }
 
-
+//           echo $query->createCommand()->getRawSql();die;
 
         // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([
