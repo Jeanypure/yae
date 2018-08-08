@@ -19,6 +19,34 @@ echo GridView::widget([
     'panel'=>['type'=>'primary', 'heading'=>'采购提成列表'],
     'columns'=>[
         ['class'=>'kartik\grid\SerialColumn'],
+//        [
+//            'class' => 'yii\grid\Column',
+//            'headerOptions' => [
+//                'width'=>'100'
+//            ],
+//            'header' => '图片',
+//            'content' => function ($model, $key, $index, $column){
+//                return "<img src='" .$model->pd_pic_url. "' width='100' height='100'>";
+//
+//
+//            }
+//        ],
+        [
+            'attribute'=>'pd_pic_url',
+            'label'=>'图片',
+            'value' => function($model) {
+                return "<img src='" .$model->pd_pic_url. "' width='100' height='100'>";
+            },
+            'format'=>['raw'],
+
+        ],
+
+        [
+            'attribute'=>'pd_title',
+            'label'=>'中文名',
+            'width'=>'100px',
+            'hAlign'=>'center',
+        ],
         [
             'attribute'=>'pur_group',
             'label'=>'部门',
@@ -77,7 +105,7 @@ echo GridView::widget([
             'label'=>'含税价格(￥)',
             'width'=>'150px',
             'hAlign'=>'right',
-            'format'=>['decimal', 2],
+            'format'=>['decimal', 3],
         ],
         [
             'attribute'=>'has_arrival',
@@ -161,7 +189,7 @@ echo GridView::widget([
             'header'=>'个数',
             'value'=>function ($model, $key, $index, $widget) {
                 $p = compact('model', 'key', 'index');
-                return  $widget->col(9, $p) /10;
+                return  $widget->col(11, $p) /10;
             },
             'mergeHeader'=>true,
             'width'=>'150px',
@@ -182,7 +210,7 @@ echo GridView::widget([
             'header'=>'采购新品提成',
             'value'=>function ($model, $key, $index, $widget) {
                 $p = compact('model', 'key', 'index');
-                return $widget->col(8, $p) * $widget->col(9, $p) * $widget->col(11, $p)/10;
+                return $widget->col(10, $p) * $widget->col(11, $p) * $widget->col(12, $p)/10;
             },
             'mergeHeader'=>true,
             'width'=>'150px',

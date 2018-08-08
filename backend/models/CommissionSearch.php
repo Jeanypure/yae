@@ -44,7 +44,7 @@ class CommissionSearch extends PurInfo
         */
         if($userrole == '审核组'||$userrole == '超级管理员'){
             $query = PurInfo::find()->alias('po')
-                ->select(["po.`pur_info_id`,po.`pur_group`,po.`source`,
+                ->select(["po.`pur_info_id`,po.`pur_group`,po.`source`,po.`pd_title`,
                 po.`pd_pic_url`,po.`purchaser`,po.`is_purchase`,po.`pd_pur_costprice`,
                 e.`has_arrival`,e.`write_date`,e.`minister_result`,
                 CASE  WHEN po.`pd_pur_costprice` > 150 THEN 500
@@ -63,7 +63,7 @@ class CommissionSearch extends PurInfo
             ;
         }elseif ($userrole == '销售部长'){
             $query = PurInfo::find()->alias('po')
-                ->select(["po.`pur_info_id`,po.`pur_group`,po.`source`,
+                ->select(["po.`pur_info_id`,po.`pur_group`,po.`source`,po.`pd_title`,
                 po.`pd_pic_url`,po.`purchaser`,po.`is_purchase`,po.`pd_pur_costprice`,
                 e.`has_arrival`,e.`write_date`,e.`minister_result`,
                 CASE  WHEN po.`pd_pur_costprice` > 150 THEN 500
@@ -82,7 +82,7 @@ class CommissionSearch extends PurInfo
             $this->pur_group = $sub_id;
         }else{ //采购
             $query = PurInfo::find()->alias('po')
-                ->select(["po.`pur_info_id`,po.`pur_group`,po.`source`,
+                ->select(["po.`pur_info_id`,po.`pur_group`,po.`source`,po.`pd_title`,
                 po.`pd_pic_url`,po.`purchaser`,po.`is_purchase`,po.`pd_pur_costprice`,
                 e.`has_arrival`,e.`write_date`,e.`minister_result`,
                 CASE  WHEN po.`pd_pur_costprice` > 150 THEN 500
