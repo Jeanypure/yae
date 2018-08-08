@@ -145,7 +145,7 @@ echo GridView::widget([
             'label'=>'产品等级',
             'value' => function($model) {
                 if($model->minister_result==0){
-                    return '简单重复';
+                    return '未判断';
                 }elseif($model->minister_result==1){
                     return '半价产品';
 
@@ -156,7 +156,7 @@ echo GridView::widget([
                     return '推送产品';
 
                 }elseif($model->minister_result==4){
-                    return '未判断';
+                    return '简单重复';
 
                 }else{
                     return '其他';
@@ -164,7 +164,7 @@ echo GridView::widget([
                 }
             },
             'filterType'=>GridView::FILTER_SELECT2,
-            'filter'=>[0=>'简单重复',1=>'半价产品',2=>'新品',3=>'推送产品',4=>'未判断'],
+            'filter'=>[0=>'未判断',1=>'半价产品',2=>'新品',3=>'推送产品',4=>'简单重复'],
             'filterWidgetOptions'=>[
                 'pluginOptions'=>['allowClear'=>true],
             ],
@@ -210,6 +210,9 @@ echo GridView::widget([
             'header'=>'采购新品提成',
             'value'=>function ($model, $key, $index, $widget) {
                 $p = compact('model', 'key', 'index');
+                if($model->source == 0){
+                    return $widget->col(10, $p) * $widget->col(11, $p) /10;
+                }
                 return $widget->col(10, $p) * $widget->col(11, $p) * $widget->col(12, $p)/10;
             },
             'mergeHeader'=>true,
