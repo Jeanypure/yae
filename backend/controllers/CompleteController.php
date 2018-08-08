@@ -143,7 +143,7 @@ class CompleteController extends Controller
 
         if(isset($ids)&&!empty($ids)){
             $res = Yii::$app->db->createCommand("
-            update `pur_info` set `is_submit`= 1 where `pur_info_id` in ($ids_str)
+            update `pur_info` set `is_submit`= 1,`purchaser_send_time` = NOW() where `pur_info_id` in ($ids_str);
             ")->execute();
             if($res){
                 echo 'success';
