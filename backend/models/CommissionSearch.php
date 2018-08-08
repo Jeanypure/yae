@@ -18,9 +18,8 @@ class CommissionSearch extends PurInfo
     public function rules()
     {
         return [
-            [['minister_result','is_purchase','has_arrival','source','pur_info_id'], 'integer'],
-            [['write_date','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url',
-                ], 'safe'],
+            [['source','pur_group','minister_result','is_purchase','has_arrival','source','pur_info_id'], 'integer'],
+            [['write_date','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url',], 'safe'],
             [['grade','weight','unit_price', 'pd_pur_costprice'], 'number'],
         ];
     }
@@ -28,9 +27,9 @@ class CommissionSearch extends PurInfo
     {
 
         $query = PurInfo::find()->alias('po')
-            ->select(["po.`pur_info_id`,
+            ->select(["po.`pur_info_id`,po.`pur_group`,po.`source`,
                 po.`pd_pic_url`,po.`purchaser`,po.`is_purchase`,po.`pd_pur_costprice`,
-                e.`has_arrival`,e.`write_date`,
+                e.`has_arrival`,e.`write_date`,e.`minister_result`,
                 CASE  WHEN po.`pd_pur_costprice` > 150 THEN 500
                 ELSE 400 END AS 'unit_price',    
                 CASE WHEN e.`minister_result`=0 THEN 0
@@ -49,11 +48,10 @@ class CommissionSearch extends PurInfo
 
 
         // add conditions that should always apply here
-//       echo $query->createCommand()->getRawSql();die;
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pagesize' => '10',
+                'pagesize' => '20',
             ]
         ]);
         $this->load($params);
@@ -65,31 +63,32 @@ class CommissionSearch extends PurInfo
             return $dataProvider;
         }
 
-
+        if (!empty($this->write_date)) {
+            $query->andFilterCompare('e.write_date', explode('/', $this->write_date)[0], '>=');//起始时间
+            $query->andFilterCompare('e.write_date', explode('/', $this->write_date)[1], '<');//结束时间
+        }
 
 
         // grid filtering conditions
         $query->andFilterWhere([
             'po.pur_info_id' => $this->pur_info_id,
+            'po.pur_group' => $this->pur_group,
             'po.is_purchase' => $this->is_purchase,
             'e.minister_result' => $this->minister_result,
             'e.has_arrival' => $this->has_arrival,
-            'e.write_date' => $this->write_date,
             'pr.grade' => $this->grade,
             'weight' => $this->weight,
             'unit_price' => $this->unit_price,
-
-//            'source' => $this->source,
+            'source' => $this->source,
         ]);
 
         $query->andFilterWhere(['like', 'po.purchaser', $this->purchaser])
             ->andFilterWhere(['like', 'po.pd_title', $this->pd_title])
             ->andFilterWhere(['like', 'po.pd_title_en', $this->pd_title_en])
             ->andFilterWhere(['like', 'po.pd_pic_url', $this->pd_pic_url])
-
-
             ->andFilterWhere(['like', 'po.remark', $this->remark])
         ;
+
 
         return $dataProvider;
     }
