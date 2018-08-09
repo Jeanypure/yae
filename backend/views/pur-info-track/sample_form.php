@@ -3,6 +3,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\builder\Form;
 use kartik\widgets\ActiveForm;
+use kartik\select2\Select2;
+
 
 
 
@@ -64,11 +66,27 @@ use kartik\widgets\ActiveForm;
         ],
 
     ]);
+    echo $form->field($model, 'purchaser_result')->widget(Select2::classname(), [
+        'data' => [
+            '1'=>'半价产品',
+            '2'=>'新品',
+            '3'=>'推送产品',
+            '4'=>'简单重复',
+
+        ],
+        'options' => ['placeholder' => '产品等级',  ],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+
+    ]);
 
     ?>
 
 
     <div class="form-group">
+
+
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn-lg btn-success']) ?>
 
     </div>

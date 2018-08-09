@@ -54,10 +54,11 @@ class PurInfo extends \yii\db\ActiveRecord
     public  $has_arrival;
     public  $minister_result;
     public  $write_date;
-//    public  $purchaser;
     public  $unit_price;
     public  $weight;
     public  $grade;
+    public  $audit_team_result;
+    public  $purchaser_result;
 
 
     /**

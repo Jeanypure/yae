@@ -84,7 +84,7 @@ class Goodssku extends \yii\db\ActiveRecord
             'ctn_width' => '箱宽',
             'ctn_height' => '箱高',
             'ctn_fact_weight' => '单箱实际重量',
-            'sale_company' => '在卖公司',
+            'sale_company' => '销售公司',
             'vendor_code' => '默认供应商代码',
             'origin_code' => '供应商规格型号',
             'min_order_num' => '最少起订量',
@@ -105,7 +105,7 @@ class Goodssku extends \yii\db\ActiveRecord
             'pd_creator' => '产品开发人员',
             'image_url' => '图片地址',
             'sku_create_date' => '创建档案时间',
-            'sku_update_date' => '创建档案时间',
+            'sku_update_date' => '更新档案时间',
         ];
     }
 }

@@ -85,6 +85,8 @@ class Sample extends \yii\db\ActiveRecord
             'write_date' => '到货日期',
             'minister_result' => '部长判断',
             'minister_reason' => '备注',
+            'audit_team_result' => '审核组判断',
+            'purchaser_result' => '采购判断',
         ];
     }
 

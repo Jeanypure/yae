@@ -178,7 +178,7 @@ class MinisterAgreestController extends Controller
                 if($model->source == 0){
                     try{
                         Yii::$app->db->createCommand("
-                        update sample set minister_result=3 where spur_info_id=$id;
+                        update sample set minister_result=3, audit_team_result=3,purchaser_result=3 where spur_info_id=$id;
                     ")->execute();
                     }catch(\Exception  $exception){
                         throw $exception;

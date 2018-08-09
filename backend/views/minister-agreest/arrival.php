@@ -6,7 +6,6 @@
  * Time: 14:46
  */
 use yii\helpers\Html;
-use kartik\builder\Form;
 use kartik\widgets\ActiveForm;
 use kartik\date\DatePicker;
 use kartik\select2\Select2;
