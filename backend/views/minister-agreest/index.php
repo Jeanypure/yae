@@ -256,7 +256,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterWidgetOptions'=>[
                         'pluginOptions'=>['allowClear'=>true],
                     ],
-                    'filterInputOptions'=>['placeholder'=>'部长判断'],
+                    'filterInputOptions'=>['placeholder'=>'产品等级'],
                 ],
                 [
                     'attribute' => 'write_date',

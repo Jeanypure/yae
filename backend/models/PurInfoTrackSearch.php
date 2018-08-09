@@ -130,6 +130,7 @@ class PurInfoTrackSearch extends PurInfo
             'junior_submit' => $this->junior_submit,
             'is_assign' => $this->is_assign,
             'commit_date' => $this->commit_date,
+            'is_purchase' => $this->is_purchase,
         ]);
 
         $query->andFilterWhere(['like', 'purchaser', $this->purchaser])

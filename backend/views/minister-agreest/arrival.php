@@ -73,7 +73,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', '确认到货');
                     '4'=>'简单重复',
 
                 ],
-                'options' => ['placeholder' => '部长判断','label'=>"<span style = 'color:red'><big>*</big></span>部长判断",],
+                'options' => ['placeholder' => '产品等级','label'=>"<span style = 'color:red'><big>*</big></span>部长判断",],
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
