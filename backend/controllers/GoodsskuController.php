@@ -70,7 +70,15 @@ class GoodsskuController extends Controller
 
         if ($model->load(Yii::$app->request->post()) ) {
             $model->pd_creator = Yii::$app->user->identity->username;
-            $model->save();
+            $model->save(false);
+            try{
+                Yii::$app->db->createCommand("
+             INSERT into sku_vendor(sku_id) SELECT max(sku_id) FROM  goodssku;
+            ")->execute();
+
+            }catch (\Exception $exception){
+                throw  $exception;
+            }
             return $this->redirect(['view', 'id' => $model->sku_id]);
         }
 
@@ -90,7 +98,7 @@ class GoodsskuController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
             $model->sku_update_date = date('Y-m-d H:i:s');
             return $this->redirect(['view', 'id' => $model->sku_id]);
         }
@@ -123,6 +131,13 @@ class GoodsskuController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+
+        try{
+            Yii::$app->db->createCommand("delete from sku_vendor where  sku_id = $id ")->execute();
+        }catch (\Exception $e){
+            throw $e;
+        }
+
 
         return $this->redirect(['index']);
     }
