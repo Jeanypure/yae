@@ -173,7 +173,7 @@ class MinisterAgreestController extends Controller
             $model->is_quality = Yii::$app->request->post()['PurInfo']['is_quality'];
             $model->is_purchase = Yii::$app->request->post()['PurInfo']['is_purchase'];
 
-            if(Yii::$app->request->post()['PurInfo']['is_purchase']==1){// 确定采购, 1入区组长表   2 入产品档案表
+            if(Yii::$app->request->post()['PurInfo']['is_purchase']==1){// 确定采购, 1入区组长表   2 入产品档案表goodssku  4 sku_vendor
                 //  3 若 source=0 更新樣品表 minister_result=3 推送產品
                 if($model->source == 0){
                     try{
@@ -193,6 +193,7 @@ class MinisterAgreestController extends Controller
                 }
                 $sql = " SET @id = $id;
                         CALL purinfo_to_goodssku (@id);";
+
                 $res    = Yii::$app->db->createCommand($sql)->execute();
             }
 
@@ -208,16 +209,18 @@ class MinisterAgreestController extends Controller
     public function actionArrival($id){
 
         $sample_model = Sample::findOne(['spur_info_id'=>$id]);
+        $info = PurInfo::findOne(['pur_info_id'=>$id]);
         if($sample_model->load(Yii::$app->request->post()) ){
             $sample_model->arrival_date = date('Y-m-d H:i:s');
             $sample_model->save();
             return $this->redirect(['index']);
 
         }
-        return  $this->renderAjax('arrival', [
+        return  $this->render('arrival', [
             'model' => $sample_model,
+            'info' => $info,
         ]);
-        }
+    }
 
     /**
      * @param $id

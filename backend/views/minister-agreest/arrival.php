@@ -6,67 +6,117 @@
  * Time: 14:46
  */
 use yii\helpers\Html;
-use yii\helpers\Url;
 use kartik\builder\Form;
 use kartik\widgets\ActiveForm;
+use kartik\date\DatePicker;
+use kartik\select2\Select2;
 
 
+$this->title = Yii::t('app', '部长审批: {nameAttribute}', [
+    'nameAttribute' => "$info->pd_title"
+]);
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', '产品'), 'url' => ['index']];
+//$this->params['breadcrumbs'][] = ['label' => $model->spur_info_id, 'url' => ['view', 'id' => $model->spur_info_id]];
+$this->params['breadcrumbs'][] = Yii::t('app', '确认到货');
 
-/* @var $this yii\web\View */
-/* @var $model backend\models\PurInfo */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="sample-form">
-
+    
+<p>
+    <img src="<?php echo  $info->pd_pic_url ?>" alt="" style="width: 100px; height: 100px">
+</p>
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php
-    echo Form::widget([
-        'model'=>$model,
-        'form'=>$form,
-        'columns'=>4,
-//        'contentBefore'=>'<legend class="text-info"><h3>到货审核</h3></legend>',
-        'attributes'=>[       // 3 column layout
-            'has_arrival'=>[
-                'type'=>Form::INPUT_RADIO_LIST,
-                'label'=>"<span style = 'color:red'><big>*</big></span>是否到货",
-                'items'=>[1=>'已到货', 0=>'未到'],
-                'options'=>['placeholder'=>'',]
-            ],
+    <legend class="text-info"><h2>到货审核记录</h2></legend>
 
+    <div class="row">
+        <div class="col-sm-3">
+            <?php
+            // Usage with ActiveForm and model
+            echo $form->field($model, 'has_arrival')->widget(Select2::classname(), [
+                'data' => [
+                    '1'=>'已到货',
+                    '0'=>'未到',
+                ],
+                'options' => ['placeholder' => '是否到货?',],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
 
+            ]);
+            ?>
+        </div>
+        <div class="col-sm-3">
+            <?php
+            echo '<label>到货日期</label>';
+            echo DatePicker::widget([
+                'name' => 'write_date',
+                'value' => date('Y-m-d'),
+                'options' => ['placeholder' => 'Select issue date ...'],
+                'pluginOptions' => [
+                    'format' => 'yyyy-mm-dd',
+                    'todayHighlight' => true
+                ]
+            ]);
+            ?>
 
-            'write_date'=>[
-                    'type'=>Form::INPUT_TEXT,
-                    'label'=>"<span style = 'color:red'><big>*</big></span>到货日期",
-                    'options'=>['placeholder'=>'']],
-            'minister_result'=>[
-                'type'=>Form::INPUT_RADIO_LIST,
-                'label'=>"<span style = 'color:red'><big>*</big></span>部长判断",
-                'items'=>[1=>'半价产品',1=>'半价产品',2=>'新品',3=>'推送产品',4=>'简单重复'],
-                'options'=>['placeholder'=>'',]
-            ],
-            'minister_reason'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'']],
+        </div>
+        <div class="col-sm-3">
+            <?php
+            // Usage with ActiveForm and model
+            echo $form->field($model, 'minister_result')->widget(Select2::classname(), [
+                'data' => [
+                    '1'=>'半价产品',
+                    '2'=>'新品',
+                    '3'=>'推送产品',
+                    '4'=>'简单重复',
 
-            'spur_info_id'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],
-        ],
+                ],
+                'options' => ['placeholder' => '部长判断','label'=>"<span style = 'color:red'><big>*</big></span>部长判断",],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
 
-    ]);
+            ]);
+            ?>
+        </div>
 
-    ?>
-
-
-
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn-lg btn-success']) ?>
 
     </div>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <?php
+            echo $form->field($model,'minister_reason')->textarea();
+            ?>
+        </div>
+        <div class="col-sm-3">
+            <?php
+            echo $form->field($model,'spur_info_id')->hiddenInput()->label(false);
+            ?>
+        </div>
+
+    </div>
+
+        <div class="form-group">
+            <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn-lg btn-success']) ?>
+
+        </div>
 
 
     <?php ActiveForm::end(); ?>
 
 </div>
 
+<?php
+ $rm_js = <<<JS
+    $(function() {
+        $('h3').remove();
+      
+    })
+JS;
 
+ $this->registerJs($rm_js);
+
+?>

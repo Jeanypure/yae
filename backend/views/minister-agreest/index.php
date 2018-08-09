@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //                ['class' => 'yii\grid\CheckboxColumn'],
                 ['class' => 'yii\grid\ActionColumn',
                     'header' => '操作',
-                    'template' => '{view}  {saved} {arrival} ',
+                    'template' => '{view}  {saved}  {arrival} ',
                     'buttons' => [
                         'saved' => function ($url, $model, $key) {
                             return Html::a('<span class="glyphicon glyphicon-saved"></span>', $url, [
@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'data-id' => $key,
                             ] );
                         },
-                        'arrival' => function ($url, $model, $key) {
+                        /*'arrival' => function ($url, $model, $key) {
                             return Html::a('<span class="fa fa-truck"></span>', $url, [
                                 'title' => '确认到货',
                                 'data-toggle' => 'modal',
@@ -59,7 +59,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'class' => 'data-arrival',
                                 'data-id' => $key,
                             ] );
-                        },
+                        },*/
+                        'arrival' => function ($url, $model, $key) {
+                            return  Html::a('<span class="fa fa-truck"></span>', $url);
+                    },
                     ],
                 ],
                 [
