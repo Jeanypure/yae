@@ -19,9 +19,9 @@ use kartik\widgets\ActiveForm;
     echo '<div class="drp-container">';
     echo DateRangePicker::widget([
         'name'=>'date_range_2',
+        'value'=>date('Y-m-d',strtotime('-29 day')) . ' to '. date('Y-m-d') ,
         'presetDropdown'=>true,
         'hideInput'=>true,
-
     ]);
     echo '</div>';
 
@@ -29,8 +29,7 @@ use kartik\widgets\ActiveForm;
 
 
 <div class="form-group pull-right">
-        <?php
-//        echo Html::submitButton(Yii::t('app', '查询'), ['class' => 'btn btn-success']) ?>
+
     <?php
         echo  Html::button('查询', ['id' => 'date-str', 'class' => 'btn btn-primary '])
          ;?>

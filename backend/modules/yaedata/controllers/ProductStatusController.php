@@ -39,6 +39,7 @@ class ProductStatusController extends Controller
          ELSE '其他' end as status
          FROM pur_info
         GROUP BY master_result
+        ORDER BY num desc
                 ")->queryAll();
 
        $status =  array_column($res,'status');

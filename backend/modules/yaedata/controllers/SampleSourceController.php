@@ -28,8 +28,8 @@ class SampleSourceController extends Controller
     public function actionSample(){
 
         if(empty($_POST)){
-            $firstday = date('Y-m-d', strtotime("-30 day"));
-            $lastday = date('Y-m-d', strtotime("-1 day"));
+            $firstday = date('Y-m-d', strtotime("-29 day"));
+            $lastday = date('Y-m-d');
         }else{
             $arr_date = explode(' - ',$_POST['date_range_2']);
             $firstday = $arr_date[0];
