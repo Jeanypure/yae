@@ -167,6 +167,7 @@ $readonly_js =<<<JS
             $("label[for='sample-procurement_cost'] ").addClass("label-require");
             $("label[for='sample-sample_freight'] ").addClass("label-require");
             $("label[for='sample-pay_way'] ").addClass("label-require");
+            $("label[for='sample-purchaser_result'] ").addClass("label-require");
 
             
             $('.label-require').html(function(_,html) {

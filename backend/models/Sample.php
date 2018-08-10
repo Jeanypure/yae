@@ -43,12 +43,12 @@ class Sample extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['spur_info_id','fee_return','is_agreest'], 'required'],
-            [['minister_result','has_arrival','for_free', 'spur_info_id', 'is_audit', 'is_agreest',  'fee_return', 'audit_mem1', 'applicant'], 'integer'],
+            [['purchaser_result','spur_info_id','fee_return','is_agreest'], 'required'],
+            [['audit_team_result','minister_result','has_arrival','for_free', 'spur_info_id', 'is_audit', 'is_agreest',  'fee_return', 'audit_mem1', 'applicant'], 'integer'],
             [['procurement_cost', 'sample_freight', 'else_fee', 'pay_amount'], 'number'],
             [['write_date','arrival_date','create_date', 'lastop_date'], 'safe'],
             [['pay_way', 'mark'], 'string', 'max' => 500],
-            [['minister_reason'], 'string', 'max' => 100],
+            [['audit_team_reason','minister_reason'], 'string', 'max' => 100],
             [['procurement_cost', 'sample_freight', 'pay_amount','pay_way',], 'required'],
 
         ];
@@ -87,6 +87,7 @@ class Sample extends \yii\db\ActiveRecord
             'minister_reason' => '备注',
             'audit_team_result' => '审核组判断',
             'purchaser_result' => '采购判断',
+            'audit_team_reason' => '审核组备注',
         ];
     }
 

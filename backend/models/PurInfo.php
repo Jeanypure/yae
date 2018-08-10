@@ -59,6 +59,7 @@ class PurInfo extends \yii\db\ActiveRecord
     public  $grade;
     public  $audit_team_result;
     public  $purchaser_result;
+    public  $is_diff;
 
 
     /**

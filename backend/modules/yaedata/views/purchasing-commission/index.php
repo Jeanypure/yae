@@ -141,7 +141,7 @@ echo GridView::widget([
             ])
         ],
         [
-            'attribute'=>'minister_result',
+            'attribute'=>'audit_team_result',
             'label'=>'产品等级',
             'value' => function($model) {
                 if($model->minister_result==0){

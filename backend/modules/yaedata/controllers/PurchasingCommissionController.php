@@ -10,6 +10,8 @@ namespace backend\modules\yaedata\controllers;
 use Yii;
 use yii\web\Controller;
 use backend\models\CommissionSearch;
+use backend\models\PurInfo;
+use backend\models\Sample;
 
 class PurchasingCommissionController extends Controller
 {
@@ -38,6 +40,22 @@ class PurchasingCommissionController extends Controller
         return $this->render('audit-check', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionAdjust($id){
+
+        $sample_model = Sample::findOne(['spur_info_id'=>$id]);
+        $info = PurInfo::findOne(['pur_info_id'=>$id]);
+        if($sample_model->load(Yii::$app->request->post()) ){
+//           var_dump(Yii::$app->request->post());die;
+            $sample_model->save();
+            return $this->redirect(['audit-check']);
+
+        }
+        return  $this->renderAjax('adjust', [
+            'model' => $sample_model,
+            'info' => $info,
         ]);
     }
 

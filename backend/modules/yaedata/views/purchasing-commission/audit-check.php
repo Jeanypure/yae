@@ -28,7 +28,7 @@ echo GridView::widget([
             'buttons' => [
                 'adjust' => function ($url, $model, $key) {
                     return Html::a('<span class="fa fa-adjust"></span>', $url, [
-                        'title' => '产品等级核算',
+                        'title' => '产品等级调整',
                         'data-toggle' => 'modal',
                         'data-target' => '#adjust-modal',
                         'class' => 'data-adjust',
@@ -148,6 +148,24 @@ echo GridView::widget([
             ])
         ],
         [
+            'attribute'=>'is_diff',
+            'label'=>'是否一致',
+            'value' => function($model) {
+                if($model->is_diff==1){
+                    return '是';
+                }else{
+                    return '否';
+
+                }
+            },
+            'filterType'=>GridView::FILTER_SELECT2,
+            'filter'=>[0=>'否',1=>'是'],
+            'filterWidgetOptions'=>[
+                'pluginOptions'=>['allowClear'=>true],
+            ],
+            'filterInputOptions'=>['placeholder'=>'一致?']
+        ],
+        [
             'attribute'=>'minister_result',
             'label'=>'部长判断',
             'value' => function($model) {
@@ -181,18 +199,18 @@ echo GridView::widget([
             'attribute'=>'purchaser_result',
             'label'=>'采购判断',
             'value' => function($model) {
-                if($model->minister_result==0){
+                if($model->purchaser_result==0){
                     return '未判断';
-                }elseif($model->minister_result==1){
+                }elseif($model->purchaser_result==1){
                     return '半价产品';
 
-                }elseif($model->minister_result==2){
+                }elseif($model->purchaser_result==2){
                     return '新品';
 
-                }elseif($model->minister_result==3){
+                }elseif($model->purchaser_result==3){
                     return '推送产品';
 
-                }elseif($model->minister_result==4){
+                }elseif($model->purchaser_result==4){
                     return '简单重复';
 
                 }else{
@@ -209,20 +227,20 @@ echo GridView::widget([
         ],
         [
             'attribute'=>'audit_team_result',
-            'label'=>'审核组   判断',
+            'label'=>'审核组判断',
             'value' => function($model) {
-                if($model->minister_result==0){
+                if($model->audit_team_result==0){
                     return '未判断';
-                }elseif($model->minister_result==1){
+                }elseif($model->audit_team_result==1){
                     return '半价产品';
 
-                }elseif($model->minister_result==2){
+                }elseif($model->audit_team_result==2){
                     return '新品';
 
-                }elseif($model->minister_result==3){
+                }elseif($model->audit_team_result==3){
                     return '推送产品';
 
-                }elseif($model->minister_result==4){
+                }elseif($model->audit_team_result==4){
                     return '简单重复';
 
                 }else{
@@ -256,7 +274,7 @@ echo GridView::widget([
             'header'=>'个数',
             'value'=>function ($model, $key, $index, $widget) {
                 $p = compact('model', 'key', 'index');
-                return  $widget->col(11, $p) /10;
+                return  $widget->col(15, $p) /10;
             },
             'mergeHeader'=>true,
             'width'=>'150px',
@@ -278,9 +296,9 @@ echo GridView::widget([
             'value'=>function ($model, $key, $index, $widget) {
                 $p = compact('model', 'key', 'index');
                 if($model->source == 0){
-                    return $widget->col(10, $p) * $widget->col(11, $p) /10;
+                    return $widget->col(14, $p) * $widget->col(15, $p)/10;
                 }
-                return $widget->col(10, $p) * $widget->col(11, $p) * $widget->col(12, $p)/10;
+                return $widget->col(14, $p) * $widget->col(15, $p) * $widget->col(16, $p)/10;
             },
             'mergeHeader'=>true,
             'width'=>'150px',
