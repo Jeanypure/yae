@@ -113,11 +113,12 @@ use kartik\select2\Select2;
          type: 'post',
          data:{id:id},
          success:function(res){
-           if(res=='success') alert('提交申请成功!');     
+           if(res=='success') alert('提交申请成功!');  
+            if(res=='error') alert('出错了,检查信息完整在提交'); 
            button.attr('disabled',false);
-           // location.reload();
          },
-         error: function (jqXHR, textStatus, errorThrown) {
+         error: function (res,jqXHR, textStatus, errorThrown) {
+               if(res=='error') alert('出错了,检查信息完整在提交');            
              button.attr('disabled',false);
          }
       
@@ -168,7 +169,7 @@ $readonly_js =<<<JS
             $("label[for='sample-sample_freight'] ").addClass("label-require");
             $("label[for='sample-pay_way'] ").addClass("label-require");
             $("label[for='sample-purchaser_result'] ").addClass("label-require");
-
+            $("label[for='sample-pay_amount'] ").addClass("label-require");
             
             $('.label-require').html(function(_,html) {
                 return html.replace(/(.*?)/, "<span style = 'color:red'><big>*$1</big></span>");

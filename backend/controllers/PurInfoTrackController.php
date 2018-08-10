@@ -102,9 +102,6 @@ class PurInfoTrackController extends Controller
             return $this->redirect(['update', 'id' => $sample_model->spur_info_id]);
         }
 
-
-
-
         return $this->render('update', [
             'model' => $model,
             'sample_model' => $sample_model,
@@ -161,7 +158,7 @@ class PurInfoTrackController extends Controller
 
         if(isset($ids_str)&&!empty($ids_str)){
             $res = Yii::$app->db->createCommand("
-            update `pur_info` set `sample_submit1`= 1,`submit1_at` = '$submit1_at'
+              update `pur_info` set `sample_submit1`= 1,`submit1_at` = '$submit1_at'
              where `pur_info_id` in ($ids_str)
             ")->execute();
             if($res){
@@ -218,15 +215,25 @@ class PurInfoTrackController extends Controller
         $ids = $_POST['id'];
         $submit1_at = date('Y-m-d H:i:s');
         if(isset($ids)&&!empty($ids)){
-            $res = Yii::$app->db->createCommand("
+            //如果付款金額不空 才能提交
+            $sample = Sample::findOne(['spur_info_id'=>$ids]);
+
+            if(isset($sample->pay_amount)&&!empty($sample->pay_way)){
+                try{
+                    $res = Yii::$app->db->createCommand("
             update `pur_info` set `sample_submit1`= 1 ,`submit1_at` = '$submit1_at'
             where `pur_info_id` in ($ids)
             ")->execute();
-
-
-            if($res){
-                echo 'success';
+                }catch(\Exception $e){
+                    throw($e);
+                }
+                if($res){
+                    echo 'success';
+                }
+            }else{
+                echo 'error';
             }
+
         }else{
             echo 'error';
         }
