@@ -134,7 +134,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                'filterInputOptions'=>['placeholder'=>'质量是否合格'],
+                'filterInputOptions'=>['placeholder'=>'是否合格'],
             ],
             [
                 'attribute'=>'is_purchase',
@@ -155,7 +155,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                'filterInputOptions'=>['placeholder'=>'是否确定采购?'],
+                'filterInputOptions'=>['placeholder'=>'是否采购?'],
             ],
             [
                 'attribute'=>'is_agreest',
@@ -176,7 +176,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                'filterInputOptions'=>['placeholder'=>'部长同意付样品费?'],
+                'filterInputOptions'=>['placeholder'=>'同意样品费?'],
             ],
 
             'payer',
@@ -212,6 +212,51 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]
                     ]
                 ])
+            ],
+            [
+                'attribute'=>'purchaser_result',
+                'label'=>'采购判断',
+                'value' => function($model) {
+                    if($model->purchaser_result==0){
+                        return '未判断';
+                    }elseif($model->purchaser_result==1){
+                        return '半价产品';
+
+                    }elseif($model->purchaser_result==2){
+                        return '新品';
+
+                    }elseif($model->purchaser_result==3){
+                        return '推送产品';
+
+                    }elseif($model->purchaser_result==4){
+                        return '简单重复';
+
+                    }else{
+                        return '其他';
+
+                    }
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>[0=>'未判断',1=>'半价产品',2=>'新品',3=>'推送产品',4=>'简单重复'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'产品等级']
+            ],
+            [
+                'attribute'=>'write_date',
+                'label'=>'到货日期',
+               /* 'filter' => DateRangePicker::widget([
+                    'name' => 'PurInfoTrackSearch[write_date]',
+                    'value' => Yii::$app->request->get('PurInfoTrackSearch')['write_date'],
+                    'convertFormat' => true,
+                    'pluginOptions' => [
+                        'locale' => [
+                            'format' => 'Y-m-d',
+                            'separator' => '/',
+                        ]
+                    ]
+                ])*/
             ],
             [
                 'attribute'=>'sample_return',
