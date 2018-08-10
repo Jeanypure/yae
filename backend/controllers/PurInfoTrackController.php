@@ -88,9 +88,17 @@ class PurInfoTrackController extends Controller
         $model = $this->findModel($id);
         $sample_model = Sample::findOne(['spur_info_id'=>$id]);
 
-        if ($sample_model->load(Yii::$app->request->post())&& $sample_model->save(false) ) {
+        if ($sample_model->load(Yii::$app->request->post())) {
+            //部长对产品的等级判断是否和采购一致 若一致则更新审核组
+            $purchaser_result = Yii::$app->request->post()['Sample']['purchaser_result'];
+            if((int)$purchaser_result==$sample_model->minister_result){
+                $sample_model->audit_team_result = $purchaser_result;
+                $sample_model->is_diff = 0;
 
-
+            }else{
+                $sample_model->is_diff = 1;
+            }
+            $sample_model->save();
             return $this->redirect(['update', 'id' => $sample_model->spur_info_id]);
         }
 

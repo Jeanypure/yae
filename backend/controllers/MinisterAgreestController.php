@@ -211,6 +211,15 @@ class MinisterAgreestController extends Controller
         $sample_model = Sample::findOne(['spur_info_id'=>$id]);
         $info = PurInfo::findOne(['pur_info_id'=>$id]);
         if($sample_model->load(Yii::$app->request->post()) ){
+            //部长对产品的等级判断是否和采购一致 若一致则更新审核组
+            $minister_result = Yii::$app->request->post()['Sample']['minister_result'];
+            if((int)$minister_result==$sample_model->purchaser_result){
+                $sample_model->audit_team_result = $minister_result;
+                $sample_model->is_diff = 0;
+
+            }else{
+                $sample_model->is_diff = 1;
+            }
             $sample_model->arrival_date = date('Y-m-d H:i:s');
             $sample_model->save();
             return $this->redirect(['index']);
