@@ -49,10 +49,10 @@ class CommissionSearch extends PurInfo
                 e.`has_arrival`,e.`write_date`,e.`minister_result`,e.`audit_team_result`,e.`purchaser_result`,e.`is_diff`,
                 CASE  WHEN po.`pd_pur_costprice` > 150 THEN 500
                 ELSE 400 END AS 'unit_price',    
-                CASE WHEN e.`minister_result`=0 THEN 0
-                     WHEN e.`minister_result`=1   THEN '5'
-                     WHEN e.`minister_result`=2   THEN '10'
-                     WHEN e.`minister_result`=3   THEN '7'
+                CASE WHEN e.`audit_team_result`=0 THEN 0
+                     WHEN e.`audit_team_result`=1   THEN '5'
+                     WHEN e.`audit_team_result`=2   THEN '10'
+                     WHEN e.`audit_team_result`=3   THEN '7'
                 ELSE 0 END AS 'weight',
                pr.`grade` 
                 "])
@@ -68,10 +68,10 @@ class CommissionSearch extends PurInfo
                 e.`has_arrival`,e.`write_date`,e.`minister_result`,
                 CASE  WHEN po.`pd_pur_costprice` > 150 THEN 500
                 ELSE 400 END AS 'unit_price',    
-                CASE WHEN e.`minister_result`=0 THEN 0
-                     WHEN e.`minister_result`=1   THEN '5'
-                     WHEN e.`minister_result`=2   THEN '10'
-                     WHEN e.`minister_result`=3   THEN '5'
+                CASE WHEN e.`audit_team_result`=0 THEN 0
+                     WHEN e.`audit_team_result`=1   THEN '5'
+                     WHEN e.`audit_team_result`=2   THEN '10'
+                     WHEN e.`audit_team_result`=3   THEN '5'
                 ELSE 0 END AS 'weight',
                 pr.`grade` 
                 "])
@@ -87,10 +87,10 @@ class CommissionSearch extends PurInfo
                 e.`has_arrival`,e.`write_date`,e.`audit_team_result`,
                 CASE  WHEN po.`pd_pur_costprice` > 150 THEN 500
                 ELSE 400 END AS 'unit_price',    
-                CASE WHEN e.`minister_result`=0 THEN 0
-                     WHEN e.`minister_result`=1   THEN '5'
-                     WHEN e.`minister_result`=2   THEN '10'
-                     WHEN e.`minister_result`=3   THEN '7'
+                CASE WHEN e.`audit_team_result`=0 THEN 0
+                     WHEN e.`audit_team_result`=1   THEN '5'
+                     WHEN e.`audit_team_result`=2   THEN '10'
+                     WHEN e.`audit_team_result`=3   THEN '7'
                 ELSE 0 END AS 'weight',
                 CASE
                  WHEN e.`minister_result` = e.`purchaser_result` THEN '0'

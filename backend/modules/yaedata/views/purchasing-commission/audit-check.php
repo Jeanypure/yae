@@ -149,7 +149,7 @@ echo GridView::widget([
         ],
         [
             'attribute'=>'is_diff',
-            'label'=>'是否一致',
+            'label'=>'不一致?',
             'value' => function($model) {
                 if($model->is_diff==1){
                     return '是';
@@ -163,7 +163,7 @@ echo GridView::widget([
             'filterWidgetOptions'=>[
                 'pluginOptions'=>['allowClear'=>true],
             ],
-            'filterInputOptions'=>['placeholder'=>'一致?']
+            'filterInputOptions'=>['placeholder'=>'不一致?']
         ],
         [
             'attribute'=>'minister_result',
