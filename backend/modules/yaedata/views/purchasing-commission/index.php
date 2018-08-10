@@ -144,18 +144,18 @@ echo GridView::widget([
             'attribute'=>'audit_team_result',
             'label'=>'产品等级',
             'value' => function($model) {
-                if($model->minister_result==0){
+                if($model->audit_team_result==0){
                     return '未判断';
-                }elseif($model->minister_result==1){
+                }elseif($model->audit_team_result==1){
                     return '半价产品';
 
-                }elseif($model->minister_result==2){
+                }elseif($model->audit_team_result==2){
                     return '新品';
 
-                }elseif($model->minister_result==3){
+                }elseif($model->audit_team_result==3){
                     return '推送产品';
 
-                }elseif($model->minister_result==4){
+                }elseif($model->audit_team_result==4){
                     return '简单重复';
 
                 }else{

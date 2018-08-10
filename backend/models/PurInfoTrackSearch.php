@@ -77,8 +77,8 @@ class PurInfoTrackSearch extends PurInfo
                 ->orderBy('pur_info_id desc')
             ;
         }
+        $this->sample_submit1 = 0;
 
-//        echo $query->createCommand()->getRawSql();die;
 
         // add conditions that should always apply here
 

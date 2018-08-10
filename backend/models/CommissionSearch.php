@@ -65,7 +65,7 @@ class CommissionSearch extends PurInfo
             $query = PurInfo::find()->alias('po')
                 ->select(["po.`pur_info_id`,po.`pur_group`,po.`source`,po.`pd_title`,
                 po.`pd_pic_url`,po.`purchaser`,po.`is_purchase`,po.`pd_pur_costprice`,
-                e.`has_arrival`,e.`write_date`,e.`minister_result`,
+                e.`has_arrival`,e.`write_date`,e.`minister_result`,e.`audit_team_result`,
                 CASE  WHEN po.`pd_pur_costprice` > 150 THEN 500
                 ELSE 400 END AS 'unit_price',    
                 CASE WHEN e.`audit_team_result`=0 THEN 0
@@ -92,10 +92,6 @@ class CommissionSearch extends PurInfo
                      WHEN e.`audit_team_result`=2   THEN '10'
                      WHEN e.`audit_team_result`=3   THEN '7'
                 ELSE 0 END AS 'weight',
-                CASE
-                 WHEN e.`minister_result` = e.`purchaser_result` THEN '0'
-                 WHEN e.`minister_result` <> e.`purchaser_result` THEN '1'
-                END AS 'is_diff',
                 pr.`grade` 
                 "])
                 ->joinWith('sample as e')
