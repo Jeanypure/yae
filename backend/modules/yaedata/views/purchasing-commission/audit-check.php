@@ -6,6 +6,8 @@
  * Time: 17:40
  */
 
+use yii\helpers\Html;
+use yii\helpers\Url;
 use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
 use kartik\daterange\DateRangePicker;
@@ -20,7 +22,22 @@ echo GridView::widget([
     'panel'=>['type'=>'primary', 'heading'=>'采购提成列表'],
     'columns'=>[
         ['class'=>'kartik\grid\SerialColumn'],
-        ['class'=>'kartik\grid\ActionColumn'],
+        [
+            'class'=>'kartik\grid\ActionColumn',
+            'template' => ' {adjust} ',
+            'buttons' => [
+                'adjust' => function ($url, $model, $key) {
+                    return Html::a('<span class="fa fa-adjust"></span>', $url, [
+                        'title' => '产品等级核算',
+                        'data-toggle' => 'modal',
+                        'data-target' => '#adjust-modal',
+                        'class' => 'data-adjust',
+                        'data-id' => $key,
+                    ] );
+                },
+            ],
+
+        ],
         [
             'attribute'=>'pd_pic_url',
             'label'=>'图片',
@@ -192,7 +209,7 @@ echo GridView::widget([
         ],
         [
             'attribute'=>'audit_team_result',
-            'label'=>'审核组判断',
+            'label'=>'审核组   判断',
             'value' => function($model) {
                 if($model->minister_result==0){
                     return '未判断';
@@ -273,3 +290,36 @@ echo GridView::widget([
         ],
     ],
 ]);
+
+?>
+<?php
+use yii\bootstrap\Modal;
+
+// 产品等级核算
+Modal::begin([
+    'id' => 'adjust-modal',
+    'header' => '<h4 class="modal-title">产品等级调整</h4>',
+    'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>',
+    'options'=>[
+        'data-backdrop'=>'static',//点击空白处不关闭弹窗
+        'data-keyboard'=>false,
+    ],
+    'size'=> Modal::SIZE_LARGE
+]);
+Modal::end();
+?>
+
+<?php
+//产品等级核算
+$adjust_url = Url::toRoute('adjust');
+$adjust_js = <<<JS
+     $('.data-adjust').on('click', function () {
+            $.get('{$adjust_url}', { id: $(this).closest('tr').data('key') },
+                function (data) {
+                    $('.modal-body').html(data);
+                }
+            );
+        });
+JS;
+$this->registerJs($adjust_js);
+?>
