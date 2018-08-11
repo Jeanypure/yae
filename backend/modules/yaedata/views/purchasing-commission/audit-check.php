@@ -19,7 +19,7 @@ echo GridView::widget([
     'pjax'=>true,
     'striped'=>true,
     'hover'=>true,
-    'panel'=>['type'=>'primary', 'heading'=>'采购提成列表'],
+    'panel'=>['type'=>'primary', 'heading'=>'采购产品提成列表--产品等级调整'],
     'columns'=>[
         ['class'=>'kartik\grid\SerialColumn'],
         [
