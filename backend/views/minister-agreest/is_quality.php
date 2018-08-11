@@ -8,6 +8,8 @@
 use yii\helpers\Html;
 use kartik\builder\Form;
 use kartik\widgets\ActiveForm;
+use kartik\select2\Select2;
+
 
 
 
@@ -49,7 +51,23 @@ use kartik\widgets\ActiveForm;
 
     ]);
 
+    echo $form->field($sample_model, 'minister_result')->widget(Select2::classname(), [
+        'data' => [
+            '1'=>'半价产品',
+            '2'=>'新品',
+            '3'=>'推送产品',
+            '4'=>'简单重复',
+
+        ],
+        'options' => ['placeholder' => '产品等级','label'=>"<span style = 'color:red'><big>*</big></span>部长判断",],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+
+    ]);
+
     ?>
+
 
 
 
@@ -64,3 +82,20 @@ use kartik\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$require_js =<<<JS
+    $(function() {
+        $("label[for='sample-minister_result'] ").addClass("label-require");
+        $('.label-require').html(function(_,html) {
+            return html.replace(/(.*?)/, "<span style = 'color:red'><big>*$1</big></span>");
+        });
+      
+    });
+    
+JS;
+
+
+
+$this->registerJs($require_js);
+?>

@@ -52,9 +52,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             ] );
                         },
 
-                        'arrival' => function ($url, $model, $key) {
-                            return  Html::a('<span class="fa fa-truck"></span>', $url);
-                    },
+//                        'arrival' => function ($url, $model, $key) {
+//                            return  Html::a('<span class="fa fa-truck"></span>', $url);
+//                     },
                     ],
                 ],
                 [
