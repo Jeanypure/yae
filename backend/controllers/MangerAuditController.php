@@ -320,13 +320,13 @@ class MangerAuditController extends Controller
      */
     public function actionBorn($id)
     {
-        $username = Yii::$app->user->identity->username;
+        $model = $this->findModel($id);
         $res =   Yii::$app->db->createCommand("
-             select sku_code1,start_num from purchaser where  purchaser= '$username';
+             select sku_code1,start_num from purchaser where  purchaser= '$model->purchaser';
             ")->queryAll();
         $number =   Yii::$app->db->createCommand("
              SELECT count(*) as num FROM sample e LEFT JOIN pur_info o ON e.spur_info_id=o.pur_info_id 
-             where  purchaser= 'Abby'
+             where  purchaser= '$model->purchaser'
             GROUP BY purchaser
             ORDER BY num DESC;
             ")->queryAll();
