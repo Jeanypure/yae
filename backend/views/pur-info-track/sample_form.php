@@ -26,10 +26,11 @@ use kartik\select2\Select2;
         'attributes'=>[       // 6 column layout
             'procurement_cost'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'sample_freight'=>['type'=>Form::INPUT_TEXT,
-                'labelOptions'=>['class'=>'label-require'],
                 'options'=>['placeholder'=>'','class'=>'label-require']],
             'else_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'pay_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'pd_sku'=>['type'=>Form::INPUT_TEXT,
+                'options'=>['placeholder'=>'','class'=>'label-require']],
         ],
 
     ]);
@@ -170,6 +171,7 @@ $readonly_js =<<<JS
             $("label[for='sample-pay_way'] ").addClass("label-require");
             $("label[for='sample-purchaser_result'] ").addClass("label-require");
             $("label[for='sample-pay_amount'] ").addClass("label-require");
+            $("label[for='sample-pd_sku'] ").addClass("label-require");
             
             $('.label-require').html(function(_,html) {
                 return html.replace(/(.*?)/, "<span style = 'color:red'><big>*$1</big></span>");

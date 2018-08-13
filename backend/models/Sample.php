@@ -49,7 +49,8 @@ class Sample extends \yii\db\ActiveRecord
             [['write_date','arrival_date','create_date', 'lastop_date'], 'safe'],
             [['pay_way', 'mark'], 'string', 'max' => 500],
             [['audit_team_reason','minister_reason'], 'string', 'max' => 100],
-            [['procurement_cost', 'sample_freight', 'pay_amount','pay_way',], 'required'],
+            [['pd_sku',], 'string', 'max' => 60],
+            [['procurement_cost', 'sample_freight', 'pay_amount','pay_way','pd_sku'], 'required'],
 
         ];
     }
@@ -88,6 +89,7 @@ class Sample extends \yii\db\ActiveRecord
             'audit_team_result' => '审核组判断',
             'purchaser_result' => '采购判断',
             'audit_team_reason' => '审核组备注',
+            'pd_sku' => 'SKU',
         ];
     }
 
