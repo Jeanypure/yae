@@ -79,8 +79,8 @@ class PurInfo extends \yii\db\ActiveRecord
         return [
             [['is_purchase','trading_company','source','brocast_status','is_quality','sample_submit1','sample_submit2','pur_complete_status','is_assign','junior_submit','pur_group', 'pd_purchase_num', 'parent_product_id','preview_status'], 'integer'],
             [['trading_company', 'bill_type','pd_title','pd_title_en','pd_package','pd_length', 'pd_width', 'pd_height','pd_weight',
-                'pd_pur_costprice','bill_tax_rebate','retail_price','pd_purchase_num',
-                'hs_code','has_shipping_fee'], 'required'],
+                'pd_pur_costprice','bill_tax_rebate','retail_price','pd_purchase_num','hs_code',
+                'has_shipping_fee'], 'required'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice',
                 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'shipping_fee',
                 'amz_retail_price',
@@ -98,9 +98,12 @@ class PurInfo extends \yii\db\ActiveRecord
             ['url_1688','url','defaultScheme' => 'http'],
             [['pd_create_time','write_date' ], 'safe'],
             [['sample_return', ], 'integer'],
+            [['hs_code'],'match','pattern'=>'^\d{10}$','message'=>'请输入正确的HS编码'],
 
         ];
     }
+
+
 
     /**
      * @inheritdoc
