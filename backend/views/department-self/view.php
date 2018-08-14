@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'pd_material',
             'pd_purchase_num',
             'pd_pur_costprice',
+            'old_costprice',
             'has_shipping_fee',
             'bill_type',
             'hs_code',

@@ -20,7 +20,7 @@ class SampleSearch extends Sample
         return [
             [['has_arrival','sample_id', 'spur_info_id', 'is_audit', 'is_agreest', 'is_quality', 'fee_return', 'audit_mem1', 'audit_mem2', 'audit_mem3', 'applicant'], 'integer'],
             [['procurement_cost', 'sample_freight', 'else_fee', 'pay_amount'], 'number'],
-            [['arrival_date','write_date','minister_result','minister_reason','pay_way', 'mark', 'create_date', 'lastop_date'], 'safe'],
+            [['pd_sku','arrival_date','write_date','minister_result','minister_reason','pay_way', 'mark', 'create_date', 'lastop_date'], 'safe'],
         ];
     }
 
@@ -85,6 +85,7 @@ class SampleSearch extends Sample
             'arrival_date' => $this->arrival_date,
             'write_date' => $this->write_date,
             'minister_result' => $this->minister_result,
+            'pd_sku' => $this->pd_sku,
         ]);
 
         $query->andFilterWhere(['like', 'pay_way', $this->pay_way])

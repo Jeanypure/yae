@@ -1,7 +1,6 @@
 <?php
 
 
-use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\helpers\Url;
 use kartik\daterange\DateRangePicker;
@@ -77,7 +76,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'group'=>true,  // enable grouping
 
             ],
-
+            [
+                'attribute'=>'SKU',
+                'value' => function($model) { return $model->pd_sku;},
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
             [
                 'attribute'=>'pd_title',
                 'value' => function($model) { return $model->pd_title;},
@@ -87,6 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
+
             [
                 'attribute'=>'pd_title_en',
                 'value' => function($model) { return $model->pd_title_en;},

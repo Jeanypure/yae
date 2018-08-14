@@ -60,6 +60,7 @@ class PurInfo extends \yii\db\ActiveRecord
     public  $audit_team_result;
     public  $purchaser_result;
     public  $is_diff;
+    public  $pd_sku;
 
 
     /**
@@ -96,7 +97,7 @@ class PurInfo extends \yii\db\ActiveRecord
             ['amazon_url','url','defaultScheme' => 'http'],
             ['else_url','url','defaultScheme' => 'http'],
             ['url_1688','url','defaultScheme' => 'http'],
-            [['pd_create_time','write_date' ], 'safe'],
+            [['pd_sku','pd_create_time','write_date' ], 'safe'],
             [['sample_return', ], 'integer'],
             [['hs_code'],'match','pattern'=>'^\d{10}$','message'=>'请输入正确的HS编码'],
 
