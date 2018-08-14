@@ -77,13 +77,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ],
             [
-                'attribute'=>'SKU',
+                'attribute'=>'pd_sku',
                 'value' => function($model) { return $model->pd_sku;},
-                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
-                'format'=>'html',
-                'headerOptions' => [
-                    'width'=>'80%'
-                ],
+                'label'=>'SKU',
             ],
             [
                 'attribute'=>'pd_title',

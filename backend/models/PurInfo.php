@@ -182,6 +182,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'has_arrival' => '是否到货?',
             'minister_result' => '部长判断',
             'write_date' => '到货日期',
+            'pd_sku' => 'SKU',
 
         ];
     }

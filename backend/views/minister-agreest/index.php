@@ -51,10 +51,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'data-id' => $key,
                             ] );
                         },
-
-//                        'arrival' => function ($url, $model, $key) {
-//                            return  Html::a('<span class="fa fa-truck"></span>', $url);
-//                     },
                     ],
                 ],
                 [
@@ -103,7 +99,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     'group'=>true,  // enable grouping
 
                 ],
-
+                [
+                    'attribute'=>'pd_sku',
+                    'value' => function($model) { return $model->pd_sku;},
+                    'label'=>'SKU',
+                ],
                 [
                     'attribute'=>'pd_title',
                     'value' => function($model) { return $model->pd_title;},

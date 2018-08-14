@@ -50,7 +50,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             [
-//                'class' => 'yii\grid\Column',
                 'headerOptions' => [
                     'width'=>'100'
                 ],
@@ -99,6 +98,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions'=>['placeholder'=>'部门'],
                 'group'=>true,  // enable grouping
 
+            ],
+            [
+                'attribute'=>'pd_sku',
+                'value' => function($model) { return $model->pd_sku;},
+                'label'=>'SKU',
             ],
             [
                 'attribute'=>'pd_title',
