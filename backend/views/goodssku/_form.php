@@ -24,6 +24,8 @@ use kartik\builder\Form;
             'pd_title'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'pd_title_en'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'image_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'is_quantity_check'=>['type'=>Form::INPUT_RADIO_LIST, 'items'=>[1=>'是', 0=>'否'],'options'=>['placeholder'=>'']],
+
 
 
         ],
@@ -34,9 +36,12 @@ use kartik\builder\Form;
         'form'=>$form,
         'columns'=>6,
         'attributes'=>[       // 3 column layout
+            'pd_costprice'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'pd_costprice_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'vendor_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'declared_value'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'currency_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'is_quantity_check'=>['type'=>Form::INPUT_RADIO_LIST, 'items'=>[1=>'是', 0=>'否'],'options'=>['placeholder'=>'']],
+
             'contain_battery'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[1=>'是', 0=>'否'], 'options'=>['placeholder'=>'']],
         ],
 
