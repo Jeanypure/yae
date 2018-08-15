@@ -101,9 +101,7 @@ class JuniorPurInfoController extends Controller
               update `product` set `complete_status`=1
               WHERE `product_id` = $product_id
               ")->execute();
-            $model->preview_status = 0;
             $model->save(false);
-//            return $this->redirect(['view', 'id' => $model->pur_info_id]);
         }
         return $this->render('update', [
             'model' => $model,
