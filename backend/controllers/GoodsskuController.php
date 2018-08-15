@@ -261,12 +261,12 @@ class GoodsskuController extends Controller
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue("$key", "$value");
         }
        $sql = "
-                SELECT sku,pd_title,pd_title_en,pd_weight,pd_length,pd_width,pd_height,declared_value,currency_code
+                SELECT sku,pd_title,pd_title_en,pd_weight,pd_length,pd_width,pd_height,
+                declared_value,currency_code,pd_costprice,pd_costprice_code,vendor_code
                  FROM goodssku  
                 where  sku_id in ($id)
                 ;
         ";
-//        echo $sql;die;
         $data = Yii::$app->db->createCommand($sql)->queryAll();
         $company = Yii::$app->db->createCommand("select sub_company,memo from company")->queryAll();
         $company_arr = [];
