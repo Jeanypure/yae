@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
+use kartik\select2\Select2;
+
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Goodssku */
@@ -113,7 +115,23 @@ use kartik\builder\Form;
         ],
 
     ]);
-    echo Form::widget([
+
+    echo $form->field($model, 'sale_company')->widget(Select2::classname(), [
+        'data' => [
+            '商舟'=>'商舟',
+            '雅耶'=>'雅耶',
+            '朗探'=>'朗探',
+            '域聪'=>'域聪',
+            '朋侯'=>'朋侯',
+            '客尊'=>'客尊',
+        ],
+        'options' => ['placeholder' => '选择销售公司.....'],
+        'pluginOptions' => [
+            'multiple' => true,
+            'allowClear' => true
+        ],
+    ]);
+   /* echo Form::widget([
         'model'=>$model,
         'form'=>$form,
         'columns'=>1,
@@ -122,7 +140,7 @@ use kartik\builder\Form;
 
         ],
 
-    ]);
+    ]);*/
     ?>
 
 

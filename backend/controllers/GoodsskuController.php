@@ -274,7 +274,6 @@ class GoodsskuController extends Controller
             $company_arr[$val['sub_company']] = $val['memo'];
         }
 
-//        pd_length,pd_width,pd_height,declared_value,currency_code
 
         foreach ($data as $k => $v) {
             $num = 2;
@@ -300,16 +299,6 @@ class GoodsskuController extends Controller
 
         //设置工作簿的名称
         $objPHPExcel->getActiveSheet()->setTitle('产品');
-       /* //汇总项
-        $sum = count($data) + 2;
-        $v = count($data) + 1;
-        $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue('D' . $sum, '汇总')
-            ->setCellValue('E' . $sum, "=SUM(E2:E{$v})")
-            ->setCellValue('F' . $sum, "=SUM(F2:F{$v})")
-            ->setCellValue('G' . $sum, "=SUM(G2:G{$v})")
-            ->setCellValue('H' . $sum, "=SUM(H2:H{$v})")
-            ->setCellValue('I' . $sum, "=SUM(I2:I{$v})");*/
         //创建第二个工作表
         $msgWorkSheet = new \PHPExcel_Worksheet($objPHPExcel, '产品图片'); //创建一个工作表
         $objPHPExcel->addSheet($msgWorkSheet); //插入工作表
