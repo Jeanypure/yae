@@ -219,7 +219,7 @@ echo GridView::widget([
                 if($model->source == 0){
                     return $widget->col(11, $p) * $widget->col(12, $p) /10;
                 }
-                return $widget->col(11, $p) * $widget->col(12, $p) * $widget->col(13, $p)/10;
+                return $widget->col(11, $p) * $widget->col(12, $p) * $widget->col(14, $p)/10;
             },
             'mergeHeader'=>true,
             'width'=>'150px',
