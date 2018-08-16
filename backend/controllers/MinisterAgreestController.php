@@ -55,17 +55,21 @@ class MinisterAgreestController extends Controller
     {
         $sample_model = Sample::findOne(['spur_info_id'=>$id]);
         $submit2_at = date('Y-m-d H:i:s');
-
         if(isset($sample_model)&&!empty($sample_model)){
-             if($sample_model->load(Yii::$app->request->post()) ){
-                 if(Yii::$app->request->post()['Sample']['is_agreest']==1){
+
+
+            if($sample_model->load(Yii::$app->request->post()) ){
+               $is_agree =  Yii::$app->request->post()['Sample']['is_agreest'];
+
+                if((int)$is_agree==1){
                     $res = Yii::$app->db->createCommand("
                         update `pur_info` set `sample_submit2`= 1 ,`submit2_at` = '$submit2_at'
                         where `pur_info_id` = $id
                         ")->execute();
+                    $sample_model->is_agreest=1;
                  }
 
-                 $sample_model->save();
+                 $sample_model->save(false);
                  return $this->redirect(['index']);
 
              }
@@ -195,7 +199,7 @@ class MinisterAgreestController extends Controller
                     }else{
                         $sample_model->is_diff = 1;
                     }
-                    $sample_model->save();
+                    $sample_model->save(false);
                 }
                 $count = Yii::$app->db->createCommand("
                 select count(*) as num from headman where product_id=$id
@@ -234,7 +238,7 @@ class MinisterAgreestController extends Controller
                 $sample_model->is_diff = 1;
             }
             $sample_model->arrival_date = date('Y-m-d H:i:s');
-            $sample_model->save();
+            $sample_model->save(false);
             return $this->redirect(['index']);
 
         }
