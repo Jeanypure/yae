@@ -94,6 +94,11 @@ use kartik\select2\Select2;
             'Joe' => 'Joe',
             'John' => 'John',
             'Laura' => 'Laura',
+            'Randy' => 'Randy',
+            'Melody' => 'Melody',
+            'Helen' => 'Helen',
+            'Lee' => 'Lee',
+            'Cathy' => 'Cathy',
         ],
         'options' => ['multiple' => false,'placeholder' => '选择销售部长.....'],
         'pluginOptions' => [
