@@ -48,7 +48,6 @@ class PurchasingCommissionController extends Controller
         $sample_model = Sample::findOne(['spur_info_id'=>$id]);
         $info = PurInfo::findOne(['pur_info_id'=>$id]);
         if($sample_model->load(Yii::$app->request->post()) ){
-//           var_dump(Yii::$app->request->post());die;
             $sample_model->save();
             return $this->redirect(['audit-check']);
 

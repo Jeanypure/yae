@@ -42,6 +42,12 @@ echo GridView::widget([
         ],
 
         [
+            'attribute'=>'pd_sku',
+            'label'=>'SKU',
+            'width'=>'100px',
+            'hAlign'=>'center',
+        ],
+        [
             'attribute'=>'pd_title',
             'label'=>'中文名',
             'width'=>'100px',
@@ -189,7 +195,7 @@ echo GridView::widget([
             'header'=>'个数',
             'value'=>function ($model, $key, $index, $widget) {
                 $p = compact('model', 'key', 'index');
-                return  $widget->col(11, $p) /10;
+                return  $widget->col(12, $p) /10;
             },
             'mergeHeader'=>true,
             'width'=>'150px',
@@ -211,9 +217,9 @@ echo GridView::widget([
             'value'=>function ($model, $key, $index, $widget) {
                 $p = compact('model', 'key', 'index');
                 if($model->source == 0){
-                    return $widget->col(10, $p) * $widget->col(11, $p) /10;
+                    return $widget->col(11, $p) * $widget->col(12, $p) /10;
                 }
-                return $widget->col(10, $p) * $widget->col(11, $p) * $widget->col(12, $p)/10;
+                return $widget->col(11, $p) * $widget->col(12, $p) * $widget->col(13, $p)/10;
             },
             'mergeHeader'=>true,
             'width'=>'150px',
