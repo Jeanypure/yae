@@ -330,10 +330,13 @@ class MangerAuditController extends Controller
             GROUP BY purchaser
             ORDER BY num DESC;
             ")->queryAll();
-
         $part1 =$res[0]['sku_code1'];
         $part2 = '';
-        $order =$number[0]['num']+$res[0]['start_num'];
+
+        if(empty($number)||isset($number)){
+            $number[0]['num'] = 0;
+        }
+       $order =$number[0]['num']+$res[0]['start_num'];
         if ($order < 10) {
             $part2 = "000".$order;
         }else if ($order < 100) {

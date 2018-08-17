@@ -327,4 +327,25 @@ class GoodsskuController extends Controller
 
     }
 
+    public function  actionCopy($id = null){
+        try{
+            $resullt = Yii::$app->db->createCommand("
+                INSERT INTO goodssku (sku,pd_title,pd_title_en,declared_value,currency_code,old_sku,is_quantity_check,contain_battery,pd_length,pd_width,pd_height,pd_weight,qty_of_ctn,ctn_length,ctn_width,ctn_height,ctn_fact_weight,
+                    sale_company,vendor_code,origin_code,min_order_num,pd_get_days,pd_costprice_code,pd_costprice,bill_name,bill_unit,pd_creator,brand,sku_mark,
+                    pur_info_id,image_url,pur_group,sku_create_date,sku_update_date) 
+                    SELECT sku,pd_title,pd_title_en,declared_value,currency_code,old_sku,is_quantity_check,contain_battery,pd_length,pd_width,pd_height,pd_weight,qty_of_ctn,ctn_length,ctn_width,ctn_height,ctn_fact_weight,
+                    sale_company,vendor_code,origin_code,min_order_num,pd_get_days,pd_costprice_code,pd_costprice,bill_name,bill_unit,pd_creator,brand,sku_mark,
+                    pur_info_id,image_url,pur_group,sku_create_date,sku_update_date FROM goodssku WHERE sku_id=$id;
+            ")->execute();
+        }catch (\Exception $exception){
+                throw $exception;
+        }
+        if ($resullt) {
+            echo 1;
+            Yii::$app->end();
+        }
+        echo 0;
+        Yii::$app->end();
+    }
+
 }

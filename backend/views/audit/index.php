@@ -148,7 +148,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'master_mark',
                 'value' => function($model) { return $model->master_mark;},
-                'contentOptions'=> ['style' => 'width: 50%; overflow:auto;word-wrap: break-word;white-space:pre-line;'],
+                'contentOptions'=> ['style' => 'width: 10%; word-wrap: break-word;white-space:pre-wrap;'],
                 'format'=>'html',
                 'headerOptions' => [
                     'width'=>'80%'

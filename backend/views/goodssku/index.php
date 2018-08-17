@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('直接创建产品档案', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php echo Html::button('复制选中产品',['class' => 'btn btn-info' ,'id'=>'copy-good'])?>
         <?php echo Html::button('导出选中项',['class' => 'btn btn-warning' ,'id'=>'export-freight-fee'])?>
 
     </p>
@@ -91,6 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php
 $export = Url::toRoute(['export']);
+$copy_good = Url::toRoute(['copy']);
 $export_debit =<<<JS
         $(function() {
           $('#export-freight-fee').on('click',function() {
@@ -118,5 +120,32 @@ $export_debit =<<<JS
 JS;
 
 $this->registerJs($export_debit);
+
+$copy =<<<JS
+        $(function() {
+          $('#copy-good').on('click',function() {
+                 var button = $(this);
+                 button.attr('disabled','disabled');
+                var ids =  $('#export-to-eccang').yiiGridView("getSelectedRows");
+                var str_id  = ids.toString();
+                    console.log(ids);
+                    console.log(str_id);
+                if(ids==false) alert('请选择!') ;
+                $.ajax({
+                 url: "{$copy_good}", 
+                 type: 'get',
+                 data:{id:str_id},
+                 success:function(res){
+                     if(res==1) {alert('复制成功!')}else{ alert('出错了！')};
+                    button.attr('disabled',false);
+                 },
+                 error: function (jqXHR, textStatus, errorThrown) {
+                            button.attr('disabled',false);
+                 }
+                  });
+             });
+        });
+JS;
+$this->registerJs($copy);
 
 ?>

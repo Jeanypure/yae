@@ -97,6 +97,8 @@ class GoodsskuSearch extends Goodssku
             ->andFilterWhere(['like', 'bill_name', $this->bill_name])
             ->andFilterWhere(['like', 'bill_unit', $this->bill_unit])
             ->andFilterWhere(['like', 'brand', $this->brand])
+            ->andFilterWhere(['like', 'pd_title', $this->pd_title])
+            ->andFilterWhere(['like', 'pd_title_en', $this->pd_title_en])
             ->andFilterWhere(['like', 'sku_mark', $this->sku_mark]);
 
         return $dataProvider;
