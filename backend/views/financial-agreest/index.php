@@ -19,8 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'pjax'=>true,
         'striped'=>true,
         'hover'=>true,
+        'panel'=>['type'=>'primary', 'heading'=>'财务付款列表'],
         'id' => 'sample_submit2',
-        'export' => false,
         'columns' => [
             ['class' => 'kartik\grid\SerialColumn'],
             ['class' => 'kartik\grid\CheckboxColumn'],

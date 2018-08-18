@@ -19,18 +19,6 @@ echo GridView::widget([
     'panel'=>['type'=>'primary', 'heading'=>'采购提成列表'],
     'columns'=>[
         ['class'=>'kartik\grid\SerialColumn'],
-//        [
-//            'class' => 'yii\grid\Column',
-//            'headerOptions' => [
-//                'width'=>'100'
-//            ],
-//            'header' => '图片',
-//            'content' => function ($model, $key, $index, $column){
-//                return "<img src='" .$model->pd_pic_url. "' width='100' height='100'>";
-//
-//
-//            }
-//        ],
         [
             'attribute'=>'pd_pic_url',
             'label'=>'图片',
