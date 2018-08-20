@@ -252,7 +252,7 @@ class GoodsskuController extends Controller
             'AM1' => '净重',
             'AN1' => 'EAN码',
             'AO1' => '产品单位代码',
-            'AP1' => 'UPC码',
+//            'AP1' => 'UPC码',
             'AQ1' => 'UPC码',
 
         ];
@@ -299,11 +299,12 @@ class GoodsskuController extends Controller
 
         //设置工作簿的名称
         $objPHPExcel->getActiveSheet()->setTitle('产品');
+
+
         //创建第二个工作表
-        $msgWorkSheet = new \PHPExcel_Worksheet($objPHPExcel, '产品图片'); //创建一个工作表
+        $msgWorkSheet = new \PHPExcel_Worksheet($objPHPExcel, '产品图片'); //创建2个工作表
         $objPHPExcel->addSheet($msgWorkSheet); //插入工作表
         $objPHPExcel->setActiveSheetIndex(1); //切换到新创建的工作表
-
         $header_arr2 = [
             'A1' => '产品SKU',
             'B1' => '图片URL',
@@ -312,6 +313,51 @@ class GoodsskuController extends Controller
         //设置表格头的输出
         foreach($header_arr2 as $key=>$value){
             $objPHPExcel->setActiveSheetIndex(1)->setCellValue("$key", "$value");
+        }
+
+        //创建第3个工作表
+        $msgWorkSheet = new \PHPExcel_Worksheet($objPHPExcel, '产品包材'); //创建3个工作表
+        $objPHPExcel->addSheet($msgWorkSheet); //插入工作表
+        $objPHPExcel->setActiveSheetIndex(2); //切换到新创建的工作表
+        $header_arr3 = [
+            'A1' => '产品SKU',
+            'B1' => '包材代码',
+            'C1' => '包材数量',
+            'D1' => '仓库代码',
+        ];
+        //设置表格头的输出
+        foreach($header_arr3 as $key=>$value){
+            $objPHPExcel->setActiveSheetIndex(2)->setCellValue("$key", "$value");
+        }
+
+        //创建第4个工作表
+        $msgWorkSheet = new \PHPExcel_Worksheet($objPHPExcel, '基础数据（供应商_产品单位）'); //创建4个工作表
+        $objPHPExcel->addSheet($msgWorkSheet); //插入工作表
+        $objPHPExcel->setActiveSheetIndex(3); //切换到新创建的工作表
+        $header_arr4 = [
+            'A1' => '供应商代码',
+            'B1' => '供应商名称',
+            'D1' => '产品单位代码',
+            'E1' => '产品单位名称',
+        ];
+        //设置表格头的输出
+        foreach($header_arr4 as $key=>$value){
+            $objPHPExcel->setActiveSheetIndex(3)->setCellValue("$key", "$value");
+        }
+
+        //创建第5个工作表
+        $msgWorkSheet = new \PHPExcel_Worksheet($objPHPExcel, '基础数据（产品品类）'); //创建5个工作表
+        $objPHPExcel->addSheet($msgWorkSheet); //插入工作表
+        $objPHPExcel->setActiveSheetIndex(4); //切换到新创建的工作表
+        $header_arr5 = [
+            'A1' => '品类ID',
+            'B1' => '等级',
+            'C1' => '品类中文名称',
+            'D1' => '品类英文名称',
+        ];
+        //设置表格头的输出
+        foreach($header_arr5 as $key=>$value){
+            $objPHPExcel->setActiveSheetIndex(4)->setCellValue("$key", "$value");
         }
 
 
