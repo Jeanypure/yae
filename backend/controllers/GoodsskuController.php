@@ -328,8 +328,11 @@ class GoodsskuController extends Controller
     }
 
     public function  actionCopy($id = null){
+
+        $db =  Yii::$app->db;
+        $outerTransaction = $db->beginTransaction();
         try{
-            $resullt = Yii::$app->db->createCommand("
+            $resullt = $db->createCommand("
                 INSERT INTO goodssku (sku,pd_title,pd_title_en,declared_value,currency_code,old_sku,is_quantity_check,contain_battery,pd_length,pd_width,pd_height,pd_weight,qty_of_ctn,ctn_length,ctn_width,ctn_height,ctn_fact_weight,
                     sale_company,vendor_code,origin_code,min_order_num,pd_get_days,pd_costprice_code,pd_costprice,bill_name,bill_unit,pd_creator,brand,sku_mark,
                     pur_info_id,image_url,pur_group,sku_create_date,sku_update_date) 
@@ -337,9 +340,25 @@ class GoodsskuController extends Controller
                     sale_company,vendor_code,origin_code,min_order_num,pd_get_days,pd_costprice_code,pd_costprice,bill_name,bill_unit,pd_creator,brand,sku_mark,
                     pur_info_id,image_url,pur_group,sku_create_date,sku_update_date FROM goodssku WHERE sku_id=$id;
             ")->execute();
+            $innerTransaction = $db->beginTransaction();
+            try{
+                $to_vendor = $db->createCommand("
+                	-- 创建记录到供应商表
+					 INSERT INTO sku_vendor (sku_id)
+					 SELECT  LAST_INSERT_ID() ;
+            ")->execute();
+                $innerTransaction->commit();
+            }catch (\Exception $e){
+                $innerTransaction->rollBack();
+                throw $e;
+            }
+            $outerTransaction->commit();
+
         }catch (\Exception $exception){
+                $outerTransaction->rollBack();
                 throw $exception;
         }
+
         if ($resullt) {
             echo 1;
             Yii::$app->end();
