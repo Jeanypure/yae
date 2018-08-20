@@ -10,7 +10,7 @@ use Yii;
  * @property int $id 记录ID
  * @property int $sku_id SKUID
  * @property string $vendor_code 供应商代码
- * @property string $origin_code 供应商规格型号
+ * @property string $origin_code 供应商产品规格型号
  * @property int $min_order_num 最少起订量
  * @property int $pd_get_days 交期
  * @property string $pd_costprice_code 采购币种
@@ -57,7 +57,7 @@ class SkuVendor extends \yii\db\ActiveRecord
             'id' => 'ID',
             'sku_id' => 'Sku ID',
             'vendor_code' => '供应商代码',
-            'origin_code' => '供应商规格型号',
+            'origin_code' => '供应商产品规格型号',
             'min_order_num' => '最少起订量',
             'pd_get_days' => '预估交期(天)',
             'pd_costprice_code' => '采购币种',

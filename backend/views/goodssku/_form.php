@@ -39,10 +39,10 @@ use kartik\select2\Select2;
         'columns'=>6,
         'attributes'=>[       // 3 column layout
             'pd_costprice'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'pd_costprice_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'pd_costprice_code'=>['type'=>Form::INPUT_STATIC, 'options'=>['placeholder'=>''],'staticValue'=>'RMB'],
             'vendor_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'declared_value'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'currency_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declared_value'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>''],],
+            'currency_code'=>['type'=>Form::INPUT_STATIC, 'options'=>['placeholder'=>''],'staticValue'=>'USD'],
 
             'contain_battery'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[1=>'是', 0=>'否'], 'options'=>['placeholder'=>'']],
         ],

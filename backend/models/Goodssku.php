@@ -54,7 +54,7 @@ class Goodssku extends \yii\db\ActiveRecord
             [['is_quantity_check', 'contain_battery', 'qty_of_ctn', 'min_order_num', 'pd_get_days', 'pur_info_id'], 'integer'],
             [['sku', 'old_sku'], 'string', 'max' => 60],
             [['currency_code', 'bill_unit'], 'string', 'max' => 5],
-            [['sale_company', 'brand', 'sku_mark'], 'string', 'max' => 100],
+            [[ 'brand', 'sku_mark'], 'string', 'max' => 100],
             [['vendor_code', 'pd_costprice_code'], 'string', 'max' => 30],
             [['origin_code'], 'string', 'max' => 216],
             [['bill_name'], 'string', 'max' => 50],
@@ -74,7 +74,7 @@ class Goodssku extends \yii\db\ActiveRecord
         return [
             'sku_id' => 'Sku ID',
             'sku' => 'SKU',
-            'declared_value' => '申报价值',
+            'declared_value' => '申报价值(USD)',
             'currency_code' => '申报币种',
             'old_sku' => '曾用SKU',
             'is_quantity_check' => '是否需要质检',
