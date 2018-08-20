@@ -252,7 +252,6 @@ class GoodsskuController extends Controller
             'AM1' => '净重',
             'AN1' => 'EAN码',
             'AO1' => '产品单位代码',
-//            'AP1' => 'UPC码',
             'AQ1' => 'UPC码',
 
         ];
