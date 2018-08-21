@@ -76,7 +76,7 @@ class MinisterAgreestSearch extends PurInfo
                 ->orderBy('pur_info_id desc')
             ;
 
-//            $this->is_agreest = 2;
+            $this->is_agreest = 2;
         }
 
 
