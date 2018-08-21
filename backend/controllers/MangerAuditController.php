@@ -333,10 +333,12 @@ class MangerAuditController extends Controller
         $part1 =$res[0]['sku_code1'];
         $part2 = '';
 
-        if(empty($number)||isset($number)){
+        if(empty($number)){
             $number[0]['num'] = 0;
         }
-       $order =$number[0]['num']+$res[0]['start_num'];
+
+
+        $order =$number[0]['num']+$res[0]['start_num'];
         if ($order < 10) {
             $part2 = "000".$order;
         }else if ($order < 100) {
