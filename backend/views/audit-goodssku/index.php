@@ -13,27 +13,26 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="goodssku-index">
 
-
     <p>
-        <?= Html::a('直接创建产品档案', ['create'], ['class' => 'btn btn-success']) ?>
-        <?php echo Html::button('复制选中产品',['class' => 'btn btn-default' ,'id'=>'copy-good'])?>
-
-        <?php echo Html::button('确认提交',['class' => 'btn btn-info' ,'id'=>'is_submit'])?>
-        <?php echo Html::button('取消提交',['class' => 'btn btn-primary' ,'id'=>'un_submit'])?>
-
-        <?php echo Html::button('导出选中项',['class' => 'btn btn-warning' ,'id'=>'export-freight-fee'])?>
-
+        <?php echo Html::button('导出excel到易仓',['class' => 'btn btn-warning' ,'id'=>'export-freight-fee'])?>
+        <?php echo Html::button('导入NetSuite',['class' => 'btn btn-info' ,'id'=>'export-ns'])?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'id'=>'goodssku',
+        'id'=>'audit-goodssku',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             ['class' => 'yii\grid\CheckboxColumn'],
             ['class' => 'yii\grid\ActionColumn',
-                'header' => '操作'
+                'header' => '操作',
+                'template' => '{export-ns}',
+               /* 'buttons' => [
+                    'export-ns' => function ($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-export"></span>', $url, ['title' => '导入NS' ] );
+                    },
+                ],*/
             ],
             [
                 'class' => 'yii\grid\Column',
@@ -84,6 +83,44 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'提交?'],
+
+            ],
+            [
+                'attribute'=>'has_toeccang',
+                'value' => function($model) {
+                    if($model->has_toeccang==1){
+                        return '是';
+                    }else{
+                        return '否';
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '是', '0' => '否'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'导易仓?'],
+
+            ],
+            [
+                'attribute'=>'has_tons',
+                'value' => function($model) {
+                    if($model->has_tons==1){
+                        return '是';
+                    }else{
+                        return '否';
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '是', '0' => '否'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'导NS?'],
 
             ],
             'declared_value',
@@ -150,14 +187,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <?php
+//导出excel到易仓
 $export = Url::toRoute(['export']);
-$copy_good = Url::toRoute(['copy']);
 $export_debit =<<<JS
         $(function() {
           $('#export-freight-fee').on('click',function() {
                  var button = $(this);
                  button.attr('disabled','disabled');
-                var ids =  $('#goodssku').yiiGridView("getSelectedRows");
+                var ids =  $('#audit-goodssku').yiiGridView("getSelectedRows");
                 var str_id  = ids.toString();
                     console.log(ids);
                     console.log(str_id);
@@ -180,95 +217,40 @@ JS;
 
 $this->registerJs($export_debit);
 
-$copy =<<<JS
-        $(function() {
-          $('#copy-good').on('click',function() {
-                 var button = $(this);
+?>
+
+<?php
+//导入NetSuite
+$to_netsuite = Url::toRoute(['export-ns']);
+$export_ns = <<<JS
+    $(function() {
+      $('#export-ns').on('click',function(){
+                var button = $(this);
                  button.attr('disabled','disabled');
-                var ids =  $('#goodssku').yiiGridView("getSelectedRows");
+                var ids =  $('#audit-goodssku').yiiGridView("getSelectedRows");
                 var str_id  = ids.toString();
                     console.log(ids);
                     console.log(str_id);
                 if(ids==false) alert('请选择!') ;
                 $.ajax({
-                 url: "{$copy_good}", 
+                 url: "{$to_netsuite}", 
                  type: 'get',
                  data:{id:str_id},
                  success:function(res){
-                     if(res==1) {alert('复制成功!')}else{ alert('出错了！')};
-                    button.attr('disabled',false);
+                   button.attr('disabled',false);
+                   if(res=='success'){ alert('导入NetSuite成功'); }
+                   else{alert('出错了 啊哦!!);}
+                   
                  },
                  error: function (jqXHR, textStatus, errorThrown) {
                             button.attr('disabled',false);
                  }
                   });
-             });
-        });
-JS;
-$this->registerJs($copy);
-
-?>
-
-<?php
-
-// 标记产品状态    0 uncommitted  1 commit
-//功能放到 index 批量提交    取消提交
-
-$commit = Url::toRoute(['commit']);
-$uncommitted = Url::toRoute(['cancel']);
-$is_submit = <<<JS
-
-    //批量提交
-    $('#is_submit').on('click',function(){
-         var button = $(this);
-         button.attr('disabled','disabled');
-        var ids =  $('#goodssku').yiiGridView("getSelectedRows");
-        var str_id  = ids.toString();
-        console.log(ids);
-        console.log(str_id);
-        if(ids==false) alert('请选择产品!') ;
-        $.ajax({
-         url: "{$commit}", 
-         type: 'post',
-         data:{id:str_id},
-         success:function(res){
-           if(res=='success') alert('提交产品成功!');     
-           button.attr('disabled',false);
-           location.reload();
-         },
-         error: function (jqXHR, textStatus, errorThrown) {
-                    button.attr('disabled',false);
-         }
-      
+      });
     });
-});
-
-//取消提交
-    $('#un_submit').on('click',function(){
-        var button = $(this);
-         button.attr('disabled','disabled');
-        var ids =  $('#goodssku').yiiGridView("getSelectedRows");
-        var str_id  = ids.toString();
-        console.log(ids);
-        if(ids==false) alert('请选择产品!') ;
-        $.ajax({
-         url: "{$uncommitted}", 
-         type: 'post',
-         data:{id:str_id},
-         success:function(res){
-           if(res=='success') alert('取消提交成功!');
-           button.attr('disabled',false);
-           location.reload();
-         },
-         error: function (jqXHR, textStatus, errorThrown) {
-                    button.attr('disabled',false);
-         }
-      
-    });
-});
 JS;
 
-$this->registerJs($is_submit);
+$this->registerJs($export_ns);
 
 
 

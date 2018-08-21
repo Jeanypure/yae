@@ -16,16 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <img src="<?php echo $model->image_url ?>" alt="" height="100" width="100">
     </p>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->sku_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->sku_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+
 
     <?= DetailView::widget([
         'model' => $model,

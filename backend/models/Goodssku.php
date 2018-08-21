@@ -51,7 +51,7 @@ class Goodssku extends \yii\db\ActiveRecord
     {
         return [
             [['declared_value', 'ctn_length', 'ctn_width', 'ctn_height', 'ctn_fact_weight', 'pd_costprice'], 'number'],
-            [['has_commit','is_quantity_check', 'contain_battery', 'qty_of_ctn', 'min_order_num', 'pd_get_days', 'pur_info_id'], 'integer'],
+            [['has_toeccang','has_tons','has_commit','is_quantity_check', 'contain_battery', 'qty_of_ctn', 'min_order_num', 'pd_get_days', 'pur_info_id'], 'integer'],
             [['sku', 'old_sku'], 'string', 'max' => 60],
             [['currency_code', 'bill_unit'], 'string', 'max' => 5],
             [[ 'brand', 'sku_mark'], 'string', 'max' => 100],
@@ -107,6 +107,8 @@ class Goodssku extends \yii\db\ActiveRecord
             'sku_create_date' => '创建档案时间',
             'sku_update_date' => '更新档案时间',
             'has_commit' => '是否提交',
+            'has_toeccang' => '是否导易仓',
+            'has_tons' => '是否导NS',
         ];
     }
 }

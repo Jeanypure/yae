@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'pay_name',
             'pay_bank',
             'sup_remark',
-            'pay_cycleTime_type:datetime',
+            'pay_cycleTime_type',
             'account_type',
             'account_proportion',
             'has_cooperate',

@@ -59,33 +59,6 @@ class AuditGoodsskuController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Goodssku model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Goodssku();
-
-        if ($model->load(Yii::$app->request->post()) ) {
-            $model->pd_creator = Yii::$app->user->identity->username;
-            $model->save(false);
-            try{
-                Yii::$app->db->createCommand("
-             INSERT into sku_vendor(sku_id) SELECT max(sku_id) FROM  goodssku;
-            ")->execute();
-
-            }catch (\Exception $exception){
-                throw  $exception;
-            }
-            return $this->redirect(['view', 'id' => $model->sku_id]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
 
     /**
      * Updates an existing Goodssku model.
@@ -121,26 +94,7 @@ class AuditGoodsskuController extends Controller
         ]);
     }
 
-    /**
-     * Deletes an existing Goodssku model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
 
-        try{
-            Yii::$app->db->createCommand("delete from sku_vendor where  sku_id = $id ")->execute();
-        }catch (\Exception $e){
-            throw $e;
-        }
-
-
-        return $this->redirect(['index']);
-    }
 
     /**
      * Finds the Goodssku model based on its primary key value.
@@ -158,53 +112,7 @@ class AuditGoodsskuController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public  function  actionVendorUpdate($id){
 
-        $vendor_model =  SkuVendor::findOne($id);
-
-        if ($vendor_model->load(Yii::$app->request->post()) ) {
-            $vendor_model->update_date = date('Y-m-d H:i:s');
-            if($vendor_model->save()){
-                return $this->redirect(['update', 'id' => $vendor_model->sku_id]);
-            }
-
-        }
-
-        return $this->renderAjax('vendor_update', [
-            'model' => $vendor_model,
-            'sku_id' => $id,
-        ]);
-    }
-
-     public  function  actionVendorCreate($id){
-         $vendor_model = new SkuVendor();
-         if ($vendor_model->load(Yii::$app->request->post()) ) {
-                 if($vendor_model->save()){
-                     return $this->redirect(['update', 'id' => $vendor_model->sku_id]);
-                 }
-
-         }else{
-             if (isset($id) && !empty($id)) {
-                 $vendor_model->sku_id = $id;
-                 $vendor_model->save();
-             }
-         }
-
-         return $this->renderAjax('vendor_create', [
-             'model' => $vendor_model,
-         ]);
-     }
-
-     public  function  actionVendorDelete($id){
-         $vendor = SkuVendor::find()->where(['id' => $id])->one();
-
-         if ($vendor->delete()) {
-             echo 1;
-             Yii::$app->end();
-         }
-         echo 0;
-         Yii::$app->end();
-     }
 
 
     public function actionExport($id = null)
@@ -361,109 +269,22 @@ class AuditGoodsskuController extends Controller
 
 
         //数据结束
-
+        $filename = date('Y-m-d')."导产品到易仓.xls";
         ob_end_clean();
         ob_start();
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="导产品到易仓表格.xls"');
+        header("Content-Disposition: attachment;filename=$filename");
         header('Cache-Control: max-age=0');
         $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
         $objWriter->save('php://output');
 
     }
 
-    public function  actionCopy($id = null)
-    {
-
-        $db = Yii::$app->db;
-        $outerTransaction = $db->beginTransaction();
-        try {
-            $resullt = $db->createCommand("
-                INSERT INTO goodssku (sku,pd_title,pd_title_en,declared_value,currency_code,old_sku,is_quantity_check,contain_battery,pd_length,pd_width,pd_height,pd_weight,qty_of_ctn,ctn_length,ctn_width,ctn_height,ctn_fact_weight,
-                    sale_company,vendor_code,origin_code,min_order_num,pd_get_days,pd_costprice_code,pd_costprice,bill_name,bill_unit,pd_creator,brand,sku_mark,
-                    pur_info_id,image_url,pur_group,sku_create_date,sku_update_date) 
-                    SELECT sku,pd_title,pd_title_en,declared_value,currency_code,old_sku,is_quantity_check,contain_battery,pd_length,pd_width,pd_height,pd_weight,qty_of_ctn,ctn_length,ctn_width,ctn_height,ctn_fact_weight,
-                    sale_company,vendor_code,origin_code,min_order_num,pd_get_days,pd_costprice_code,pd_costprice,bill_name,bill_unit,pd_creator,brand,sku_mark,
-                    pur_info_id,image_url,pur_group,sku_create_date,sku_update_date FROM goodssku WHERE sku_id=$id;
-            ")->execute();
-            $innerTransaction = $db->beginTransaction();
-            try {
-                $to_vendor = $db->createCommand("
-                	-- 创建记录到供应商表
-					 INSERT INTO sku_vendor (sku_id)
-					 SELECT  LAST_INSERT_ID() ;
-            ")->execute();
-                $innerTransaction->commit();
-            } catch (\Exception $e) {
-                $innerTransaction->rollBack();
-                throw $e;
-            }
-            $outerTransaction->commit();
-
-        } catch (\Exception $exception) {
-            $outerTransaction->rollBack();
-            throw $exception;
-        }
-
-        if ($resullt) {
-            echo 1;
-            Yii::$app->end();
-        }
-        echo 0;
-        Yii::$app->end();
-    }
 
 
-    /**
-     * Commit product
-     * @throws \yii\db\Exception
-     */
-    public function actionCommit()
-    {
-        $ids = $_POST['id'];
-        if(isset($ids)&&!empty($ids)){
-            $res = Yii::$app->db->createCommand("
-            update `goodssku` set `has_commit`= 1 where `sku_id` in ($ids)
-            ")->execute();
-            if($res){
-                echo 'success';
-            }
-        }else{
-            echo 'error';
-        }
+   public function actionExportNs($id){
+        echo $id;
 
-    }
-
-    /**
-     * Cancel commit goodssku
-     * @throws \yii\db\Exception
-     */
-    public function actionCancel()
-    {
-
-        $ids = $_POST['id'];
-        if(isset($ids)&&!empty($ids)){
-            try{
-                $res = Yii::$app->db->createCommand("
-             update `goodssku` set `has_commit`= 0 where `sku_id` in ($ids)
-            ")->execute();
-
-            }catch(\Exception $exception){
-                throw $exception;
-            }
-            if($res){
-                echo 'success';
-                Yii::$app->end();
-            }
-        }else{
-            echo 'error';
-            Yii::$app->end();
-        }
-
-
-    }
-
-
-
+   }
 
 }
