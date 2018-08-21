@@ -69,7 +69,7 @@ class YaeSupplierController extends Controller
             $username = Yii::$app->user->identity->username;
         if ($model->load(Yii::$app->request->post()) ) {
              $model->submitter = $username;
-             $model->save();
+             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -92,7 +92,7 @@ class YaeSupplierController extends Controller
 
         if ($model->load(Yii::$app->request->post()) ) {
             $model->update_date = $update_date;
-            $model->save();
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
