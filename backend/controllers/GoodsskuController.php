@@ -372,11 +372,12 @@ class GoodsskuController extends Controller
 
     }
 
-    public function  actionCopy($id = null){
+    public function  actionCopy($id = null)
+    {
 
-        $db =  Yii::$app->db;
+        $db = Yii::$app->db;
         $outerTransaction = $db->beginTransaction();
-        try{
+        try {
             $resullt = $db->createCommand("
                 INSERT INTO goodssku (sku,pd_title,pd_title_en,declared_value,currency_code,old_sku,is_quantity_check,contain_battery,pd_length,pd_width,pd_height,pd_weight,qty_of_ctn,ctn_length,ctn_width,ctn_height,ctn_fact_weight,
                     sale_company,vendor_code,origin_code,min_order_num,pd_get_days,pd_costprice_code,pd_costprice,bill_name,bill_unit,pd_creator,brand,sku_mark,
@@ -386,22 +387,22 @@ class GoodsskuController extends Controller
                     pur_info_id,image_url,pur_group,sku_create_date,sku_update_date FROM goodssku WHERE sku_id=$id;
             ")->execute();
             $innerTransaction = $db->beginTransaction();
-            try{
+            try {
                 $to_vendor = $db->createCommand("
                 	-- 创建记录到供应商表
 					 INSERT INTO sku_vendor (sku_id)
 					 SELECT  LAST_INSERT_ID() ;
             ")->execute();
                 $innerTransaction->commit();
-            }catch (\Exception $e){
+            } catch (\Exception $e) {
                 $innerTransaction->rollBack();
                 throw $e;
             }
             $outerTransaction->commit();
 
-        }catch (\Exception $exception){
-                $outerTransaction->rollBack();
-                throw $exception;
+        } catch (\Exception $exception) {
+            $outerTransaction->rollBack();
+            throw $exception;
         }
 
         if ($resullt) {
@@ -411,5 +412,58 @@ class GoodsskuController extends Controller
         echo 0;
         Yii::$app->end();
     }
+
+
+    /**
+     * Commit product
+     * @throws \yii\db\Exception
+     */
+    public function actionCommit()
+    {
+        $ids = $_POST['id'];
+        if(isset($ids)&&!empty($ids)){
+            $res = Yii::$app->db->createCommand("
+            update `goodssku` set `has_commit`= 1 where `sku_id` in ($ids)
+            ")->execute();
+            if($res){
+                echo 'success';
+            }
+        }else{
+            echo 'error';
+        }
+
+    }
+
+    /**
+     * Cancel commit goodssku
+     * @throws \yii\db\Exception
+     */
+    public function actionCancel()
+    {
+
+        $ids = $_POST['id'];
+        if(isset($ids)&&!empty($ids)){
+            try{
+                $res = Yii::$app->db->createCommand("
+             update `goodssku` set `has_commit`= 0 where `sku_id` in ($ids)
+            ")->execute();
+
+            }catch(\Exception $exception){
+                throw $exception;
+            }
+            if($res){
+                echo 'success';
+                Yii::$app->end();
+            }
+        }else{
+            echo 'error';
+            Yii::$app->end();
+        }
+
+
+    }
+
+
+
 
 }
