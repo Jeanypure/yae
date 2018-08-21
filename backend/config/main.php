@@ -121,6 +121,7 @@ return [
             //这里是允许访问的action
             //controller/action
             'site/*',
+            'winit/*'
 
         ]
     ],
