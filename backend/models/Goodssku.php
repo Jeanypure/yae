@@ -61,7 +61,7 @@ class Goodssku extends \yii\db\ActiveRecord
             [['pd_title', 'pd_title_en'], 'string', 'max' => 300],
             [['pd_length','pd_width','pd_height','pd_weight','pd_creator',], 'string', 'max' =>10 ],
             [['image_url'], 'string', 'max' =>500 ],
-            [['sku_create_date','sku_update_date' ], 'safe'],
+            [['sale_company','sku_create_date','sku_update_date' ], 'safe'],
 
         ];
     }

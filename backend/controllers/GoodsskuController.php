@@ -70,6 +70,7 @@ class GoodsskuController extends Controller
 
         if ($model->load(Yii::$app->request->post()) ) {
             $model->pd_creator = Yii::$app->user->identity->username;
+            $model->sale_company = implode(",", Yii::$app->request->post()['Goodssku']['sale_company']);
             $model->save(false);
             try{
                 Yii::$app->db->createCommand("
@@ -98,8 +99,10 @@ class GoodsskuController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->sale_company = implode(",", Yii::$app->request->post()['Goodssku']['sale_company']);
             $model->sku_update_date = date('Y-m-d H:i:s');
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->sku_id]);
         }
 
