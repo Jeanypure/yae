@@ -21,7 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php echo Html::button('确认提交',['class' => 'btn btn-info' ,'id'=>'is_submit'])?>
         <?php echo Html::button('取消提交',['class' => 'btn btn-primary' ,'id'=>'un_submit'])?>
 
-        <?php echo Html::button('导出选中项',['class' => 'btn btn-warning' ,'id'=>'export-freight-fee'])?>
 
     </p>
 
@@ -150,36 +149,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <?php
-$export = Url::toRoute(['export']);
 $copy_good = Url::toRoute(['copy']);
-$export_debit =<<<JS
-        $(function() {
-          $('#export-freight-fee').on('click',function() {
-                 var button = $(this);
-                 button.attr('disabled','disabled');
-                var ids =  $('#goodssku').yiiGridView("getSelectedRows");
-                var str_id  = ids.toString();
-                    console.log(ids);
-                    console.log(str_id);
-                if(ids==false) alert('请选择!') ;
-                $.ajax({
-                 url: "{$export}", 
-                 type: 'get',
-                 data:{id:str_id},
-                 success:function(res){
-                   button.attr('disabled',false);
-                   window.location.href = '{$export}'+'?id='+str_id;
-                 },
-                 error: function (jqXHR, textStatus, errorThrown) {
-                            button.attr('disabled',false);
-                 }
-                  });
-             });
-        });
-JS;
-
-$this->registerJs($export_debit);
-
 $copy =<<<JS
         $(function() {
           $('#copy-good').on('click',function() {

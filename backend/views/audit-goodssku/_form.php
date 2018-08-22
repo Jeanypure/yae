@@ -131,21 +131,13 @@ use kartik\select2\Select2;
             'allowClear' => true
         ],
     ]);
-   /* echo Form::widget([
-        'model'=>$model,
-        'form'=>$form,
-        'columns'=>1,
-        'attributes'=>[       // 3 column layout
-            'sale_company'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
-        ],
-
-    ]);*/
     ?>
 
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-lg']) ?>
+        <?php
+//        echo  Html::submitButton('Save', ['class' => 'btn btn-success btn-lg']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -280,11 +280,72 @@ class AuditGoodsskuController extends Controller
 
     }
 
-
-
+    /**
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
    public function actionExportNs($id){
-        echo $id;
+       $model =  $this->findModel($id);
+       $item_arr = [[
+           "itemid" => $model->sku,
+           "taxschedule" => "1",
+           "custitem_cn_declared_name" => $model->pd_title,
+           "custitem_en_declared_name" => $model->pd_title_en,
+           "custitem_declaredvalue" => $model->declared_value,
+//           "custitem_declaredcurrency" => $model->currency_code,
+//           "custitem22" => $model->is_quantity_check,
+//           "custitem5" => $model->contain_battery,
+           "custitem_item_length" => $model->pd_length,
+           "custitem_item_width" => $model->pd_width,
+           "custitem_item_height" => $model->pd_height,
+           "custitem_qty_per_carton" => $model->qty_of_ctn,
+           "custitem11" => $model->ctn_length,
+           "custitem12" => $model->ctn_width,
+           "custitem13" => $model->ctn_height,
+           "custitem16" => $model->ctn_fact_weight,
+           "custitem_invoice_item_name" => $model->bill_name,
+           "custitem_invoice_unit" => $model->bill_unit,
+           "custitem19" => $model->pd_creator,
+           "custitem21" => $model->brand,
+           "custitem20" => $model->pd_creator,
 
+       ]];
+       $result = $this->actionDoCurl($item_arr);
+       return $result;
    }
 
+    /**
+     * @param $item_arr
+     * @return string
+     * @throws \Exception
+     */
+    public  function  actionDoCurl($item_arr){
+
+        try{
+            $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=116&deploy=8';
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Authorization: NLAuth nlauth_account=5151251, nlauth_email=618816@163.com, nlauth_signature=AAAbbb1234, nlauth_role=1013',
+                'Content-Type: application/json',
+                'Accept: application/json'
+            ));
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+            curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,2);
+            curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,false);
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($item_arr));
+            ob_start();
+            curl_exec($ch);
+            $result = ob_get_contents();
+            ob_end_clean();
+            curl_close($ch);
+            return $result;
+        }catch (\Exception $exception){
+            throw $exception;
+        }
+
+
+    }
 }

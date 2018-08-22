@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php echo Html::button('导出excel到易仓',['class' => 'btn btn-warning' ,'id'=>'export-freight-fee'])?>
-        <?php echo Html::button('导入NetSuite',['class' => 'btn btn-info' ,'id'=>'export-ns'])?>
+        <?php echo Html::button('导入NetSuite',['class' => 'btn btn-info' ,'id'=>'export-netsuite'])?>
     </p>
 
     <?= GridView::widget([
@@ -27,12 +27,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\CheckboxColumn'],
             ['class' => 'yii\grid\ActionColumn',
                 'header' => '操作',
-                'template' => '{export-ns}',
-               /* 'buttons' => [
-                    'export-ns' => function ($url, $model, $key) {
+                'template' => '{view} {update}',
+                'buttons' => [
+                    /*'export-ns' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-export"></span>', $url, ['title' => '导入NS' ] );
+                    },*/
+                    'view' => function ($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, ['title' => '审核记录' ] );
                     },
-                ],*/
+                ],
             ],
             [
                 'class' => 'yii\grid\Column',
@@ -224,7 +227,7 @@ $this->registerJs($export_debit);
 $to_netsuite = Url::toRoute(['export-ns']);
 $export_ns = <<<JS
     $(function() {
-      $('#export-ns').on('click',function(){
+      $('#export-netsuite').on('click',function(){
                 var button = $(this);
                  button.attr('disabled','disabled');
                 var ids =  $('#audit-goodssku').yiiGridView("getSelectedRows");
@@ -237,10 +240,12 @@ $export_ns = <<<JS
                  type: 'get',
                  data:{id:str_id},
                  success:function(res){
+                     console.log(res);
+                     var obj = JSON.parse(res);
+                     console.log(obj);
                    button.attr('disabled',false);
-                   if(res=='success'){ alert('导入NetSuite成功'); }
-                   else{alert('出错了 啊哦!!);}
-                   
+                   if(obj.code =='200 OK'){ alert(obj.message); }
+                   else{alert(obj.error.code+'->'+obj.error.message);}
                  },
                  error: function (jqXHR, textStatus, errorThrown) {
                             button.attr('disabled',false);
