@@ -168,10 +168,11 @@ class AuditGoodsskuController extends Controller
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue("$key", "$value");
         }
        $sql = "
-                SELECT sku,pd_title,pd_title_en,pd_weight,pd_length,pd_width,pd_height,
-                declared_value,currency_code,pd_costprice,pd_costprice_code,vendor_code
-                 FROM goodssku  
-                where  sku_id in ($id)
+                SELECT 
+                    g.sku,g.pd_title,g.pd_title_en,g.pd_weight,g.pd_length,g.pd_width,g.pd_height,
+                    g.declared_value,g.currency_code,g.pd_costprice,g.pd_costprice_code,g.vendor_code,s.bill_name,s.bill_unit
+                    FROM goodssku g LEFT JOIN sku_vendor s ON g.sku_id=s.sku_id  AND g.vendor_code = s.vendor_code  
+                where  g.sku_id in ($id)
                 ;
         ";
         $data = Yii::$app->db->createCommand($sql)->queryAll();
@@ -201,6 +202,7 @@ class AuditGoodsskuController extends Controller
                 ->setCellValue('N' . $num, $v['pd_costprice'])
                 ->setCellValue('O' . $num, $v['pd_costprice_code'])
                 ->setCellValue('P' . $num, $v['vendor_code'])
+                ->setCellValue('U' . $num, $v['bill_name'].'/'.$v['bill_unit'])
             ;
         }
 
