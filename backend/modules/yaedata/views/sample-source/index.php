@@ -9,26 +9,26 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use kartik\daterange\DateRangePicker;
 use kartik\widgets\ActiveForm;
+
 ?>
 <?php
     $form = ActiveForm::begin();
 
+echo '<div class="col-sm-5"><label class="control-label">Date Range</label>';
+echo '<div class="drp-container">';
+echo DateRangePicker::widget([
+    'name'=>'date_range_3',
+    'value'=>date('Y-m-d',strtotime('-29 day')) . ' - '. date('Y-m-d') ,
+    'presetDropdown'=>true,
+    'hideInput'=>true
+]);
+echo '</div></div>';
 
-    // DateRangePicker in a dropdown format (uneditable/hidden input) and uses the preset dropdown.
-    echo '<label class="control-label">Date Range</label>';
-    echo '<div class="drp-container">';
-    echo DateRangePicker::widget([
-        'name'=>'date_range_2',
-        'value'=>date('Y-m-d',strtotime('-29 day')) . ' to '. date('Y-m-d') ,
-        'presetDropdown'=>true,
-        'hideInput'=>true,
-    ]);
-    echo '</div>';
 
 ?>
 
 
-<div class="form-group pull-right">
+<div class="form-group pull-center">
 
     <?php
         echo  Html::button('查询', ['id' => 'date-str', 'class' => 'btn btn-primary '])
