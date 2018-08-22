@@ -202,12 +202,14 @@ $submit_date =<<<JS
             type:'post',
             data:{date_range_2:date_range},
             success:function(res){
+                console.log(res);
+                 var da = JSON.parse(res);  //推荐方法
+                 if(da.success=='200OK') alert(da.msg);
                  sample_chart(res);
                 
-                console.log(res);
+               
                 // if(res=='success') alert('提交成功!');
                 button.attr('disabled',false);
-                // location.reload();
 
             },
             error: function (jqXHR, textStatus, errorThrown) {

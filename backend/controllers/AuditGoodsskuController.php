@@ -289,12 +289,19 @@ class AuditGoodsskuController extends Controller
      */
    public function actionExportNs($id){
        $model =  $this->findModel($id);
+       $sql = "SELECT 
+                    g.sku,g.pd_title,g.pd_title_en,g.pd_weight,g.pd_length,g.pd_width,g.pd_height,
+                    g.declared_value,g.currency_code,g.pd_costprice,g.pd_costprice_code,g.vendor_code,s.bill_name,s.bill_unit
+                    FROM goodssku g LEFT JOIN sku_vendor s ON g.sku_id=s.sku_id  AND g.vendor_code = s.vendor_code  
+                where  g.sku_id = $id ";
+       Yii::$app->db->createCommand("$sql")->queryAll();
        $item_arr = [[
            "itemid" => $model->sku,
            "taxschedule" => "1",
            "custitem_cn_declared_name" => $model->pd_title,
            "custitem_en_declared_name" => $model->pd_title_en,
            "custitem_declaredvalue" => $model->declared_value,
+           "custitem2" => $model->vendor_code,
 //           "custitem_declaredcurrency" => $model->currency_code,
 //           "custitem22" => $model->is_quantity_check,
 //           "custitem5" => $model->contain_battery,

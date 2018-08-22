@@ -43,15 +43,21 @@ class SampleSourceController extends Controller
                 GROUP BY purchaser
                 ORDER BY total desc ;";
         $res = Yii::$app->db->createCommand($sql)->queryAll();
-        $status =  array_column($res,'purchaser');
-        foreach($res as $key=>$value){
-            $val['value'] = (int)$value['total'];
-            $val['name'] = $value['purchaser'];
-            $arr[] = $val;
+        if(!empty($res)){
+            $status =  array_column($res,'purchaser');
+            foreach($res as $key=>$value){
+                $val['value'] = (int)$value['total'];
+                $val['name'] = $value['purchaser'];
+                $arr[] = $val;
+            }
+            $result['status'] = $status;
+            $result['num'] = $arr;
+            return json_encode($result,true);
+        }else{
+            return json_encode(['success'=>'200OK','msg'=>'所选时间段内没有数据'],true);
         }
-        $result['status'] = $status;
-        $result['num'] = $arr;
-        echo json_encode($result,true);
+
+
     }
 
 
