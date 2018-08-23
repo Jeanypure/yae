@@ -18,9 +18,9 @@ class GoodsskuSearch extends Goodssku
     public function rules()
     {
         return [
-            [['has_toeccang','has_tons','has_commit','sku_id', 'is_quantity_check', 'contain_battery', 'qty_of_ctn', 'min_order_num', 'pd_get_days', 'pur_info_id'], 'integer'],
+            [['audit_result','has_toeccang','has_tons','has_commit','sku_id', 'is_quantity_check', 'contain_battery', 'qty_of_ctn', 'min_order_num', 'pd_get_days', 'pur_info_id'], 'integer'],
             [[ 'pd_creator','pd_title','pd_title_en','image_url','sku', 'currency_code', 'old_sku', 'sale_company',
-                'vendor_code', 'origin_code', 'pd_costprice_code', 'bill_name', 'bill_unit', 'brand', 'sku_mark'], 'safe'],
+                'audit_content','vendor_code', 'origin_code', 'pd_costprice_code', 'bill_name', 'bill_unit', 'brand', 'sku_mark'], 'safe'],
             [['declared_value', 'ctn_length', 'ctn_width', 'ctn_height', 'ctn_fact_weight', 'pd_costprice'], 'number'],
         ];
     }
@@ -89,6 +89,7 @@ class GoodsskuSearch extends Goodssku
             'has_commit' => $this->has_commit,
             'has_toeccang' => $this->has_toeccang,
             'has_tons' => $this->has_tons,
+            'audit_result' => $this->audit_result,
         ]);
 
         $query->andFilterWhere(['like', 'sku', $this->sku])

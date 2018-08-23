@@ -88,6 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions'=>['placeholder'=>'提交?'],
 
             ],
+
             [
                 'attribute'=>'has_toeccang',
                 'value' => function($model) {
@@ -125,6 +126,34 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'filterInputOptions'=>['placeholder'=>'导NS?'],
 
+            ],
+            [
+                'attribute'=>'audit_result',
+                'value' => function($model) {
+                    if($model->audit_result==1){
+                        return '是';
+                    }else{
+                        return '否';
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '是', '0' => '否'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'通过?'],
+
+            ],
+            [
+                'attribute'=>'audit_content',
+                'value' => function($model) { return $model->audit_content;},
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
             ],
             'declared_value',
             'currency_code',

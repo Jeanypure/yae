@@ -25,11 +25,8 @@ $this->params['breadcrumbs'][] = 'Update';
 
     ]) ?>
 
-    <?= $this->render('audit', [
-        'dataProvider' => $dataProvider,
-        'model' => $vendor_model,
-        'sku_id'=> $sku_id
-
+    <?= $this->render('audit_sku', [
+        'model' => $model,
     ]) ?>
 
 

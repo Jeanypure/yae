@@ -71,9 +71,10 @@ class AuditGoodsskuController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
+        if ($model->load(Yii::$app->request->post()) ) {
             $model->sku_update_date = date('Y-m-d H:i:s');
-            return $this->redirect(['view', 'id' => $model->sku_id]);
+            $model->save(false);
+            return $this->redirect(['update', 'id' => $model->sku_id]);
         }
 
         $query = SkuVendor::find()->andwhere(['sku_id' => $id]);
@@ -85,7 +86,6 @@ class AuditGoodsskuController extends Controller
                 'pageSize' => 30,
             ],
         ]);
-
         return $this->render('update', [
             'model' => $model,
             'dataProvider' => $dataProvider,
@@ -327,8 +327,17 @@ class AuditGoodsskuController extends Controller
 
        ]];
 
-       $result = $this->actionDoCurl($item_arr);
-       return $result;
+        $result = $this->actionDoCurl($item_arr);
+        $res = json_decode($result);
+        if( $res->code=='200 OK'){
+            try{
+                Yii::$app->db->createCommand("update goodssku set has_tons=1 where sku_id=$id ")->execute();
+            }catch (\Exception $exception){
+               throw $exception;
+            }
+         }
+
+     return $result;
    }
 
     /**
