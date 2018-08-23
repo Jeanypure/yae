@@ -43,7 +43,8 @@ class YaeSupplierSearch extends YaeSupplier
     {
         $username = Yii::$app->user->identity->username;
         if($username=='Jenny'||$username=='David'||$username=='Mark'){
-            $query = YaeSupplier::find();
+            $query = YaeSupplier::find()->orderBy('id desc')
+            ;
 
         }else{
             $query = YaeSupplier::find()->andWhere(['submitter'=>$username]);
