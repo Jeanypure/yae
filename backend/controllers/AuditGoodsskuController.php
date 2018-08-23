@@ -284,42 +284,49 @@ class AuditGoodsskuController extends Controller
 
     /**
      * @param $id
-     * @return string
-     * @throws NotFoundHttpException
+     * @return array|string
+     * @throws \yii\db\Exception
      */
    public function actionExportNs($id){
-       $model =  $this->findModel($id);
        $sql = "SELECT 
                     g.sku,g.pd_title,g.pd_title_en,g.pd_weight,g.pd_length,g.pd_width,g.pd_height,
-                    g.declared_value,g.currency_code,g.pd_costprice,g.pd_costprice_code,g.vendor_code,s.bill_name,s.bill_unit
+                    g.declared_value,g.currency_code,g.pd_costprice,g.pd_costprice_code,g.vendor_code,
+                    g.is_quantity_check, g.contain_battery,g.qty_of_ctn,g.ctn_length,g.pd_width,g.pd_height,
+                    g.ctn_width, g.ctn_height, g.ctn_fact_weight, g.pd_creator,
+                    s.brand,s.bill_name,s.bill_unit
                     FROM goodssku g LEFT JOIN sku_vendor s ON g.sku_id=s.sku_id  AND g.vendor_code = s.vendor_code  
                 where  g.sku_id = $id ";
-       Yii::$app->db->createCommand("$sql")->queryAll();
+       $result =  Yii::$app->db->createCommand("$sql")->queryAll();
+       $is_quantity_check = empty($result[0]['is_quantity_check'])?'F':'T';
+       $contain_battery = empty($result[0]['contain_battery'])?'F':'T';
+
        $item_arr = [[
-           "itemid" => $model->sku,
+           "itemid" => $result[0]['sku'],
            "taxschedule" => "1",
-           "custitem_cn_declared_name" => $model->pd_title,
-           "custitem_en_declared_name" => $model->pd_title_en,
-           "custitem_declaredvalue" => $model->declared_value,
-           "custitem2" => $model->vendor_code,
-//           "custitem_declaredcurrency" => $model->currency_code,
-//           "custitem22" => $model->is_quantity_check,
-//           "custitem5" => $model->contain_battery,
-           "custitem_item_length" => $model->pd_length,
-           "custitem_item_width" => $model->pd_width,
-           "custitem_item_height" => $model->pd_height,
-           "custitem_qty_per_carton" => $model->qty_of_ctn,
-           "custitem11" => $model->ctn_length,
-           "custitem12" => $model->ctn_width,
-           "custitem13" => $model->ctn_height,
-           "custitem16" => $model->ctn_fact_weight,
-           "custitem_invoice_item_name" => $model->bill_name,
-           "custitem_invoice_unit" => $model->bill_unit,
-           "custitem19" => $model->pd_creator,
-           "custitem21" => $model->brand,
-           "custitem20" => $model->pd_creator,
+           "custitem_cn_declared_name" => $result[0]['pd_title'],
+           "custitem_en_declared_name" => $result[0]['pd_title_en'],
+           "custitem_declaredvalue" => $result[0]['declared_value'],
+           "custitem2" => $result[0]['vendor_code'],
+           "custitem_declaredcurrency" => 2,
+           "custitem22" => $is_quantity_check,
+           "custitem5" => $contain_battery,
+           "custitem_product_weight" => $result[0]['pd_weight'],
+           "custitem_item_length" => $result[0]['pd_length'],
+           "custitem_item_width" => $result[0]['pd_width'],
+           "custitem_item_height" => $result[0]['pd_height'],
+           "custitem_qty_per_carton" => $result[0]['qty_of_ctn'],
+           "custitem11" => $result[0]['ctn_length'],
+           "custitem12" => $result[0]['ctn_width'],
+           "custitem13" => $result[0]['ctn_height'],
+           "custitem16" => $result[0]['ctn_fact_weight'],
+           "custitem_invoice_item_name" => $result[0]['bill_name'],
+           "custitem_invoice_unit" => $result[0]['bill_unit'],
+           "custitem19" => $result[0]['pd_creator'],
+           "custitem21" => $result[0]['brand'],
+           "custitem20" => $result[0]['pd_creator'],
 
        ]];
+
        $result = $this->actionDoCurl($item_arr);
        return $result;
    }
@@ -335,7 +342,7 @@ class AuditGoodsskuController extends Controller
             $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=116&deploy=8';
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                'Authorization: NLAuth nlauth_account=5151251, nlauth_email=618816@163.com, nlauth_signature=AAAbbb1234, nlauth_role=1013',
+                'Authorization: NLAuth nlauth_account=5151251, nlauth_email=jenny.li@yaemart.com, nlauth_signature=Jenny666666, nlauth_role=1013',
                 'Content-Type: application/json',
                 'Accept: application/json'
             ));
