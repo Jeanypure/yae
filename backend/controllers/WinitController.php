@@ -41,7 +41,7 @@ class WinitController  extends \yii\base\Controller
 
       public  function actionRequest(){
         if(Yii::$app->request->isGet){
-            echo '请用POST请求!';
+            return '请用POST请求!';
         }else{
             $param  =  Yii::$app->request->post();
             $base_url = $param['url'];
@@ -53,7 +53,7 @@ class WinitController  extends \yii\base\Controller
             Yii::$app->db->createCommand("
              insert into winit_api (`url`,`action`,`request_date`) values ('$base_url','{$body}','$request_date')
              ")->execute();
-            echo $this->actionDoCurlPostRequest($base_url, $body);
+            return $this->actionDoCurlPostRequest($base_url, $body);
         }
 
     }
