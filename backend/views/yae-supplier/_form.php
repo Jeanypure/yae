@@ -42,8 +42,9 @@ use kartik\select2\Select2;
             'pd_bill_name'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'bill_unit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
+                'label'=>"<span style = 'color:red'><big>*</big></span>开票类型",
                 'items'=>['0'=>'16%专票','1'=>'增值税普通普票', '2'=>'3%专票'],
-                'options'=>['placeholder'=>'']],
+                ],
         ],
 
     ]);
@@ -113,6 +114,7 @@ use kartik\select2\Select2;
         'attributes'=>[       // 3 column layout
             'has_cooperate'=>['type'=>Form::INPUT_RADIO_LIST,
                 'items'=>[1=>'是', 0=>'否'],
+                'label'=>"<span style = 'color:red'><big>*</big></span>是否合作过",
                 'options'=>['placeholder'=>'']],
         ],
 
@@ -155,28 +157,6 @@ use kartik\select2\Select2;
     ?>
 
     <?php
-//    echo Form::widget([
-//        'model'=>$model,
-//        'form'=>$form,
-//        'columns'=>6,
-//        'contentBefore'=>'<legend class="text-info"><h3>检查</h3></legend>',
-//        'attributes'=>[       // 3 column layout
-//            'complete_num'=>['type'=>Form::INPUT_TEXT,
-//                'options'=>['placeholder'=>'']],'licence_pass'=>['type'=>Form::INPUT_RADIO_LIST,
-//                'items'=>[1=>'是', 0=>'否'],
-//                'options'=>['placeholder'=>'']],
-//            'bill_pass'=>['type'=>Form::INPUT_RADIO_LIST,
-//                'items'=>[1=>'是', 0=>'否'],
-//                'options'=>['placeholder'=>'']],
-//            'bank_data_pass'=>['type'=>Form::INPUT_RADIO_LIST,
-//                'items'=>[1=>'是', 0=>'否'],
-//                'options'=>['placeholder'=>'']],
-//
-//        ],
-//
-//    ]);
-    ?>
-    <?php
     echo Form::widget([
         'model'=>$model,
         'form'=>$form,
@@ -209,12 +189,44 @@ $tupian_address = <<<JS
         $('#yaesupplier-bank_img_add').val('http://yaemart.com.cn/'+bank_account_data);
         $('#yaesupplier-bill01_img_add').val('http://yaemart.com.cn/'+bill_img1);
         $('#yaesupplier-bill02_img_add').val('http://yaemart.com.cn/'+bill_img2);
-        
-        
-        
+       
        
     })
 JS;
 $this->registerJs($tupian_address);
+
+?>
+
+<?php
+/*Yii2给必填项加星，样式如下：*/
+
+/*css input弧度*/
+$this->registerJs("
+        $(function () {
+            $('.form-control').css('border-radius','7px')
+        }); 
+        ", \yii\web\View::POS_END);
+
+$JS =<<<JS
+    $(function(){
+        var  requirelabels = [
+           'yaesupplier-supplier_code','yaesupplier-supplier_name','yaesupplier-supplier_address' ,'yaesupplier-business_licence' ,
+           'yaesupplier-pd_bill_name' ,'yaesupplier-bill_unit' ,'yaesupplier-pay_card' ,'yaesupplier-pay_name' ,'yaesupplier-pay_bank' ,
+           'yaesupplier-account_proportion' ,'yaesupplier-pay_cycletime_type' ,'yaesupplier-account_type' ,'yaesupplier-bank_account_data' 
+        ];
+        var label;
+       $("label[for='goodssku-sku']").addClass("label-require");
+       for ( label in requirelabels){
+               $("label[for='"+requirelabels[label]+"']").addClass("label-require");
+       } 
+        $('.label-require').html(function (_,html){
+                return html.replace(/(.*?)/,"<span style='color:red'><big>*$1</big></span>")
+        });
+    });
+
+JS;
+
+$this->registerJs($JS);
+
 
 ?>

@@ -6,13 +6,12 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\YaeSupplier */
 
-$this->title = 'Create Yae Supplier';
-$this->params['breadcrumbs'][] = ['label' => 'Yae Suppliers', 'url' => ['index']];
+$this->title = '创建供应商';
+$this->params['breadcrumbs'][] = ['label' => '供应商列表 ', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="yae-supplier-create">
 
-    <h6><?= Html::encode($this->title) ?></h6>
 
     <?= $this->render('_form', [
         'model' => $model,
