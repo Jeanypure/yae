@@ -21,8 +21,8 @@ use kartik\select2\Select2;
         'columns'=>6,
         'contentBefore'=>'<legend class="text-info"><h3>1.基本信息</h3></legend>',
         'attributes'=>[       // 3 column layout
-            'sku'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'old_sku'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'sku'=>['type'=>Form::INPUT_TEXT, 'options'=>['class'=>'required '],'labelSpan'=>1],
+            'old_sku'=>['type'=>Form::INPUT_TEXT, 'labelOptions'=>['class'=>'required'],'labelSpan'=>'***'],
             'pd_title'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'pd_title_en'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'image_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
@@ -151,3 +151,37 @@ use kartik\select2\Select2;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+/*Yii2给必填项加星，样式如下：*/
+
+/*css input弧度*/
+$this->registerJs("
+        $(function () {
+            $('.form-control').css('border-radius','7px')
+        }); 
+        ", \yii\web\View::POS_END);
+
+$JS =<<<JS
+    $(function(){
+        var  requirelabels = new Array(
+            "goodssku-pd_title","goodssku-pd_title_en","goodssku-image_url","goodssku-pd_costprice","goodssku-pd_costprice_code",
+            "goodssku-vendor_code","goodssku-declared_value","goodssku-currency_code","goodssku-pd_length","goodssku-pd_width",
+            "goodssku-pd_height","goodssku-pd_weight","goodssku-sale_company"
+        );
+        var label;
+       $("label[for='goodssku-sku']").addClass("label-require");
+       for ( label in requirelabels){
+               $("label[for='"+requirelabels[label]+"']").addClass("label-require");
+       } 
+        $('.label-require').html(function (_,html){
+                return html.replace(/(.*?)/,"<span style='color:red'><big>*$1</big></span>")
+        });
+    });
+
+JS;
+
+$this->registerJs($JS);
+
+
+?>

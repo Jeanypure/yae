@@ -8,7 +8,7 @@ use kartik\grid\GridView;
 /* @var $searchModel backend\models\GoodsskuSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '产品档案';
+$this->title = '审核产品档案';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="goodssku-index">
