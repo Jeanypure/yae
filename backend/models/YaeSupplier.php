@@ -72,7 +72,11 @@ class YaeSupplier extends \yii\db\ActiveRecord
             ],
                 'required'],
             [['into_eccang_date','create_date','update_date','update_date','check_date' ], 'safe'],
-
+            [['bill_img1_name_unit','bill_img2_name_unit'], function ($attribute, $param) {//至少要一个
+                if (empty($this->bill_img1_name_unit) && empty($this->bill_img2_name_unit)) {
+                    $this->addError($attribute, '发票01/发票02至少要填一个');
+                }
+            }, 'skipOnEmpty' => false],
         ];
     }
 
