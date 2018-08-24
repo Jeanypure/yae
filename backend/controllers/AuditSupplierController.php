@@ -157,8 +157,9 @@ class AuditSupplierController extends Controller
             ->setCellValue('H'.$num, $data['submitter'])
             ->setCellValue('J'.$num, $pay_cycleTime_type[$data['pay_cycleTime_type']])
             ->setCellValue('K'.$num, $account_type[$data['account_type']])
+            ->setCellValue('L'.$num, $data['account_proportion'])
             ->setCellValue('M'.$num, '现金')
-            ;
+  ;
 
 
         //数据结束
