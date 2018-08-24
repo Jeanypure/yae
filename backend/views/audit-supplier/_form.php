@@ -246,3 +246,38 @@ JS;
 $this->registerJs($tupian_address);
 
 ?>
+
+<?php
+/*Yii2给必填项加星，样式如下：*/
+
+/*css input弧度*/
+$this->registerJs("
+        $(function () {
+            $('.form-control').css('border-radius','7px')
+        }); 
+        ", \yii\web\View::POS_END);
+
+$JS =<<<JS
+    $(function(){
+        var  requirelabels = [
+           'yaesupplier-supplier_code','yaesupplier-supplier_name','yaesupplier-supplier_address' ,'yaesupplier-business_licence' ,
+           'yaesupplier-pd_bill_name' ,'yaesupplier-bill_unit' ,'yaesupplier-pay_card' ,'yaesupplier-pay_name' ,'yaesupplier-pay_bank' ,
+           'yaesupplier-account_proportion' ,'yaesupplier-pay_cycletime_type' ,'yaesupplier-account_type' ,'yaesupplier-bank_account_data' ,
+           'yaesupplier-bill_img1_name_unit','yaesupplier-bill_img1',
+        ];
+        var label;
+       $("label[for='goodssku-sku']").addClass("label-require");
+       for ( label in requirelabels){
+               $("label[for='"+requirelabels[label]+"']").addClass("label-require");
+       } 
+        $('.label-require').html(function (_,html){
+                return html.replace(/(.*?)/,"<span style='color:red'><big>*$1</big></span>")
+        });
+    });
+
+JS;
+
+$this->registerJs($JS);
+
+
+?>
