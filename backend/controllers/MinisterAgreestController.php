@@ -180,7 +180,7 @@ class MinisterAgreestController extends Controller
             $model->is_purchase = Yii::$app->request->post()['PurInfo']['is_purchase'];
             $minister_result = Yii::$app->request->post()['Sample']['minister_result'];
             $sample_model->minister_result = $minister_result;
-            if(Yii::$app->request->post()['PurInfo']['is_purchase']==1){// 确定采购, 1入区组长表   2 入产品档案表goodssku  4 sku_vendor
+            if($model->is_purchase==1){// 确定采购, 1入区组长表   2 入产品档案表goodssku  4 sku_vendor
                 //  3 若 source=0 更新樣品表 minister_result=3 推送產品
                 if($model->source == 0){
                     try{
@@ -207,10 +207,16 @@ class MinisterAgreestController extends Controller
                 if(empty($count['num'])){ //第一次 插入
                     $this->actionToHeadman($id);
                 }
-                $sql = " SET @id = $id;
+                try{
+                    $sql = " SET @id = $id;
                         CALL purinfo_to_goodssku (@id);";
+                    $res = Yii::$app->db->createCommand($sql)->execute();
 
-                $res    = Yii::$app->db->createCommand($sql)->execute();
+                }catch(\Exception $exception){
+                    throw $exception;
+                }
+
+
             }
 
             $model->save(false);

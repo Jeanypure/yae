@@ -43,6 +43,7 @@ class AuditSupplierSearch extends YaeSupplier
     {
         $query = YaeSupplier::find()
             ->andWhere(['is_submit_vendor'=>1])
+            ->orderBy('id desc')
 
         ;
 
