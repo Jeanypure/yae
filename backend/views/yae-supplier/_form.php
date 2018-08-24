@@ -139,24 +139,14 @@ use kartik\select2\Select2;
     ]);
 
     echo $form->field($model, 'bill_img1')->widget('manks\FileInput', []);
-        echo  $form->field($model, 'bill01_img_add') ;
+    echo  $form->field($model, 'bill01_img_add') ;
 
 
-    echo Form::widget([
-        'model'=>$model,
-        'form'=>$form,
-        'columns'=>4,
-        'attributes'=>[       // 3 column layout
-            'bill_img2_name_unit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-        ],
 
-    ]);
-
-    echo $form->field($model, 'bill_img2')->widget('manks\FileInput', []);
-    echo  $form->field($model, 'bill02_img_add') ;
     ?>
 
     <?php
+
     echo Form::widget([
         'model'=>$model,
         'form'=>$form,
@@ -168,6 +158,17 @@ use kartik\select2\Select2;
         ],
 
     ]);
+    echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>4,
+        'attributes'=>[       // 3 column layout
+            'bill_img2_name_unit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+        ],
+
+    ]);
+    echo $form->field($model, 'bill_img2')->widget('manks\FileInput', []);
+    echo  $form->field($model, 'bill02_img_add') ;
     ?>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
