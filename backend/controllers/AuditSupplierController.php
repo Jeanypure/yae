@@ -142,8 +142,8 @@ class AuditSupplierController extends Controller
             'AC1'=>'组织机构(代码)',
         ];
 
-        $pay_cycleTime_type = [0 => '其他',1 => '日结', 2 => '周结',3 => '半月结',4 => '月结',5 => '隔月结'];
-        $account_type = [1 => '货到付款', 2 => '款到发货',3 => '周期结算',4 => '售后付款',5 => '默认方式' ];
+        $pay_cycleTime_type = [1 => '日结', 2 => '周结',3 => '半月结',4 => '月结',5 => '隔月结',6 => '其它',];
+        $account_type = [1 => '货到付款', 2 => '款到发货',3 => '周期结算',4 => '售后付款',5 => '默认方式',6 => '其它'];
 
         //设置表格头的输出
         foreach($header_arr as $key=>$value){

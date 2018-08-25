@@ -128,7 +128,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['1' => '日结', '2' => '周结','3' => '半月结','4' => '月结','5' => '隔月结','0' => '其他'],
+                'filter'=>['1' => '日结', '2' => '周结','3' => '半月结','4' => '月结','5' => '隔月结','6' => '其它'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
@@ -148,14 +148,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         return '售后付款';
                     }elseif ($model->account_type==5){
                         return '默认方式';
-                    }elseif ($model->account_type==0){
-                        return '其他';
+                    }elseif ($model->account_type==6){
+                        return '其它';
                     }
                 },
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['1' => '日结', '2' => '周结','3' => '半月结','4' => '月结','5' => '隔月结','0' => '其他'],
+                'filter'=>['1' => '货到付款', '2' => '款到发货','3' => '周期结算','4' => '售后付款','5' => '默认方式','6' => '其它'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
