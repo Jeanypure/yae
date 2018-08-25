@@ -214,10 +214,30 @@ class AuditSupplierController extends Controller
         $msgWorkSheet = new \PHPExcel_Worksheet($objPHPExcel, '基础数据——银行'); //创建一个工作表
         $objPHPExcel->addSheet($msgWorkSheet); //插入工作表
 
+        //更新状态已导易仓
+        $this->actionMendEccang($id);
+        $filename = date('Y-m-d')."导供应商-联系人到易仓.xls";
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="易仓供应商-联系人模板.xls"');
+        header("Content-Disposition: attachment;filename=$filename");
         header('Cache-Control: max-age=0');
         $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
         $objWriter->save('php://output');
     }
+
+    /**
+     * @param $id
+     * @return string
+     * @throws \Exception
+     */
+    public function actionMendEccang($id){
+        $sql = "update yae_supplier  SET into_eccang_status=1,into_eccang_date=NOW() where id = $id ";
+        try{
+            $res = Yii::$app->db->createCommand($sql)->execute();
+        }catch(\Exception $exception){
+            throw $exception;
+        }
+        return 'success';
+
+    }
+
 }

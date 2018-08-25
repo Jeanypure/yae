@@ -15,8 +15,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php echo Html::button('导出excel到易仓',['class' => 'btn btn-success' ,'id'=>'export-freight-fee'])?>
-        <?php echo Html::button('标记已导易仓',['class' => 'btn btn-info' ,'id'=>'sign-import-eccang'])?>
-        <?php echo Html::button('取消标记',['class' => 'btn btn-primary' ,'id'=>'cancel-sign'])?>
+        <?php
+//        echo Html::button('标记已导易仓',['class' => 'btn btn-info' ,'id'=>'sign-import-eccang'])?>
+        <?php
+//        echo Html::button('取消标记',['class' => 'btn btn-primary' ,'id'=>'cancel-sign'])?>
         <?php echo Html::button('导入NetSuite',['class' => 'btn btn-warning' ,'id'=>'export-netsuite'])?>
     </p>
 

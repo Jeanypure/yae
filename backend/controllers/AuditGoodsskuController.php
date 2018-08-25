@@ -167,14 +167,14 @@ class AuditGoodsskuController extends Controller
         foreach ($header as $key => $value) {
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue("$key", "$value");
         }
-       $sql = "
-                SELECT 
-                    g.sku,g.pd_title,g.pd_title_en,g.pd_weight,g.pd_length,g.pd_width,g.pd_height,
-                    g.declared_value,g.currency_code,g.pd_costprice,g.pd_costprice_code,g.vendor_code,s.bill_name,s.bill_unit
-                    FROM goodssku g LEFT JOIN sku_vendor s ON g.sku_id=s.sku_id  AND g.vendor_code = s.vendor_code  
-                where  g.sku_id in ($id)
-                ;
-        ";
+           $sql = "
+                    SELECT 
+                        g.sku,g.pd_title,g.pd_title_en,g.pd_weight,g.pd_length,g.pd_width,g.pd_height,
+                        g.declared_value,g.currency_code,g.pd_costprice,g.pd_costprice_code,g.vendor_code,s.bill_name,s.bill_unit
+                        FROM goodssku g LEFT JOIN sku_vendor s ON g.sku_id=s.sku_id  AND g.vendor_code = s.vendor_code  
+                    where  g.sku_id in ($id)
+                    ;
+            ";
         $data = Yii::$app->db->createCommand($sql)->queryAll();
         $company = Yii::$app->db->createCommand("select sub_company,memo from company")->queryAll();
         $company_arr = [];
@@ -269,6 +269,7 @@ class AuditGoodsskuController extends Controller
             $objPHPExcel->setActiveSheetIndex(4)->setCellValue("$key", "$value");
         }
 
+        $this->actionMendEccang($id);
 
         //数据结束
         $filename = date('Y-m-d')."导产品到易仓.xls";
@@ -375,16 +376,19 @@ class AuditGoodsskuController extends Controller
     }
 
 
-    public function actionSign($id){
+    /**
+     * @param $id
+     * @return string
+     * @throws \Exception
+     */
+    public function actionMendEccang($id){
         try{
-          $res = Yii::$app->db->createCommand("update goodssku set has_toeccang=1  where sku_id= $id ")->execute();
+          $res = Yii::$app->db->createCommand("update goodssku set has_toeccang=1  where sku_id = $id ")->execute();
         }catch(\Exception $exception){
             throw $exception;
         }
         return 'success';
 
     }
-    public function actionUnSign($id){
 
-    }
 }
