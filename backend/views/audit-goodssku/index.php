@@ -14,8 +14,10 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="goodssku-index">
 
     <p>
-        <?php echo Html::button('导出excel到易仓',['class' => 'btn btn-warning' ,'id'=>'export-freight-fee'])?>
-        <?php echo Html::button('导入NetSuite',['class' => 'btn btn-info' ,'id'=>'export-netsuite'])?>
+        <?php echo Html::button('导出excel到易仓',['class' => 'btn btn-success' ,'id'=>'export-freight-fee'])?>
+        <?php echo Html::button('标记已导易仓',['class' => 'btn btn-info' ,'id'=>'sign-import-eccang'])?>
+        <?php echo Html::button('取消标记',['class' => 'btn btn-primary' ,'id'=>'cancel-sign'])?>
+        <?php echo Html::button('导入NetSuite',['class' => 'btn btn-warning' ,'id'=>'export-netsuite'])?>
     </p>
 
     <?= GridView::widget([
@@ -261,17 +263,13 @@ $export_ns = <<<JS
                  button.attr('disabled','disabled');
                 var ids =  $('#audit-goodssku').yiiGridView("getSelectedRows");
                 var str_id  = ids.toString();
-                    console.log(ids);
-                    console.log(str_id);
                 if(ids==false) alert('请选择!') ;
                 $.ajax({
                  url: "{$to_netsuite}", 
                  type: 'get',
                  data:{id:str_id},
                  success:function(res){
-                     console.log(res);
                      var obj = JSON.parse(res);
-                     console.log(obj);
                    button.attr('disabled',false);
                    if(obj.code =='200 OK'){ alert(obj.message); }
                    else{alert(obj.error.code+'->'+obj.error.message);}
@@ -279,14 +277,13 @@ $export_ns = <<<JS
                  error: function (jqXHR, textStatus, errorThrown) {
                             button.attr('disabled',false);
                  }
-                  });
+                });
+                });
       });
-    });
 JS;
 
 $this->registerJs($export_ns);
 
-
-
-
 ?>
+
+

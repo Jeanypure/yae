@@ -373,4 +373,18 @@ class AuditGoodsskuController extends Controller
 
 
     }
+
+
+    public function actionSign($id){
+        try{
+          $res = Yii::$app->db->createCommand("update goodssku set has_toeccang=1  where sku_id= $id ")->execute();
+        }catch(\Exception $exception){
+            throw $exception;
+        }
+        return 'success';
+
+    }
+    public function actionUnSign($id){
+
+    }
 }
