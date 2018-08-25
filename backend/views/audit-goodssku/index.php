@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="goodssku-index">
 
     <p>
-        <?php echo Html::button('导出excel到易仓',['class' => 'btn btn-success' ,'id'=>'export-freight-fee'])?>
+        <?php echo Html::button('导出excel到易仓',['class' => 'btn btn-info' ,'id'=>'export-freight-fee'])?>
         <?php
 //        echo Html::button('标记已导易仓',['class' => 'btn btn-info' ,'id'=>'sign-import-eccang'])?>
         <?php

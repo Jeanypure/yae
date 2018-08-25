@@ -1,9 +1,9 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
-use kartik\select2\Select2;
 
 
 /* @var $this yii\web\View */
@@ -45,8 +45,72 @@ use kartik\select2\Select2;
     <div class="form-group">
         <?php
         echo  Html::submitButton('Save', ['class' => 'btn btn-success btn-lg']) ?>
+        <?php echo Html::button('导出excel到易仓',['class' => 'btn btn-info' ,'id'=>'export-eccang'])?>
+        <?php echo Html::button('导入NetSuite',['class' => 'btn btn-warning' ,'id'=>'export-netsuite'])?>
     </div>
 
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<?php
+//导出excel到易仓
+$export = Url::toRoute(['export']);
+$id = $model->sku_id;
+$export_debit =<<<JS
+        $(function() {
+          $('#export-eccang').on('click',function() {
+                 var button = $(this);
+                 button.attr('disabled','disabled');
+                $.ajax({
+                 url: "{$export}", 
+                 type: 'get',
+                 data:{id:$id},
+                 success:function(res){
+                   button.attr('disabled',false);
+                   window.location.href = '{$export}'+'?id='+{$id};
+                 },
+                 error: function (jqXHR, textStatus, errorThrown) {
+                            button.attr('disabled',false);
+                 }
+                  });
+             });
+        });
+JS;
+
+$this->registerJs($export_debit);
+
+?>
+
+<?php
+//导入NetSuite
+$to_netsuite = Url::toRoute(['export-ns']);
+$id = $model->sku_id;
+$export_ns = <<<JS
+    $(function() {
+      $('#export-netsuite').on('click',function(){
+                var button = $(this);
+                 button.attr('disabled','disabled');
+                $.ajax({
+                 url: "{$to_netsuite}", 
+                 type: 'get',
+                 data:{id:$id},
+                 success:function(res){
+                     var obj = JSON.parse(res);
+                   button.attr('disabled',false);
+                   if(obj.code =='200 OK'){ alert(obj.message); }
+                   else{alert(obj.error.code+'->'+obj.error.message);}
+                 },
+                 error: function (jqXHR, textStatus, errorThrown) {
+                            button.attr('disabled',false);
+                 }
+                });
+                });
+      });
+JS;
+
+$this->registerJs($export_ns);
+
+?>
+

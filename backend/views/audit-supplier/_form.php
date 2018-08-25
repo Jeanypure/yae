@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\select2\Select2;
@@ -13,53 +14,7 @@ use kartik\select2\Select2;
 
 <div class="yae-supplier-form">
 
-    <?php $form = ActiveForm::begin(); ?>
-    <?php
-        echo Form::widget([
-            'model'=>$model,
-            'form'=>$form,
-            'columns'=>6,
-            'contentBefore'=>'<legend class="text-info"><h2>检查项</h2></legend>',
-            'attributes'=>[       // 3 column layout
-                'complete_num'=>['type'=>Form::INPUT_TEXT,
-                    'options'=>['placeholder'=>'']],'licence_pass'=>['type'=>Form::INPUT_RADIO_LIST,
-                    'items'=>[1=>'是', 0=>'否'],
-                    'options'=>['placeholder'=>'']],
-                'bill_pass'=>['type'=>Form::INPUT_RADIO_LIST,
-                    'items'=>[1=>'是', 0=>'否'],
-                    'options'=>['placeholder'=>'']],
-                'bank_data_pass'=>['type'=>Form::INPUT_RADIO_LIST,
-                    'items'=>[1=>'是', 0=>'否'],
-                    'options'=>['placeholder'=>'']],
 
-            ],
-
-        ]);
-    // Usage with ActiveForm and model
-    echo $form->field($model, 'check_status')->widget(Select2::classname(), [
-        'data' =>[ 0=>'不通过',1=>'通过',2=>'半通过'],
-        'options' => ['placeholder' => '审核结果.....'],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-    ]);
-        echo Form::widget([
-            'model'=>$model,
-            'form'=>$form,
-            'columns'=>6,
-            'attributes'=>[       // 3 column layout
-
-                'check_memo'=>['type'=>Form::INPUT_TEXTAREA,
-                    'options'=>['placeholder'=>'']],
-            ],
-
-        ]);
-    ?>
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-lg']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
 
 
 
@@ -182,7 +137,7 @@ use kartik\select2\Select2;
         'model'=>$model,
         'form'=>$form,
         'columns'=>6,
-        'contentBefore'=>'<legend class="text-info"><h3>5.发票相关</h3></legend>',
+        'contentBefore'=>'<legend class="text-info"><h3>4.发票相关</h3></legend>',
         'attributes'=>[       // 3 column layout
             'bill_img1_name_unit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
         ],
@@ -191,6 +146,22 @@ use kartik\select2\Select2;
 
     echo $form->field($model, 'bill_img1')->widget('manks\FileInput', []);
     echo  $form->field($model, 'bill01_img_add') ;
+
+
+    ?>
+
+    <?php
+    echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>4,
+        'contentBefore'=>'<legend class="text-info"><h3>5其他注意事項</h3></legend>',
+        'attributes'=>[       // 3 column layout
+            'sup_remark'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'']],
+
+        ],
+
+    ]);
 
 
     echo Form::widget([
@@ -207,22 +178,57 @@ use kartik\select2\Select2;
     echo  $form->field($model, 'bill02_img_add') ;
     ?>
 
+    <?php ActiveForm::end(); ?>
+    <?php $form = ActiveForm::begin(); ?>
     <?php
     echo Form::widget([
         'model'=>$model,
         'form'=>$form,
-        'columns'=>4,
-        'contentBefore'=>'<legend class="text-info"><h3>其他注意事項</h3></legend>',
+        'columns'=>6,
+        'contentBefore'=>'<legend class="text-info"><h1>审核检查项</h1></legend>',
         'attributes'=>[       // 3 column layout
-            'sup_remark'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'']],
+            'complete_num'=>['type'=>Form::INPUT_TEXT,
+                'options'=>['placeholder'=>'']],'licence_pass'=>['type'=>Form::INPUT_RADIO_LIST,
+                'items'=>[1=>'是', 0=>'否'],
+                'options'=>['placeholder'=>'']],
+            'bill_pass'=>['type'=>Form::INPUT_RADIO_LIST,
+                'items'=>[1=>'是', 0=>'否'],
+                'options'=>['placeholder'=>'']],
+            'bank_data_pass'=>['type'=>Form::INPUT_RADIO_LIST,
+                'items'=>[1=>'是', 0=>'否'],
+                'options'=>['placeholder'=>'']],
 
         ],
 
     ]);
+    // Usage with ActiveForm and model
+    echo $form->field($model, 'check_status')->widget(Select2::classname(), [
+        'data' =>[ 0=>'不通过',1=>'通过',2=>'半通过'],
+        'options' => ['placeholder' => '审核结果.....'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]);
+    echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>6,
+        'attributes'=>[       // 3 column layout
+
+            'check_memo'=>['type'=>Form::INPUT_TEXTAREA,
+                'options'=>['placeholder'=>'']],
+        ],
+
+    ]);
     ?>
+    <div class="form-group">
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-lg']) ?>
+        <?php echo Html::button('导出excel到易仓',['class' => 'btn btn-info' ,'id'=>'export-eccang'])?>
+        <?php
+        //        echo Html::button('导入NetSuite',['class' => 'btn btn-warning' ,'id'=>'export-netsuite'])?>
+    </div>
 
     <?php ActiveForm::end(); ?>
-
 </div>
 
 <?php
@@ -279,5 +285,34 @@ JS;
 
 $this->registerJs($JS);
 
+
+?>
+
+<?php
+$export = Url::toRoute(['export']);
+$id=$model->id;
+$export_eccang =<<<JS
+        $(function() {
+          $('#export-eccang').on('click',function() {
+                 var button = $(this);
+                 button.attr('disabled','disabled');
+               
+                $.ajax({
+                 url: "{$export}", 
+                 type: 'get',
+                 data:{id:$id},
+                 success:function(res){
+                   button.attr('disabled',false);
+                   window.location.href = '{$export}'+'?id='+'{$id}';
+                 },
+                 error: function (jqXHR, textStatus, errorThrown) {
+                            button.attr('disabled',false);
+                 }
+                  });
+             });
+        });
+JS;
+
+$this->registerJs($export_eccang);
 
 ?>
