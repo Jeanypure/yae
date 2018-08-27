@@ -159,7 +159,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return '月结';
                     }elseif ($model->pay_cycleTime_type==5){
                         return '隔月结';
-                    }elseif ($model->pay_cycleTime_type==0){
+                    }elseif ($model->pay_cycleTime_type==6){
                         return '其他';
                     }
                 },
@@ -186,7 +186,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return '售后付款';
                     }elseif ($model->account_type==5){
                         return '默认方式';
-                    }elseif ($model->account_type==0){
+                    }elseif ($model->account_type==6){
                         return '其他';
                     }
                 },
