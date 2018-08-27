@@ -49,8 +49,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'pd_get_days',
             'pd_costprice_code',
             'pd_costprice',
-            'bill_name',
-            'bill_unit',
+           /* 'bill_name',
+            'bill_unit',*/
             'brand',
             'sku_mark',
             'pur_info_id',

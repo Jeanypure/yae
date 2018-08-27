@@ -174,7 +174,6 @@ class MinisterAgreestController extends Controller
         $model = $this->findModel($id);
         $sample_model = Sample::findOne(['spur_info_id'=>$id]);
 
-
         if($model->load(Yii::$app->request->post())){
             $model->is_quality = Yii::$app->request->post()['PurInfo']['is_quality'];
             $model->is_purchase = Yii::$app->request->post()['PurInfo']['is_purchase'];
@@ -199,8 +198,9 @@ class MinisterAgreestController extends Controller
                     }else{
                         $sample_model->is_diff = 1;
                     }
-                    $sample_model->save(false);
+
                 }
+
                 $count = Yii::$app->db->createCommand("
                 select count(*) as num from headman where product_id=$id
                 ")->queryOne();
