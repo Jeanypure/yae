@@ -47,7 +47,16 @@ return [
             "defaultRoles" => ["guest"],
         ],
         'Aliyunoss' => [
-            'class' => 'common\components\Aliyunoss',
+            'class' => 'backend\common\components\Aliyunoss',
+        ],
+        'oss' => [
+            'class' => 'yiier\AliyunOSS\OSS',
+            'accessKeyId' => 'LTAIPCOgCuMom231', // 阿里云OSS AccessKeyID
+            'accessKeySecret' => 'qiCzNGMmFhI7bVcR8usHwFaOIaTVxr', // 阿里云OSS AccessKeySecret
+            'bucket' => 'yae-vendor', // 阿里云的bucket空间
+            'lanDomain' => 'http://yae-vendor.oss-cn-shanghai.aliyuncs.com', // OSS内网地址
+            'wanDomain' => 'http://yae-vendor.oss-cn-shanghai.aliyuncs.com', //OSS外网地址
+            'isInternal' => true // 上传文件是否使用内网，免流量费（选填，默认 false 是外网）
         ],
         'request' => [
             'csrfParam' => '_csrf-backend',

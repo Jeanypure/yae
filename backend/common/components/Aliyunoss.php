@@ -7,7 +7,7 @@
  */
 
 
-namespace app\common\components;
+namespace backend\common\components;
 
 use Yii;
 use yii\base\Component;
@@ -51,16 +51,23 @@ class Aliyunoss extends Component
         {
             $bucket = Yii::$app->params['oss']['bucket'];
 
-            $a = self::$oss->uploadFile($bucket, time()."."."png", "kwk.png");
-            print_r($a);
+            $getOssInfo = self::$oss->uploadFile($bucket, time()."."."png", $filepath);
+            $result['url'] = $getOssInfo['info']['url'];
+            if($getOssInfo['info']['url']){
+                @unlink(substr($_path, 1));
+            }
             echo "success";
         }
-        catch(OssException $e)
+        catch(\OssException $e)
         {
             printf(__FUNCTION__ . ": FAILED\n");
             printf($e->getMessage() . "\n");
             return;
         }
+        $url=$result['url'];
+        return  $url;
+
+
     }
 
     //下载文件
@@ -189,7 +196,7 @@ class Aliyunoss extends Component
     {
         try {
             $res = self::$oss->doesBucketExist("budfe1sdfd");
-        } catch (OssException $e) {
+        } catch (\OssException $e) {
             printf(__FUNCTION__ . ": FAILED\n");
             printf($e->getMessage() . "\n");
             return;
@@ -199,5 +206,10 @@ class Aliyunoss extends Component
         } else {
             print(__FUNCTION__ . ": FAILED" . "\n");
         }
+    }
+
+    public function test(){
+        echo 123;
+        echo "success";
     }
 }

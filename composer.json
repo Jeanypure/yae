@@ -35,7 +35,8 @@
     "hisune/echarts-php": "^1.0",
     "bailangzhan/yii2-webuploader": "dev-master",
     "linslin/yii2-curl": "*",
-    "aliyuncs/oss-sdk-php": "dev-master"
+    "aliyuncs/oss-sdk-php": "dev-master",
+    "yiier/yii2-aliyun-oss": "*"
 
 
   },

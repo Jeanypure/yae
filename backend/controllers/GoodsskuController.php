@@ -31,6 +31,7 @@ class GoodsskuController extends Controller
         ];
     }
 
+
     /**
      * Lists all Goodssku models.
      * @return mixed
@@ -278,8 +279,7 @@ class GoodsskuController extends Controller
     }
 
     /**
-     * Cancel commit goodssku
-     * @throws \yii\db\Exception
+     * @throws \yii\base\ExitException
      */
     public function actionCancel()
     {
@@ -305,8 +305,6 @@ class GoodsskuController extends Controller
 
 
     }
-
-
 
 
 }

@@ -1,12 +1,10 @@
 <?php
 return [
-    'adminEmail' => 'admin@example.com',
+    'adminEmail' => 'm17721480297@163.com',
     'oss' => [
         'accessKeyId' =>'LTAIPCOgCuMom231',
         'accessKeySecret' =>'qiCzNGMmFhI7bVcR8usHwFaOIaTVxr',
-        'endPoint' =>'supplier',
-        'bucket' =>'http://yaemart.com.cn/',
-
-
-    ]
+        'endPoint' =>'http://yae-vendor.oss-cn-shanghai.aliyuncs.com',
+        'bucket' =>'yae-vendor',
+        ]
 ];
