@@ -50,13 +50,13 @@ class JuniorPurInfoSearch extends PurInfo
         }else{
             $query = PurInfo::find()
                 ->andWhere(['purchaser'=>$username])
+                ->orFilterWhere(['old_purchaser'=>$username])
                 ->orderBy('pur_info_id desc');
 
         }
-//        $query = PurInfo::find();
         $this->source = 1;
 
-
+//echo $query->createCommand()->getRawSql();die;
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
