@@ -76,6 +76,7 @@ class PurInfoTrackSearch extends PurInfo
                 ->joinWith('sample')
                 ->andWhere(['not',['sample.spur_info_id'=>null]])
                 ->andWhere(['purchaser'=>$username])
+                ->orFilterWhere(['old_purchaser'=>$username])
                 ->andWhere(['>=','create_date','2018-06-21 00:00:00'])
                 ->orderBy('pur_info_id desc')
             ;
