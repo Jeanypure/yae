@@ -293,13 +293,15 @@ class AuditGoodsskuController extends Controller
                     g.sku,g.pd_title,g.pd_title_en,g.pd_weight,g.pd_length,g.pd_width,g.pd_height,
                     g.declared_value,g.currency_code,g.pd_costprice,g.pd_costprice_code,g.vendor_code,
                     g.is_quantity_check, g.contain_battery,g.qty_of_ctn,g.ctn_length,g.pd_width,g.pd_height,
-                    g.ctn_width, g.ctn_height, g.ctn_fact_weight, g.pd_creator,
+                    g.ctn_width, g.ctn_height, g.ctn_fact_weight, g.pd_creator, g.sale_company,
                     s.brand,s.bill_name,s.bill_unit
                     FROM goodssku g LEFT JOIN sku_vendor s ON g.sku_id=s.sku_id  AND g.vendor_code = s.vendor_code  
                 where  g.sku_id = $id ";
        $result =  Yii::$app->db->createCommand("$sql")->queryAll();
        $is_quantity_check = empty($result[0]['is_quantity_check'])?'F':'T';
        $contain_battery = empty($result[0]['contain_battery'])?'F':'T';
+       $sale_company =  explode(',',$result[0]['sale_company']);
+
 
        $item_arr = [[
            "itemid" => $result[0]['sku'],
@@ -325,6 +327,7 @@ class AuditGoodsskuController extends Controller
            "custitem19" => $result[0]['pd_creator'],
            "custitem21" => $result[0]['brand'],
            "custitem20" => $result[0]['pd_creator'],
+           "subsidiary" => $sale_company,
 
        ]];
 

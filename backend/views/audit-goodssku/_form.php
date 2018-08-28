@@ -79,12 +79,12 @@ use kartik\select2\Select2;
     ]);
     echo $form->field($model, 'sale_company')->widget(Select2::classname(), [
         'data' => [
-            '商舟'=>'商舟',
-            '雅耶'=>'雅耶',
-            '朗探'=>'朗探',
-            '域聪'=>'域聪',
-            '朋侯'=>'朋侯',
-            '客尊'=>'客尊',
+            '2'=>'商舟',
+            '3'=>'雅耶',
+            '5'=>'朗探',
+            '6'=>'域聪',
+            '7'=>'朋侯',
+            '8'=>'客尊',
         ],
         'options' => ['placeholder' => '选择销售公司.....'],
         'pluginOptions' => [
