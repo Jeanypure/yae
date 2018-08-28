@@ -74,6 +74,7 @@ class AuditGoodsskuController extends Controller
 
         if ($model->load(Yii::$app->request->post()) ) {
             $model->sku_update_date = date('Y-m-d H:i:s');
+            $model->sale_company = implode(',',$model->sale_company);
             $model->save(false);
             return $this->redirect(['update', 'id' => $model->sku_id]);
         }
