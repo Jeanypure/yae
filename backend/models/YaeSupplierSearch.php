@@ -47,7 +47,7 @@ class YaeSupplierSearch extends YaeSupplier
             ;
 
         }else{
-            $query = YaeSupplier::find()->andWhere(['submitter'=>$username]);
+            $query = YaeSupplier::find()->andWhere(['submitter'=>$username])->orderBy('id desc');
 
         }
 

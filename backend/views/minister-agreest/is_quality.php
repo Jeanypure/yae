@@ -57,7 +57,7 @@ use kartik\select2\Select2;
             '2'=>'新品',
             '3'=>'推送产品',
             '4'=>'简单重复',
-
+            '5'=>'不算提成',
         ],
         'options' => ['placeholder' => '产品等级','label'=>"<span style = 'color:red'><big>*</big></span>部长判断",],
         'pluginOptions' => [
