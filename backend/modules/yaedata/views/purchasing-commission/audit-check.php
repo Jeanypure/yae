@@ -189,6 +189,9 @@ echo GridView::widget([
                 }elseif($model->minister_result==4){
                     return '简单重复';
 
+                }elseif($model->minister_result==5){
+                    return '不算提成';
+
                 }else{
                     return '其他';
 

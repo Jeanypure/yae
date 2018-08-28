@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', '产品等级调整');
                     '2'=>'新品',
                     '3'=>'推送产品',
                     '4'=>'简单重复',
-
+                    '5'=>'不算提成',
                 ],
                 'options' => ['placeholder' => '产品等级'],
                 'pluginOptions' => [

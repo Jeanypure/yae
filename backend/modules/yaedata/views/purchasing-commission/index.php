@@ -152,13 +152,16 @@ echo GridView::widget([
                 }elseif($model->audit_team_result==4){
                     return '简单重复';
 
+                }elseif($model->audit_team_result==5){
+                    return '不算提成';
+
                 }else{
                     return '其他';
 
                 }
             },
             'filterType'=>GridView::FILTER_SELECT2,
-            'filter'=>[0=>'未判断',1=>'半价产品',2=>'新品',3=>'推送产品',4=>'简单重复'],
+            'filter'=>[0=>'未判断',1=>'半价产品',2=>'新品',3=>'推送产品',4=>'简单重复',5=>'不算提成'],
             'filterWidgetOptions'=>[
                 'pluginOptions'=>['allowClear'=>true],
             ],
