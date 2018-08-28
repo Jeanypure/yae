@@ -99,7 +99,7 @@ class GoodsskuController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $model->sale_company = explode(',',$model->sale_company); //ActiveForm 指定已存的销售公司
         if ($model->load(Yii::$app->request->post())) {
             $model->sale_company = implode(",", Yii::$app->request->post()['Goodssku']['sale_company']);
             $model->sku_update_date = date('Y-m-d H:i:s');
@@ -121,7 +121,7 @@ class GoodsskuController extends Controller
             'model' => $model,
             'dataProvider' => $dataProvider,
             'vendor_model' => $vendor_model[0],
-            'sku_id'=>$id
+            'sku_id'=>$id,
         ]);
     }
 

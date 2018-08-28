@@ -70,6 +70,7 @@ class AuditGoodsskuController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->sale_company = explode(',',$model->sale_company); //ActiveForm 指定已存的销售公司
 
         if ($model->load(Yii::$app->request->post()) ) {
             $model->sku_update_date = date('Y-m-d H:i:s');
