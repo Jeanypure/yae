@@ -298,7 +298,7 @@ $JS =<<<JS
            'yaesupplier-supplier_code','yaesupplier-supplier_name','yaesupplier-supplier_address' ,'yaesupplier-business_licence' ,
            'yaesupplier-pd_bill_name' ,'yaesupplier-bill_unit' ,'yaesupplier-pay_card' ,'yaesupplier-pay_name' ,'yaesupplier-pay_bank' ,
            'yaesupplier-account_proportion' ,'yaesupplier-pay_cycletime_type' ,'yaesupplier-account_type' ,'yaesupplier-bank_account_data' ,
-           'yaesupplier-bill_img1_name_unit','yaesupplier-bill_img1','suppliercontact-contact_name','suppliercontact-contact_tel',
+           'yaesupplier-bill_img1_name_unit','yaesupplier-bill_img1','suppliercontact-contact_name','suppliercontact-contact_address','suppliercontact-contact_tel',
            'suppliercontact-contact_qq',
         ];
         var label;
