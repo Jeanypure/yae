@@ -69,6 +69,7 @@ class AuditSupplierController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $supplier_contact = SupplierContact::find()->andWhere(['supplier_id'=>$id])->one();
         $username = Yii::$app->user->identity->username;
         if ($model->load(Yii::$app->request->post()) ) {
             $model-> checker = $username;
@@ -79,6 +80,7 @@ class AuditSupplierController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'supplier_contact' => $supplier_contact,
         ]);
     }
 
