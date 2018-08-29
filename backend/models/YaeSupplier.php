@@ -42,6 +42,8 @@ class YaeSupplier extends \yii\db\ActiveRecord
     public  $bank_img_add;
     public  $bill01_img_add;
     public  $bill02_img_add;
+
+    public $contact_name,$contact_tel,$contact_address,$contact_qq,$contact_wechat,$contact_wangwang,$skype,$contact_memo;
     /**
      * {@inheritdoc}
      */
@@ -129,5 +131,16 @@ class YaeSupplier extends \yii\db\ActiveRecord
         ];
 
     }
+
+
+        /**
+         * 一个供应商多个联系人
+         */
+
+        public  function  getSupplierContact(){
+            return $this->hasOne(SupplierContact::className(),['supplier_id'=>'id']);
+        }
+
+
 }
 

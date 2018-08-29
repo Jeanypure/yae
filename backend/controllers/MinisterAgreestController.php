@@ -209,7 +209,7 @@ class MinisterAgreestController extends Controller
                 }
                 try{
                     $sql = " SET @id = $id;
-                        CALL purinfo_to_goodssku (@id);";
+                            CALL purinfo_to_goodssku (@id);";
                     $res = Yii::$app->db->createCommand($sql)->execute();
 
                 }catch(\Exception $exception){

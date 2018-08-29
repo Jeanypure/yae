@@ -19,7 +19,7 @@ use kartik\builder\Form;
         'model'=>$model,
         'form'=>$form,
         'columns'=>4,
-//        'contentBefore'=>'<legend class="text-info"><h3>1.供应商基本信息</h3></legend>',
+        'contentBefore'=>'<legend class="text-info"><h3>6.供应商联系人基本信息</h3></legend>',
         'attributes'=>[       // 3 column layout
             'contact_name'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'contact_tel'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
@@ -33,7 +33,6 @@ use kartik\builder\Form;
         'model'=>$model,
         'form'=>$form,
         'columns'=>4,
-//        'contentBefore'=>'<legend class="text-info"><h3>1.供应商基本信息</h3></legend>',
         'attributes'=>[       // 3 column layout
             'contact_wechat'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'contact_wangwang'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],

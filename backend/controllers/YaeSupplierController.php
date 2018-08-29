@@ -9,6 +9,7 @@ use backend\models\SupplierContact;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\base\Model;
 
 /**
  * YaeSupplierController implements the CRUD actions for YaeSupplier model.
@@ -65,16 +66,27 @@ class YaeSupplierController extends Controller
      */
     public function actionCreate()
     {
-        $model = new YaeSupplier();
-            $username = Yii::$app->user->identity->username;
-        if ($model->load(Yii::$app->request->post()) ) {
-             $model->submitter = $username;
-             $model->save(false);
-            return $this->redirect(['view', 'id' => $model->id]);
+        $supplier = new YaeSupplier();
+        $supplier_contact = new SupplierContact();
+        $username = Yii::$app->user->identity->username;
+        $post = Yii::$app->request->post();
+        if (isset($post['YaeSupplier']) && isset($post['SupplierContact'])){
+            $supplier->attributes = $post['YaeSupplier'];
+            $supplier->submitter = $username;
+            $supplier->save(false);
+
+            $supplier_contact->username = $username;
+            $supplier_contact->supplier_id = $supplier->primaryKey ;
+            $supplier_contact->attributes=$post['SupplierContact'];
+            $supplier_contact->save(false);
+            return $this->redirect(['view', 'id' => $supplier->id]);
+
         }
 
+
         return $this->render('create', [
-            'model' => $model,
+            'supplier' => $supplier,
+            'supplier_contact' => $supplier_contact,
         ]);
     }
 
@@ -87,26 +99,28 @@ class YaeSupplierController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $supplier = $this->findModel($id);
+        $supplier_contact = SupplierContact::find()->where(['supplier_id'=>$id])->one();
         $update_date = date('Y-m-d H:i:s');
-
-        if ($model->load(Yii::$app->request->post()) ) {
-            $model->update_date = $update_date;
-            $model->save(false);
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($supplier->load(Yii::$app->request->post())&&$supplier_contact->load(Yii::$app->request->post())) {
+            $supplier->update_date = $update_date;
+            $supplier->save(false);
+            $supplier_contact->save(false);
+            return $this->redirect(['view', 'id' => $supplier->id]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'model' => $supplier,
+            'supplier_contact' => $supplier_contact,
         ]);
     }
 
     /**
-     * Deletes an existing YaeSupplier model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @param $id
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {

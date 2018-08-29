@@ -131,7 +131,7 @@ use kartik\select2\Select2;
         'model'=>$model,
         'form'=>$form,
         'columns'=>6,
-        'contentBefore'=>'<legend class="text-info"><h3>5.发票相关</h3></legend>',
+        'contentBefore'=>'<legend class="text-info"><h3>4.发票相关</h3></legend>',
         'attributes'=>[       // 3 column layout
             'bill_img1_name_unit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
         ],
@@ -141,17 +141,45 @@ use kartik\select2\Select2;
     echo $form->field($model, 'bill_img1')->widget('manks\FileInput', []);
     echo  $form->field($model, 'bill01_img_add') ;
 
-
-
     ?>
 
+    <?php
+    echo Form::widget([
+        'model'=>$supplier_contact,
+        'form'=>$form,
+        'columns'=>4,
+        'contentBefore'=>'<legend class="text-info"><h3>5.供应商联系人基本信息</h3></legend>',
+        'attributes'=>[       // 3 column layout
+            'contact_name'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'contact_tel'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'contact_address'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'contact_qq'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+
+        ],
+
+    ]);
+    echo Form::widget([
+        'model'=>$supplier_contact,
+        'form'=>$form,
+        'columns'=>4,
+        'attributes'=>[       // 3 column layout
+            'contact_wechat'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'contact_wangwang'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'skype'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'contact_memo'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+
+        ],
+
+    ]);
+
+    ?>
     <?php
 
     echo Form::widget([
         'model'=>$model,
         'form'=>$form,
         'columns'=>4,
-        'contentBefore'=>'<legend class="text-info"><h3>其他注意事項</h3></legend>',
+        'contentBefore'=>'<legend class="text-info"><h3>6.其他注意事項</h3></legend>',
         'attributes'=>[       // 3 column layout
             'sup_remark'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'']],
 
@@ -170,11 +198,13 @@ use kartik\select2\Select2;
     echo $form->field($model, 'bill_img2')->widget('manks\FileInput', []);
     echo  $form->field($model, 'bill02_img_add') ;
     ?>
+
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?php
+        echo Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
+<?php ActiveForm::end(); ?>
 
 </div>
 
@@ -214,7 +244,7 @@ $JS =<<<JS
            'yaesupplier-supplier_code','yaesupplier-supplier_name','yaesupplier-supplier_address' ,'yaesupplier-business_licence' ,
            'yaesupplier-pd_bill_name' ,'yaesupplier-bill_unit' ,'yaesupplier-pay_card' ,'yaesupplier-pay_name' ,'yaesupplier-pay_bank' ,
            'yaesupplier-account_proportion' ,'yaesupplier-pay_cycletime_type' ,'yaesupplier-account_type' ,'yaesupplier-bank_account_data' ,
-           'yaesupplier-bill_img1_name_unit','yaesupplier-bill_img1',
+           'yaesupplier-bill_img1_name_unit','yaesupplier-bill_img1','suppliercontact-contact_name'
         ];
         var label;
        $("label[for='goodssku-sku']").addClass("label-require");

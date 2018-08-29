@@ -31,8 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\CheckboxColumn'],
             ['class' => 'yii\grid\ActionColumn',
                 'header' => '操作',
-                'template' => '{add} {view} {update} {delete}',
-                'buttons' => [
+                'template' => ' {view} {update} {delete}',
+               /* 'buttons' => [
                     'add' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-plus"></span>', $url, [
                             'title' => '添加联系人',
@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'data-id' => $key,
                         ] );
                     },
-                ],
+                ],*/
             ],
 
             [
@@ -81,8 +81,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ],
             'create_date',
-//            'pd_bill_name',
-//            'bill_unit',
             'submitter',
             'checker',
             [
@@ -141,8 +139,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ],
 
-//            'business_licence',
-//            'bank_account_data',
             'pay_card',
             'pay_name',
             'pay_bank',
@@ -220,11 +216,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions'=>['placeholder'=>'合作过?'],
 
             ],
-
-//            'bill_img1',
-//            'bill_img1_name_unit',
-//            'bill_img2',
-//            'bill_img2_name_unit',
             'complete_num',
             [
                 'attribute'=>'licence_pass',
