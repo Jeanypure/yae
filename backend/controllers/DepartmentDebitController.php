@@ -172,29 +172,30 @@ class DepartmentDebitController extends Controller
 
         ];
         $sql = "
-                SELECT 
-                t.bill_to,
-               case t.receiver when 1 then '深圳大森林国际货代有限公司'
-               when 2 then '上海珑瑗国际货物运输代理有限公司'
-               when 3 then '上海昊宏国际货物运输代理有限公司'
-               when 4 then '深圳市安泰克物流有限公司'
-               when 5 then '文鼎供应链管理(上海)有限公司'
-               else t.receiver end  as receiver,
-                t.contract_no,
-                t.debit_no,
-                t.remark,
-                MAX(CASE e.currency WHEN 5 THEN e.amount ELSE 0 END ) RMB,
-                MAX(CASE e.currency WHEN 3 THEN e.amount ELSE 0 END ) CAD,
-                MAX(CASE e.currency WHEN 1 THEN e.amount ELSE 0 END ) USD,
-                MAX(CASE e.currency WHEN 2 THEN e.amount ELSE 0 END ) GBP,
-                MAX(CASE e.currency WHEN 4 THEN e.amount ELSE 0 END ) EUR
-                FROM yae_freight  t 
-                LEFT JOIN freight_fee e ON e.freight_id=t.id
-                WHERE t.id IN ($id)
-                GROUP BY t.bill_to,
-                t.receiver,
-                t.contract_no,
-                t.debit_no;
+                SELECT bill_to,receiver ,contract_no , debit_no,remark,
+								MAX(CASE aa.currency WHEN 5 THEN aa.amount ELSE 0 END ) RMB,
+                MAX(CASE aa.currency WHEN 3 THEN aa.amount ELSE 0 END ) CAD,
+                MAX(CASE aa.currency WHEN 1 THEN aa.amount ELSE 0 END ) USD,
+                MAX(CASE aa.currency WHEN 2 THEN aa.amount ELSE 0 END ) GBP,
+                MAX(CASE aa.currency WHEN 4 THEN aa.amount ELSE 0 END ) EUR
+FROM (
+SELECT t.bill_to,
+ case t.receiver when 1 then '深圳大森林国际货代有限公司'
+ when 2 then '上海珑瑗国际货物运输代理有限公司'
+ when 3 then '上海昊宏国际货物运输代理有限公司'
+ when 4 then '深圳市安泰克物流有限公司'
+ when 5 then '文鼎供应链管理(上海)有限公司'
+ else t.receiver end  as receiver,
+  t.contract_no,
+  t.debit_no,
+  t.remark,
+	sum(e.amount) AS amount,
+	e.currency
+	FROM yae_freight  t 
+  LEFT JOIN freight_fee e ON e.freight_id=t.id
+  WHERE t.id IN ($id) GROUP BY e.currency,contract_no
+)aa GROUP BY aa.contract_no;
+            
         ";
 
         $data =  Yii::$app->db->createCommand($sql)->queryAll();
