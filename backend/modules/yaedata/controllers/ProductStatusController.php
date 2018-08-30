@@ -80,4 +80,29 @@ class ProductStatusController extends Controller
         $result['num'] = $arr;
         echo json_encode($result,true);
     }
+
+    public function actionRecommendSample(){
+        $firstday = date('Y-m-d', strtotime("-29 day"));
+        $lastday = date('Y-m-d');
+        $sql = "
+        -- 一段时间内销售推荐产拿样分布 包含直接下单
+            SELECT
+                t.creator,sum(o.master_result) as  total
+            FROM pur_info o
+            LEFT JOIN product t ON o.parent_product_id = t.product_id
+            WHERE o.source = 0 AND o.is_submit=1 AND (o.master_result=1 OR o.master_result=4) AND product_add_time BETWEEN '2018-06-01' AND '2018-10-20'
+            group by creator ORDER BY total DESC;";
+
+        $res = Yii::$app->db->createCommand($sql)->queryAll();
+        $status =  array_column($res,'creator');
+        foreach($res as $key=>$value){
+            $val['value'] = (int)$value['total'];
+            $val['name'] = $value['creator'];
+            $arr[] = $val;
+        }
+        $result['status'] = $status;
+        $result['num'] = $arr;
+        echo json_encode($result,true);
+    }
+
 }
