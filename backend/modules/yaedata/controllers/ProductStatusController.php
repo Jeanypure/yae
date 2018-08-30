@@ -16,7 +16,7 @@ class ProductStatusController extends Controller
 {
     /**
      * Renders the index view for the module
-     * @return string
+     * @return string+
      */
     public function actionIndex()
     {
@@ -82,8 +82,7 @@ class ProductStatusController extends Controller
     }
 
     public function actionRecommendSample(){
-        $firstday = date('Y-m-d', strtotime("-29 day"));
-        $lastday = date('Y-m-d');
+
         $sql = "
         -- 一段时间内销售推荐产拿样分布 包含直接下单
             SELECT

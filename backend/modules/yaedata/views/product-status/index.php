@@ -31,7 +31,7 @@ $('h3').remove();
                     success:function (data) {
                         // var da = JSON.parse(data);  //推荐方法
                         console.log(data);
-                      sample_chart(data);
+                      sample_chart(data,'sample-source');
                      
                     }
                 });
@@ -40,7 +40,7 @@ $('h3').remove();
                     success:function (data) {
                         // var da = JSON.parse(data);  //推荐方法
                         console.log(data);
-                      recommend_chart(data);
+                      sample_chart(data,'recommend');
                      
                     }
                 });
@@ -68,7 +68,7 @@ $this->registerJs($js);
 <div class="row">
     <div class="col-md-12">
         <div class="loading" style="display: none;">
-<!--            <center><img src="/assets/img/loading.gif"></center>-->
+            <center><img src="/assets/img/loading.gif"></center>
         </div>
     </div>
 </div>
@@ -160,105 +160,9 @@ $this->registerJs($js);
     }
 </script>
 <script>
-    function  sample_chart(sample_data) {
+    function  sample_chart(sample_data,id) {
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('sample-source'));
-        var data = eval("(" + sample_data + ")");
-        var status,result;
-        status = data.status;
-        result = data.num;
-        option = {
-            tooltip: {
-                trigger: 'item',
-                formatter: "{a} <br/>{b}: {c} ({d}%)"
-            },
-            legend: {
-                orient: 'vertical',
-                x: 'left',
-                data:status
-            },
-            series: [
-                {
-                    name:'拿样产品',
-                    type:'pie',
-                    selectedMode: 'single',
-                    radius: [0, '30%'],
-
-                    label: {
-                        normal: {
-                            position: 'inner'
-                        }
-                    },
-                    labelLine: {
-                        normal: {
-                            show: false
-                        }
-                    },
-                    data:
-                        [
-                       /* {value:335, name:'直达', selected:true},
-                        {value:679, name:'营销广告'},
-                        {value:1548, name:'搜索引擎'}*/
-                    ]
-                },
-                {
-                    name:'拿样来源',
-                    type:'pie',
-                    radius: ['40%', '55%'],
-                    label: {
-                        normal: {
-                            formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
-                            backgroundColor: '#eee',
-                            borderColor: '#aaa',
-                            borderWidth: 1,
-                            borderRadius: 4,
-                            // shadowBlur:3,
-                            // shadowOffsetX: 2,
-                            // shadowOffsetY: 2,
-                            // shadowColor: '#999',
-                            // padding: [0, 7],
-                            rich: {
-                                a: {
-                                    color: '#999',
-                                    lineHeight: 22,
-                                    align: 'center'
-                                },
-                                // abg: {
-                                //     backgroundColor: '#333',
-                                //     width: '100%',
-                                //     align: 'right',
-                                //     height: 22,
-                                //     borderRadius: [4, 4, 0, 0]
-                                // },
-                                hr: {
-                                    borderColor: '#aaa',
-                                    width: '100%',
-                                    borderWidth: 0.5,
-                                    height: 0
-                                },
-                                b: {
-                                    fontSize: 16,
-                                    lineHeight: 33
-                                },
-                                per: {
-                                    color: '#eee',
-                                    backgroundColor: '#334455',
-                                    padding: [2, 4],
-                                    borderRadius: 2
-                                }
-                            }
-                        }
-                    },
-                    data: result
-                }
-            ]
-        };
-        myChart.setOption(option);
-    }
-
-    function  recommend_chart(sample_data) {
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('recommend'));
+        var myChart = echarts.init(document.getElementById(id));
         var data = eval("(" + sample_data + ")");
         var status,result;
         status = data.status;
