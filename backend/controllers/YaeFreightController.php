@@ -2,11 +2,14 @@
 
 namespace backend\controllers;
 
+use backend\models\Company;
+use backend\models\Purchaser;
 use Yii;
 use backend\models\YaeFreight;
 use backend\models\FreightFee;
 use backend\models\FeeCategory;
 use backend\models\YaeExchangeRate;
+use backend\models\FreightForwarders;
 use backend\models\YaeFreightSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -91,7 +94,10 @@ class YaeFreightController extends Controller
         }
         return $this->render('create', [
             'model' => $model,
-            'fee_category' => $param['name_zn']
+            'param' => $param,
+           /* 'fee_category' => $param['name_zn'],
+            'receiver' => $param['receiver'],
+            'minister' => $param['minister'],*/
         ]);
     }
 
@@ -105,7 +111,7 @@ class YaeFreightController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $param = $this->actionParam();
         $total = Yii::$app->db->createCommand("SELECT 
                         CASE currency WHEN 1 THEN 'USD'
                         WHEN 2 THEN 'GBP' 
@@ -138,6 +144,7 @@ class YaeFreightController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'param' => $param,
             'dataProvider' => $dataProvider,
             'fee_model' => $fee_model,
             'total' => $total,
@@ -263,17 +270,35 @@ class YaeFreightController extends Controller
 
         $fee_cate = FeeCategory::find()->select('id,name_zn')->asArray()->All();
         $cur = YaeExchangeRate::find()->select('id,currency')->asArray()->All();
+        $forwarders = FreightForwarders::find()->select('id,receiver')->asArray()->All();
+        $saler = Purchaser::find()->select('id,purchaser')->asArray()->where(['code'=>'freight_contact'])->All();
+        $company = Company::find()->select('id,full_name')->asArray()->andWhere(['NOT', ['full_name' => null]])->All();
         $arr = [];
         $currency = [];
+        $freight_for = [];
+        $minister = [];
+        $full_name = [];
         foreach ($fee_cate as $key => $value) {
             $arr[$value['id']] = $value['name_zn'];
         }
         foreach ($cur as $key => $value) {
             $currency[$value['id']] = $value['currency'];
         }
+        foreach ($forwarders as $key => $value) {
+            $freight_for[$value['id']] = $value['receiver'];
+        }
+        foreach ($saler as $key => $value) {
+            $minister[$value['purchaser']] = $value['purchaser'];
+        }
+        foreach ($company as $key => $value) {
+            $full_name[$value['id']] = $value['full_name'];
+        }
 
         $param['name_zn'] = $arr;
         $param['currency'] = $currency;
+        $param['receiver'] = $freight_for;
+        $param['minister'] = $minister;
+        $param['full_name'] = $full_name;
         return $param;
     }
 

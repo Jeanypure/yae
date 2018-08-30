@@ -9,7 +9,7 @@ use kartik\select2\Select2;
 /* @var $this yii\web\View */
 /* @var $model backend\models\YaeFreight */
 
-$this->title = 'Create  Freight';
+$this->title = '创建货代单';
 $this->params['breadcrumbs'][] = ['label' => 'Freights', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -24,15 +24,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php
                 // Usage with ActiveForm and model
                 echo $form->field($model, 'bill_to')->widget(Select2::classname(), [
-                    'data' => [
-                        '1'=>'上海商舟船舶用品有限公司',
-                        '2'=>'雅耶国际贸易（上海）有限公司',
-                        '3'=>'上海朗探贸易有限公司',
-                        '4'=>'上海域聪贸易有限公司',
-                        '5'=>'上海朋侯贸易有限公司',
-                        '6'=>'上海客尊贸易有限公司',
-                    ],
+                    'data' => $param['full_name'],
                     'options' => ['placeholder' => '选择付款公司.....'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]);
+                ?>
+
+            </div>
+            <div class="col-sm-3">
+                <?php
+                // Usage with ActiveForm and model
+                echo $form->field($model, 'receiver')->widget(Select2::classname(), [
+                    'data' => $param['receiver'],
+                    'options' => ['placeholder' => '选择货代公司.....'],
                     'pluginOptions' => [
                         'allowClear' => true
                     ],
@@ -44,9 +50,8 @@ $this->params['breadcrumbs'][] = $this->title;
             echo Form::widget([
                 'model' => $model,
                 'form' => $form,
-                'columns' => 4,
+                'columns' => 3,
                 'attributes' => [
-                    'receiver' => ['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                     'contract_no' => ['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                     'debit_no' => ['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                     'shipment_id' => ['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'多个 Shipment ID , 号分割']],
@@ -91,7 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php
         // Usage with ActiveForm and model
         echo $form->field($model, 'fee_cateid')->widget(Select2::classname(), [
-            'data' => $fee_category,
+            'data' => $param['name_zn'],
             'options' => ['multiple' => true,'placeholder' => '选择费用种类.....'],
             'pluginOptions' => [
                 'allowClear' => true
@@ -102,15 +107,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php
         // Usage with ActiveForm and model
         echo $form->field($model, 'minister')->widget(Select2::classname(), [
-            'data' => [
-                'Sue' => 'Sue',
-                'Bianca' => 'Bianca',
-                'Molly' => 'Molly',
-                'Joe' => 'Joe',
-                'John' => 'John',
-                'Laura' => 'Laura',
-            ],
-            'options' => ['multiple' => false,'placeholder' => '选择销售部长.....'],
+            'data' => $param['minister'],
+            'options' => ['multiple' => false,'placeholder' => '选择销售.....'],
             'pluginOptions' => [
                 'allowClear' => true
             ],

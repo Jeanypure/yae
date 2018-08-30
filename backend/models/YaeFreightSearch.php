@@ -43,11 +43,14 @@ class YaeFreightSearch extends YaeFreight
     {
         $username = Yii::$app->user->identity->username;
         if($username=='Jenny'||$username=='Winnie'||$username=='David'||$username=='Mark'){
-            $query = YaeFreight::find();
+            $query = YaeFreight::find()
+                ->orderBy('id desc')
+            ;
 
         }else{
             $query = YaeFreight::find()
                 ->andWhere(['builder'=>$username])
+                ->orderBy('id desc')
             ;
         }
 

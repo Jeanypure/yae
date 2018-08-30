@@ -21,15 +21,21 @@ use kartik\select2\Select2;
             <?php
             // Usage with ActiveForm and model
             echo $form->field($model, 'bill_to')->widget(Select2::classname(), [
-                'data' => [
-                    '1'=>'上海商舟船舶用品有限公司',
-                    '2'=>'雅耶国际贸易（上海）有限公司',
-                    '3'=>'上海朗探贸易有限公司',
-                    '4'=>'上海域聪贸易有限公司',
-                    '5'=>'上海朋侯贸易有限公司',
-                    '6'=>'上海客尊贸易有限公司',
-                ],
+                'data' => $param['full_name'],
                 'options' => ['placeholder' => '选择付款公司.....'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]);
+            ?>
+
+        </div>
+        <div class="col-sm-3">
+            <?php
+            // Usage with ActiveForm and model
+            echo $form->field($model, 'receiver')->widget(Select2::classname(), [
+                'data' => $param['receiver'],
+                'options' => ['placeholder' => '选择货代公司.....'],
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
@@ -41,9 +47,8 @@ use kartik\select2\Select2;
         echo Form::widget([
             'model' => $model,
             'form' => $form,
-            'columns' => 4,
+            'columns' => 3,
             'attributes' => [
-                'receiver' => ['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'contract_no' => ['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'debit_no' => ['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'shipment_id' => ['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'多个 Shipment ID , 号分割']],
@@ -87,20 +92,8 @@ use kartik\select2\Select2;
     <?php
     // Usage with ActiveForm and model
     echo $form->field($model, 'minister')->widget(Select2::classname(), [
-        'data' => [
-            'Sue' => 'Sue',
-            'Bianca' => 'Bianca',
-            'Molly' => 'Molly',
-            'Joe' => 'Joe',
-            'John' => 'John',
-            'Laura' => 'Laura',
-            'Randy' => 'Randy',
-            'Melody' => 'Melody',
-            'Helen' => 'Helen',
-            'Lee' => 'Lee',
-            'Cathy' => 'Cathy',
-        ],
-        'options' => ['multiple' => false,'placeholder' => '选择销售部长.....'],
+        'data' => $param['minister'],
+        'options' => ['multiple' => false,'placeholder' => '选择销售.....'],
         'pluginOptions' => [
             'allowClear' => true
         ],
