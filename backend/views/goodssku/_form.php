@@ -38,14 +38,13 @@ use kartik\select2\Select2;
         'columns'=>6,
         'attributes'=>[       // 3 column layout
             'pd_costprice'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'pd_costprice_code'=>['type'=>Form::INPUT_STATIC, 'options'=>['placeholder'=>''],'staticValue'=>'RMB'],
-            'vendor_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'declared_value'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>''],],
+            'pd_costprice_code'=>['type'=>Form::INPUT_STATIC, 'options'=>['placeholder'=>''],'staticValue'=>'RMB'],
             'currency_code'=>['type'=>Form::INPUT_STATIC, 'options'=>['placeholder'=>''],'staticValue'=>'USD'],
-
             'contain_battery'=>['type'=>Form::INPUT_RADIO_LIST,'items'=>[1=>'是', 0=>'否'],
                 'label'=>"<span style = 'color:red'><big>*</big></span>是否包含电池",
             ],
+            'vendor_code'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],
         ],
 
     ]);
@@ -91,9 +90,39 @@ use kartik\select2\Select2;
             'multiple' => true,
             'allowClear' => true
         ],
+    ]);?>
+    <?php
+    echo Form::widget([
+        'model'=>$sku_vendor,
+        'form'=>$form,
+        'columns'=>6,
+        'contentBefore'=>'<legend class="text-info"><h3>3.供应商信息</h3></legend>',
+        'attributes'=>[       // 3 column layout
+            'vendor_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'origin_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'bill_name'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'bill_unit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+
+
+        ],
+
     ]);
+    echo Form::widget([
+        'model'=>$sku_vendor,
+        'form'=>$form,
+        'columns'=>6,
+        'attributes'=>[       // 6 column layout
+            'min_order_num'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'pd_get_days'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'pd_costprice'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'pd_costprice_code'=>['type'=>Form::INPUT_STATIC, 'staticValue'=>'RMB'],
+            'brand'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+        ],
 
+    ]);
+    ?>
 
+<?php
 
      echo Form::widget([
         'model'=>$model,
@@ -108,35 +137,7 @@ use kartik\select2\Select2;
     ]);
 
     ?>
-    <?php
-        echo Form::widget([
-        'model'=>$sku_vendor,
-        'form'=>$form,
-        'columns'=>6,
-        'contentBefore'=>'<legend class="text-info"><h3>3.供应商信息</h3></legend>',
-        'attributes'=>[       // 3 column layout
-            'vendor_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'origin_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'min_order_num'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'pd_get_days'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
-        ],
-
-    ]);
-        echo Form::widget([
-        'model'=>$sku_vendor,
-        'form'=>$form,
-        'columns'=>6,
-        'attributes'=>[       // 6 column layout
-            'pd_costprice_code'=>['type'=>Form::INPUT_STATIC, 'staticValue'=>'RMB'],
-            'pd_costprice'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'bill_name'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'bill_unit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'brand'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-        ],
-
-    ]);
-    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-lg']) ?>
@@ -161,7 +162,8 @@ $JS =<<<JS
         var  requirelabels =[
             "goodssku-pd_title","goodssku-pd_title_en","goodssku-image_url","goodssku-pd_costprice","goodssku-pd_costprice_code",
             "goodssku-vendor_code","goodssku-declared_value","goodssku-currency_code","goodssku-pd_length","goodssku-pd_width",
-            "goodssku-pd_height","goodssku-pd_weight","goodssku-sale_company" ];
+            "goodssku-pd_height","goodssku-pd_weight","goodssku-sale_company" ,"skuvendor-vendor_code","skuvendor-bill_name",
+            "skuvendor-bill_unit"];
         var label;
        $("label[for='goodssku-sku']").addClass("label-require");
        for ( label in requirelabels){

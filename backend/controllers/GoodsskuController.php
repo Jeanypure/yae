@@ -69,21 +69,12 @@ class GoodsskuController extends Controller
         if(isset($post['Goodssku'])&&isset($post['SkuVendor'])){
             $goodssku->attributes=$post['Goodssku'];
             $sku_vendor->attributes=$post['SkuVendor'];
-            if($goodssku->validate() && $sku_vendor->validate())//这里是先验证数据，如果通过再save()。
-            {
-               /* $goodssku->pd_creator = Yii::$app->user->identity->username;
-                $goodssku->sale_company = implode(",", Yii::$app->request->post()['Goodssku']['sale_company']);
-                $goodssku->vendor_code = $post['SkuVendor']['vendor_code'];
-                $goodssku->save(false);
-                $sku_vendor->sku_id = $goodssku->primaryKey;
-                $sku_vendor->save(false);*/
-                return $this->redirect(['view', 'id' => $goodssku->sku_id]);
-            }else {
-                return $this->render('create', [
-                    'model' => $goodssku,
-                    'sku_vendor' => $sku_vendor,
-                ]);
-            }
+            $goodssku->pd_creator = Yii::$app->user->identity->username;
+            $goodssku->sale_company = implode(",", Yii::$app->request->post()['Goodssku']['sale_company']);
+            $goodssku->vendor_code = $post['SkuVendor']['vendor_code'];
+            $goodssku->save(false);
+            $sku_vendor->sku_id = $goodssku->primaryKey;
+            $sku_vendor->save(false);
         }
         return $this->render('create', [
             'model' => $goodssku,
@@ -104,12 +95,12 @@ class GoodsskuController extends Controller
         $sku_vendor = SkuVendor::find()->where(['sku_id'=>$id])->one();
         $goodssku->sale_company = explode(',',$goodssku->sale_company); //ActiveForm 指定已存的销售公司
         $post = Yii::$app->request->post();
-//        var_dump($post);die;
         if(isset($post['Goodssku'])&&isset($post['SkuVendor'])){
+            $goodssku->attributes=$post['Goodssku'];
+            $sku_vendor->attributes=$post['SkuVendor'];
             $goodssku->sale_company = implode(",", $post['Goodssku']['sale_company']);
             $goodssku->vendor_code = $post['SkuVendor']['vendor_code'];
             $goodssku->save(false);
-//            $sku_vendor->sku_id = $goodssku->primaryKey;
             $sku_vendor->save(false);
         }
 
