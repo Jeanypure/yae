@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     if($model->bill_to ==1 ){
                         return '上海商舟船舶用品有限公司';
                     }elseif($model->bill_to ==2 ){
-                        return '雅耶国际贸易（上海）有限公司';
+                        return '雅耶国际贸易(上海)有限公司';
                     }elseif($model->bill_to ==3 ){
                         return '上海朗探贸易有限公司';
                     }elseif($model->bill_to ==4 ){
@@ -65,26 +65,35 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute'=>'receiver',
-                'value' => function($model) { return $model->receiver;},
+                'value' => function($model) {
+                    if($model->receiver ==1 ){
+                        return ' 深圳大森林国际货代有限公司';
+                    }elseif($model->receiver ==2 ){
+                        return '上海珑瑗国际货物运输代理有限公司';
+                    }elseif($model->receiver ==3 ){
+                        return '上海昊宏国际货物运输代理有限公司';
+                    }elseif($model->receiver ==4 ){
+                        return '深圳市安泰克物流有限公司';
+                    }elseif($model->receiver ==5 ){
+                        return '文鼎供应链管理(上海)有限公司';
+                    }
+
+                    },
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'headerOptions' => [
                     'width'=>'80%'
                 ],
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>[ '1' => '大森林', '2' => '珑瑗', '3' => '昊宏', '4' => '安泰克', '5' => '文鼎'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'货代公司'],
             ],
             'contract_no',
             'debit_no',
             'shipment_id',
-//            [
-//                'attribute'=>'shipment_id',
-//                'value' => function($model) { return $model->shipment_id;},
-//                'contentOptions'=> ['style' => 'width: 20%; word-wrap: break-word;'],
-//                'format'=>'raw',
-//                'headerOptions' => [
-//                    'width'=>'20%'
-//                ],
-//            ],
-
             'pod',
             'pol',
             'etd',

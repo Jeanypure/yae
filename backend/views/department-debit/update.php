@@ -50,7 +50,25 @@ $this->params['breadcrumbs'][] = 'Update';
                         }
                     },
                 ],
-                'receiver',
+                [
+                    'attribute'=>'receiver',
+                    'format'=>'raw',
+                    'value' => function ($model) {
+                        if($model->receiver ==1 ){
+                            return '深圳大森林国际货代有限公司';
+                        }elseif($model->receiver ==2 ){
+                            return '上海珑瑗国际货物运输代理有限公司';
+                        }elseif($model->receiver ==3 ){
+                            return '上海昊宏国际货物运输代理有限公司';
+                        }elseif($model->receiver ==4 ){
+                            return '深圳市安泰克物流有限公司';
+                        }elseif($model->bill_to ==5 ){
+                            return '文鼎供应链管理(上海)有限公司';
+                        }else{
+                            return '其他';
+                        }
+                    },
+                ],
                 'shipment_id',
                 'pod',
                 'pol',

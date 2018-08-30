@@ -174,7 +174,12 @@ class DepartmentDebitController extends Controller
         $sql = "
                 SELECT 
                 t.bill_to,
-                t.receiver,
+               case t.receiver when 1 then '深圳大森林国际货代有限公司'
+               when 2 then '上海珑瑗国际货物运输代理有限公司'
+               when 3 then '上海昊宏国际货物运输代理有限公司'
+               when 4 then '深圳市安泰克物流有限公司'
+               when 5 then '文鼎供应链管理(上海)有限公司'
+               else t.receiver end  as receiver,
                 t.contract_no,
                 t.debit_no,
                 t.remark,
