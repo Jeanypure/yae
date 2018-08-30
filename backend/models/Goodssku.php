@@ -3,6 +3,9 @@
 namespace backend\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%goodssku}}".
@@ -34,7 +37,7 @@ use Yii;
  * @property string $sku_mark 备注
  * @property int $pur_info_id pur_info_id表主键
  */
-class Goodssku extends \yii\db\ActiveRecord
+class Goodssku extends yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -111,6 +114,25 @@ class Goodssku extends \yii\db\ActiveRecord
             'has_tons' => '是否导NS',
             'audit_result' => '是否通过',
             'audit_content' => '审核内容',
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    /*'updatedAtAttribute' => 'sku_update_date',
+                    'createdByAttribute' => 'sku_create_date',*/
+                    # 创建之前
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['sku_create_date', 'sku_update_date'],
+                    # 修改之前
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['sku_update_date']
+                ],
+                #设置默认值
+                'value' =>new Expression('NOW()')
+            ]
         ];
     }
 }

@@ -17,13 +17,9 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'sku_vendor' => $sku_vendor
     ]) ?>
-    <?= $this->render('sku_vendor', [
-        'dataProvider' => $dataProvider,
-        'model' => $vendor_model,
-        'sku_id'=> $sku_id
 
-    ]) ?>
 
 
 </div>

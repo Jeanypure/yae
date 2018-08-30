@@ -21,8 +21,8 @@ use kartik\select2\Select2;
         'columns'=>6,
         'contentBefore'=>'<legend class="text-info"><h3>1.基本信息</h3></legend>',
         'attributes'=>[       // 3 column layout
-            'sku'=>['type'=>Form::INPUT_TEXT, 'options'=>['class'=>'required '],'labelSpan'=>1],
-            'old_sku'=>['type'=>Form::INPUT_TEXT, 'labelOptions'=>['class'=>'required'],'labelSpan'=>'***'],
+            'sku'=>['type'=>Form::INPUT_TEXT, 'options'=>['class'=>'required ']],
+            'old_sku'=>['type'=>Form::INPUT_TEXT],
             'pd_title'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'pd_title_en'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'image_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
@@ -92,8 +92,25 @@ use kartik\select2\Select2;
             'allowClear' => true
         ],
     ]);
-    /*echo Form::widget([
+
+
+
+     echo Form::widget([
         'model'=>$model,
+        'form'=>$form,
+        'columns'=>1,
+         'contentBefore'=>'<legend class="text-info"><h3>4.备注信息</h3></legend>',
+        'attributes'=>[       // 3 column layout
+            'sku_mark'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'']],
+
+        ],
+
+    ]);
+
+    ?>
+    <?php
+        echo Form::widget([
+        'model'=>$sku_vendor,
         'form'=>$form,
         'columns'=>6,
         'contentBefore'=>'<legend class="text-info"><h3>3.供应商信息</h3></legend>',
@@ -106,35 +123,20 @@ use kartik\select2\Select2;
         ],
 
     ]);
-    echo Form::widget([
-        'model'=>$model,
+        echo Form::widget([
+        'model'=>$sku_vendor,
         'form'=>$form,
         'columns'=>6,
         'attributes'=>[       // 6 column layout
-            'pd_costprice_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'pd_costprice_code'=>['type'=>Form::INPUT_STATIC, 'staticValue'=>'RMB'],
             'pd_costprice'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'bill_name'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'bill_unit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'brand'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
         ],
 
-    ]);*/
-
-
-     echo Form::widget([
-        'model'=>$model,
-        'form'=>$form,
-        'columns'=>1,
-         'contentBefore'=>'<legend class="text-info"><h3>3.备注信息</h3></legend>',
-        'attributes'=>[       // 3 column layout
-            'sku_mark'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'']],
-
-        ],
-
     ]);
-
     ?>
-
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-lg']) ?>
@@ -156,11 +158,10 @@ $this->registerJs("
 
 $JS =<<<JS
     $(function(){
-        var  requirelabels = new Array(
+        var  requirelabels =[
             "goodssku-pd_title","goodssku-pd_title_en","goodssku-image_url","goodssku-pd_costprice","goodssku-pd_costprice_code",
             "goodssku-vendor_code","goodssku-declared_value","goodssku-currency_code","goodssku-pd_length","goodssku-pd_width",
-            "goodssku-pd_height","goodssku-pd_weight","goodssku-sale_company"
-        );
+            "goodssku-pd_height","goodssku-pd_weight","goodssku-sale_company" ];
         var label;
        $("label[for='goodssku-sku']").addClass("label-require");
        for ( label in requirelabels){

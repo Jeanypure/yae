@@ -60,32 +60,34 @@ class GoodsskuController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Goodssku model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
+
     public function actionCreate()
     {
-        $model = new Goodssku();
-
-        if ($model->load(Yii::$app->request->post()) ) {
-            $model->pd_creator = Yii::$app->user->identity->username;
-            $model->sale_company = implode(",", Yii::$app->request->post()['Goodssku']['sale_company']);
-            $model->save(false);
-            try{
-                Yii::$app->db->createCommand("
-             INSERT into sku_vendor(sku_id) SELECT max(sku_id) FROM  goodssku;
-            ")->execute();
-
-            }catch (\Exception $exception){
-                throw  $exception;
+        $goodssku = new Goodssku();
+        $sku_vendor = new  SkuVendor();
+        $post = Yii::$app->request->post();
+        if(isset($post['Goodssku'])&&isset($post['SkuVendor'])){
+            $goodssku->attributes=$post['Goodssku'];
+            $sku_vendor->attributes=$post['SkuVendor'];
+            if($goodssku->validate() && $sku_vendor->validate())//这里是先验证数据，如果通过再save()。
+            {
+               /* $goodssku->pd_creator = Yii::$app->user->identity->username;
+                $goodssku->sale_company = implode(",", Yii::$app->request->post()['Goodssku']['sale_company']);
+                $goodssku->vendor_code = $post['SkuVendor']['vendor_code'];
+                $goodssku->save(false);
+                $sku_vendor->sku_id = $goodssku->primaryKey;
+                $sku_vendor->save(false);*/
+                return $this->redirect(['view', 'id' => $goodssku->sku_id]);
+            }else {
+                return $this->render('create', [
+                    'model' => $goodssku,
+                    'sku_vendor' => $sku_vendor,
+                ]);
             }
-            return $this->redirect(['view', 'id' => $model->sku_id]);
         }
-
         return $this->render('create', [
-            'model' => $model,
+            'model' => $goodssku,
+            'sku_vendor' => $sku_vendor,
         ]);
     }
 
@@ -98,39 +100,33 @@ class GoodsskuController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-        $model->sale_company = explode(',',$model->sale_company); //ActiveForm 指定已存的销售公司
-        if ($model->load(Yii::$app->request->post())) {
-            $model->sale_company = implode(",", Yii::$app->request->post()['Goodssku']['sale_company']);
-            $model->sku_update_date = date('Y-m-d H:i:s');
-            $model->save(false);
-            return $this->redirect(['view', 'id' => $model->sku_id]);
+        $goodssku = $this->findModel($id);
+        $sku_vendor = SkuVendor::find()->where(['sku_id'=>$id])->one();
+        $goodssku->sale_company = explode(',',$goodssku->sale_company); //ActiveForm 指定已存的销售公司
+        $post = Yii::$app->request->post();
+//        var_dump($post);die;
+        if(isset($post['Goodssku'])&&isset($post['SkuVendor'])){
+            $goodssku->sale_company = implode(",", $post['Goodssku']['sale_company']);
+            $goodssku->vendor_code = $post['SkuVendor']['vendor_code'];
+            $goodssku->save(false);
+//            $sku_vendor->sku_id = $goodssku->primaryKey;
+            $sku_vendor->save(false);
         }
 
-        $query = SkuVendor::find()->andwhere(['sku_id' => $id]);
-        $vendor_model = SkuVendor::find()->where(['sku_id' => $id])->all();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 30,
-            ],
-        ]);
 
         return $this->render('update', [
-            'model' => $model,
-            'dataProvider' => $dataProvider,
-            'vendor_model' => $vendor_model[0],
-            'sku_id'=>$id,
+            'model' => $goodssku,
+             'sku_vendor' => $sku_vendor
         ]);
     }
 
     /**
-     * Deletes an existing Goodssku model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @param $id
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
