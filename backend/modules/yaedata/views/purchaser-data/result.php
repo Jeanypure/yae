@@ -14,7 +14,7 @@ echo GridView::widget([
     'export' => false,
     'striped'=>true,
     'hover'=>true,
-    'panel'=>['type'=>'primary', 'heading'=>'开发产品统计'],
+    'panel'=>['type'=>'primary', 'heading'=>'采购开发产品统计--来源 自主开发+销售推荐'],
     'columns'=>[
         ['class'=>'kartik\grid\SerialColumn'],
 
@@ -122,7 +122,7 @@ echo GridView::widget([
     'export' => false,
     'striped'=>true,
     'hover'=>true,
-    'panel'=>['type'=>'primary', 'heading'=>'采购开发产品统计 -- 销售推荐产品'],
+    'panel'=>['type'=>'primary', 'heading'=>'采购开发产品统计 -- 来源销售推荐'],
     'columns'=>[
         ['class'=>'kartik\grid\SerialColumn'],
 
@@ -238,6 +238,21 @@ echo GridView::widget([
             'hAlign'=>'right',
             'format'=>['decimal', 0],
             'pageSummary'=>true
+        ],
+        [
+            'class'=>'kartik\grid\FormulaColumn',
+            'header'=>'未处理率%',
+            'value'=>function ($model, $key, $index, $widget) {
+                $p = compact('model', 'key', 'index');
+                return ($widget->col(12, $p))/ ($widget->col(11, $p)+ $widget->col(12, $p)) *100;
+            },
+            'mergeHeader'=>true,
+            'width'=>'150px',
+            'hAlign'=>'right',
+            'format'=>['decimal', 2],
+//            'pageSummary'=>true,
+            'pageSummaryFunc'=>GridView::F_AVG,
+
         ],
     ],
 ]);

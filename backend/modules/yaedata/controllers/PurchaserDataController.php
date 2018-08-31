@@ -79,7 +79,7 @@ class PurchaserDataController extends Controller
         ]);
 
         $source_sql = "
-              SELECT o.purchaser ,count(*) as commit_num ,uncommit_num,p.reject, p.get , p.need , p.undo , p.direct , p.season  
+              SELECT o.purchaser ,count(*) as commit_num ,IFNULL(uncommit_num,0) as uncommit_num ,p.reject, p.get , p.need , p.undo , p.direct , p.season  
                 FROM pur_info o 
                 LEFT JOIN 
                 (SELECT purchaser ,count(*) as uncommit_num  FROM pur_info o WHERE source=0 AND is_submit=0 GROUP BY purchaser ) u
