@@ -70,6 +70,7 @@ class PurchaserDataController extends Controller
             master_result,purchaser
             ) bb
             GROUP BY purchaser
+            ORDER BY SUM(CASE WHEN master_result=1 THEN number ELSE 0 END) DESC
         ";
 
 
@@ -77,13 +78,48 @@ class PurchaserDataController extends Controller
             'sql' => $sql,
         ]);
 
-        // get the user records in the current page
-//        $model = $dataProvider->getModels();
+        $source_sql = "
+              SELECT o.purchaser ,count(*) as commit_num ,uncommit_num,p.reject, p.get , p.need , p.undo , p.direct , p.season  
+                FROM pur_info o 
+                LEFT JOIN 
+                (SELECT purchaser ,count(*) as uncommit_num  FROM pur_info o WHERE source=0 AND is_submit=0 GROUP BY purchaser ) u
+                ON u.purchaser = o.purchaser
+                LEFT JOIN 
+                ( 
+                    SELECT 
+                    purchaser,
+                    SUM(CASE WHEN master_result=0 THEN number ELSE 0 END) AS 'reject', 
+                    SUM(CASE WHEN master_result=1 THEN number ELSE 0 END) AS 'get', 
+                    SUM(CASE WHEN master_result=2 THEN number ELSE 0 END) AS 'need',
+                    SUM(CASE WHEN master_result=3 THEN number ELSE 0 END) AS 'undo',
+                    SUM(CASE WHEN master_result=4 THEN number ELSE 0 END) AS 'direct',
+                    SUM(CASE WHEN master_result=5 THEN number ELSE 0 END) AS 'season'
+                    FROM ( SELECT
+                    purchaser,
+                    master_result,
+                    count(*) AS number
+                    FROM
+                    pur_info
+                    WHERE 
+                     source=0 
+                    GROUP BY 
+                    master_result,purchaser
+                    ) bb
+                    GROUP BY purchaser 
+                ) p ON p.purchaser=o.purchaser
+                
+                WHERE o.source=0  GROUP BY  o.purchaser  ORDER BY uncommit_num desc";
+
+        $dataProvider2 = new SqlDataProvider([
+            'sql' => $source_sql,
+        ]);
 
         return $this->render('result',[
             'dataProvider' => $dataProvider,
+            'dataProvider2' => $dataProvider2,
         ]);
 
 
     }
+
 }
