@@ -95,20 +95,23 @@ echo GridView::widget([
             'width'=>'150px',
             'hAlign'=>'right',
             'format'=>['decimal', 2],
-            'pageSummary'=>true
+//            'pageSummary'=>true,
+            'pageSummaryFunc'=>GridView::F_AVG,
         ],
         [
             'class'=>'kartik\grid\FormulaColumn',
-            'header'=>'采样率%',
+            'header'=>'成功率%',
             'value'=>function ($model, $key, $index, $widget) {
                 $p = compact('model', 'key', 'index');
-                return $widget->col(3, $p) / $widget->col(8, $p) *100;
+                return ($widget->col(3, $p)+ $widget->col(6, $p))/ $widget->col(8, $p) *100;
             },
             'mergeHeader'=>true,
             'width'=>'150px',
             'hAlign'=>'right',
             'format'=>['decimal', 2],
-            'pageSummary'=>true
+//            'pageSummary'=>true,
+            'pageSummaryFunc'=>GridView::F_AVG,
+
         ],
     ],
 ]);
