@@ -87,13 +87,12 @@ class GroupController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $post = Yii::$app->request->post();
         if ($model->load(Yii::$app->request->post()) ) {
-            $model->sub_company = Yii::$app->request->post()['Product']['sub_company'];
-            $model->sub_company_id = Yii::$app->request->post()['Product']['sub_company'];
-            $model->group_mark = Yii::$app->request->post()['Product']['group_mark'];
+            $model->attributes = $post['Product'];
             $model->group_status = 1;
             $model->save(false);
-            return $this->redirect(['view', 'id' => $model->product_id]);
+            return $this->redirect(['index']);
         }
 
         $company = new Company();

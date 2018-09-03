@@ -130,6 +130,8 @@ class CompleteController extends Controller
     /**
      * Commit product
      * @throws \yii\db\Exception
+     * 推送产品开发直接提交到部长和审核组评审 ，
+     * 结束公示
      */
     public function actionCommit()
     {

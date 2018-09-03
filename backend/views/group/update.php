@@ -2,7 +2,8 @@
 
 use yii\helpers\Html;
 use kartik\select2\Select2;
-use yii\widgets\ActiveForm;
+use kartik\widgets\ActiveForm;
+use kartik\builder\Form;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Product */
@@ -24,6 +25,9 @@ $this->params['breadcrumbs'][] = Yii::t('app', '更新');
     <div class="group-form">
 
         <?php $form = ActiveForm::begin(); ?>
+        <div class="form-group">
+            <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-lg']) ?>
+        </div>
         <?php
             // Usage with ActiveForm and model
             echo $form->field($model, 'sub_company')->widget(Select2::classname(), [
@@ -38,32 +42,45 @@ $this->params['breadcrumbs'][] = Yii::t('app', '更新');
 
         <?= $form->field($model, 'group_mark')->textarea(['rows' => '6']) ?>
 
-        <?= $form->field($model, 'product_title_en')->textInput(['maxlength' => true]) ?>
+        <?php
+        echo Form::widget([
+            'model'=>$model,
+            'form'=>$form,
+            'columns'=>2,
+            'contentBefore'=>'<legend class="text-info"><h3>1.基本信息</h3></legend>',
+            'attributes'=>[       // 3 column layout
+                'product_title'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'product_title_en'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'product_purchase_value'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'pd_pic_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'地址格式:https://XXXX.jpg|png|gif等']],
 
-        <?= $form->field($model, 'product_title')->textInput(['maxlength' => true]) ?>
+            ],
 
-        <?= $form->field($model, 'product_purchase_value')->textInput(['maxlength' => true]) ?>
+        ]);
+        echo Form::widget([
+            'model'=>$model,
+            'form'=>$form,
+            'columns'=>2,
+            'contentBefore'=>'<legend class="text-info"><h3>2.链接信息</h3></legend>',
+            'attributes'=>[       // 3 column layout
+                'ref_url1'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'ref_url2'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'ref_url3'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'ref_url4'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
-        <?= $form->field($model, 'ref_url1')->textInput(['maxlength' => true]) ?>
+            ],
 
-        <?= $form->field($model, 'ref_url2')->textInput(['maxlength' => true]) ?>
+        ]);
+        echo Form::widget([
+            'model'=>$model,
+            'form'=>$form,
+            'columns'=>2,
+            'attributes'=>[       // 3 column layout
+                'creator'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            ],
 
-        <?= $form->field($model, 'ref_url3')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'ref_url4')->textInput(['maxlength' => true]) ?>
-
-
-        <?= $form->field($model, 'pd_pic_url')->textInput(['maxlength' => true]) ?>
-
-
-        <?= $form->field($model, 'product_add_time')->textInput() ?>
-
-        <?= $form->field($model, 'product_update_time')->textInput() ?>
-
-
-        <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
-        </div>
+        ]);
+        ?>
 
         <?php ActiveForm::end(); ?>
 

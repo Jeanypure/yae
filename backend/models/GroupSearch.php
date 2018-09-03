@@ -18,7 +18,7 @@ class GroupSearch extends Product
     public function rules()
     {
         return [
-            [['product_id', 'sub_company_id', 'creator_id', 'is_submit'], 'integer'],
+            [['product_id', 'creator_id', 'is_submit'], 'integer'],
             [['product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3',
                 'ref_url4', 'product_add_time', 'product_update_time', 'purchaser', 'creator',
                 'commit_at','product_status', 'pd_pic_url', 'preview_time', 'preview_mark', 'sub_company', 'group_mark', 'group_time', 'group_update_time', 'group_status', 'brocast_status', 'complete_status', 'accept_status'], 'safe'],
@@ -79,7 +79,7 @@ class GroupSearch extends Product
             'product_add_time' => $this->product_add_time,
             'product_update_time' => $this->product_update_time,
             'preview_time' => $this->preview_time,
-            'sub_company_id' => $this->sub_company_id,
+
             'group_time' => $this->group_time,
             'group_update_time' => $this->group_update_time,
             'creator_id' => $this->creator_id,
