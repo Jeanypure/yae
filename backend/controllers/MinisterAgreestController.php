@@ -232,9 +232,6 @@ class MinisterAgreestController extends Controller
 
     }
 
-
-
-
     /**
      * @param $id
      * @return int
