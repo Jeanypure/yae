@@ -64,7 +64,6 @@ echo GridView::widget([
             'value'=>function ($model, $key, $index, $widget) {
                 return $model->quantity;
             },
-//            'pageSummary'=>true,
 
 
         ],
@@ -73,7 +72,6 @@ echo GridView::widget([
             'attribute'=>'unit_price',
             'width'=>'150px',
             'hAlign'=>'right',
-            'format'=>['decimal', 2],
 
         ],
         [

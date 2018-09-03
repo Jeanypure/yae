@@ -152,7 +152,6 @@ $this->params['breadcrumbs'][] = 'Update';
                 'attribute'=>'unit_price',
                 'width'=>'150px',
                 'hAlign'=>'right',
-                'format'=>['decimal', 2],
 
             ],
             [
