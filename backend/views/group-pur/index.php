@@ -19,6 +19,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::button('确认公示', ['id' => 'brocast', 'class' => 'btn btn-primary']) ;?>
         <?=  Html::button('公示结束', ['id' => 'end-brocast', 'class' => 'btn btn-info']) ?>
+        <?= Html::a('<button class="btn btn-warning">分配评审任务</button>', '#', [
+            'title' => '评审任务分配',
+            'data-toggle' => 'modal',
+            'data-target' => '#audit-modal',
+            'class' => 'data-audit',
+        ] );
+        ?>
 
     </p>
     <?= GridView::widget([
@@ -122,10 +129,29 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'公示状态'],
-//                'group'=>true,  // enable grouping
+            ],
+            [
+                'attribute'=>'is_assign',
+                'value' => function($model) {
+                    if($model->is_assign==1){
+                        return '是';
+                    }else{
+                        return '否';
+
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['0' => '否', '1' => '是'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'是否分配'],
+                'group'=>true,  // enable grouping
 
             ],
-
+            'member',
             [
                 'attribute'=>'source',
                 'width'=>'50px',
@@ -297,5 +323,36 @@ $js = <<<JS
 JS;
 
 $this->registerJs($js);
+
+?>
+
+<?php
+use yii\bootstrap\Modal;
+// 评审操作
+Modal::begin([
+    'id' => 'audit-modal',
+    'header' => '<h4 class="modal-title">任务分配</h4>',
+    'footer' => '<a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>',
+    'options'=>[
+        'data-backdrop'=>'static',//点击空白处不关闭弹窗
+        'data-keyboard'=>false,
+    ],
+    'size'=> Modal::SIZE_LARGE
+]);
+Modal::end();
+?>
+
+<?php
+$requestAuditUrl = Url::toRoute('pick-member');
+$auditJs = <<<JS
+        $('.data-audit').on('click', function () {
+            $.get('{$requestAuditUrl}', { id: $(this).closest('tr').data('key') },
+                function (data) {
+                    $('.modal-body').html(data);
+                }  
+            );
+        });
+JS;
+$this->registerJs($auditJs);
 
 ?>

@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-            'member',
+
             'pur_group',
             [
                 'attribute'=>'pd_title',
