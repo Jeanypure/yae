@@ -49,10 +49,10 @@ class WinitController  extends \yii\base\Controller
             //先转成json字符串，再替换！！
             $body = str_replace('[]','{}',$body);
 
-            $request_date = date('Y-m-d H:m:s');
-            Yii::$app->db->createCommand("
+           /* $request_date = date('Y-m-d H:m:s');*/
+            /*Yii::$app->db->createCommand("
              insert into winit_api (`url`,`action`,`request_date`) values ('$base_url','{$body}','$request_date')
-             ")->execute();
+             ")->execute();*/
             return $this->actionDoCurlPostRequest($base_url, $body);
         }
 
