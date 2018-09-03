@@ -58,7 +58,7 @@ class WinitController  extends \yii\base\Controller
 
     }
 
-    public function actionDoCurlPostRequest($url,$requestString,$timeout = 5){
+    public function actionDoCurlPostRequest($url,$requestString,$timeout = 300){
         if($url == '' || $requestString == '' || $timeout <=0){
             return false;
         }
