@@ -67,13 +67,10 @@ class ProductController extends Controller
     public function actionCreate()
     {
         $model = new Product();
-
-        if ($model->load(Yii::$app->request->post()) ) {
-
-            $model->brocast_status = 0;
-            $model->complete_status = 0;
+        $post = Yii::$app->request->post();
+        if ($model->load($post) ) {
+            $model->attributes = $post['Product'];
             $model->creator = Yii::$app->user->identity->username;
-            $model->product_purchase_value = Yii::$app->request->post()['Product']['product_purchase_value'];
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->product_id]);
         }
@@ -93,13 +90,12 @@ class ProductController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post())) {
+        $post = Yii::$app->request->post();
+        if ($model->load($post)) {
             if(empty($model->creator)){
                 $model->creator = Yii::$app->user->identity->username;
             }
-            $model->product_purchase_value = Yii::$app->request->post()['Product']['product_purchase_value'];
-
+            $model->attributes = $post['Product'];
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->product_id]);
         }
