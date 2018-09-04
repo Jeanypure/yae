@@ -266,6 +266,14 @@ class AuditSupplierController extends Controller
         $pay_cycleTime_type = $com_data['pay_cycleTime_type'];
         $account_type = $com_data['account_type'];
         $bill_type = ['16%专票','3%专票','增值税普通发票'];
+        $company = [
+            '2'=>'上海商舟船舶用品有限公司',
+            '3'=>'雅耶国际贸易(上海)有限公司',
+            '5'=>'上海朗探贸易有限公司',
+            '6'=>'上海域聪贸易有限公司',
+            '7'=>'上海朋侯贸易有限公司',
+            '8'=>'上海客尊贸易有限公司',
+        ];
         $header = [
             'A1' => '供应商代码',
             'B1' => '供应商名称',
@@ -284,6 +292,7 @@ class AuditSupplierController extends Controller
             'O1' => 'QQ',
             'P1' => '微信',
             'Q1' => '注意事项',
+            'R1' => '公司',
         ];
         //设置表格头的输出
         foreach($header as $key=>$value){
@@ -305,8 +314,9 @@ class AuditSupplierController extends Controller
             ->setCellValue('L'.$num, $contants['contact_name'])
             ->setCellValue('N'.$num, $contants['contact_tel'])
             ->setCellValue('O'.$num, $contants['contact_qq'])
-            ->setCellValue('P'.$num,  $contants['contact_wechat'])
-            ->setCellValue('Q'.$num, $data['sup_remark']);
+            ->setCellValue('P'.$num, $contants['contact_wechat'])
+            ->setCellValue('Q'.$num, $data['sup_remark'])
+            ->setCellValue('R'.$num, '总公司 : '.$company[$data['sale_company']]);
         //数据结束
         ob_end_clean();
         ob_start();
