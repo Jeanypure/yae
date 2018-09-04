@@ -52,8 +52,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'sub_company') ?>
 
-    <?php // echo $form->field($model, 'sub_company_id') ?>
-
     <?php // echo $form->field($model, 'group_mark') ?>
 
     <?php // echo $form->field($model, 'group_time') ?>

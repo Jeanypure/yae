@@ -50,7 +50,6 @@ $this->params['breadcrumbs'][] = $model->product_id;
             'product_status',
             'pd_pic_url:url',
             'preview_time',
-//            'sub_company_id',
         ],
     ]) ?>
 

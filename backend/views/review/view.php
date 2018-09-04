@@ -45,7 +45,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'preview_time',
             'preview_mark',
             'sub_company',
-            'sub_company_id',
             'group_mark',
             'group_time',
             'group_update_time',
