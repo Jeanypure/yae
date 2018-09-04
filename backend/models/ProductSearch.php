@@ -18,7 +18,7 @@ class ProductSearch extends Product
     public function rules()
     {
         return [
-            [['sub_company_id','product_id','is_submit','group_status','brocast_status','sub_company',], 'integer'],
+            [['product_id','is_submit','group_status','brocast_status','sub_company',], 'integer'],
             [['complete_status','accept_status','product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4', 'product_add_time', 'product_update_time','creator'], 'safe'],
             [['product_purchase_value'], 'number'],
         ];
@@ -76,7 +76,7 @@ class ProductSearch extends Product
         // grid filtering conditions
         $query->andFilterWhere([
             'product_id' => $this->product_id,
-            'sub_company_id' => $this->sub_company_id,
+            'sub_company' => $this->sub_company,
             'product_purchase_value' => $this->product_purchase_value,
             'product_update_time' => $this->product_update_time,
         ]);
