@@ -202,7 +202,7 @@ class AuditSupplierController extends Controller
                 ->setcellvalue('B'.$k, $contants['contact_name'])
                 ->setcellvalue('C'.$k, $contants['contact_tel'])
                 ->setcellvalue('D'.$k, $contants['contact_address'])
-                ->setcellvalue('F'.$k, $contants['contact_qq'])
+                ->setcellvalue('H'.$k, $contants['contact_qq'])
                 ->setcellvalue('I'.$k, $contants['contact_wechat'])
                 ->setcellvalue('J'.$k, $contants['contact_wangwang'])
                 ->setcellvalue('K'.$k, $contants['skype']);
@@ -310,7 +310,7 @@ class AuditSupplierController extends Controller
         //数据结束
         ob_end_clean();
         ob_start();
-        $objPHPExcel->getActiveSheet()->setTitle('供应商信息');
+        $objPHPExcel->getActiveSheet()->setTitle('供应商基本信息-采购填');
         $objPHPExcel->setActiveSheetIndex(0);
         $filename = date('Y-m-d')."导供应商+联系人到NetSuite.xls";
         header('Content-Type: application/vnd.ms-excel');
