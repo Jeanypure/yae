@@ -70,7 +70,7 @@ class GoodsskuController extends Controller
             $goodssku->attributes=$post['Goodssku'];
             $sku_vendor->attributes=$post['SkuVendor'];
             $goodssku->pd_creator = Yii::$app->user->identity->username;
-            $goodssku->sale_company = implode(",", Yii::$app->request->post()['Goodssku']['sale_company']);
+            $goodssku->sale_company = implode(",", $post['Goodssku']['sale_company']);
             $goodssku->vendor_code = $post['SkuVendor']['vendor_code'];
             $goodssku->save(false);
             $sku_vendor->sku_id = $goodssku->primaryKey;

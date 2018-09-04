@@ -104,13 +104,12 @@ class AuditSupplierController extends Controller
 
     public function actionExport($id){
         $objPHPExcel = new \PHPExcel();
+        $com_data = $this->actionDataCommon($id);
+          $data = $com_data['data'];
+          $contants = $com_data['contants'];
+          $pay_cycleTime_type = $com_data['pay_cycleTime_type'];
+          $account_type = $com_data['account_type'];
         //mysql查询语
-        $data = YaeSupplier::find()->asArray()->where(['id'=>$id])->one();
-
-        $contants = SupplierContact::find()
-            ->asArray()
-            ->where(['supplier_id'=>$id])
-            ->all();
 
         $header_arr = [
             'A1'=>'供应商代码',
@@ -144,8 +143,7 @@ class AuditSupplierController extends Controller
             'AC1'=>'组织机构(代码)',
         ];
 
-        $pay_cycleTime_type = [1 => '日结', 2 => '周结',3 => '半月结',4 => '月结',5 => '隔月结',6 => '其它',];
-        $account_type = [1 => '货到付款', 2 => '款到发货',3 => '周期结算',4 => '售后付款',5 => '默认方式',6 => '其它'];
+
 
         //设置表格头的输出
         foreach($header_arr as $key=>$value){
@@ -196,19 +194,18 @@ class AuditSupplierController extends Controller
             $objPHPExcel->setActiveSheetIndex(1)->setCellValue("$key", "$value");
         }
 
-//        写入多行数据
-        foreach($contants as $k=>$v){
-            $k = $k+2;
+        // 写入多行数据
+
+            $k = 2;
             /* @func 设置列 */
             $objPHPExcel->getactivesheet()->setcellvalue('A'.$k, $data['supplier_code'])
-                ->setcellvalue('B'.$k, $v['contact_name'])
-                ->setcellvalue('C'.$k, $v['contact_tel'])
-                ->setcellvalue('D'.$k, $v['contact_address'])
-                ->setcellvalue('F'.$k, $v['contact_qq'])
-                ->setcellvalue('I'.$k, $v['contact_wechat'])
-                ->setcellvalue('J'.$k, $v['contact_wangwang'])
-                ->setcellvalue('K'.$k, $v['skype']);
-        }
+                ->setcellvalue('B'.$k, $contants['contact_name'])
+                ->setcellvalue('C'.$k, $contants['contact_tel'])
+                ->setcellvalue('D'.$k, $contants['contact_address'])
+                ->setcellvalue('F'.$k, $contants['contact_qq'])
+                ->setcellvalue('I'.$k, $contants['contact_wechat'])
+                ->setcellvalue('J'.$k, $contants['contact_wangwang'])
+                ->setcellvalue('K'.$k, $contants['skype']);
         //创建第3个工作表
         $msgWorkSheet = new \PHPExcel_Worksheet($objPHPExcel, '基础数据——主营品类'); //创建一个工作表
         $objPHPExcel->addSheet($msgWorkSheet); //插入工作表
@@ -241,5 +238,88 @@ class AuditSupplierController extends Controller
         return 'success';
 
     }
+
+    public function  actionDataCommon($id){
+        $com_data =[];
+        //mysql查询语
+        $data = YaeSupplier::find()->asArray()->where(['id'=>$id])->one();
+        $contants = SupplierContact::find()
+            ->asArray()
+            ->where(['supplier_id'=>$id])
+            ->one();
+
+        $pay_cycleTime_type = [1 => '日结', 2 => '周结',3 => '半月结',4 => '月结',5 => '隔月结',6 => '其它',];
+        $account_type = [1 => '货到付款', 2 => '款到发货',3 => '周期结算',4 => '售后付款',5 => '默认方式',6 => '其它'];
+        $com_data['data'] = $data;
+        $com_data['contants'] = $contants;
+        $com_data['pay_cycleTime_type'] = $pay_cycleTime_type;
+        $com_data['account_type'] = $account_type;
+        return $com_data;
+
+    }
+
+    public function actionExportToNs($id){
+        $objPHPExcel = new \PHPExcel();
+        $com_data = $this->actionDataCommon($id);
+        $data = $com_data['data'];
+        $contants = $com_data['contants'];
+        $pay_cycleTime_type = $com_data['pay_cycleTime_type'];
+        $account_type = $com_data['account_type'];
+        $bill_type = ['16%专票','3%专票','增值税普通发票'];
+        $header = [
+            'A1' => '供应商代码',
+            'B1' => '供应商名称',
+            'C1' => '供应商地址',
+            'D1' => '支付周期类型',
+            'E1' => '结算方式',
+            'F1' => '预付比例%',
+            'G1' => '开票类型',
+            'H1' => '是否为合作过的供应商',
+            'I1' => '默认产品开发员',
+            'J1' => '开户银行',
+            'K1' => '银行收款账号',
+            'L1' => '联系人',
+            'M1' => '联系人职位',
+            'N1' => '联系电话',
+            'O1' => 'QQ',
+            'P1' => '微信',
+            'Q1' => '注意事项',
+        ];
+        //设置表格头的输出
+        foreach($header as $key=>$value){
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue("$key", "$value");
+        }
+        $num= 2;
+        $objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue('A'.$num, $data['supplier_code'])
+            ->setCellValue('B'.$num, $data['supplier_name'])
+            ->setCellValue('C'.$num, $data['supplier_address'])
+            ->setCellValue('D'.$num, $pay_cycleTime_type[$data['pay_cycleTime_type']])
+            ->setCellValue('E'.$num, $account_type[$data['account_type']])
+            ->setCellValue('F'.$num, $data['account_proportion'].'%')
+            ->setCellValue('G'.$num, $bill_type[$data['bill_type']])
+            ->setCellValue('H'.$num, $data['has_cooperate']==1?'是':'否')
+            ->setCellValue('I'.$num, $data['submitter'])
+            ->setCellValue('J'.$num, $data['pay_bank'])
+            ->setCellValue('K'.$num, $data['pay_card'] )
+            ->setCellValue('L'.$num, $contants['contact_name'])
+            ->setCellValue('N'.$num, $contants['contact_tel'])
+            ->setCellValue('O'.$num, $contants['contact_qq'])
+            ->setCellValue('P'.$num,  $contants['contact_wechat'])
+            ->setCellValue('Q'.$num, $data['sup_remark']);
+        //数据结束
+        ob_end_clean();
+        ob_start();
+        $objPHPExcel->getActiveSheet()->setTitle('供应商信息');
+        $objPHPExcel->setActiveSheetIndex(0);
+        $filename = date('Y-m-d')."导供应商+联系人到NetSuite.xls";
+        header('Content-Type: application/vnd.ms-excel');
+        header("Content-Disposition: attachment;filename=$filename");
+        header('Cache-Control: max-age=0');
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter->save('php://output');
+
+    }
+
 
 }

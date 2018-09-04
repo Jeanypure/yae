@@ -18,7 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
 //        echo Html::button('标记已导易仓',['class' => 'btn btn-info' ,'id'=>'is_submit'])?>
         <?php
 //        echo Html::button('取消标记',['class' => 'btn btn-primary' ,'id'=>'un_submit'])?>
-        <?php echo Html::button('导入NetSuite',['class' => 'btn btn-warning' ,'id'=>'export-netsuite'])?>
+<!--        --><?php //echo Html::button('导入NetSuite',['class' => 'btn btn-warning' ,'id'=>'export-netsuite'])?>
+        <?php echo Html::button('导出NetSuite-excel',['class' => 'btn btn-warning' ,'id'=>'export-netsuite'])?>
 
 
     </p>
@@ -280,7 +281,34 @@ $this->params['breadcrumbs'][] = $this->title;
              });
         });
 JS;
-
   $this->registerJs($export_eccang);
+
+  $to_netsuite = Url::toRoute(['export-to-ns']);
+  $to_ns = <<<JS
+    $(function() {
+          $('#export-netsuite').on('click',function() {
+                 var button = $(this);
+                 button.attr('disabled','disabled');
+                var ids =  $('#audit_supplier').yiiGridView("getSelectedRows");
+                var id = ids.toString();
+
+                if(ids==false) alert('请选择产品!') ;
+                $.ajax({
+                 url: "{$to_netsuite}", 
+                 type: 'get',
+                 data:{id:id},
+                 success:function(res){
+                   button.attr('disabled',false);
+                   window.location.href = '{$to_netsuite}'+'?id='+id;
+                 },
+                 error: function (jqXHR, textStatus, errorThrown) {
+                            button.attr('disabled',false);
+                 }
+                  });
+             });
+        });
+JS;
+  $this->registerJs($to_ns);
+
 
 ?>
