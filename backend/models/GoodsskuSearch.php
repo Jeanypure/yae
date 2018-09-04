@@ -47,8 +47,10 @@ class GoodsskuSearch extends Goodssku
 
         if($username=='Mark'||$username=='Jenny'||$username=='David'){
             $query = Goodssku::find()
+                ->andWhere(['has_commit'=>1])
                 ->orderBy('sku_id desc')
             ;
+
         }else{
             $query = Goodssku::find()
                 ->andWhere(['pd_creator' => $username])
