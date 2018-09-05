@@ -314,21 +314,86 @@ class AuditSupplierController extends Controller
             ->setCellValue('L'.$num, $contants['contact_name'])
             ->setCellValue('N'.$num, $contants['contact_tel'])
             ->setCellValue('O'.$num, $contants['contact_qq'])
-            ->setCellValue('P'.$num, $contants['contact_wechat'])
+            ->setCellValue('P'.$num,  $contants['contact_wechat'])
             ->setCellValue('Q'.$num, $data['sup_remark'])
-            ->setCellValue('R'.$num, '总公司 : '.$company[$data['sale_company']]);
+            ->setCellValue('R'.$num, '总公司 : '.$company[$data['sale_company']]);
         //数据结束
         ob_end_clean();
         ob_start();
         $objPHPExcel->getActiveSheet()->setTitle('供应商基本信息-采购填');
         $objPHPExcel->setActiveSheetIndex(0);
-        $filename = date('Y-m-d')."导供应商+联系人到NetSuite.csv";
+        $filename = date('Y-m-d')."导供应商+联系人到NetSuite.xls";
         header('Content-Type: application/vnd.ms-excel');
         header("Content-Disposition: attachment;filename=$filename");
         header('Cache-Control: max-age=0');
         $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
         $objWriter->save('php://output');
 
+    }
+
+        public  function actionExportCsv($id){
+           /* $com_data = $this->actionDataCommon($id);
+            $data = $com_data['data'];
+            $contants = $com_data['contants'];
+            var_dump($com_data);die;*/
+            $da = '';
+            $this->export_csv($da);
+        }
+
+
+
+    function export_csv($data)
+    {
+        /*$header= ['供应商代码',
+            '供应商名称',
+            '供应商地址',
+            '支付周期类型',
+            '结算方式',
+            '预付比例%',
+            '开票类型',
+            '是否为合作过的供应商',
+            '默认产品开发员',
+            '开户银行',
+            '银行收款账号',
+            '联系人',
+            '联系人职位',
+            '联系电话',
+            'QQ',
+            '微信',
+            '注意事项',
+            '公司',
+        ];*/
+        $header = [
+            '用户名','密码'
+        ];
+        //转码
+        foreach ($header as $key => $val){
+            $head[$key] = mb_convert_encoding($val,'gbk','utf-8');
+        }
+        $data=array(
+            array("username"=>"test1","password"=>"123"),
+            array("username"=>"test2","password"=>"456"),
+            array("username"=>"test3","password"=>"789"),
+        );
+
+        $string="";
+        foreach ($data as $key => $value)
+        {
+
+            foreach ($value as $k => $val)
+            {
+                $value[$k]=iconv('utf-8','gb2312',$value[$k]);
+            }
+
+            $string .= implode(",",$value)."\n"; //用英文逗号分开
+        }
+        $filename = date('Ymd').'.csv'; //设置文件名
+        header("Content-type:text/csv");
+        header("Content-Disposition:attachment;filename=".$filename);
+        header('Cache-Control:must-revalidate,post-check=0,pre-check=0');
+        header('Expires:0');
+        header('Pragma:public');
+        echo $string;
     }
 
 
