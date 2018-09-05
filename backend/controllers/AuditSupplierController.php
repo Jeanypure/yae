@@ -367,11 +367,11 @@ class AuditSupplierController extends Controller
             '用户名','密码'
         ];
         //转码
-        foreach ($header as $key => $val){
-            $head[$key] = mb_convert_encoding($val,'gbk','utf-8');
+        foreach ($header as $key => $value){
+            $value[$key] = mb_convert_encoding($value,'gb2312','utf-8');
         }
         $data=array(
-            array("username"=>"test1","password"=>"123"),
+            array("username"=>"用户名","password"=>"密码"),
             array("username"=>"test2","password"=>"456"),
             array("username"=>"test3","password"=>"789"),
         );
@@ -394,6 +394,48 @@ class AuditSupplierController extends Controller
         header('Expires:0');
         header('Pragma:public');
         echo $string;
+    }
+
+    /**
+     * 重写fputcsv方法，添加转码功能
+     * @param $handle
+     * @param array $fields
+     * @param string $delimiter
+     * @param string $enclosure
+     * @param string $escape_char
+     */
+    function actionFputcsv2($handle, array $fields, $delimiter = ",", $enclosure = '"', $escape_char = "\\") {
+        foreach ($fields as $k => $v) {
+            $fields[$k] = iconv("UTF-8", "GB2312//IGNORE", $v);  // 这里将UTF-8转为GB2312编码
+        }
+        fputcsv($handle, $fields, $delimiter, $enclosure, $escape_char);
+    }
+
+    function actionTest () {
+        // 文件名
+        $filename = "订单查询结果" . date('Y-m-d H:i:s');
+
+        // 设置输出头部信息
+        header('Content-Encoding: UTF-8');
+        header("Content-Type: text/csv; charset=UTF-8");
+        header("Content-Disposition: attachment; filename={$filename}.csv");
+
+
+        $tableHead = array('#', '订单id', '订单号', '分类', '客户信息', '工匠信息', '订单状态', '施工状态', '付款状态', '订单金额', '下单时间', '备注');
+
+        // 获取句柄
+        $output = fopen('php://output', 'w') or die("can't open php://output");
+
+        // 输出头部标题
+        $this->actionFputcsv2($output, $tableHead);
+
+        $list = array();
+        foreach ($list as $item) {
+            $this->actionFputcsv2($output, array_values($item));
+        }
+
+        // 关闭句柄
+        fclose($output) or die("can't close php://output");
     }
 
 
