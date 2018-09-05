@@ -322,7 +322,7 @@ class AuditSupplierController extends Controller
         ob_start();
         $objPHPExcel->getActiveSheet()->setTitle('供应商基本信息-采购填');
         $objPHPExcel->setActiveSheetIndex(0);
-        $filename = date('Y-m-d')."导供应商+联系人到NetSuite.xls";
+        $filename = date('Y-m-d')."导供应商+联系人到NetSuite.csv";
         header('Content-Type: application/vnd.ms-excel');
         header("Content-Disposition: attachment;filename=$filename");
         header('Cache-Control: max-age=0');
