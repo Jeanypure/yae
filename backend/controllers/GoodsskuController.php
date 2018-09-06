@@ -67,8 +67,6 @@ class GoodsskuController extends Controller
         $sku_vendor = new  SkuVendor();
         $post = Yii::$app->request->post();
         if(isset($post['Goodssku'])&&isset($post['SkuVendor'])){
-            if($goodssku->validate() && $sku_vendor->validate())//这里是先验证数据，如果通过再save()。
-            {
                 $goodssku->attributes=$post['Goodssku'];
                 $sku_vendor->attributes=$post['SkuVendor'];
                 $goodssku->pd_creator = Yii::$app->user->identity->username;
@@ -77,15 +75,7 @@ class GoodsskuController extends Controller
                 $goodssku->save(false);
                 $sku_vendor->sku_id = $goodssku->primaryKey;
                 $sku_vendor->save(false);
-
                 return $this->redirect(['index']);
-            }else{
-                return $this->render('create', [
-                    'model' => $goodssku,
-                    'sku_vendor' => $sku_vendor,
-                ]);
-            }
-
         }
         return $this->render('create', [
             'model' => $goodssku,
