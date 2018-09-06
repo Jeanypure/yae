@@ -80,7 +80,7 @@ class GoodsskuController extends Controller
 
                 return $this->redirect(['index']);
             }else{
-                return $this->render('', [
+                return $this->render('create', [
                     'model' => $goodssku,
                     'sku_vendor' => $sku_vendor,
                 ]);
