@@ -77,13 +77,20 @@ class GoodsskuController extends Controller
                 $goodssku->save(false);
                 $sku_vendor->sku_id = $goodssku->primaryKey;
                 $sku_vendor->save(false);
-            }else{
+
                 return $this->redirect(['index']);
+            }else{
+                return $this->render('', [
+                    'model' => $goodssku,
+                    'sku_vendor' => $sku_vendor,
+                ]);
             }
 
         }
-        return $this->redirect(['index']);
-
+        return $this->render('create', [
+            'model' => $goodssku,
+            'sku_vendor' => $sku_vendor,
+        ]);
     }
 
     /**
