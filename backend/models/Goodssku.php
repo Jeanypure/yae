@@ -65,6 +65,8 @@ class Goodssku extends yii\db\ActiveRecord
             [['pd_length','pd_width','pd_height','pd_weight','pd_creator',], 'string', 'max' =>10 ],
             [['image_url'], 'string', 'max' =>500 ],
             [['audit_content','sale_company','sku_create_date','sku_update_date' ], 'safe'],
+            [['sku','pd_title','pd_title_en','image_url','is_quantity_check','pd_costprice','declared_value','contain_battery',
+                'pd_length','pd_width','pd_height','pd_weight','sale_company'], 'required'],
 
         ];
     }
