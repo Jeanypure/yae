@@ -71,8 +71,7 @@ class YaeSupplier extends \yii\db\ActiveRecord
             [['supplier_code','supplier_name','supplier_address','pay_cycleTime_type','account_type','account_proportion',
                 'has_cooperate','submitter','pay_bank','pay_card','pay_name','pd_bill_name','bill_unit','bill_type',
                 'business_licence','bank_account_data','check_status'
-            ],
-                'required'],
+            ], 'required'],
             [['into_eccang_date','create_date','update_date','update_date','check_date' ], 'safe'],
             [['bill_img1_name_unit','bill_img2_name_unit'], function ($attribute, $param) {//至少要一个
                 if (empty($this->bill_img1_name_unit) && empty($this->bill_img2_name_unit)) {
