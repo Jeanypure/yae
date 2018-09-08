@@ -47,6 +47,7 @@ class FollowCheckSearch extends PurInfo
         $user_dict = [
             'Lulu'=> '1,5',
             'Cara'=> '2,6',
+            'lvy'=> '2,6',
             'Belle'=> '3,4',
             'Yilia'=> '1'];
 
