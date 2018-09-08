@@ -12,23 +12,16 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pur-info-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->pur_info_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->pur_info_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <img src="<?php echo $model->pd_pic_url; ?>" alt="" width="100" height="100">
     </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'pur_info_id',
+            'pd_pur_costprice',
+            'old_purchaser',
             'purchaser',
             'pur_group',
             'pd_title',
@@ -44,7 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'pd_count_weight',
             'pd_material',
             'pd_purchase_num',
-            'pd_pur_costprice',
             'has_shipping_fee',
             'bill_type',
             'hs_code',
@@ -110,7 +102,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'trading_company',
             'purchaser_send_time',
             'junior_submit_at',
-            'old_purchaser',
         ],
     ]) ?>
 
