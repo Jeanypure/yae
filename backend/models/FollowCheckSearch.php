@@ -50,10 +50,11 @@ class FollowCheckSearch extends PurInfo
             'lvy'=> '2,6',
             'Belle'=> '3,4',
             'Yilia'=> '1'];
-        $val = $user_dict[$username];
+
         if ($username =='Jenny'||$username =='David'||$username =='Mark' ){
             $query = PurInfo::find()->andWhere(['is_purchase'=>1])->orderBy('pur_info_id desc');
         }else{
+            $val = $user_dict[$username];
             $query = PurInfo::find()
                 ->Where('pur_group IN('.$val.')')
                 ->andWhere(['is_purchase'=>1])
