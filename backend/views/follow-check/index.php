@@ -203,22 +203,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     if (!empty($model->url_1688)) return "<a href='$model->url_1688' target='_blank'>".parse_url($model->url_1688)['host']."</a>";
                 }
             ],
-            'shipping_fee',
+            /*'shipping_fee',
             'oversea_shipping_fee',
             'transaction_fee',
             'gross_profit',
             'profit_rate',
             'gross_profit_amz',
-            'profit_rate_amz',
-            [
-                'attribute'=>'remark',
-                'value' => function($model) { return $model->remark;},
-                'contentOptions'=> ['style' => 'width: 80%; word-wrap: break-word;white-space:pre-line;'],
-                'format'=>'html',
-                'headerOptions' => [
-                    'width'=>'80%'
-                ],
-            ],
+            'profit_rate_amz',*/
 
         ],
     ]); ?>
