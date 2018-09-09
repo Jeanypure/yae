@@ -332,6 +332,7 @@ class AuditGoodsskuController extends Controller
            "subsidiary" => $sale_company,
            "cost" => $result[0]['pd_costprice'],
            "lastpurchaseprice" => $result[0]['pd_costprice'],
+           "usebins" => 'T',
 
        ]];
 
