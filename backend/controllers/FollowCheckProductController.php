@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\FollowCheckProductSearch;
 use Yii;
 use backend\models\Goodssku;
 use backend\models\FollowCheckProduct;
@@ -36,7 +37,7 @@ class FollowCheckProductController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new FollowCheckProduct();
+        $searchModel = new FollowCheckProductSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

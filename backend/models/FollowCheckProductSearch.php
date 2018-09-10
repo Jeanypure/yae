@@ -8,9 +8,9 @@ use yii\data\ActiveDataProvider;
 use backend\models\Goodssku;
 
 /**
- * FollowCheckProduct represents the model behind the search form of `backend\models\Goodssku`.
+ * FollowCheckProductSearch represents the model behind the search form of `backend\models\Goodssku`.
  */
-class FollowCheckProduct extends Goodssku
+class FollowCheckProductSearch extends Goodssku
 {
     /**
      * {@inheritdoc}
@@ -42,7 +42,26 @@ class FollowCheckProduct extends Goodssku
      */
     public function search($params)
     {
-        $query = Goodssku::find();
+
+        $username = Yii::$app->user->identity->username;
+        $user_dict = [
+            'Lulu'=> '1,5',
+            'Cara'=> '2,6',
+            'lvy'=> '2,6',
+            'Belle'=> '3,4',
+            'Yilia'=> '1'];
+
+        if ($username =='Jenny'||$username =='David'||$username =='Mark' ){
+            $query = Goodssku::find()->orderBy('sku_id desc');
+        }else{
+            $val = $user_dict[$username];
+            $query = Goodssku::find()
+                ->Where('pur_group IN('.$val.')')
+                ->orderBy('sku_id desc')
+
+            ;
+        }
+
 
         // add conditions that should always apply here
 
