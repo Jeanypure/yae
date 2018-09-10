@@ -316,7 +316,7 @@ class AuditSupplierController extends Controller
             ->setCellValue('O'.$num, $contants['contact_qq'])
             ->setCellValue('P'.$num,  $contants['contact_wechat'])
             ->setCellValue('Q'.$num, $data['sup_remark'])
-            ->setCellValue('R'.$num, '总公司 : '.$company[$data['sale_company']]);
+            ->setCellValue('R'.$num, '母公司 : '.$company[$data['sale_company']]);
         //数据结束
         ob_end_clean();
         ob_start();
