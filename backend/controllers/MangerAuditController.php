@@ -80,6 +80,7 @@ class MangerAuditController extends Controller
        $exchange_rate = PurInfoController::actionExchangeRate();
        $sid =  $this->actionCheckSample($id); //样品表的id
        $pd_sku =  $this->actionBorn($id);    //生成sku
+
         if($num ==3){
             if ($model_update->load(Yii::$app->request->post()) ) {
                 //采样状态 入采样流程
@@ -324,14 +325,15 @@ class MangerAuditController extends Controller
         $res =   Yii::$app->db->createCommand("
              select sku_code1,start_num from purchaser where  purchaser= '$model->purchaser';
             ")->queryAll();
-        $number =   Yii::$app->db->createCommand("
+        $part1 =$res[0]['sku_code1'];
+        /* $number =   Yii::$app->db->createCommand("
              SELECT count(*) as num FROM sample e LEFT JOIN pur_info o ON e.spur_info_id=o.pur_info_id 
              where  purchaser= '$model->purchaser'
             GROUP BY purchaser
             ORDER BY num DESC;
             ")->queryAll();
-        $part1 =$res[0]['sku_code1'];
-        $part2 = '';
+
+       $part2 = '';
 
         if(empty($number)){
             $number[0]['num'] = 0;
@@ -347,8 +349,8 @@ class MangerAuditController extends Controller
             $part2 = "0".$order;
         }else {
             $part2 = "".$order;
-        }
-        $sku = $part1.'-'.$part2;
+        }*/
+        $sku = $part1.'-';
         return $sku;
 
     }
