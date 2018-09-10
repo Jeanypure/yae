@@ -333,6 +333,7 @@ class AuditGoodsskuController extends Controller
            "cost" => $result[0]['pd_costprice'],
            "lastpurchaseprice" => $result[0]['pd_costprice'],
            "usebins" => 'T',
+           "purchasedescription" => $result[0]['pd_title'],
 
        ]];
 
