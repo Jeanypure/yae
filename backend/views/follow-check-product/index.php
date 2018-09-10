@@ -12,12 +12,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="goodssku-index">
 
-
-
-    <p>
-        <?= Html::a('Create Goodssku', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
