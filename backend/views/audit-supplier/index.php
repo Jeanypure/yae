@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="yae-supplier-index">
     <p>
-        <?php echo Html::button('导出易仓excel',['class' => 'btn btn-info' ,'id'=>'export-eccang'])?>
+<!--        --><?php //echo Html::button('导出易仓excel',['class' => 'btn btn-info' ,'id'=>'export-eccang'])?>
         <?php
 //        echo Html::button('标记已导易仓',['class' => 'btn btn-info' ,'id'=>'is_submit'])?>
         <?php
@@ -256,32 +256,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::end(); ?>
 </div>
 <?php
-  $export = Url::toRoute(['export']);
-  $export_eccang =<<<JS
-        $(function() {
-          $('#export-eccang').on('click',function() {
-                 var button = $(this);
-                 button.attr('disabled','disabled');
-                var ids =  $('#audit_supplier').yiiGridView("getSelectedRows");
-                var id = ids[0];
-
-                if(ids==false) alert('请选择产品!') ;
-                $.ajax({
-                 url: "{$export}", 
-                 type: 'get',
-                 data:{id:id},
-                 success:function(res){
-                   button.attr('disabled',false);
-                   window.location.href = '{$export}'+'?id='+id;
-                 },
-                 error: function (jqXHR, textStatus, errorThrown) {
-                            button.attr('disabled',false);
-                 }
-                  });
-             });
-        });
-JS;
-  $this->registerJs($export_eccang);
 
   $to_netsuite = Url::toRoute(['export-to-ns']);
   $to_ns = <<<JS
