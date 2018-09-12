@@ -123,9 +123,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions'=>['placeholder'=>'开票类型'],
 
             ],
-
-//            'business_licence',
-//            'bank_account_data',
             'pay_card',
             'pay_name',
             'pay_bank',
@@ -204,10 +201,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ],
 
-//            'bill_img1',
-//            'bill_img1_name_unit',
-//            'bill_img2',
-//            'bill_img2_name_unit',
             'complete_num',
             [
                 'attribute'=>'licence_pass',
@@ -322,6 +315,8 @@ $sign_js = <<<JS
                 data :{id:id},
                 success: function(res){
                    button.attr('disabled',false);
+                   if(res=='success') alert('标记成功!');
+                   if(res=='error') alert('出错啦!');
                  
                  },
                 error: function (jqXHR, textStatus, errorThrown) {
