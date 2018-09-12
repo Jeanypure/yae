@@ -19,7 +19,7 @@ class HeadManSearch extends PurInfo
     {
         return [
             [['pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_rebate', 'parent_product_id', 'source', 'preview_status', 'brocast_status', 'master_result', 'is_submit', 'is_submit_manager', 'pur_group_status', 'junior_submit', 'is_assign', 'audit_a', 'audit_b', 'bill_tax_value', 'pur_complete_status', 'pur_compelte_result', 'sample_submit2', 'sample_submit1', 'has_pay', 'is_quality', 'is_purchase', 'has_shared'], 'integer'],
-            [['submit_manager','view_status','result','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_material', 'bill_type', 'hs_code', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'else_url', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'member', 'master_member', 'master_mark', 'priview_time', 'pd_create_time', 'purchaser_leader', 'profit_rate', 'gross_profit_amz', 'profit_rate_amz', 'amz_fulfillment_cost', 'selling_on_amz_fee', 'amz_retail_price', 'amz_retail_price_rmb', 'commit_date', 'new_member', 'cancel1_at', 'cancel2_at', 'submit1_at', 'submit2_at', 'pay_at'], 'safe'],
+            [['pd_sku','submit_manager','view_status','result','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_material', 'bill_type', 'hs_code', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'else_url', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'member', 'master_member', 'master_mark', 'priview_time', 'pd_create_time', 'purchaser_leader', 'profit_rate', 'gross_profit_amz', 'profit_rate_amz', 'amz_fulfillment_cost', 'selling_on_amz_fee', 'amz_retail_price', 'amz_retail_price_rmb', 'commit_date', 'new_member', 'cancel1_at', 'cancel2_at', 'submit1_at', 'submit2_at', 'pay_at'], 'safe'],
             [['pd_length', 'pd_width', 'pd_height', 'pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice', 'ams_logistics_fee', 'fact_pay_amount'], 'number'],
         ];
     }
@@ -46,14 +46,15 @@ class HeadManSearch extends PurInfo
 
          if($username=='admin'||$username=='Jenny'||$username=='David'){
              $query = PurInfo::find()
-                 ->select(['`pur_info`.*,`headman`.view_status,`headman`.submit_manager,`headman`.result,`headman`.headman'])
+                 ->select(['`pur_info`.*,`sample`.pd_sku,`headman`.view_status,`headman`.submit_manager,`headman`.result,`headman`.headman'])
                  ->joinWith('headman')
+                 ->joinWith('sample')
                  ->andWhere(['is_purchase' => 1])
                  ->orderBy('pur_info_id desc')
              ;
          }else{
              $query = PurInfo::find()
-                 ->select(['`pur_info`.*,`headman`.view_status,`headman`.submit_manager,`headman`.result,`headman`.headman'])
+                 ->select(['`pur_info`.*,`sample`.pd_sku,`headman`.view_status,`headman`.submit_manager,`headman`.result,`headman`.headman'])
                  ->joinWith('headman')
                  ->distinct()
                  ->andWhere(['headman' => $username])
@@ -62,6 +63,7 @@ class HeadManSearch extends PurInfo
              ;
          }
         $this->view_status = 0 ;
+
 //        echo  $query->createCommand()->getRawSql();die;
 
         // add conditions that should always apply here
@@ -127,6 +129,7 @@ class HeadManSearch extends PurInfo
             'fact_pay_amount' => $this->fact_pay_amount,
             'is_purchase' => $this->is_purchase,
             'has_shared' => $this->has_shared,
+            'pd_sku' => $this->pd_sku,
         ]);
 
         $query->andFilterWhere(['like', 'purchaser', $this->purchaser])

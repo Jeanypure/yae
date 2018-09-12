@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-            'purchaser',
+
             [
                 'attribute'=>'pur_group',
                 'value' => function($model) {
@@ -92,6 +92,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'group'=>true,  // enable grouping
 
             ],
+            'purchaser',
+            'pd_sku',
 
             [
                 'attribute'=>'pd_title',
