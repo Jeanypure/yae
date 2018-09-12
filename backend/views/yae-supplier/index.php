@@ -82,6 +82,25 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'create_date',
             'submitter',
+            [
+                'attribute'=>'has_tons',
+                'value' => function($model) {
+                    if($model->has_tons==1) {
+                        return '是';
+                    }else{
+                        return '否';
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['0' => '否','1' => '是'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'导NetSuite?'],
+
+            ],
             'checker',
             [
                 'attribute'=>'check_status',

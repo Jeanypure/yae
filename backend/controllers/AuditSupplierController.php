@@ -292,5 +292,14 @@ class AuditSupplierController extends Controller
         fclose($output) or die("can't close php://output");
     }
 
+    public function actionSignToNetsuite($id){
+       $res =  Yii::$app->db->createCommand("update yae_supplier set has_tons =1 where id in ($id)")->execute();
+       if($res){
+           echo 'success';
+       }else{
+           echo 'error';
+       }
+
+    }
 
 }

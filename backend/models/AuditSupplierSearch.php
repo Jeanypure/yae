@@ -18,7 +18,7 @@ class AuditSupplierSearch extends YaeSupplier
     public function rules()
     {
         return [
-            [['id', 'bill_type', 'pay_cycleTime_type', 'account_type', 'has_cooperate', 'licence_pass', 'bill_pass', 'bank_data_pass', 'is_submit_vendor', 'check_status'], 'integer'],
+            [['has_tons','id', 'bill_type', 'pay_cycleTime_type', 'account_type', 'has_cooperate', 'licence_pass', 'bill_pass', 'bank_data_pass', 'is_submit_vendor', 'check_status'], 'integer'],
             [['supplier_code', 'supplier_name', 'pd_bill_name', 'bill_unit', 'submitter', 'business_licence', 'bank_account_data', 'pay_card', 'pay_name', 'pay_bank', 'sup_remark', 'account_proportion', 'bill_img1', 'bill_img1_name_unit', 'bill_img2', 'bill_img2_name_unit', 'complete_num', 'supplier_address', 'check_memo'], 'safe'],
         ];
     }
@@ -72,6 +72,7 @@ class AuditSupplierSearch extends YaeSupplier
             'bank_data_pass' => $this->bank_data_pass,
             'is_submit_vendor' => $this->is_submit_vendor,
             'check_status' => $this->check_status,
+            'has_tons' => $this->has_tons,
         ]);
 
         $query->andFilterWhere(['like', 'supplier_code', $this->supplier_code])

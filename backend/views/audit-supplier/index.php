@@ -14,12 +14,14 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="yae-supplier-index">
     <p>
 <!--        --><?php //echo Html::button('导出易仓excel',['class' => 'btn btn-info' ,'id'=>'export-eccang'])?>
-        <?php
-//        echo Html::button('标记已导易仓',['class' => 'btn btn-info' ,'id'=>'is_submit'])?>
+
         <?php
 //        echo Html::button('取消标记',['class' => 'btn btn-primary' ,'id'=>'un_submit'])?>
 <!--        --><?php //echo Html::button('导入NetSuite',['class' => 'btn btn-warning' ,'id'=>'export-netsuite'])?>
-        <?php echo Html::button('导出NetSuite-excel',['class' => 'btn btn-warning' ,'id'=>'export-netsuite'])?>
+        <?php echo Html::button('批量导出NetSuite-xls',['class' => 'btn btn-warning' ,'id'=>'export-netsuite'])?>
+        <?php
+                echo Html::button('批量标记已导NetSuite',['class' => 'btn btn-info' ,'id'=>'sign-into-ns'])
+        ?>
 
 
     </p>
@@ -49,10 +51,28 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
-
             'supplier_code',
             'supplier_name',
             'supplier_address',
+            [
+                'attribute'=>'has_tons',
+                'value' => function($model) {
+                    if($model->has_tons==1) {
+                        return '是';
+                    }else{
+                        return '否';
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['0' => '否','1' => '是'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'导NetSuite?'],
+
+            ],
             [
                 'attribute'=>'check_status',
                 'value' => function($model) {
@@ -261,11 +281,10 @@ $this->params['breadcrumbs'][] = $this->title;
   $to_ns = <<<JS
     $(function() {
           $('#export-netsuite').on('click',function() {
-                 var button = $(this);
-                 button.attr('disabled','disabled');
+                var button = $(this);
+                button.attr('disabled','disabled');
                 var ids =  $('#audit_supplier').yiiGridView("getSelectedRows");
                 var id = ids.toString();
-
                 if(ids==false) alert('请选择产品!') ;
                 $.ajax({
                  url: "{$to_netsuite}", 
@@ -284,5 +303,35 @@ $this->params['breadcrumbs'][] = $this->title;
 JS;
   $this->registerJs($to_ns);
 
+
+?>
+<?php
+$sign = Url::toRoute(['sign-to-netsuite']);
+$sign_js = <<<JS
+    $(function() {
+        $('#sign-into-ns').on('click',function() {
+                var button = $(this);
+                button.attr('disabled','disabled');
+                var ids =  $('#audit_supplier').yiiGridView("getSelectedRows");
+                var id = ids.toString();
+                console.log(id);
+                if(ids==false) alert('请选择产品!') ;
+                $.ajax({
+                url : "{$sign}",
+                type: 'get',
+                data :{id:id},
+                success: function(res){
+                   button.attr('disabled',false);
+                 
+                 },
+                error: function (jqXHR, textStatus, errorThrown) {
+                   button.attr('disabled',false);
+                 },
+                });
+        });
+    });
+JS;
+
+$this->registerJs($sign_js);
 
 ?>
