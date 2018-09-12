@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                'filterInputOptions'=>['placeholder'=>'导NetSuite?'],
+                'filterInputOptions'=>['placeholder'=>'导NS?'],
 
             ],
             [

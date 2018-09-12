@@ -128,7 +128,7 @@ class YaeSupplier extends \yii\db\ActiveRecord
             'submit_date' => '提交日期',
             'check_date' => '审核日期',
             'sale_company' => '销售公司',
-            'has_tons' => '已导NetSuite?',
+            'has_tons' => '已导NS?',
         ];
 
     }
