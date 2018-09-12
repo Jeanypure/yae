@@ -13,12 +13,6 @@ use kartik\select2\Select2;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <div class="row">
-
-
-    </div>
-
-
     <?php
     echo Form::widget([
         'model'=>$model,
@@ -81,9 +75,6 @@ use kartik\select2\Select2;
         </div>
 
     </div>
-
-
-
     <?php
     echo Form::widget([
         'model'=>$model,
@@ -102,7 +93,6 @@ use kartik\select2\Select2;
 
     ]);
     ?>
-
     <?php
     echo Form::widget([
         'model'=>$model,
@@ -170,8 +160,7 @@ use kartik\select2\Select2;
             <?= $form->field($model, 'bank_img_add') ?>
         </div>
     </div>
-
-<fieldset id="w5">
+    <fieldset id="w5">
     <legend class="text-info"><h3>4.发票相关</h3></legend>
     <div class="col-sm-3">
 
@@ -197,8 +186,6 @@ use kartik\select2\Select2;
        ?>
     </div>
 </fieldset>
-
-
     <?php
     echo Form::widget([
         'model'=>$supplier_contact,
@@ -281,7 +268,7 @@ use kartik\select2\Select2;
         echo Html::submitButton('Save', ['class' => 'btn btn-success btn-lg']) ?>
     </div>
 
-<?php ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
 
 </div>
 
