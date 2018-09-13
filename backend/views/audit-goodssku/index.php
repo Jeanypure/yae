@@ -14,12 +14,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="goodssku-index">
 
     <p>
-        <?php echo Html::button('导出excel到易仓',['class' => 'btn btn-info' ,'id'=>'export-freight-fee'])?>
-        <?php
-//        echo Html::button('标记已导易仓',['class' => 'btn btn-info' ,'id'=>'sign-import-eccang'])?>
-        <?php
-//        echo Html::button('取消标记',['class' => 'btn btn-primary' ,'id'=>'cancel-sign'])?>
-        <?php echo Html::button('导入NetSuite',['class' => 'btn btn-warning' ,'id'=>'export-netsuite'])?>
+<!--        --><?php //echo Html::button('导出excel到易仓',['class' => 'btn btn-info' ,'id'=>'export-freight-fee'])?>
+
+        <?php echo Html::button('单个导入NetSuite',['class' => 'btn btn-warning' ,'id'=>'export-netsuite'])?>
     </p>
 
     <?= GridView::widget([
@@ -90,26 +87,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'提交?'],
-
-            ],
-
-            [
-                'attribute'=>'has_toeccang',
-                'value' => function($model) {
-                    if($model->has_toeccang==1){
-                        return '是';
-                    }else{
-                        return '否';
-                    }
-                },
-                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
-                'format'=>'html',
-                'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['1' => '是', '0' => '否'],
-                'filterWidgetOptions'=>[
-                    'pluginOptions'=>['allowClear'=>true],
-                ],
-                'filterInputOptions'=>['placeholder'=>'导易仓?'],
 
             ],
             [
