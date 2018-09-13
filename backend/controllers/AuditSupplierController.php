@@ -202,7 +202,6 @@ class AuditSupplierController extends Controller
             $fields[$k] = iconv("UTF-8", "GB2312//IGNORE", $v);  // 这里将UTF-8转为GB2312编码
         }
         fputcsv($handle, $fields, $delimiter, $enclosure, $escape_char);
-        return true;
     }
 
     function actionExportToNs($id) {
