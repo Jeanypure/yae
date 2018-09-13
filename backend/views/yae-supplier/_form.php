@@ -120,7 +120,7 @@ use kartik\select2\Select2;
                     '3'=>'半月结',
                     '4'=>'月结',
                     '5'=>'隔月结',
-                    '6'=>'其他',
+//                    '6'=>'其他',
                 ],
                 'options' => ['placeholder' => '支付周期.....'],
                 'pluginOptions' => [
@@ -141,7 +141,7 @@ use kartik\select2\Select2;
                     '3'=>'周期结算',
                     '4'=>'售后付款',
                     '5'=>'默认方式',
-                    '6'=>'其他',
+//                    '6'=>'其他',
                 ],
                 'options' => ['placeholder' => '供应商结算方式.....'],
                 'pluginOptions' => [

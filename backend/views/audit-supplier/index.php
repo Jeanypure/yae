@@ -285,7 +285,7 @@ $this->params['breadcrumbs'][] = $this->title;
                  data:{id:id},
                  success:function(res){
                    button.attr('disabled',false);
-                   window.location.href = '{$to_netsuite}'+'?id='+id;
+                  window.location.href = '{$to_netsuite}'+'?id='+id;
                  },
                  error: function (jqXHR, textStatus, errorThrown) {
                             button.attr('disabled',false);

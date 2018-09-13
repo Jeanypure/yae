@@ -104,7 +104,7 @@ class AuditSupplierController extends Controller
 
 
 
-    public function actionExportToNs($id){
+   /* public function actionExportToNs_xls($id){
         $objPHPExcel = new \PHPExcel();
         $query = YaeSupplier::find()->select(['r.supplier_code','r.supplier_name','r.pd_bill_name','r.bill_unit','r.submitter',
             'r.bill_type','r.pay_card','r.pay_name','r.pay_bank','r.sup_remark','r.pay_cycleTime_type','r.account_type',
@@ -186,69 +186,8 @@ class AuditSupplierController extends Controller
         $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
         $objWriter->save('php://output');
 
-    }
+    }*/
 
-        public  function actionExportCsv($id){
-
-            $da = '';
-            $this->export_csv($da);
-        }
-
-
-
-    function export_csv($data)
-    {
-        /*$header= ['供应商代码',
-            '供应商名称',
-            '供应商地址',
-            '支付周期类型',
-            '结算方式',
-            '预付比例%',
-            '开票类型',
-            '是否为合作过的供应商',
-            '默认产品开发员',
-            '开户银行',
-            '银行收款账号',
-            '联系人',
-            '联系人职位',
-            '联系电话',
-            'QQ',
-            '微信',
-            '注意事项',
-            '公司',
-        ];*/
-        $header = [
-            '用户名','密码'
-        ];
-        //转码
-        foreach ($header as $key => $value){
-            $value[$key] = mb_convert_encoding($value,'gb2312','utf-8');
-        }
-        $data=array(
-            array("username"=>"用户名","password"=>"密码"),
-            array("username"=>"test2","password"=>"456"),
-            array("username"=>"test3","password"=>"789"),
-        );
-
-        $string="";
-        foreach ($data as $key => $value)
-        {
-
-            foreach ($value as $k => $val)
-            {
-                $value[$k]=iconv('utf-8','gb2312',$value[$k]);
-            }
-
-            $string .= implode(",",$value)."\n"; //用英文逗号分开
-        }
-        $filename = date('Ymd').'.csv'; //设置文件名
-        header("Content-type:text/csv");
-        header("Content-Disposition:attachment;filename=".$filename);
-        header('Cache-Control:must-revalidate,post-check=0,pre-check=0');
-        header('Expires:0');
-        header('Pragma:public');
-        echo $string;
-    }
 
     /**
      * 重写fputcsv方法，添加转码功能
@@ -263,27 +202,29 @@ class AuditSupplierController extends Controller
             $fields[$k] = iconv("UTF-8", "GB2312//IGNORE", $v);  // 这里将UTF-8转为GB2312编码
         }
         fputcsv($handle, $fields, $delimiter, $enclosure, $escape_char);
+        return true;
     }
 
-    function actionTest () {
+    function actionExportToNs($id) {
         // 文件名
-        $filename = "订单查询结果" . date('Y-m-d H:i:s');
-
+        $filename = "供应商信息" . date('Y-m-d H:i:s');
         // 设置输出头部信息
         header('Content-Encoding: UTF-8');
         header("Content-Type: text/csv; charset=UTF-8");
         header("Content-Disposition: attachment; filename={$filename}.csv");
 
 
-        $tableHead = array('#', '订单id', '订单号', '分类', '客户信息', '工匠信息', '订单状态', '施工状态', '付款状态', '订单金额', '下单时间', '备注');
-
+        $tableHead = ['供应商代码','供应商名称','供应商地址','支付周期类型','结算方式','预付比例%','开票类型','是否为合作过的供应商','默认产品开发员',
+            '开户银行','银行收款账号','联系人','联系人职位','联系电话','QQ','微信','注意事项', '公司',];
         // 获取句柄
         $output = fopen('php://output', 'w') or die("can't open php://output");
 
         // 输出头部标题
         $this->actionFputcsv2($output, $tableHead);
 
-        $list = array();
+        //记录
+
+        $list = $this->actionRecords($id);
         foreach ($list as $item) {
             $this->actionFputcsv2($output, array_values($item));
         }
@@ -300,6 +241,39 @@ class AuditSupplierController extends Controller
            echo 'error';
        }
 
+    }
+
+    public  function  actionRecords($id){
+        $query = YaeSupplier::find()->select(['r.supplier_code','r.supplier_name','r.supplier_address',
+            'r.pay_cycleTime_type', 'r.account_type','r.account_proportion','r.bill_type','r.has_cooperate',
+            'r.submitter','r.pay_bank','r.pay_card','t.contact_name', 't.contact_memo','t.contact_tel','t.contact_qq',
+            't.contact_wechat','r.sup_remark','r.sale_company',
+//            'r.pay_name','t.supplier_id','t.contact_address','t.contact_wangwang','r.pd_bill_name','r.bill_unit'
+            ]);
+        $query->from(YaeSupplier::tableName() . 'r');
+        $query->leftJoin('supplier_contact t', 't.supplier_id=r.id');
+        $data = $query->Where('r.id IN('.$id.')')->orderBy('r.id desc')->asArray()->all();
+        $pay_cycleTime_type = [1 => '日结', 2 => '周结',3 => '半月结',4 => '月结',5 => '隔月结',6 => '其它',];
+        $account_type = [1 => '货到付款', 2 => '款到发货',3 => '周期结算',4 => '售后付款',5 => '默认方式',6 => '其它'];
+        $bill_type = ['16%专票','3%专票','增值税普通发票'];
+        $company = [
+            '2'=>'上海商舟船舶用品有限公司',
+            '3'=>'雅耶国际贸易(上海)有限公司',
+            '5'=>'上海朗探贸易有限公司',
+            '6'=>'上海域聪贸易有限公司',
+            '7'=>'上海朋侯贸易有限公司',
+            '8'=>'上海客尊贸易有限公司',
+        ];
+        $list = [];
+        foreach ($data as $key=>$val){
+            $val['pay_cycleTime_type'] = $pay_cycleTime_type[$val['pay_cycleTime_type']];
+            $val['account_type'] = $account_type[$val['account_type']];
+            $val['bill_type'] = $bill_type[$val['bill_type']];
+            $val['sale_company'] = '母公司 : '.$company[empty($value['sale_company'])?'2':$value['sale_company']];
+            $val['has_cooperate'] = $val['has_cooperate']==1?'是':'否';
+            $list[] = $val;
+        }
+        return $list;
     }
 
 }
