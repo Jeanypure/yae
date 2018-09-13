@@ -104,7 +104,7 @@ class AuditSupplierController extends Controller
 
 
 
-   /* public function actionExportToNs_xls($id){
+    public function actionExportToNs($id){
         $objPHPExcel = new \PHPExcel();
         $query = YaeSupplier::find()->select(['r.supplier_code','r.supplier_name','r.pd_bill_name','r.bill_unit','r.submitter',
             'r.bill_type','r.pay_card','r.pay_name','r.pay_bank','r.sup_remark','r.pay_cycleTime_type','r.account_type',
@@ -186,7 +186,8 @@ class AuditSupplierController extends Controller
         $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
         $objWriter->save('php://output');
 
-    }*/
+    }
+
 
 
     /**
@@ -201,18 +202,16 @@ class AuditSupplierController extends Controller
         foreach ($fields as $k => $v) {
             $fields[$k] = iconv("UTF-8", "GB2312//IGNORE", $v);  // 这里将UTF-8转为GB2312编码
         }
-        fputcsv($handle, $fields, $delimiter, $enclosure, $escape_char);
+         fputcsv($handle, $fields, $delimiter, $enclosure, $escape_char);
     }
 
-    function actionExportToNs($id) {
+    function actionExportToNshh($id) {
         // 文件名
         $filename = "供应商信息" . date('Y-m-d H:i:s');
         // 设置输出头部信息
         header('Content-Encoding: UTF-8');
         header("Content-Type: text/csv; charset=UTF-8");
         header("Content-Disposition: attachment; filename={$filename}.csv");
-
-
         $tableHead = ['供应商代码','供应商名称','供应商地址','支付周期类型','结算方式','预付比例%','开票类型','是否为合作过的供应商','默认产品开发员',
             '开户银行','银行收款账号','联系人','联系人职位','联系电话','QQ','微信','注意事项', '公司',];
         // 获取句柄
@@ -225,7 +224,7 @@ class AuditSupplierController extends Controller
 
         $list = $this->actionRecords($id);
         foreach ($list as $item) {
-            $this->actionFputcsv2($output, array_values($item));
+             $this->actionFputcsv2($output, array_values($item));
         }
 
         // 关闭句柄
@@ -235,9 +234,9 @@ class AuditSupplierController extends Controller
     public function actionSignToNetsuite($id){
        $res =  Yii::$app->db->createCommand("update yae_supplier set has_tons =1 where id in ($id)")->execute();
        if($res){
-           echo 'success';
+           return 'success';
        }else{
-           echo 'error';
+           return 'error';
        }
 
     }
