@@ -160,6 +160,40 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     'filterInputOptions'=>['placeholder'=>'是否提交'],
                 ],
+                'payer',
+                [
+                    'attribute'=>'has_pay',
+                    'width'=>'100px',
+                    'value'=>function ($model, $key, $index, $widget) {
+                        if($model->has_pay==1){
+                            return '已付';
+
+                        }else{
+                            return '未付';
+                        }
+                    },
+                    'filterType'=>GridView::FILTER_SELECT2,
+                    'filter'=>['1' => '已付', '0' => '未付'],
+                    'filterWidgetOptions'=>[
+                        'pluginOptions'=>['allowClear'=>true],
+                    ],
+                    'filterInputOptions'=>['placeholder'=>'是否付款'],
+                ],
+                [
+                    'attribute' => 'pay_at',
+                    'headerOptions' => ['width' => '12%'],
+                    'filter' => DateRangePicker::widget([
+                        'name' => 'FinancialAgreestSearch[pay_at]',
+                        'value' => Yii::$app->request->get('FinancialAgreestSearch')['pay_at'],
+                        'convertFormat' => true,
+                        'pluginOptions' => [
+                            'locale' => [
+                                'format' => 'Y-m-d H:i:s',
+                                'separator' => '/',
+                            ]
+                        ]
+                    ])
+                ],
                 [
                     'attribute'=>'is_quality',
                     'width'=>'100px',
