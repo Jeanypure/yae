@@ -41,8 +41,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
 
+
             'purchaser',
             'pur_group',
+            'pd_sku',
             [
                 'attribute'=>'pd_title',
                 'value' => function($model) { return $model->pd_title;},
