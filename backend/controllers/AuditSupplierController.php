@@ -74,8 +74,8 @@ class AuditSupplierController extends Controller
         if ($model->load(Yii::$app->request->post()) ) {
             $model-> checker = $username;
             $model-> check_date = date('Y-m-d H:i:s');
-            $model->save();
-            return $this->redirect(['index']);
+            $model->save(false);
+
         }
 
         return $this->render('update', [
