@@ -336,7 +336,6 @@ class AuditGoodsskuController extends Controller
            "purchasedescription" => $result[0]['pd_title'],
 
        ]];
-       echo json_encode($item_arr);die;
 
         $result = $this->actionDoCurl($item_arr);
         $res = json_decode($result);
