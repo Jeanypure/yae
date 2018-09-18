@@ -47,7 +47,7 @@ class FollowCheckProductSearch extends Goodssku
         $user_dict = [
             'Lulu'=> '1,5',
             'Cara'=> '2,6',
-            'lvy'=> '2,6',
+            'Ivy'=> '3,4',
             'Belle'=> '3,4',
             'Yilia'=> '1'];
 
