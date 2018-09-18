@@ -222,6 +222,7 @@ class MinisterAgreestController extends Controller
 
             }
 
+            $sample_model->save(false);
             $model->save(false);
             return $this->redirect('index');
         }
