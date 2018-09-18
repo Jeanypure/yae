@@ -274,4 +274,79 @@ class AuditSupplierController extends Controller
         return $list;
     }
 
+    /**
+     * @param $id
+     * @return string
+     * @throws \Exception
+     */
+    public function actionClickToNs($id){
+
+        $query = YaeSupplier::find()->select(['r.supplier_code','r.supplier_name','r.pd_bill_name','r.bill_unit','r.submitter',
+            'r.bill_type','r.pay_card','r.pay_name','r.pay_bank','r.sup_remark','r.pay_cycleTime_type','r.account_type',
+            'r.account_proportion','r.has_cooperate','r.sale_company','r.supplier_address',
+            't.supplier_id','t.contact_name','t.contact_tel','t.contact_address','t.contact_qq','t.contact_wechat','t.contact_wangwang',
+            't.contact_memo']);
+        $query->from(YaeSupplier::tableName() . 'r');
+        $query->leftJoin('supplier_contact t', 't.supplier_id=r.id');
+        $data = $query->Where('r.id ='.$id)->orderBy('r.id desc')->asArray()->all();
+        $bill_type = [ '16%专票','3%专票','增值税普通发票'];
+        $pay_cycleTime_type = [ 1=> 1,2=>3,3=>5,4=>4,5=>2]; //1 日结,2 周结,3 半月结,4 月结,5 隔月结
+        $account_type = [1=>'货到付款',2=>'款到发货',3=>'周期结算',4=>'售后付款',5=>'默认方式'];
+        $vendor_arr = [
+            "recordtype" => "Vendor",
+            "entityid" => $data[0]['supplier_code'],
+            "companyname" => $data[0]['supplier_name'],
+            "subsidiary" => $data[0]['sale_company'],
+            "custentity_invoice_type" => $bill_type[$data[0]['bill_type']],
+            "custentity_bank_account" => $data[0]['pay_card'],
+            "custentity_bank" => $data[0]['pay_bank'],
+            "custentity_payterms" => $pay_cycleTime_type[$data[0]['pay_cycleTime_type']],
+            "custentity9" => $account_type[$data[0]['account_type']],
+            "custentity5" => $data[0]['account_proportion'],
+            "defaultaddress" => $data[0]['supplier_address'],
+            "custentity_qq_number" => $data[0]['contact_qq'],
+            "phone" => $data[0]['contact_tel'],
+            "custentity_address" => $data[0]['contact_address'],
+            "altphone" => $data[0]['contact_tel'],
+            "custentity_attention" => $data[0]['contact_name'],
+        ];
+        $res = $this->actionDoVendorCurl($vendor_arr);
+        if (is_string($res)){
+            try{
+                Yii::$app->db->createCommand("update yae_supplier set has_tons=1 where id=$id ")->execute();
+            }catch (\Exception $exception){
+                throw $exception;
+            }
+        }
+        return $res;
+    }
+
+    public  function  actionDoVendorCurl($item_arr){
+
+        try{
+            $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=139&deploy=1';
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Authorization: NLAuth nlauth_account=5151251, nlauth_email=jenny.li@yaemart.com, nlauth_signature=Jenny666666, nlauth_role=1013',
+                'Content-Type: application/json',
+                'Accept: application/json'
+            ));
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+            curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,2);
+            curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,false);
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($item_arr));
+            ob_start();
+            curl_exec($ch);
+            $result = ob_get_contents();
+            ob_end_clean();
+            curl_close($ch);
+            return $result;
+        }catch (\Exception $exception){
+            throw $exception;
+        }
+
+
+    }
 }

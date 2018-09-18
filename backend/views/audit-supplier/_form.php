@@ -308,9 +308,9 @@ use kartik\select2\Select2;
     ?>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-lg']) ?>
-        <?php echo Html::button('导出excel到易仓',['class' => 'btn btn-info' ,'id'=>'export-eccang'])?>
+<!--        --><?php //echo Html::button('导NetSuite',['class' => 'btn btn-info' ,'id'=>'export-eccang'])?>
         <?php
-        //        echo Html::button('导入NetSuite',['class' => 'btn btn-warning' ,'id'=>'export-netsuite'])?>
+                echo Html::button('导入NetSuite',['class' => 'btn btn-warning' ,'id'=>'export-netsuite'])?>
     </div>
 
     <?php ActiveForm::end(); ?>
@@ -375,21 +375,20 @@ $this->registerJs($JS);
 ?>
 
 <?php
-$export = Url::toRoute(['export']);
+$export = Url::toRoute(['click-to-ns']);
 $id=$model->id;
-$export_eccang =<<<JS
+$import_ns =<<<JS
         $(function() {
-          $('#export-eccang').on('click',function() {
+          $('#export-netsuite').on('click',function() {
                  var button = $(this);
                  button.attr('disabled','disabled');
-               
                 $.ajax({
                  url: "{$export}", 
                  type: 'get',
                  data:{id:$id},
                  success:function(res){
                    button.attr('disabled',false);
-                   window.location.href = '{$export}'+'?id='+'{$id}';
+                   alert(res);
                  },
                  error: function (jqXHR, textStatus, errorThrown) {
                             button.attr('disabled',false);
@@ -399,6 +398,6 @@ $export_eccang =<<<JS
         });
 JS;
 
-$this->registerJs($export_eccang);
+$this->registerJs($import_ns);
 
 ?>
