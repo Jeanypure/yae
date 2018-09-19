@@ -295,7 +295,7 @@ class AuditGoodsskuController extends Controller
                     g.sku,g.pd_title,g.pd_title_en,g.pd_weight,g.pd_length,g.pd_width,g.pd_height,
                     g.declared_value,g.currency_code,g.pd_costprice,g.pd_costprice_code,g.vendor_code,
                     g.is_quantity_check, g.contain_battery,g.qty_of_ctn,g.ctn_length,g.pd_width,g.pd_height,
-                    g.ctn_width, g.ctn_height, g.ctn_fact_weight, g.pd_creator, g.sale_company,
+                    g.ctn_width, g.ctn_height, g.ctn_fact_weight, g.pd_creator, g.sale_company,g.sku_mark,
                     s.brand,s.bill_name,s.bill_unit,s.origin_code
                     FROM goodssku g LEFT JOIN sku_vendor s ON g.sku_id=s.sku_id  AND g.vendor_code = s.vendor_code  
                 where  g.sku_id = $id ";
@@ -335,6 +335,7 @@ class AuditGoodsskuController extends Controller
            "usebins" => 'T',
            "purchasedescription" => $result[0]['pd_title'],
            "custitem_item_spec" => $result[0]['origin_code'],
+           "custitemgoodssku_memo" => $result[0]['sku_mark'],
 
        ]];
 
