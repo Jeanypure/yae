@@ -49,10 +49,10 @@ class MangerAuditController extends Controller
     }
 
     /**
-     * Displays a single PurInfo model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \yii\db\Exception
      */
     public function actionView($id)
     {
