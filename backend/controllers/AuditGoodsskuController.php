@@ -330,7 +330,7 @@ class AuditGoodsskuController extends Controller
            "custitem21" => $result[0]['brand'],
            "custitem20" => $result[0]['pd_creator'],
            "subsidiary" => $sale_company,
-           "cost" => $result[0]['pd_costprice'],
+//           "cost" => $result[0]['pd_costprice'],
            "lastpurchaseprice" => $result[0]['pd_costprice'],
            "usebins" => 'T',
            "purchasedescription" => $result[0]['pd_title'],
