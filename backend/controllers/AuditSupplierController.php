@@ -298,7 +298,7 @@ class AuditSupplierController extends Controller
             "companyname" => $data[0]['supplier_name'],
             "subsidiary" => $data[0]['sale_company'],
             "custentity_invoice_type" => $bill_type[$data[0]['bill_type']],
-            "custentity_bank_account" => $data[0]['pay_card'],
+            "custentity_bank_account" => substr_replace($data[0]['pay_card'],' ',4,0),
             "custentity_bank" => $data[0]['pay_bank'],
             "custentity_payterms" => $pay_cycleTime_type[$data[0]['pay_cycleTime_type']],
             "custentity9" => $account_type[$data[0]['account_type']],
