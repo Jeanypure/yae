@@ -46,10 +46,10 @@ class MinisterAgreestController extends Controller
     }
 
     /**
-     * Displays a single PurInfo model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \yii\db\Exception
      */
     public function actionView($id)
     {
@@ -184,6 +184,7 @@ class MinisterAgreestController extends Controller
             $model->attributes = $post['PurInfo'];
             $sample_model->attributes = $post['Sample'];
             $minister_result = $post['Sample']['minister_result'];
+            var_dump($post['PurInfo']['is_purchase']);die;
             if((int)$post['PurInfo']['is_purchase']==1){
                 try{
                     $sql = " SET @id = $id;

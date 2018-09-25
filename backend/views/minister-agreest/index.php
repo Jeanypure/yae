@@ -409,8 +409,9 @@ $auditJs = <<<JS
 JS;
 $this->registerJs($auditJs);
 
-$share_url = Url::toRoute('view');
 
+
+$share_url = Url::toRoute('view');
 $share_js = <<<JS
         $('.data-agree').on('click', function () {
             $.get('{$share_url}', { id: $(this).closest('tr').data('key') },
@@ -449,7 +450,6 @@ $is_submit = <<<JS
          data:{id:ids},
          success:function(res){
            if(res=='success') alert('提交产品成功!');     
-           if(res=='success') console.log('提交产品成功!');     
            button.attr('disabled',false);
            location.reload();
          },
