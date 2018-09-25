@@ -165,7 +165,7 @@ class AuditSupplierController extends Controller
                 ->setCellValue('H'.$num, $value['has_cooperate']==1?'是':'否')
                 ->setCellValue('I'.$num, $value['submitter'])
                 ->setCellValue('J'.$num, $value['pay_bank'])
-                ->setCellValue('K'.$num, "'".$value['pay_card'] )
+                ->setCellValue('K'.$num, substr_replace($value['pay_card'],' ',4,0))
                 ->setCellValue('L'.$num, $value['contact_name'])
                 ->setCellValue('N'.$num, $value['contact_tel'])
                 ->setCellValue('O'.$num, $value['contact_qq'])
