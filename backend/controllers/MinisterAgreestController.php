@@ -180,48 +180,54 @@ class MinisterAgreestController extends Controller
         $model = $this->findModel($id);
         $sample_model = Sample::findOne(['spur_info_id'=>$id]);
         $post = Yii::$app->request->post();
+
         if($model->load($post)){
             $model->attributes = $post['PurInfo'];
             $sample_model->attributes = $post['Sample'];
             $minister_result = $post['Sample']['minister_result'];
-            var_dump($post['PurInfo']['is_purchase']);die;
-            if((int)$post['PurInfo']['is_purchase']==1){
-                try{
-                    $sql = " SET @id = $id;
-                            CALL purinfo_to_goodssku (@id);";
-                    $res = Yii::$app->db->createCommand($sql)->execute();
+            if(isset($post['PurInfo']['is_purchase'])){
 
-                }catch(\Exception $exception){
-                    throw $exception;
-                }
-                if($model->source == 0){
+                if($post['PurInfo']['is_purchase']==1){
                     try{
-                        Yii::$app->db->createCommand("
-                        update sample set minister_result=3, audit_team_result=3,purchaser_result=3 where spur_info_id=$id;
-                    ")->execute();
-                    }catch(\Exception  $exception){
+
+                        $sql = " SET @id = $id;
+                            CALL purinfo_to_goodssku (@id);";
+                        $res = Yii::$app->db->createCommand($sql)->execute();
+
+                    }catch(\Exception $exception){
                         throw $exception;
                     }
 
-                }else{
-                    if((int)$minister_result==$sample_model->purchaser_result){
-                        $sample_model->audit_team_result = $minister_result;
-                        $sample_model->is_diff = 0;
+                    if($model->source == 0){
+                        try{
+                            Yii::$app->db->createCommand("
+                        update sample set minister_result=3, audit_team_result=3,purchaser_result=3 where spur_info_id=$id;
+                    ")->execute();
+                        }catch(\Exception  $exception){
+                            throw $exception;
+                        }
 
                     }else{
-                        $sample_model->is_diff = 1;
+                        if((int)$minister_result==$sample_model->purchaser_result){
+                            $sample_model->audit_team_result = $minister_result;
+                            $sample_model->is_diff = 0;
+
+                        }else{
+                            $sample_model->is_diff = 1;
+                        }
+
+                    }
+
+                    $count = Yii::$app->db->createCommand("
+                            select count(*) as num from headman where product_id=$id
+                            ")->queryOne();
+                    if(empty($count['num'])){ //第一次 插入
+                        $this->actionToHeadman($id);
                     }
 
                 }
-
-                $count = Yii::$app->db->createCommand("
-                select count(*) as num from headman where product_id=$id
-                ")->queryOne();
-                if(empty($count['num'])){ //第一次 插入
-                    $this->actionToHeadman($id);
-                }
-
             }
+
 
             $sample_model->save(false);
             $model->save(false);
