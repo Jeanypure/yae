@@ -341,14 +341,13 @@ class AuditGoodsskuController extends Controller
 
         $result = $this->actionDoCurl($item_arr);
         $res = json_decode($result);
-        if( $res->code=='200 OK'){
+        if( isset($res->code)&&$res->code=='200 OK'){
             try{
                 Yii::$app->db->createCommand("update goodssku set has_tons=1 where sku_id=$id ")->execute();
             }catch (\Exception $exception){
                throw $exception;
             }
-         }
-
+        }
      return $result;
    }
 
