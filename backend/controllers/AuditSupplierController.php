@@ -324,7 +324,8 @@ class AuditSupplierController extends Controller
     public  function  actionDoVendorCurl($item_arr){
 
         try{
-            $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=139&deploy=1';
+//            $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=139&deploy=1';
+            $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=154&deploy=2';
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                 'Authorization: NLAuth nlauth_account=5151251, nlauth_email=jenny.li@yaemart.com, nlauth_signature=Jenny666666, nlauth_role=1013',
