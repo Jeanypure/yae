@@ -117,7 +117,7 @@ class AuditSupplierController extends Controller
 
         $pay_cycleTime_type = [1 => '日结', 2 => '周结',3 => '半月结',4 => '月结',5 => '隔月结',6 => '其它',];
         $account_type = [1 => '货到付款', 2 => '款到发货',3 => '周期结算',4 => '售后付款',5 => '默认方式',6 => '其它'];
-        $bill_type = ['16%专票','3%专票','增值税普通发票'];
+        $bill_type = [ '16%专票','增值税普通发票','3%专票'];
         $company = [
             '2'=>'上海商舟船舶用品有限公司',
             '3'=>'雅耶国际贸易(上海)有限公司',
@@ -253,7 +253,7 @@ class AuditSupplierController extends Controller
         $data = $query->Where('r.id IN('.$id.')')->orderBy('r.id desc')->asArray()->all();
         $pay_cycleTime_type = [1 => '日结', 2 => '周结',3 => '半月结',4 => '月结',5 => '隔月结',6 => '其它',];
         $account_type = [1 => '货到付款', 2 => '款到发货',3 => '周期结算',4 => '售后付款',5 => '默认方式',6 => '其它'];
-        $bill_type = ['16%专票','3%专票','增值税普通发票'];
+        $bill_type = [ '16%专票','增值税普通发票','3%专票'];
         $company = [
             '2'=>'上海商舟船舶用品有限公司',
             '3'=>'雅耶国际贸易(上海)有限公司',
