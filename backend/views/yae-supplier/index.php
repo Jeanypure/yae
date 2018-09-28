@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="yae-supplier-index">
     <p>
+        <p><font color="red">创建新供应商前 按  供应商名字 到 <供应商池><供应商池>搜下 如果已存在则不需创建 使用已存在的供应商代码等信息</font></p>
         <?= Html::a('创建供应商', ['create'], ['class' => 'btn btn-success']) ?>
         <?php echo Html::button('确认提交',['class' => 'btn btn-info' ,'id'=>'is_submit'])?>
         <?php echo Html::button('取消提交',['class' => 'btn btn-primary' ,'id'=>'un_submit'])?>
