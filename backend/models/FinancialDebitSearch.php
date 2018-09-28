@@ -19,7 +19,7 @@ class FinancialDebitSearch extends YaeFreight
     {
         return [
             [['id', 'to_minister', 'to_financial', 'mini_deal', 'fina_deal'], 'integer'],
-            [['contract_no','debit_no','bill_to', 'receiver', 'shipment_id', 'pod', 'pol', 'etd', 'eta', 'remark', 'image', 'mini_res', 'fina_res'], 'safe'],
+            [['minister','contract_no','debit_no','bill_to', 'receiver', 'shipment_id', 'pod', 'pol', 'etd', 'eta', 'remark', 'image', 'mini_res', 'fina_res'], 'safe'],
         ];
     }
 
@@ -68,6 +68,9 @@ class FinancialDebitSearch extends YaeFreight
             'to_financial' => $this->to_financial,
             'mini_deal' => $this->mini_deal,
             'fina_deal' => $this->fina_deal,
+            'contract_no' => $this->contract_no,
+            'debit_no' => $this->debit_no,
+            'minister' => $this->minister,
         ]);
 
         $query->andFilterWhere(['like', 'bill_to', $this->bill_to])

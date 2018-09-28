@@ -77,6 +77,9 @@ class DepartmentDebitSearch extends YaeFreight
             'to_financial' => $this->to_financial,
             'mini_deal' => $this->mini_deal,
             'fina_deal' => $this->fina_deal,
+            'contract_no' => $this->contract_no,
+            'debit_no' => $this->debit_no,
+            'minister' => $this->minister,
         ]);
 
         $query->andFilterWhere(['like', 'bill_to', $this->bill_to])
