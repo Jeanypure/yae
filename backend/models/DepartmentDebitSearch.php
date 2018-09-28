@@ -77,9 +77,7 @@ class DepartmentDebitSearch extends YaeFreight
             'to_financial' => $this->to_financial,
             'mini_deal' => $this->mini_deal,
             'fina_deal' => $this->fina_deal,
-            'contract_no' => $this->contract_no,
-            'debit_no' => $this->debit_no,
-            'minister' => $this->minister,
+
         ]);
 
         $query->andFilterWhere(['like', 'bill_to', $this->bill_to])
@@ -90,7 +88,11 @@ class DepartmentDebitSearch extends YaeFreight
             ->andFilterWhere(['like', 'remark', $this->remark])
             ->andFilterWhere(['like', 'image', $this->image])
             ->andFilterWhere(['like', 'mini_res', $this->mini_res])
-            ->andFilterWhere(['like', 'fina_res', $this->fina_res]);
+            ->andFilterWhere(['like', 'fina_res', $this->fina_res])
+            ->andFilterWhere(['like', 'contract_no', $this->contract_no])
+            ->andFilterWhere(['like', 'debit_no', $this->debit_no])
+            ->andFilterWhere(['like', 'minister', $this->minister])
+        ;
 
         return $dataProvider;
     }

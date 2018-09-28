@@ -77,9 +77,7 @@ class YaeFreightSearch extends YaeFreight
             'fina_deal' => $this->fina_deal,
             'etd' => $this->etd,
             'eta' => $this->eta,
-            'contract_no' => $this->contract_no,
-            'debit_no' => $this->debit_no,
-            'minister' => $this->minister,
+
         ]);
 
         $query->andFilterWhere(['like', 'bill_to', $this->bill_to])
@@ -87,6 +85,9 @@ class YaeFreightSearch extends YaeFreight
             ->andFilterWhere(['like', 'shipment_id', $this->shipment_id])
             ->andFilterWhere(['like', 'pod', $this->pod])
             ->andFilterWhere(['like', 'pol', $this->pol])
+            ->andFilterWhere(['like', 'contract_no', $this->contract_no])
+            ->andFilterWhere(['like', 'debit_no', $this->debit_no])
+            ->andFilterWhere(['like', 'minister', $this->minister])
             ->andFilterWhere(['like', 'remark', $this->remark]);
 
         return $dataProvider;
