@@ -15,6 +15,7 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
+    <p><font color="red">创建新供应商前 按供应商名字搜下 如果已存在则不需创建 使用已存在的供应商代码等信息</font></p>
 
     <?= $form->field($model, 'supplier_name') ?>
 
@@ -24,5 +25,4 @@ use yii\widgets\ActiveForm;
     </div>
 
     <?php ActiveForm::end(); ?>
-    <p><font color="red">创建新供应商前 按供应商名字搜下 如果已存在则不需创建 使用已存在的供应商代码等信息</font></p>
 </div>

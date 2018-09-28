@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ListView;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\VendorPoolSearch */
@@ -12,18 +12,25 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="vendor-pool-index">
 
+    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
-
-    <?php
-    echo ListView::widget([
+    <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'itemOptions' => ['class' => 'item'],
-        'itemView' => function ($model, $key, $index, $widget) {
-            return Html::a(Html::encode($model->id), ['view', 'id' => $model->id]);
-        },
-    ])
-    ?>
-
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'supplier_code',
+            'supplier_name',
+        ],
+    ]); ?>
 </div>
+
+<?php
+$js = <<<JS
+    $(function() {
+      $('h3').remove();
+    });
+JS;
+$this->registerJs($js);
+?>
