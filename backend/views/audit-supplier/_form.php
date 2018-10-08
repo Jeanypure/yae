@@ -11,6 +11,8 @@ use kartik\select2\Select2;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+
+
 <div class="yae-supplier-form">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -58,7 +60,7 @@ use kartik\select2\Select2;
                     'has_cooperate'=>['type'=>Form::INPUT_RADIO_LIST,
                         'items'=>[1=>'是', 0=>'否'],
                         'label'=>"<span style = 'color:red'><big>*</big></span>是否合作过",
-                        'options'=>['placeholder'=>'']],
+                    ],
                 ],
 
             ]);
@@ -273,15 +275,16 @@ use kartik\select2\Select2;
         'contentBefore'=>'<legend class="text-info"><h1>审核检查项</h1></legend>',
         'attributes'=>[       // 3 column layout
             'complete_num'=>['type'=>Form::INPUT_TEXT,
-                'options'=>['placeholder'=>'']],'licence_pass'=>['type'=>Form::INPUT_RADIO_LIST,
-                'items'=>[1=>'是', 0=>'否'],
                 'options'=>['placeholder'=>'']],
+            'licence_pass'=>['type'=>Form::INPUT_RADIO_LIST,
+                'items'=>[1=>'是', 0=>'否'],
+                'label'=>"<span style = 'color:red'><big>*</big></span>营业执照审核通过",],
             'bill_pass'=>['type'=>Form::INPUT_RADIO_LIST,
                 'items'=>[1=>'是', 0=>'否'],
-                'options'=>['placeholder'=>'']],
+                'label'=>"<span style = 'color:red'><big>*</big></span>开票资质审核通过",],
             'bank_data_pass'=>['type'=>Form::INPUT_RADIO_LIST,
                 'items'=>[1=>'是', 0=>'否'],
-                'options'=>['placeholder'=>'']],
+                'label'=>"<span style = 'color:red'><big>*</big></span>银行信息审核通过",],
 
         ],
 
@@ -355,7 +358,7 @@ $JS =<<<JS
            'yaesupplier-pd_bill_name' ,'yaesupplier-bill_unit' ,'yaesupplier-pay_card' ,'yaesupplier-pay_name' ,'yaesupplier-pay_bank' ,
            'yaesupplier-account_proportion' ,'yaesupplier-pay_cycletime_type' ,'yaesupplier-account_type' ,'yaesupplier-bank_account_data' ,
            'yaesupplier-bill_img1_name_unit','yaesupplier-bill_img1','suppliercontact-contact_name','suppliercontact-contact_address','suppliercontact-contact_tel',
-           'suppliercontact-contact_qq',
+           'suppliercontact-contact_qq','yaesupplier-complete_num','yaesupplier-check_status'
         ];
         var label;
        $("label[for='goodssku-sku']").addClass("label-require");

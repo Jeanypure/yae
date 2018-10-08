@@ -19,6 +19,7 @@ class AuditSupplierSearch extends YaeSupplier
     {
         return [
             [['has_tons','id', 'bill_type', 'pay_cycleTime_type', 'account_type', 'has_cooperate', 'licence_pass', 'bill_pass', 'bank_data_pass', 'is_submit_vendor', 'check_status'], 'integer'],
+            [['complete_num','bill_pass', 'bank_data_pass', 'licence_pass','check_status'], 'required'],
             [['supplier_code', 'supplier_name', 'pd_bill_name', 'bill_unit', 'submitter', 'business_licence', 'bank_account_data', 'pay_card', 'pay_name', 'pay_bank', 'sup_remark', 'account_proportion', 'bill_img1', 'bill_img1_name_unit', 'bill_img2', 'bill_img2_name_unit', 'complete_num', 'supplier_address', 'check_memo'], 'safe'],
         ];
     }
@@ -34,7 +35,7 @@ class AuditSupplierSearch extends YaeSupplier
 
     /**
      * Creates data provider instance with search query applied
-     *
+     *d
      * @param array $params
      *
      * @return ActiveDataProvider
