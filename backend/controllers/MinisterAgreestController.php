@@ -185,11 +185,8 @@ class MinisterAgreestController extends Controller
             $model->attributes = $post['PurInfo'];
             $sample_model->attributes = $post['Sample'];
             $minister_result = $post['Sample']['minister_result'];
-            if(isset($post['PurInfo']['is_purchase'])){
-
-                if($post['PurInfo']['is_purchase']==1){
+            if(isset($post['PurInfo']['is_purchase'])&&$post['PurInfo']['is_purchase']==1){
                     try{
-
                         $sql = " SET @id = $id;
                             CALL purinfo_to_goodssku (@id);";
                         $res = Yii::$app->db->createCommand($sql)->execute();
@@ -198,7 +195,7 @@ class MinisterAgreestController extends Controller
                         throw $exception;
                     }
 
-                    if($model->source == 0){
+                   if($model->source == 0){
                         try{
                             Yii::$app->db->createCommand("
                         update sample set minister_result=3, audit_team_result=3,purchaser_result=3 where spur_info_id=$id;
@@ -221,17 +218,19 @@ class MinisterAgreestController extends Controller
                     $count = Yii::$app->db->createCommand("
                             select count(*) as num from headman where product_id=$id
                             ")->queryOne();
+
                     if(empty($count['num'])){ //第一次 插入
                         $this->actionToHeadman($id);
                     }
 
-                }
             }
 
-
-            $sample_model->save(false);
-            $model->save(false);
-            return $this->redirect('index');
+            if ($sample_model->save(false)&&$model->save(false)) {
+                Yii::$app->getSession()->setFlash('success', '保存成功');
+            } else {
+                Yii::$app->getSession()->setFlash('error', '保存失败');
+            }
+            return $this->redirect(['index']);
         }
         return  $this->renderAjax('is_quality', [
             'model' => $model,
@@ -288,7 +287,7 @@ class MinisterAgreestController extends Controller
                 throw new Exception();
             }
 
-            return $result;
+//            return $result;
 
 
 

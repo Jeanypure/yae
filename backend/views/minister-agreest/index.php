@@ -31,10 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
 //                ['class' => 'yii\grid\CheckboxColumn'],
                 ['class' => 'yii\grid\ActionColumn',
                     'header' => '操作',
-                    'template' => '{view}  {saved}  {arrival} ',
+                    'template' => '{view}  {saved}  {update} ',
                     'buttons' => [
                         'saved' => function ($url, $model, $key) {
-                            return Html::a('<span class="glyphicon glyphicon-saved"></span>', $url, [
+                            return Html::a('<span class="glyphicon glyphicon-saved"></span>',
+                                $url,
+                                [
                                 'title' => '质量审核 ',
                                 'data-toggle' => 'modal',
                                 'data-target' => '#audit-modal',
