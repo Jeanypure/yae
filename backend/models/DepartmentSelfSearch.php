@@ -42,12 +42,24 @@ class DepartmentSelfSearch extends PurInfo
      */
     public function search($params,$pur_group)
     {
-        $query = PurInfo::find()
-            ->select(['`pur_info`.*,`sample`.pd_sku'])
-            ->andWhere(['pur_group'=>$pur_group])
-            ->joinWith('sample')
-            ->andWhere(['is_submit'=>1])
-            ->orderBy('pur_info_id   desc');
+        $username = Yii::$app->user->identity->username;
+
+        if($username=='Sue'){
+            $query = PurInfo::find()
+                ->select(['`pur_info`.*,`sample`.pd_sku'])
+                ->andWhere(['in','pur_group',[1,4,5,8]])
+                ->joinWith('sample')
+                ->andWhere(['is_submit'=>1])
+                ->orderBy('pur_info_id   desc');
+        }else{
+            $query = PurInfo::find()
+                ->select(['`pur_info`.*,`sample`.pd_sku'])
+                ->andWhere(['pur_group'=>$pur_group])
+                ->joinWith('sample')
+                ->andWhere(['is_submit'=>1])
+                ->orderBy('pur_info_id   desc');
+        }
+
 
         // add conditions that should always apply here
 
