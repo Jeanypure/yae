@@ -39,11 +39,7 @@ class AuditController extends Controller
     public function actionIndex()
     {
         $searchModel = new AuditSearch();
-        $res = Company::find()->select('id,sub_company')
-            ->where("leader_id=".Yii::$app->user->identity->getId())->asArray()->one();
-        $sub_id = $res['id']??'';
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$sub_id);
-
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

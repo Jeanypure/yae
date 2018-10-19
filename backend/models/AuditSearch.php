@@ -44,12 +44,25 @@ class AuditSearch extends PurInfo
      *
      * @return ActiveDataProvider
      */
-    public function search($params,$pur_group)
+    public function search($params)
     {
         $member = Yii::$app->user->identity->username;
-
-
-        if($member!='Jenny'&&$member!='Mark'&&$member!='David'&&empty($pur_group)){ //审核组
+        $userId = Yii::$app->user->identity->getId();
+        $res = Company::find()->select('id,sub_company')
+            ->where("leader_id=".$userId)->asArray()->one();
+        $sub_id = $res['id']??'';
+       $userRole = Yii::$app->authManager->getRolesByUser($userId);
+        if(array_key_exists('销售部长',$userRole)){
+            $query = PurInfo::find()
+                ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager,`preview`.result'])
+                ->joinWith('preview')
+                ->andWhere(['pur_group'=> $sub_id])
+                ->andWhere(['member2'=>$member])
+                ->andWhere(['is_submit'=>1])
+                ->andWhere(['member2'=>$member])
+                ->orderBy('pur_info_id desc')
+            ;
+        }elseif(array_key_exists('审核组',$userRole)){
             $query = PurInfo::find()
                 ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager,`preview`.result'])
                 ->joinWith('preview')
@@ -58,22 +71,7 @@ class AuditSearch extends PurInfo
                 ->andWhere(['member2'=>$member])
                 ->orderBy('pur_info_id desc')
             ;
-
-        }elseif(!empty($pur_group)){ //部长 组内的+经理推荐的
-            $query = PurInfo::find()
-                ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager,`preview`.result'])
-                ->joinWith('preview')
-                ->andWhere(['pur_group'=> $pur_group])
-//                ->orWhere(['member2'=>$member])
-                ->andWhere(['member2'=>$member])
-                ->andWhere(['is_submit'=>1])
-                ->andWhere(['member2'=>$member])
-                ->orderBy('pur_info_id desc')
-            ;
-
-
-        }else{ //超级管理员
-
+        }else{
             $query = PurInfo::find()
                 ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager'])
                 ->joinWith('preview')
@@ -81,13 +79,12 @@ class AuditSearch extends PurInfo
                 ->andWhere(['not', ['pur_group' => null]])
                 ->orderBy('pur_info_id desc')
             ;
-
         }
-
+//        echo $query->createCommand()->getRawSql(); die;
         $this->view_status = 0;
         $this->submit_manager = 0;
         // add conditions that should always apply here
-//       echo $query->createCommand()->getRawSql();die;
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
