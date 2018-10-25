@@ -26,12 +26,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'export' => false,
+        'pjax'=>true,
+        'striped'=>true,
+        'hover'=>true,
+        'panel'=>['type'=>'primary', 'heading'=>'货单列表'],
         'id' => 'debit',
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            ['class' => 'yii\grid\CheckboxColumn'],
-            ['class' => 'yii\grid\ActionColumn',
+            ['class' => 'kartik\grid\SerialColumn'],
+            ['class' => 'kartik\grid\CheckboxColumn'],
+            ['class' => 'kartik\grid\ActionColumn',
                 'header' => '操作'
             ],
             [
