@@ -26,6 +26,7 @@ use kartik\select2\Select2;
             'pd_title'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'pd_title_en'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'image_url'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'hs_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>''],],
             'is_quantity_check'=>['type'=>Form::INPUT_RADIO_LIST, 'items'=>[1=>'是', 0=>'否'],
                 'label'=>"<span style = 'color:red'><big>*</big></span>是否需要质检",],
 

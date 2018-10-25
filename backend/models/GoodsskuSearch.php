@@ -19,7 +19,7 @@ class GoodsskuSearch extends Goodssku
     {
         return [
             [['audit_result','has_toeccang','has_tons','has_commit','sku_id', 'is_quantity_check', 'contain_battery', 'qty_of_ctn', 'min_order_num', 'pd_get_days', 'pur_info_id'], 'integer'],
-            [[ 'pd_creator','pd_title','pd_title_en','image_url','sku', 'currency_code', 'old_sku', 'sale_company',
+            [[ 'pd_creator','pd_title','pd_title_en','image_url','sku','hs_code', 'currency_code', 'old_sku', 'sale_company',
                 'audit_content','vendor_code', 'origin_code', 'pd_costprice_code', 'bill_name', 'bill_unit', 'brand', 'sku_mark'], 'safe'],
             [['declared_value', 'ctn_length', 'ctn_width', 'ctn_height', 'ctn_fact_weight', 'pd_costprice'], 'number'],
         ];

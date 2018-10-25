@@ -55,7 +55,7 @@ class Goodssku extends yii\db\ActiveRecord
         return [
             [['declared_value', 'ctn_length', 'ctn_width', 'ctn_height', 'ctn_fact_weight', 'pd_costprice'], 'number'],
             [['audit_result','has_toeccang','has_tons','has_commit','is_quantity_check', 'contain_battery', 'qty_of_ctn', 'min_order_num', 'pd_get_days', 'pur_info_id'], 'integer'],
-            [['sku', 'old_sku'], 'string', 'max' => 60],
+            [['sku', 'old_sku','hs_code'], 'string', 'max' => 60],
             [['currency_code', 'bill_unit'], 'string', 'max' => 5],
             [[ 'brand', 'sku_mark'], 'string', 'max' => 100],
             [['vendor_code', 'pd_costprice_code'], 'string', 'max' => 30],
@@ -66,7 +66,7 @@ class Goodssku extends yii\db\ActiveRecord
             [['image_url'], 'string', 'max' =>500 ],
             [['audit_content','sale_company','sku_create_date','sku_update_date' ], 'safe'],
             [['sku','pd_title','pd_title_en','image_url','is_quantity_check','pd_costprice','declared_value','contain_battery',
-                'pd_length','pd_width','pd_height','pd_weight','sale_company'], 'required'],
+                'pd_length','pd_width','pd_height','pd_weight','sale_company','hs_code'], 'required'],
 
         ];
     }
@@ -116,6 +116,7 @@ class Goodssku extends yii\db\ActiveRecord
             'has_tons' => '是否导NS',
             'audit_result' => '是否通过',
             'audit_content' => '审核内容',
+            'hs_code' => 'HS编码',
         ];
     }
 
