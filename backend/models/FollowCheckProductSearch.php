@@ -45,7 +45,7 @@ class FollowCheckProductSearch extends Goodssku
 
         $username = Yii::$app->user->identity->username;
         $user_dict = [
-            'Lulu'=> '1,5',
+            'Lulu'=> '1,2,3,4,5,6,7,8',
             'Cara'=> '2,6',
             'Ivy'=> '3,4',
             'Belle'=> '3,4',
@@ -61,6 +61,7 @@ class FollowCheckProductSearch extends Goodssku
 
             ;
         }
+
 
 
         // add conditions that should always apply here
