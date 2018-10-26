@@ -59,7 +59,7 @@ class Goodssku extends yii\db\ActiveRecord
             [['currency_code', 'bill_unit'], 'string', 'max' => 5],
             [[ 'brand', 'sku_mark'], 'string', 'max' => 100],
             [['vendor_code', 'pd_costprice_code'], 'string', 'max' => 30],
-            [['origin_code'], 'string', 'max' => 216],
+            [['origin_code'], 'string', 'max' => 1000],
             [['bill_name'], 'string', 'max' => 50],
             [['pd_title', 'pd_title_en'], 'string', 'max' => 300],
             [['pd_length','pd_width','pd_height','pd_weight','pd_creator',], 'string', 'max' =>10 ],
