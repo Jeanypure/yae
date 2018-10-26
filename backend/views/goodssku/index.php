@@ -174,6 +174,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ],
             'qty_of_ctn',
+            'hs_code',
             'sku_mark',
 
         ],
