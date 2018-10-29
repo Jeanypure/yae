@@ -24,11 +24,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pjax'=>true,
+        'striped'=>true,
+        'hover'=>true,
+        'panel'=>['type'=>'primary', 'heading'=>'开发产品列表'],
         'id'=>'commit_product',
         'export'=>false,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            ['class' => 'yii\grid\CheckboxColumn'],
+            ['class' => 'kartik\grid\SerialColumn'],
+            ['class' => 'kartik\grid\CheckboxColumn'],
             [
                     'class' => 'yii\grid\ActionColumn',
                     'header' => '操作',
