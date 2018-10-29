@@ -29,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'hover'=>true,
         'panel'=>['type'=>'primary', 'heading'=>'开发产品列表'],
         'id'=>'commit_product',
-        'export'=>false,
         'columns' => [
             ['class' => 'kartik\grid\SerialColumn'],
             ['class' => 'kartik\grid\CheckboxColumn'],
