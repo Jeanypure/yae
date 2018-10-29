@@ -20,12 +20,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'export' => false,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            [
+           /* [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => '操作',
-
                 'template'=> ' {view} '
-            ],
+            ],*/
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
@@ -59,27 +58,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
-
-
-            [
-                'attribute'=>'is_purchase',
-                'width'=>'50px',
-                'value'=>function ($model, $key, $index, $widget) {
-                    if($model->is_purchase=='0'){
-                        return '否';
-
-                    }else{
-                        return '是';
-                    }
-                },
-                'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['1' => '是', '0' => '否'],
-                'filterWidgetOptions'=>[
-                    'pluginOptions'=>['allowClear'=>true],
-                ],
-                'filterInputOptions'=>['placeholder'=>'是否采购'],
-                'group'=>true,  // enable grouping
-            ],
             'pd_length',
             'pd_width',
             'pd_height',
@@ -105,13 +83,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'pd_weight',
             'pd_throw_weight',
             'pd_count_weight',
-            'pd_purchase_num',
+            /*'pd_purchase_num',
             'pd_pur_costprice',
             'has_shipping_fee',
             'bill_type',
             'hs_code',
             'bill_tax_rebate',
-            'bill_rebate_amount',
+            'bill_rebate_amount',*/
             'no_rebate_amount',
             'retail_price',
             [
@@ -134,10 +112,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     if (!empty($model->ebay_url)) return "<a href='$model->ebay_url' target='_blank'>".parse_url($model->ebay_url)['host']."</a>";
                 }
             ],
-            'shipping_fee',
-            'oversea_shipping_fee',
-            'transaction_fee',
-            'gross_profit',
+                /*'shipping_fee',
+                'oversea_shipping_fee',
+                'transaction_fee',
+                'gross_profit',*/
 
         ],
     ]); ?>

@@ -34,9 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'pd_count_weight',
             'pd_material',
             'pd_purchase_num',
-            'pd_pur_costprice',
-            'old_costprice',
-            'has_shipping_fee',
+
             'bill_type',
             'hs_code',
             'bill_tax_rebate',
@@ -45,13 +43,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'retail_price',
             ['attribute'=>'ebay_url','format'=>['url',['target'=>'_blank']]],
             ['attribute'=>'amazon_url','format'=>['url',['target'=>'_blank']]],
-//            ['attribute'=>'url_1688','format'=>['url',['target'=>'_blank']]],
             ['attribute'=>'else_url','format'=>['url',['target'=>'_blank']]],
-            'shipping_fee',
-            'oversea_shipping_fee',
-            'transaction_fee',
-            'gross_profit',
-            'remark',
+
 
         ],
     ]) ?>
