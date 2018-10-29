@@ -47,7 +47,7 @@ class DepartmentSelfSearch extends PurInfo
         if($username=='Sue'){
             $query = PurInfo::find()
                 ->select(['`pur_info`.*,`sample`.pd_sku'])
-                ->andWhere(['in','pur_group',[1,4,5,8]])
+                ->andWhere(['in','pur_group',[1,4,5,7,8]])
                 ->joinWith('sample')
                 ->andWhere(['is_submit'=>1])
                 ->orderBy('pur_info_id   desc');
