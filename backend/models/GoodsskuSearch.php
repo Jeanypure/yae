@@ -46,7 +46,7 @@ class GoodsskuSearch extends Goodssku
         $username = Yii::$app->user->identity->username;
         $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
 
-        if($role['超级管理员']){
+        if(in_array('超级管理员',$role)){
             $query = Goodssku::find()
                 ->orderBy('sku_id desc')
             ;
