@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\VendorPool;
 use Yii;
 use backend\models\YaeSupplier;
 use backend\models\YaeSupplierSearch;
@@ -68,13 +69,17 @@ class YaeSupplierController extends Controller
     {
         $supplier = new YaeSupplier();
         $supplier_contact = new SupplierContact();
+
+        $vendor_pool = new VendorPool();
         $username = Yii::$app->user->identity->username;
         $post = Yii::$app->request->post();
         if (isset($post['YaeSupplier']) && isset($post['SupplierContact'])){
             $supplier->attributes = $post['YaeSupplier'];
             $supplier->submitter = $username;
             $supplier->save(false);
-
+            $vendor_pool['supplier_code'] = $post['YaeSupplier']['supplier_code'];
+            $vendor_pool['supplier_name'] = $post['YaeSupplier']['supplier_name'];
+            $vendor_pool->save(false);
             $supplier_contact->username = $username;
             $supplier_contact->supplier_id = $supplier->primaryKey ;
             $supplier_contact->attributes=$post['SupplierContact'];
