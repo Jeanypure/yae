@@ -46,7 +46,7 @@ class SkuVendor extends \yii\db\ActiveRecord
             [['brand', 'remark'], 'string', 'max' => 100],
             [['bill_name'], 'string', 'max' => 50],
             [['origin_code'], 'string', 'max' => 500],
-            [['vendor_code','bill_unit','bill_name','min_order_num','pd_get_days','pd_costprice',], 'required'],
+            [['origin_code','vendor_code','bill_unit','bill_name','min_order_num','pd_get_days','pd_costprice',], 'required'],
         ];
     }
 

@@ -165,7 +165,7 @@ $JS =<<<JS
            "goodssku-hs_code","goodssku-pd_title","goodssku-pd_title_en","goodssku-image_url","goodssku-pd_costprice","goodssku-pd_costprice_code",
             "goodssku-vendor_code","goodssku-declared_value","goodssku-currency_code","goodssku-pd_length","goodssku-pd_width",
             "goodssku-pd_height","goodssku-pd_weight","goodssku-sale_company" ,"skuvendor-vendor_code","skuvendor-bill_name",
-            "skuvendor-bill_unit","skuvendor-pd_costprice","skuvendor-min_order_num","skuvendor-pd_get_days"];
+            "skuvendor-bill_unit","skuvendor-pd_costprice","skuvendor-min_order_num","skuvendor-pd_get_days","skuvendor-origin_code"];
         var label;
        $("label[for='goodssku-sku']").addClass("label-require");
        for ( label in requirelabels){
