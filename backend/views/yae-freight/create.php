@@ -89,7 +89,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
-        echo $form->field($model, 'image')->widget('manks\FileInput', []);
+        echo $form->field($model, 'image')->widget('manks\FileInput', [
+            'clientOptions' => [
+                'pick' => [
+                    'multiple' => true,
+                ],
+                ],
+        ]);
 
         ?>
 

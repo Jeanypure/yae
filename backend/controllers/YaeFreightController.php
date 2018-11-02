@@ -15,13 +15,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
-
-
 use common\components\Upload;
-use yii\web\Response;
-
 use backend\models\UploadForm;
-use yii\web\UploadedFile;
+use yii\helpers\Json;
 
 /**
  * YaeFreightController implements the CRUD actions for YaeFreight model.
@@ -80,13 +76,16 @@ class YaeFreightController extends Controller
     {
         $model = new YaeFreight();
         $param = $this->actionParam();
-
-        if ($model->load(Yii::$app->request->post())) {
+        $post =  Yii::$app->request->post();
+        if ($model->load($post)) {
             $model->builder = Yii::$app->user->identity->username;
+//            is_array($this->image) && $this->image && $this->image= implode(',', $post['YaeFreight']['image']);
+
+            $model->image = implode(',', $post['YaeFreight']['image']);
             //创建费用
             $res = $model->save(false);
             if ($res) {
-                $fee_cat = Yii::$app->request->post()['YaeFreight']['fee_cateid'];
+                $fee_cat = $post['YaeFreight']['fee_cateid'];
                 $this->actionFee($model->id, $fee_cat);
             }
 
@@ -320,7 +319,7 @@ class YaeFreightController extends Controller
     //webUploader上传
     public function actionUpload()
     {
-        try {
+       /* try {
             Yii::$app->response->format = Response::FORMAT_JSON;
             $model = new Upload();
             $info = $model->upImage();
@@ -331,6 +330,23 @@ class YaeFreightController extends Controller
             }
         } catch (\Exception $e) {
             return ['code' => 1, 'msg' => $e->getMessage()];
+        }*/
+        try {
+            $model = new Upload();
+            $info = $model->upImage();
+            $info && is_array($info) ?
+                exit(Json::htmlEncode($info)) :
+                exit(Json::htmlEncode([
+                    'code' => 1,
+                    'msg' => 'error'
+                ]));
+
+
+        } catch (\Exception $e) {
+            exit(Json::htmlEncode([
+                'code' => 1,
+                'msg' => $e->getMessage()
+            ]));
         }
     }
 
