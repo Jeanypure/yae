@@ -40,7 +40,6 @@ class Upload extends Model
     {
         $model = new static;
         $model->file = UploadedFile::getInstanceByName('file');
-        $username = Yii::$app->user->identity->username;
         if (!$model->file) {
             return false;
         }
