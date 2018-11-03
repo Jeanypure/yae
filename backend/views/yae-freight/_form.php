@@ -86,7 +86,14 @@ use kartik\select2\Select2;
 
 
 
-        echo $form->field($model, 'image')->widget('manks\FileInput', []);
+        echo $form->field($model, 'image')->widget('manks\FileInput',  [
+            'clientOptions' => [
+                'pick' => [
+                    'multiple' => true,
+                ],
+            ]
+            ]);
+
 
         ?>
     <?php
