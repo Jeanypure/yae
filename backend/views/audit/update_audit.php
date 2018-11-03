@@ -104,10 +104,6 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
         <?php ActiveForm::end(); ?>
 
-
-
-
-
     </div>
 </div>
 
