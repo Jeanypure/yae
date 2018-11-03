@@ -50,6 +50,7 @@ class DepartmentSelfSearch extends PurInfo
                 ->andWhere(['in','pur_group',[1,4,5,7,8]])
                 ->joinWith('sample')
                 ->andWhere(['is_submit'=>1])
+                ->andWhere(['is_purchase'=>1])
                 ->orderBy('pur_info_id   desc');
         }else{
             $query = PurInfo::find()
