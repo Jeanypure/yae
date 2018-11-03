@@ -99,7 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'is_purchase',
                 'width'=>'50px',
                 'value'=>function ($model, $key, $index, $widget) {
-                    if($model->source=='0'){
+                    if($model->is_purchase=='0'){
                         return '不采';
 
                     }else{
@@ -112,7 +112,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'采购?'],
-                'group'=>true,  // enable grouping
             ],
             [
                 'attribute'=>'master_mark',
