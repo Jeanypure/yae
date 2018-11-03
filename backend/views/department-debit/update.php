@@ -21,16 +21,10 @@ $this->params['breadcrumbs'][] = 'Update';
         <p>
             <img src="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$model->image;?>" width="100" height="100" alt="" />
         </p>
-        <h5>
-            货代图片地址: <a target="_blank" href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$model->image;?>"> <?php echo 'http://'.$_SERVER['HTTP_HOST'].$model->image;?></a>
-        </h5>
         <div class="yae-freight-form">
-
             <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
             <legend class="text-info"><h4>图片信息</h4></legend>
-
             <?php
-
             echo $form->field($model, 'image')->widget('manks\FileInput',  [
                 'clientOptions' => [
                     'pick' => [
@@ -39,14 +33,8 @@ $this->params['breadcrumbs'][] = 'Update';
                 ]
             ]);
 
-
             ?>
-
-
         </div>
-
-
-
         <?php ActiveForm::end(); ?>
 
     </div>
