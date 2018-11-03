@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
             ?>
         </div>
+        <?php ActiveForm::end(); ?>
         <h3>1 需确认信息</h3>
         <?= DetailView::widget([
             'model' => $model,
