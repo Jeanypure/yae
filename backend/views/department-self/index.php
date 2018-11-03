@@ -96,6 +96,25 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions'=>['placeholder'=>'评审状态'],
             ],
             [
+                'attribute'=>'is_purchase',
+                'width'=>'50px',
+                'value'=>function ($model, $key, $index, $widget) {
+                    if($model->source=='0'){
+                        return '不采';
+
+                    }else{
+                        return '采购';
+                    }
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '采购', '0' => '不采'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'采购?'],
+                'group'=>true,  // enable grouping
+            ],
+            [
                 'attribute'=>'master_mark',
                 'value' => function($model) { return $model->master_mark;},
                 'contentOptions'=> ['style' => 'width: 90%; word-wrap: break-word;white-space:pre-line;'],
