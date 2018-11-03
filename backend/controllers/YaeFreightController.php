@@ -120,8 +120,10 @@ class YaeFreightController extends Controller
                         GROUP BY currency;
 ")->queryAll();
         $fee_model = FreightFee::find()->where(['freight_id' => $id])->all();
-        if ($model->load(Yii::$app->request->post())) {
+        $post = Yii::$app->request->post();
+        if ($model->load($post)) {
             $model->update_at = date('Y-m-d H:i:s');
+            $model->image = implode(',', $post['YaeFreight']['image']);
             $model->save(false);
             return $this->redirect(['yae-freight/update', 'id' => $model->id]);
         }
