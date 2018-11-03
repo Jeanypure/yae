@@ -24,6 +24,32 @@ $this->params['breadcrumbs'][] = 'Update';
         <h5>
             货代图片地址: <a target="_blank" href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$model->image;?>"> <?php echo 'http://'.$_SERVER['HTTP_HOST'].$model->image;?></a>
         </h5>
+        <div class="yae-freight-form">
+
+            <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+            <legend class="text-info"><h4>图片信息</h4></legend>
+
+            <?php
+
+            echo $form->field($model, 'image')->widget('manks\FileInput',  [
+                'clientOptions' => [
+                    'pick' => [
+                        'multiple' => true,
+                    ],
+                ]
+            ]);
+
+
+            ?>
+
+
+        </div>
+
+
+
+        <?php ActiveForm::end(); ?>
+
+    </div>
 
         <h3>1 需确认信息</h3>
         <?= DetailView::widget([
