@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }elseif($model->bill_to ==4 ){
                         return '上海域聪贸易有限公司';
                     }elseif($model->bill_to ==5 ){
-                        return '上海朋侯贸易有限公司';
+                        return '上海鹏侯贸易有限公司';
                     }elseif($model->bill_to ==6 ){
                         return '上海客尊贸易有限公司';
                     }
