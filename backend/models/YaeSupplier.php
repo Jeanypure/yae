@@ -23,7 +23,7 @@ use Yii;
  * @property int $pay_cycleTime_type 支付周期类型 1日结,2周结,3半月结,4月结,5隔月结 0 其他
  * @property int $account_type 供应商结算方式：1、货到付款。2、款到发货。3、周期结算。4、售后付款。5、默认方式（针对市场随意采购，无具体供应商信息的类型）
  * @property string $account_proportion 预付比例%
- * @property int $has_cooperate 是否为合作过的供应商 0 否 1是 
+ * @property int $has_cooperate 是否为合作过的供应商 0 否 1是
  * @property string $bill_img1 发票01
  * @property string $bill_img1_name_unit 发票01的开票品名和单位
  * @property string $bill_img2 发票02
@@ -71,7 +71,7 @@ class YaeSupplier extends \yii\db\ActiveRecord
             [['supplier_code','supplier_name','supplier_address','pay_cycleTime_type','account_type','account_proportion',
                 'has_cooperate','submitter','pay_bank','pay_card','pay_name','pd_bill_name','bill_unit','bill_type',
                 'business_licence','bank_account_data','check_status','complete_num','bill_pass', 'bank_data_pass',
-                'licence_pass'
+                'licence_pass','supplier_pay_methon','commitment_date'
             ], 'required'],
             [['into_eccang_date','create_date','update_date','update_date','check_date' ], 'safe'],
             [['bill_img1_name_unit','bill_img2_name_unit'], function ($attribute, $param) {//至少要一个
@@ -108,8 +108,8 @@ class YaeSupplier extends \yii\db\ActiveRecord
             'has_cooperate' => '是否合作过',
             'bill_img1' => '发票或纳税人资质照片',
             'bill_img1_name_unit' => '发票01的开票品名和单位',
-            'bill_img2' => '其它资料照片',
-            'bill_img2_name_unit' => '其它资料标题',
+            'bill_img2' => '其他图片',
+            'bill_img2_name_unit' => '其他原因',
             'complete_num' => '资料提交齐全度%',
             'licence_pass' => '营业执照审核通过',
             'bill_pass' => '开票资质审核通过',
@@ -117,7 +117,7 @@ class YaeSupplier extends \yii\db\ActiveRecord
             'bl_img_address' => '营业执照图片地址',
             'bank_img_add' => '银行开户资料图片地址',
             'bill01_img_add' => '发票或纳税人资质照片地址',
-            'bill02_img_add' => '其它资料照片图片地址',
+            'bill02_img_add' => '其他图片地址',
             'is_submit_vendor' => '提交审核?',
             'check_status' => '审核状态',
             'check_memo' => '审核人备注',
@@ -130,6 +130,8 @@ class YaeSupplier extends \yii\db\ActiveRecord
             'check_date' => '审核日期',
             'sale_company' => '销售公司',
             'has_tons' => '已导NS?',
+            'supplier_pay_methon' => '供应商接受付款方式',
+            'commitment_date' => '承诺到票日期',
         ];
 
     }

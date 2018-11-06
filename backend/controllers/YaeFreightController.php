@@ -79,7 +79,7 @@ class YaeFreightController extends Controller
         $post =  Yii::$app->request->post();
         if ($model->load($post)) {
             $model->builder = Yii::$app->user->identity->username;
-            $model->image = implode(',', $post['YaeFreight']['image']);
+            $model->image = empty($post['YaeFreight']['image'])?'':implode(',', $post['YaeFreight']['image']);
             //创建费用
             $res = $model->save(false);
             if ($res) {
@@ -123,7 +123,7 @@ class YaeFreightController extends Controller
         $post = Yii::$app->request->post();
         if ($model->load($post)) {
             $model->update_at = date('Y-m-d H:i:s');
-            $model->image = implode(',', $post['YaeFreight']['image']);
+            $model->image = empty($post['YaeFreight']['image'])?'':implode(',', $post['YaeFreight']['image']);
             $model->save(false);
             return $this->redirect(['yae-freight/update', 'id' => $model->id]);
         }

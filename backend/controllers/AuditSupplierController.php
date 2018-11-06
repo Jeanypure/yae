@@ -117,6 +117,8 @@ class AuditSupplierController extends Controller
         $pay_cycleTime_type = [1 => '日结', 2 => '周结',3 => '半月结',4 => '月结',5 => '隔月结',6 => '其它',];
         $account_type = [1 => '货到付款', 2 => '款到发货',3 => '周期结算',4 => '售后付款',5 => '默认方式',6 => '其它'];
         $bill_type = [ '16%专票','增值税普通发票','3%专票'];
+
+
         $company = [
             '2'=>'上海商舟船舶用品有限公司',
             '3'=>'雅耶国际贸易(上海)有限公司',
@@ -244,7 +246,7 @@ class AuditSupplierController extends Controller
         $query = YaeSupplier::find()->select(['r.supplier_code','r.supplier_name','r.supplier_address',
             'r.pay_cycleTime_type', 'r.account_type','r.account_proportion','r.bill_type','r.has_cooperate',
             'r.submitter','r.pay_bank','r.pay_card','t.contact_name', 't.contact_memo','t.contact_tel','t.contact_qq',
-            't.contact_wechat','r.sup_remark','r.sale_company',
+            't.contact_wechat','r.sup_remark','r.sale_company','r.supplier_pay_methon'
 //            'r.pay_name','t.supplier_id','t.contact_address','t.contact_wangwang','r.pd_bill_name','r.bill_unit'
             ]);
         $query->from(YaeSupplier::tableName() . 'r');
@@ -253,6 +255,7 @@ class AuditSupplierController extends Controller
         $pay_cycleTime_type = [1 => '日结', 2 => '周结',3 => '半月结',4 => '月结',5 => '隔月结',6 => '其它',];
         $account_type = [1 => '货到付款', 2 => '款到发货',3 => '周期结算',4 => '售后付款',5 => '默认方式',6 => '其它'];
         $bill_type = [ '16%专票','增值税普通发票','3%专票'];
+        $supplier_pay_methon = [ 1=>'票到付款',2=>'先预付再开票最后付尾款',3=>'先款后票'];
         $company = [
             '2'=>'上海商舟船舶用品有限公司',
             '3'=>'雅耶国际贸易(上海)有限公司',
@@ -268,6 +271,7 @@ class AuditSupplierController extends Controller
             $val['bill_type'] = $bill_type[$val['bill_type']];
             $val['sale_company'] = '母公司 : '.$company[empty($value['sale_company'])?'2':$value['sale_company']];
             $val['has_cooperate'] = $val['has_cooperate']==1?'是':'否';
+            $val['supplier_pay_methon'] = $supplier_pay_methon[$val['supplier_pay_methon']];
             $list[] = $val;
         }
         return $list;
@@ -282,9 +286,9 @@ class AuditSupplierController extends Controller
 
         $query = YaeSupplier::find()->select(['r.supplier_code','r.supplier_name','r.pd_bill_name','r.bill_unit','r.submitter',
             'r.bill_type','r.pay_card','r.pay_name','r.pay_bank','r.sup_remark','r.pay_cycleTime_type','r.account_type',
-            'r.account_proportion','r.has_cooperate','r.sale_company','r.supplier_address',
+            'r.account_proportion','r.has_cooperate','r.sale_company','r.supplier_address','r.supplier_pay_methon',
             't.supplier_id','t.contact_name','t.contact_tel','t.contact_address','t.contact_qq','t.contact_wechat','t.contact_wangwang',
-            't.contact_memo']);
+            't.contact_memo','r.pay_name']);
         $query->from(YaeSupplier::tableName() . 'r');
         $query->leftJoin('supplier_contact t', 't.supplier_id=r.id');
         $data = $query->Where('r.id ='.$id)->orderBy('r.id desc')->asArray()->all();
@@ -308,6 +312,8 @@ class AuditSupplierController extends Controller
             "custentity_address" => $data[0]['contact_address'],
             "altphone" => $data[0]['contact_tel'],
             "custentity_attention" => $data[0]['contact_name'],
+           // "custentitypayment_method" => $data[0]['supplier_pay_methon'],
+            "custentity9" => $data[0]['pay_name'],
         ];
         $res = $this->actionDoVendorCurl($vendor_arr);
         if (is_string($res)){

@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\select2\Select2;
+use kartik\datetime\DateTimePicker;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\YaeSupplier */
@@ -93,6 +94,8 @@ use kartik\select2\Select2;
 
     ]);
     ?>
+
+
     <?php
     echo Form::widget([
         'model'=>$model,
@@ -216,6 +219,65 @@ use kartik\select2\Select2;
     ]);
 
     ?>
+<!--  <!--   <div class="row">-->
+<!--        <legend style="margin-left: 10px" class="text-info"><h3>6.供应商接受付款方式</h3></legend>'-->
+<!--        <div class="col-sm-3">-->
+<!--            --><?php
+///*            // Usage with ActiveForm and model
+//            echo $form->field($model, 'supplier_pay_methon')->widget(Select2::classname(), [
+//                'data' => [
+//                    '1'=>'票到付款',
+//                    '2'=>'先预付再开票最后付尾款',
+//                    '3'=>'先款后票',
+//
+//                ],
+//                'options' => ['placeholder' => '供应商接受付款方式.....'],
+//                'pluginOptions' => [
+//                    'allowClear' => true
+//                ],
+//            ]);
+//            */?>
+<!---->
+<!--        </div>-->
+<!---->
+<!--        <div class="col-sm-3">-->
+<!--            --><?php
+///*            // Usage with ActiveForm and model
+//            echo '<label class="control-label">承诺票到日期</label>';
+//            echo DateTimePicker::widget([
+//                'name'=>'commitment_date',
+//            ])
+//            */?>
+<!---->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="row">-->
+<!--        <div class="col-sm-3">-->
+<!--            --><?php
+///*            echo Form::widget([
+//                'model'=>$model,
+//                'form'=>$form,
+//                'columns'=>4,
+//                'attributes'=>[       // 3 column layout
+//                    'bill_img2_name_unit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+//                ],
+//
+//            ]);
+//            */?>
+<!--        </div>-->
+<!--        <div class="col-sm-3">-->
+<!--            --><?php
+///*            echo $form->field($model, 'bill_img2')->widget('manks\FileInput', []);
+//            */?>
+<!--        </div>-->
+<!--        <div class="col-sm-3">-->
+<!--            --><?php
+///*            echo  $form->field($model, 'bill02_img_add') ;
+//            */?>
+<!---->
+<!--        </div>-->
+<!---->
+<!--    </div>-- -->
     <?php
 
     echo Form::widget([
@@ -235,34 +297,6 @@ use kartik\select2\Select2;
 
 
     ?>
-    <div class="row">
-        <div class="col-sm-3">
-            <?php
-            echo Form::widget([
-                'model'=>$model,
-                'form'=>$form,
-                'columns'=>4,
-                'attributes'=>[       // 3 column layout
-                    'bill_img2_name_unit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                ],
-
-            ]);
-            ?>
-        </div>
-        <div class="col-sm-3">
-            <?php
-            echo $form->field($model, 'bill_img2')->widget('manks\FileInput', []);
-            ?>
-        </div>
-        <div class="col-sm-3">
-            <?php
-            echo  $form->field($model, 'bill02_img_add') ;
-            ?>
-
-        </div>
-
-    </div>
-
     <div class="form-group">
         <?php
         echo Html::submitButton('Save', ['class' => 'btn btn-success btn-lg']) ?>
@@ -306,10 +340,10 @@ $JS =<<<JS
     $(function(){
         var  requirelabels = [
            'yaesupplier-supplier_code','yaesupplier-supplier_name','yaesupplier-supplier_address' ,'yaesupplier-business_licence' ,
-           'yaesupplier-pd_bill_name' ,'yaesupplier-bill_unit' ,'yaesupplier-pay_card' ,'yaesupplier-pay_name' ,'yaesupplier-pay_bank' ,
-           'yaesupplier-account_proportion' ,'yaesupplier-pay_cycletime_type' ,'yaesupplier-account_type' ,'yaesupplier-bank_account_data' ,
+           'yaesupplier-pd_bill_name' ,'yaesupplier-bill_unit' ,'yaesupplier-pay_card' ,'yaesupplier-pay_name' ,'yaesupplier-pay_bank' ,'yaesupplier-sale_company',
+           'yaesupplier-account_proportion' ,'yaesupplier-pay_cycletime_type' ,'yaesupplier-account_type' ,'yaesupplier-bank_account_data' ,'yaesupplier-supplier_pay_methon',
            'yaesupplier-bill_img1_name_unit','yaesupplier-bill_img1','suppliercontact-contact_name','suppliercontact-contact_address','suppliercontact-contact_tel',
-           'suppliercontact-contact_qq','sale_company'
+           'suppliercontact-contact_qq','yaesupplier-commitment_date'
         ];
         var label;
        $("label[for='goodssku-sku']").addClass("label-require");
