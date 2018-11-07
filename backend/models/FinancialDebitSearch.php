@@ -18,7 +18,7 @@ class FinancialDebitSearch extends YaeFreight
     public function rules()
     {
         return [
-            [['id', 'to_minister', 'to_financial', 'mini_deal', 'fina_deal'], 'integer'],
+            [['group_id','id', 'to_minister', 'to_financial', 'mini_deal', 'fina_deal'], 'integer'],
             [['minister','contract_no','debit_no','bill_to', 'receiver', 'shipment_id', 'pod', 'pol', 'etd', 'eta', 'remark', 'image', 'mini_res', 'fina_res'], 'safe'],
         ];
     }
@@ -68,6 +68,7 @@ class FinancialDebitSearch extends YaeFreight
             'to_financial' => $this->to_financial,
             'mini_deal' => $this->mini_deal,
             'fina_deal' => $this->fina_deal,
+            'group_id' => $this->group_id,
 
         ]);
 

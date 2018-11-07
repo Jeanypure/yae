@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use backend\models\YaeFreight;
+use backend\models\YaeGroup;
 use backend\models\FreightFee;
 use backend\models\FinancialDebitSearch;
 use yii\web\Controller;
@@ -39,10 +40,17 @@ class FinancialDebitController extends Controller
     {
         $searchModel = new FinancialDebitSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $param_data = [];
+        $group_name = [];
+        $group = YaeGroup::find()->select('group_id,group_name')->asArray()->orderBy('group_id asc')->All();
+        foreach ($group as $key => $value) {
+            $group_name[$value['group_id']] = $value['group_name'];
+        }
+        $param_data['group_name'] = $group_name;
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'paramData' => $param_data,
         ]);
     }
 

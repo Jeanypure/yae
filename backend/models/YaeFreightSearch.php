@@ -77,6 +77,7 @@ class YaeFreightSearch extends YaeFreight
             'fina_deal' => $this->fina_deal,
             'etd' => $this->etd,
             'eta' => $this->eta,
+            'group_id' => $this->group_id
 
         ]);
 

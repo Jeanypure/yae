@@ -88,18 +88,15 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'receiver',
                 'value' => function($model) {
-                    if($model->receiver ==1 ){
-                        return ' 深圳大森林国际货代有限公司';
-                    }elseif($model->receiver ==2 ){
-                        return '上海珑瑗国际货物运输代理有限公司';
-                    }elseif($model->receiver ==3 ){
-                        return '上海昊宏国际货物运输代理有限公司';
-                    }elseif($model->receiver ==4 ){
-                        return '深圳市安泰克物流有限公司';
-                    }elseif($model->receiver ==5 ){
-                        return '文鼎供应链管理(上海)有限公司';
-                    }
-
+                    $company = [
+                        /*1 => '深圳大森林国际货代有限公司',
+                        2 => '上海珑瑗国际货物运输代理有限公司',
+                        3 => '上海昊宏国际货物运输代理有限公司',
+                        4 => '深圳市安泰克物流有限公司',
+                        5 => '文鼎供应链管理(上海)有限公司',*/
+                        '1' => '大森林', '2' => '珑瑗', '3' => '昊宏', '4' => '安泰克', '5' => '文鼎'
+                    ];
+                        return $company[$model->receiver];
                     },
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
@@ -130,12 +127,28 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
-            'group_id',
-
             [
                 'attribute'=>'group_id',
-                'value' => function($model,$param) {
-                   return $param['group_name'][$model->group_id];
+                'value' => function($model) {
+                    $group = [0 => '无',
+                        1 => '商舟美国销售组-A1',
+                        2 => '商舟加拿大销售组-A2',
+                        3 => '商舟澳洲销售组-A5',
+                        4 => '商舟日本销售组-A6',
+                        5 => '商舟朵邦销售组-A7',
+                        6 => '雅耶美国销售组-B1',
+                        7 => '雅耶加拿大销售组-B2',
+                        8 => '雅耶欧洲销售组-B4',
+                        9 => '雅耶澳洲销售组-B5',
+                        10 => '朗探美国销售组-C1',
+                        11 => '朗探加拿大销售组-C2',
+                        12 => '域聪美国销售组-D1',
+                        13 => '鹏侯美国销售组-E1',
+                        14 => '客尊美国销售组-F1',
+                        15 => '客尊加拿大销售组-F2',
+                        16 => '朵邦美国销售组-G1',
+                    ];
+                   return $group[$model->group_id];
                 },
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
@@ -143,11 +156,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>[ '1' => '商舟', '2' => '雅耶', '3' => '朗探', '4' => '域聪', '5' => '鹏侯', '6' => '客尊'],
+                'filter'=>$paramData['group_name'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                'filterInputOptions'=>['placeholder'=>'付款人'],
+                'filterInputOptions'=>['placeholder'=>'销售组别'],
             ],
             [
                 'attribute'=>'to_financial',
