@@ -111,6 +111,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
 
         <?php
+
         // Usage with ActiveForm and model
         echo $form->field($model, 'minister')->widget(Select2::classname(), [
             'data' => $param['minister'],
@@ -118,7 +119,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'pluginOptions' => [
                 'allowClear' => true
             ],
-        ])
+        ]);
+        echo $form->field($model, 'group_id')->widget(Select2::classname(), [
+            'data' => $param['group_name'],
+            'options' => ['multiple' => false,'placeholder' => '选择销售组.....'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);
         ?>
 
     </div>

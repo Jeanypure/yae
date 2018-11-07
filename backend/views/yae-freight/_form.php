@@ -105,6 +105,14 @@ use kartik\select2\Select2;
             'allowClear' => true
         ],
     ]);
+    echo $form->field($model, 'group_id')->widget(Select2::classname(), [
+        'data' => $param['group_name'],
+        'options' => ['multiple' => false,'placeholder' => '选择销售组.....'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ])
+
     ?>
 
     </div>

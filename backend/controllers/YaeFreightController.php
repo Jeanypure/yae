@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\Company;
+use backend\models\YaeGroup;
 use backend\models\Purchaser;
 use Yii;
 use backend\models\YaeFreight;
@@ -270,11 +271,13 @@ class YaeFreightController extends Controller
         $forwarders = FreightForwarders::find()->select('id,receiver')->asArray()->All();
         $saler = Purchaser::find()->select('id,purchaser')->asArray()->where(['code'=>'freight_contact'])->All();
         $company = Company::find()->select('id,full_name')->asArray()->andWhere(['NOT', ['full_name' => null]])->All();
+        $group = YaeGroup::find()->select('group_id,group_name')->asArray()->orderBy('group_id asc')->All();
         $arr = [];
         $currency = [];
         $freight_for = [];
         $minister = [];
         $full_name = [];
+        $group_name = [];
         foreach ($fee_cate as $key => $value) {
             $arr[$value['id']] = $value['name_zn'];
         }
@@ -290,12 +293,16 @@ class YaeFreightController extends Controller
         foreach ($company as $key => $value) {
             $full_name[$value['id']] = $value['full_name'];
         }
+        foreach ($group as $key => $value) {
+            $group_name[$value['group_id']] = $value['group_name'];
+        }
 
         $param['name_zn'] = $arr;
         $param['currency'] = $currency;
         $param['receiver'] = $freight_for;
         $param['minister'] = $minister;
         $param['full_name'] = $full_name;
+        $param['group_name'] = $group_name;
         return $param;
     }
 
