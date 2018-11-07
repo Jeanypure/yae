@@ -49,7 +49,11 @@ class FollowCheckProductSearch extends Goodssku
             'Cara'=> '2,6',
             'Ivy'=> '3,4',
             'Belle'=> '3,4',
-            'Yilia'=> '1'];
+            'Fiona'=> '3',
+            'Miguel'=> '3',
+            'Eleanor'=> '4',
+            'Nita'=> '2',
+            'Yilia'=> '1,2,3,4,5,6,7,8'];
 
         if ($username =='Jenny'||$username =='David'||$username =='Mark' ){
             $query = Goodssku::find()->orderBy('sku_id desc');
