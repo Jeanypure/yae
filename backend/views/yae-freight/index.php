@@ -38,6 +38,25 @@ $this->params['breadcrumbs'][] = $this->title;
                 'header' => '操作'
             ],
             [
+                'attribute'=>'to_minister',
+                'value' => function($model) {
+                    if($model->to_minister==1){
+                        return '是';
+                    }else{
+                        return '否';
+
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['0' => '否', '1' => '是'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'提交?'],
+            ],
+            [
                 'attribute'=>'bill_to',
                 'value' => function($model) {
                     if($model->bill_to ==1 ){
@@ -101,15 +120,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'pol',
             'etd',
             'eta',
-            [
-                'attribute'=>'remark',
-                'value' => function($model) { return $model->remark;},
-                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
-                'format'=>'html',
-                'headerOptions' => [
-                    'width'=>'80%'
-                ],
-            ],
+
             [
                 'attribute'=>'minister',
                 'value' => function($model) { return $model->minister;},
@@ -119,24 +130,24 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
-            [
-                'attribute'=>'to_minister',
-                'value' => function($model) {
-                    if($model->to_minister==1){
-                        return '是';
-                    }else{
-                        return '否';
+            'group_id',
 
-                    }
+            [
+                'attribute'=>'group_id',
+                'value' => function($model,$param) {
+                   return $param['group_name'][$model->group_id];
                 },
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['0' => '否', '1' => '是'],
+                'filter'=>[ '1' => '商舟', '2' => '雅耶', '3' => '朗探', '4' => '域聪', '5' => '鹏侯', '6' => '客尊'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                'filterInputOptions'=>['placeholder'=>'提交部长?'],
+                'filterInputOptions'=>['placeholder'=>'付款人'],
             ],
             [
                 'attribute'=>'to_financial',
@@ -203,6 +214,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'builder',
             'build_at',
             'update_at',
+            [
+                'attribute'=>'remark',
+                'value' => function($model) { return $model->remark;},
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'headerOptions' => [
+                    'width'=>'80%'
+                ],
+            ],
         ],
     ]); ?>
     <?php Pjax::end() ?>

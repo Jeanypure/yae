@@ -48,10 +48,11 @@ class YaeFreightController extends Controller
     {
         $searchModel = new YaeFreightSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $param = $this->actionParam();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'param' => $param,
         ]);
     }
 

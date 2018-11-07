@@ -19,7 +19,7 @@ class YaeFreightSearch extends YaeFreight
     {
         return [
             [['id'], 'integer'],
-            [['minister','contract_no','debit_no','to_minister','to_financial','mini_deal','fina_deal','mini_res','fina_res','bill_to', 'receiver', 'shipment_id', 'pod', 'pol', 'etd', 'eta', 'remark'], 'safe'],
+            [['group_id','minister','contract_no','debit_no','to_minister','to_financial','mini_deal','fina_deal','mini_res','fina_res','bill_to', 'receiver', 'shipment_id', 'pod', 'pol', 'etd', 'eta', 'remark'], 'safe'],
         ];
     }
 
