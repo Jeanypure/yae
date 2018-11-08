@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\NewContractSearch */
@@ -25,11 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pjax'=>true,
+        'striped'=>true,
+        'hover'=>true,
+        'panel'=>['type'=>'primary', 'heading'=>'财务付款列表'],
         'id' => 'contract',
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            ['class' => 'yii\grid\CheckboxColumn'],
-            ['class' => 'yii\grid\ActionColumn',
+            ['class' => 'kartik\grid\SerialColumn'],
+            ['class' => 'kartik\grid\CheckboxColumn'],
+            ['class' => 'kartik\grid\ActionColumn',
                 'header' => '操作',
                 'template' => '{audit}',
                 'buttons' => [
@@ -43,6 +47,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         ] );
                     },
                 ],
+            ],
+            [
+                'class' => 'yii\grid\Column',
+                'headerOptions' => [
+                    'width'=>'100'
+                ],
+                'header' => '图片',
+                'content' => function ($model, $key, $index, $column){
+                    return "<img src='" .$model->main_img_url. "' width='100' height='100'>";
+
+
+                }
             ],
             'buy_company',
             'declare_no1',
