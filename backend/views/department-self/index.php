@@ -99,15 +99,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'is_purchase',
                 'width'=>'50px',
                 'value'=>function ($model, $key, $index, $widget) {
-                    if($model->is_purchase=='0'){
-                        return '不采';
-
-                    }else{
+                    if($model->is_purchase==1){//0 不采购 1采购 2 未决定
                         return '采购';
+
+                    }elseif($model->is_purchase==2){
+                        return '未决定';
+                    }else{
+                        return '不采购';
                     }
                 },
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['1' => '采购', '0' => '不采'],
+                'filter'=>[1 => '采购', 0 => '不采',2=>'未决定'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
