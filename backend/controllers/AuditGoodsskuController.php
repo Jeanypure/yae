@@ -303,7 +303,9 @@ class AuditGoodsskuController extends Controller
        $is_quantity_check = empty($result[0]['is_quantity_check'])?'F':'T';
        $contain_battery = empty($result[0]['contain_battery'])?'F':'T';
        $sale_company =  explode(',',$result[0]['sale_company']);
-
+        if($sale_company == [0=>"9"]){
+            $sale_company = [1];
+        }
 
        $item_arr = [[
            "itemid" => $result[0]['sku'],
