@@ -303,8 +303,9 @@ class AuditGoodsskuController extends Controller
        $is_quantity_check = empty($result[0]['is_quantity_check'])?'F':'T';
        $contain_battery = empty($result[0]['contain_battery'])?'F':'T';
        $sale_company =  explode(',',$result[0]['sale_company']);
+
         if($sale_company == [0=>"9"]){
-            $sale_company = [1];
+            $sale_company = ["2"];
         }
 
        $item_arr = [[
@@ -340,7 +341,6 @@ class AuditGoodsskuController extends Controller
            "custitemgoodssku_memo" => $result[0]['sku_mark'],
 
        ]];
-
         $result = $this->actionDoCurl($item_arr);
         $res = json_decode($result);
         if( isset($res->code)&&$res->code=='200 OK'){
