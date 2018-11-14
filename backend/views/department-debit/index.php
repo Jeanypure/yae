@@ -63,25 +63,26 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ],
             [
-                'attribute'=>'fina_deal',
+                'attribute'=>'to_financial',
                 'value' => function($model) {
-                    if($model->fina_deal==1){
-                        return '已处理';
+                    if($model->to_financial==1){
+                        return '是';
                     }else{
-                        return '未处理';
+                        return '否';
 
                     }
                 },
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['0' => '未处理', '1' => '已处理'],
+                'filter'=>['0' => '否', '1' => '是'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                'filterInputOptions'=>['placeholder'=>'财务处理?'],
+                'filterInputOptions'=>['placeholder'=>'提交财务?'],
 
             ],
+
             [
                 'attribute'=>'bill_to',
                 'value' => function($model) {
@@ -212,29 +213,25 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions'=>['placeholder'=>'销售组别'],
             ],
             [
-                'attribute'=>'to_financial',
+                'attribute'=>'fina_deal',
                 'value' => function($model) {
-                    if($model->to_financial==1){
-                        return '是';
+                    if($model->fina_deal==1){
+                        return '已处理';
                     }else{
-                        return '否';
+                        return '未处理';
 
                     }
                 },
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['0' => '否', '1' => '是'],
+                'filter'=>['0' => '未处理', '1' => '已处理'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                'filterInputOptions'=>['placeholder'=>'提交财务?'],
+                'filterInputOptions'=>['placeholder'=>'财务处理?'],
 
             ],
-
-
-
-
             'mini_res',
             'fina_res',
         ],

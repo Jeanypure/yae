@@ -50,6 +50,7 @@ class DepartmentDebitSearch extends YaeFreight
             $query = YaeFreight::find()
                 ->where(['to_minister'=> 1])
                 ->andWhere(['minister'=>$username])
+                ->orderBy('id desc')
             ;
 
         }
