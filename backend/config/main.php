@@ -32,8 +32,8 @@ return [
         'yaedata' => [
             'class' => 'backend\modules\yaedata\Module',
         ],
-        'sample' => [
-            'class' => 'backend\modules\sample\Module',
+        'bargain' => [
+            'class' => 'backend\modules\bargain\Module',
         ],
     ],
     "aliases" => [
