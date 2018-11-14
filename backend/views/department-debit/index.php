@@ -43,6 +43,46 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
             [
+                'attribute'=>'mini_deal',
+                'value' => function($model) {
+                    if($model->mini_deal==1){
+                        return '已处理';
+                    }else{
+                        return '未处理';
+
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['0' => '未处理', '1' => '已处理'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'部长处理?'],
+
+            ],
+            [
+                'attribute'=>'fina_deal',
+                'value' => function($model) {
+                    if($model->fina_deal==1){
+                        return '已处理';
+                    }else{
+                        return '未处理';
+
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['0' => '未处理', '1' => '已处理'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'财务处理?'],
+
+            ],
+            [
                 'attribute'=>'bill_to',
                 'value' => function($model) {
                     if($model->bill_to ==1 ){
@@ -191,46 +231,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions'=>['placeholder'=>'提交财务?'],
 
             ],
-            [
-                'attribute'=>'mini_deal',
-                'value' => function($model) {
-                    if($model->mini_deal==1){
-                        return '已处理';
-                    }else{
-                        return '未处理';
 
-                    }
-                },
-                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
-                'format'=>'html',
-                'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['0' => '未处理', '1' => '已处理'],
-                'filterWidgetOptions'=>[
-                    'pluginOptions'=>['allowClear'=>true],
-                ],
-                'filterInputOptions'=>['placeholder'=>'部长处理?'],
-
-            ],
-            [
-                'attribute'=>'fina_deal',
-                'value' => function($model) {
-                    if($model->fina_deal==1){
-                        return '已处理';
-                    }else{
-                        return '未处理';
-
-                    }
-                },
-                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
-                'format'=>'html',
-                'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['0' => '未处理', '1' => '已处理'],
-                'filterWidgetOptions'=>[
-                    'pluginOptions'=>['allowClear'=>true],
-                ],
-                'filterInputOptions'=>['placeholder'=>'财务处理?'],
-
-            ],
 
 
 
