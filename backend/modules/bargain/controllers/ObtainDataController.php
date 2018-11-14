@@ -57,9 +57,9 @@ class ObtainDataController extends Controller
            ];
 
           $sql = $this->actionMultArray2Insert($table,$arr_key, $arr_set);
-          return $sql;
-        // $response = Yii::$app->db->createCommand($into_requisitionlist_sql)->execute();
-         // return $response;
+//          return $sql;
+         $response = Yii::$app->db->createCommand($sql)->execute();
+          return $response;
 
        }
     }
