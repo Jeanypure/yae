@@ -122,7 +122,7 @@ class DepartmentDebitController extends Controller
         if ($model->load(Yii::$app->request->post()) ) {
              $model->mini_deal = 1 ;
              $model->to_financial = 1 ;
-             $model->save();
+             $model->save(false);
             return $this->redirect(['index']);
         }
 
