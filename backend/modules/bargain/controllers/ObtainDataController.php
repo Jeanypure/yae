@@ -3,7 +3,7 @@
 namespace backend\modules\bargain\controllers;
 
 use Yii;
-use  yii\web\controller;
+use  yii\web\Controller;
 use linslin\yii2\curl;
 class ObtainDataController extends Controller
 {
@@ -56,10 +56,10 @@ class ObtainDataController extends Controller
                'requisition_name'
            ];
 
-          $into_requisitionlist_sql = $this->actionMultArray2Insert($table,$arr_key, $arr_set);
-
-         $response = Yii::$app->db->createCommand($into_requisitionlist_sql)->execute();
-          return $response;
+          $sql = $this->actionMultArray2Insert($table,$arr_key, $arr_set);
+          return $sql;
+        // $response = Yii::$app->db->createCommand($into_requisitionlist_sql)->execute();
+         // return $response;
 
        }
     }
