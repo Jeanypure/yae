@@ -85,45 +85,9 @@ class ObtainDataController extends Controller
         return $result;
     }
 
-    /**
 
-     * 多条数据同时转化成插入SQL语句
 
-     * @ CreatBy:IT自由职业者
 
-     * @param string $table 表名
-
-     * @$arr_key是表字段名的key：$arr_key=array("field1","field2","field3")
-
-     * @param array $arr是字段值 数组示例 arrat(("a","b","c"), ("bbc","bbb","caaa"),('add',"bppp","cggg"))
-
-     * @return string
-
-     */
-
-    public  function actionMultArray2Insert($table,$arr_key, $arr, $split = '`') {
-
-        $arrValues = array();
-
-        if (empty($table) || !is_array($arr_key) || !is_array($arr)) {
-
-            return false;
-
-        }
-
-        $sql = "INSERT INTO %s( %s ) values %s ";
-
-        foreach ($arr as $k => $v) {
-
-            $arrValues[$k] = "'".implode("','",array_values($v))."'";
-
-        }
-
-        $sql = sprintf($sql, $table, "{$split}" . implode("{$split} ,{$split}", $arr_key) . "{$split}", "(" . implode(") , (", array_values($arrValues)) . ")");
-
-        return $sql;
-
-    }
 
 
 
