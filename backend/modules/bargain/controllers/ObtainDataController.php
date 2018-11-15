@@ -34,17 +34,21 @@ class ObtainDataController extends Controller
     }
 
     public function  actionIntoDatabase(){
+        ini_set('max_execution_time', 300);
+
        $result = $this->actionDoCurl();
        $requisition_arr = json_decode($result,true);
        if($requisition_arr['message']=='OK'&&$requisition_arr['code']==0){
-           $arr = [] ;
+           ;
            $arr_set = [];
            foreach ($requisition_arr['list'] as $key=>$value){
-                $arr[] = $value['id'];
-                $arr[] = $value['columns']['trandate'];
-                $arr[] = $value['columns']['tranid'];
-                $arr[] = $value['columns']['entity']['name'];
-                $arr_set[] = $arr;
+                   $arr = [] ;
+                   $arr[] = $value['id'];
+                   $arr[] = $value['columns']['trandate'];
+                   $arr[] = $value['columns']['tranid'];
+                   $arr[] = $value['columns']['entity']['name'];
+                   $arr_set[] = $arr;
+                   unset($arr);
 
            }
 
@@ -55,10 +59,7 @@ class ObtainDataController extends Controller
                'document_number',
                'requisition_name'
            ];
-
-          $sql = $this->actionMultArray2Insert($table,$arr_key, $arr_set);
-//          return $sql;
-         $response = Yii::$app->db->createCommand($sql)->execute();
+           $response = Yii::$app->db2->createCommand()->batchInsert($table,$arr_key,$arr_set)->execute();
           return $response;
 
        }
