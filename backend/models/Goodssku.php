@@ -61,12 +61,18 @@ class Goodssku extends yii\db\ActiveRecord
             [['vendor_code', 'pd_costprice_code'], 'string', 'max' => 30],
             [['origin_code'], 'string', 'max' => 1000],
             [['bill_name'], 'string', 'max' => 50],
+            [['declaration_item_key6','declaration_item_key7','declaration_item_key8','declaration_item_key9',], 'string', 'max' => 20],
+            [['declaration_item_value6','declaration_item_value7','declaration_item_value8','declaration_item_value9',], 'string', 'max' => 30],
             [['pd_title', 'pd_title_en'], 'string', 'max' => 300],
             [['pd_length','pd_width','pd_height','pd_weight','pd_creator',], 'string', 'max' =>10 ],
             [['image_url'], 'string', 'max' =>500 ],
             [['audit_content','sale_company','sku_create_date','sku_update_date' ], 'safe'],
             [['sku','pd_title','pd_title_en','image_url','is_quantity_check','pd_costprice','declared_value','contain_battery',
-                'pd_length','pd_width','pd_height','pd_weight','sale_company','hs_code'], 'required'],
+                'pd_length','pd_width','pd_height','pd_weight','sale_company','hs_code',
+                'declaration_item_key1','declaration_item_key2','declaration_item_key3','declaration_item_key4','declaration_item_key5',
+                'declaration_item_value1','declaration_item_value2','declaration_item_value3','declaration_item_value4','declaration_item_value5',
+            ], 'required'],
+
 
         ];
     }
@@ -117,7 +123,28 @@ class Goodssku extends yii\db\ActiveRecord
             'audit_result' => '是否通过',
             'audit_content' => '审核内容',
             'hs_code' => 'HS编码',
+            'declaration_item_key1' => '要素名1',
+            'declaration_item_value1' => '要素值1',
+            'declaration_item_key2' => '要素名2',
+            'declaration_item_value2' => '要素值2',
+            'declaration_item_key3' => '要素名3',
+            'declaration_item_value3' => '要素值3',
+            'declaration_item_key4' => '要素名4',
+            'declaration_item_value4' => '要素值4',
+            'declaration_item_key5' => '要素名5',
+            'declaration_item_value5' => '要素值5',
+            'declaration_item_key6' => '要素名6',
+            'declaration_item_value6' => '要素值6',
+            'declaration_item_key7' => '要素名7',
+            'declaration_item_value7' => '要素值7',
+            'declaration_item_key8' => '要素名8',
+            'declaration_item_value8' => '要素值8',
+            'declaration_item_key9' => '要素名9',
+            'declaration_item_value9' => '要素值9',
+            'declaration_item_key10' => '要素名10',
+            'declaration_item_value10' => '要素值10',
         ];
+
     }
 
     public function behaviors()

@@ -296,6 +296,11 @@ class AuditGoodsskuController extends Controller
                     g.declared_value,g.currency_code,g.pd_costprice,g.pd_costprice_code,g.vendor_code,
                     g.is_quantity_check, g.contain_battery,g.qty_of_ctn,g.ctn_length,g.pd_width,g.pd_height,
                     g.ctn_width, g.ctn_height, g.ctn_fact_weight, g.pd_creator, g.sale_company,g.sku_mark,g.hs_code,
+                    g.declaration_item_key1,g.declaration_item_value1,g.declaration_item_key2,g.declaration_item_value2,
+                    g.declaration_item_key3,g.declaration_item_value3,g.declaration_item_key4,g.declaration_item_value4,
+                    g.declaration_item_key5,g.declaration_item_value5,g.declaration_item_key6,g.declaration_item_value6,
+                    g.declaration_item_key7,g.declaration_item_value7,g.declaration_item_key8,g.declaration_item_value8,
+                    g.declaration_item_key9,g.declaration_item_value9,
                     s.brand,s.bill_name,s.bill_unit,s.origin_code
                     FROM goodssku g LEFT JOIN sku_vendor s ON g.sku_id=s.sku_id  AND g.vendor_code = s.vendor_code  
                 where  g.sku_id = $id ";
@@ -306,6 +311,8 @@ class AuditGoodsskuController extends Controller
 
         if($sale_company == [0=>"9"]){
             $sale_company = ["2"];
+        }elseif (in_array(9,$sale_company)){
+            $sale_company = array_diff($sale_company,['9']);
         }
 
        $item_arr = [[
@@ -339,7 +346,24 @@ class AuditGoodsskuController extends Controller
            "purchasedescription" => $result[0]['pd_title'],
            "custitem_item_spec" => $result[0]['origin_code'],
            "custitemgoodssku_memo" => $result[0]['sku_mark'],
-
+           'custitem_yaosu_name1' => $result[0]['declaration_item_key1'],
+           'custitem_yaosu_value1' => $result[0]['declaration_item_value1'],
+           'custitem_yaosu_name2' => $result[0]['declaration_item_key2'],
+           'custitem_yaosu_value2' => $result[0]['declaration_item_value2'],
+           'custitem_yaosu_name3' => $result[0]['declaration_item_key3'],
+           'custitem_yaosu_value3' => $result[0]['declaration_item_value3'],
+           'custitem_yaosu_name4' => $result[0]['declaration_item_key4'],
+           'custitem_yaosu_value4' => $result[0]['declaration_item_value4'],
+           'custitem_yaosu_name5' => $result[0]['declaration_item_key5'],
+           'custitem_yaosu_value5' => $result[0]['declaration_item_value5'],
+           'custitem_yaosu_name6' => $result[0]['declaration_item_key6'],
+           'custitem_yaosu_value6' => $result[0]['declaration_item_value6'],
+           'custitem_yaosu_name7' => $result[0]['declaration_item_key7'],
+           'custitem_yaosu_value7' => $result[0]['declaration_item_value7'],
+           'custitem_yaosu_name8' => $result[0]['declaration_item_key8'],
+           'custitem_yaosu_value8' => $result[0]['declaration_item_value8'],
+           'custitem_yaosu_name9' => $result[0]['declaration_item_key9'],
+           'custitem_yaosu_value9' => $result[0]['declaration_item_value9'],
        ]];
         $result = $this->actionDoCurl($item_arr);
         $res = json_decode($result);

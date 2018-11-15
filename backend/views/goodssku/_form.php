@@ -124,6 +124,52 @@ use kartik\select2\Select2;
 
     ]);
     ?>
+    <?php
+
+    echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>6,
+        'contentBefore'=>'<legend class="text-info"><h3>4.要素信息</h3></legend>',
+        'attributes'=>[       // 6 column layout
+            'declaration_item_key1'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_value1'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_key2'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_value2'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_key3'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_value3'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+        ],
+    ]);
+
+    echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>6,
+        'attributes'=>[       // 6 column layout
+            'declaration_item_key4'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_value4'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_key5'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_value5'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_key6'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_value6'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+        ],
+    ]);
+
+    echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>6,
+        'attributes'=>[       // 6 column layout
+            'declaration_item_key7'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_value7'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_key8'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_value8'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_key9'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_value9'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+        ],
+    ]);
+
+    ?>
 
 <?php
 
@@ -131,7 +177,7 @@ use kartik\select2\Select2;
         'model'=>$model,
         'form'=>$form,
         'columns'=>1,
-         'contentBefore'=>'<legend class="text-info"><h3>4.备注信息</h3></legend>',
+         'contentBefore'=>'<legend class="text-info"><h3>5.备注信息</h3></legend>',
         'attributes'=>[       // 3 column layout
             'sku_mark'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'']],
 
@@ -165,6 +211,8 @@ $JS =<<<JS
         var  requirelabels =[
            "goodssku-hs_code","goodssku-pd_title","goodssku-pd_title_en","goodssku-image_url","goodssku-pd_costprice","goodssku-pd_costprice_code",
             "goodssku-vendor_code","goodssku-declared_value","goodssku-currency_code","goodssku-pd_length","goodssku-pd_width",
+            "goodssku-declaration_item_key1","goodssku-declaration_item_key2","goodssku-declaration_item_key3","goodssku-declaration_item_key4","goodssku-declaration_item_key5",
+            "goodssku-declaration_item_value1", "goodssku-declaration_item_value2", "goodssku-declaration_item_value3", "goodssku-declaration_item_value4", "goodssku-declaration_item_value5",
             "goodssku-pd_height","goodssku-pd_weight","goodssku-sale_company" ,"skuvendor-vendor_code","skuvendor-bill_name",
             "skuvendor-bill_unit","skuvendor-pd_costprice","skuvendor-min_order_num","skuvendor-pd_get_days","skuvendor-origin_code"];
         var label;

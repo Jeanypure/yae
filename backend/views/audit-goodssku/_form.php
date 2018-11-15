@@ -94,8 +94,6 @@ use kartik\select2\Select2;
             'allowClear' => true
         ],
     ]);
-
-
     echo Form::widget([
         'model'=>$model,
         'form'=>$form,
@@ -107,7 +105,51 @@ use kartik\select2\Select2;
         ],
 
     ]);
+    ?>
+    <?php
 
+    echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>6,
+        'contentBefore'=>'<legend class="text-info"><h3>4.要素信息</h3></legend>',
+        'attributes'=>[       // 6 column layout
+            'declaration_item_key1'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_value1'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_key2'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_value2'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_key3'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_value3'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+        ],
+    ]);
+
+    echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>6,
+        'attributes'=>[       // 6 column layout
+            'declaration_item_key4'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_value4'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_key5'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_value5'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_key6'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_value6'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+        ],
+    ]);
+
+    echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>6,
+        'attributes'=>[       // 6 column layout
+            'declaration_item_key7'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_value7'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_key8'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_value8'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_key9'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'declaration_item_value9'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+        ],
+    ]);
 
     ?>
 
@@ -132,11 +174,13 @@ $this->registerJs("
 
 $JS =<<<JS
     $(function(){
-        var  requirelabels = new Array(
-            "goodssku-pd_title","goodssku-pd_title_en","goodssku-image_url","goodssku-pd_costprice","goodssku-pd_costprice_code",
+         var  requirelabels =[
+           "goodssku-hs_code","goodssku-pd_title","goodssku-pd_title_en","goodssku-image_url","goodssku-pd_costprice","goodssku-pd_costprice_code",
             "goodssku-vendor_code","goodssku-declared_value","goodssku-currency_code","goodssku-pd_length","goodssku-pd_width",
-            "goodssku-pd_height","goodssku-pd_weight","goodssku-sale_company"
-        );
+            "goodssku-declaration_item_key1","goodssku-declaration_item_key2","goodssku-declaration_item_key3","goodssku-declaration_item_key4","goodssku-declaration_item_key5",
+            "goodssku-declaration_item_value1", "goodssku-declaration_item_value2", "goodssku-declaration_item_value3", "goodssku-declaration_item_value4", "goodssku-declaration_item_value5",
+            "goodssku-pd_height","goodssku-pd_weight","goodssku-sale_company" ,"skuvendor-vendor_code","skuvendor-bill_name",
+            "skuvendor-bill_unit","skuvendor-pd_costprice","skuvendor-min_order_num","skuvendor-pd_get_days","skuvendor-origin_code"];
         var label;
        $("label[for='goodssku-sku']").addClass("label-require");
        for ( label in requirelabels){
