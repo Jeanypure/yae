@@ -34,12 +34,9 @@ class ObtainDataController extends Controller
     }
 
     public function  actionIntoDatabase(){
-        ini_set('max_execution_time', 300);
-
        $result = $this->actionDoCurl();
        $requisition_arr = json_decode($result,true);
        if($requisition_arr['message']=='OK'&&$requisition_arr['code']==0){
-           ;
            $arr_set = [];
            foreach ($requisition_arr['list'] as $key=>$value){
                    $arr = [] ;
@@ -84,7 +81,6 @@ class ObtainDataController extends Controller
         curl_close($ch);
         return $result;
     }
-
 
 
 
