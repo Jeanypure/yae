@@ -17,7 +17,7 @@ class RequisitionDetailController extends Controller
      {
          echo 123;
      }
-     public  function actionSigleCurl(){
+     public  function actionSingleCurl(){
        $ch = curl_init();
        $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=176&deploy=2&id=170086';
          curl_setopt($ch, CURLOPT_HTTPHEADER,[
@@ -38,8 +38,8 @@ class RequisitionDetailController extends Controller
 
      }
 
-     public function actionRequestDetail(){
-         $sql = 'select internal_id from requisition_list ORDER BY internal_id DESC limit 1,5';
+     public function actionMultiCurl(){
+         $sql = 'select internal_id from requisition_list ORDER BY internal_id DESC limit 1,3';
          $idSet = Yii::$app->db2->createCommand($sql)->queryAll();
          $ids = array_column($idSet,'internal_id');
          $multiCurl = [];
@@ -52,14 +52,14 @@ class RequisitionDetailController extends Controller
                  'Content-Type: application/json',
                  'Accept: application/json']);
              curl_setopt($multiCurl[$i], CURLOPT_HEADER,0);
-             curl_setopt($multiCurl[$i], CURLOPT_RETURNTRANSFER,true);
+             curl_setopt($multiCurl[$i], CURLOPT_RETURNTRANSFER,1);
              curl_setopt($multiCurl[$i], CURLOPT_FOLLOWLOCATION, 1);
              curl_setopt($multiCurl[$i],CURLOPT_SSL_VERIFYHOST,2);
              curl_setopt($multiCurl[$i],CURLOPT_SSL_VERIFYPEER,false);
              curl_setopt($multiCurl[$i],CURLOPT_URL,$url);
              curl_multi_add_handle($mh, $multiCurl[$i]);
              }
-         $active = count($ids);
+         $active = null;
         //execute the handles
          do {
              $mrc = curl_multi_exec($mh, $active);
@@ -88,13 +88,16 @@ class RequisitionDetailController extends Controller
      * 入库进入requisition_detail 表
      */
      public  function actionToDetail(){
-         $result = $this->actionRequestDetail();
+         echo
+         $result = $this->actionMultiCurl();
          $resultArr = json_decode($result,true);
          if(empty($resultArr['error'])){
              $tableName = 'requisition_detail';
              $columnKey = ['tranid','amount','description','item_internal_id','item_name',
 //                 'linkedorder_internalid','linkedorder_name','linkedorderstatus',
-                 'povendor_internalid','povendor_name','quantity','rate','createdate','lastmodifieddate','trandate','currencyname'];
+                 'povendor_internalid','povendor_name','quantity','rate',
+//                 'createdate','lastmodifieddate','trandate','currencyname'
+             ];
              $recordArr = [];
              $record = [];
 
@@ -106,9 +109,6 @@ class RequisitionDetailController extends Controller
                      $record[] = $v['description'];
                      $record[] = $v['item']['internalid'];
                      $record[] = $v['item']['name'];
-                    /* $record[] = $v['linkedorder']['internalid'];
-                     $record[] = $v['linkedorder']['name'];
-                     $record[] = $v['linkedorderstatus'];*/
                      if(!empty($v['povendor'])){
                          $record[] = $v['povendor']['internalid'];
                          $record[] = $v['povendor']['name'];
@@ -118,6 +118,8 @@ class RequisitionDetailController extends Controller
                      $recordArr[]  = $record;
 
                  }
+                 $res =  Yii::$app->db2->createCommand($tableName,$columnKey,$recordArr)->batchInsert()->execute();
+                 unset($recordArr);
 
              }
 
