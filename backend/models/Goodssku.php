@@ -55,7 +55,7 @@ class Goodssku extends yii\db\ActiveRecord
         return [
             [['declared_value', 'ctn_length', 'ctn_width', 'ctn_height', 'ctn_fact_weight', 'pd_costprice'], 'number'],
             [['audit_result','has_toeccang','has_tons','has_commit','is_quantity_check', 'contain_battery', 'qty_of_ctn', 'min_order_num', 'pd_get_days', 'pur_info_id'], 'integer'],
-            [['sku', 'old_sku','hs_code'], 'string', 'max' => 60],
+            [['material','use','sku', 'old_sku','hs_code'], 'string', 'max' => 60],
             [['currency_code', 'bill_unit'], 'string', 'max' => 5],
             [[ 'brand', 'sku_mark'], 'string', 'max' => 100],
             [['vendor_code', 'pd_costprice_code'], 'string', 'max' => 30],
@@ -71,7 +71,9 @@ class Goodssku extends yii\db\ActiveRecord
                 'pd_length','pd_width','pd_height','pd_weight','sale_company','hs_code',
                 'declaration_item_key1','declaration_item_key2','declaration_item_key3','declaration_item_key4','declaration_item_key5',
                 'declaration_item_value1','declaration_item_value2','declaration_item_value3','declaration_item_value4','declaration_item_value5',
+                'material','use',
             ], 'required'],
+
 
 
         ];
@@ -141,9 +143,10 @@ class Goodssku extends yii\db\ActiveRecord
             'declaration_item_value8' => '要素值8',
             'declaration_item_key9' => '要素名9',
             'declaration_item_value9' => '要素值9',
-            'declaration_item_key10' => '要素名10',
-            'declaration_item_value10' => '要素值10',
+            'material' => '材质',
+            'use' => '用途',
         ];
+
 
     }
 

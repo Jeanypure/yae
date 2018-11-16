@@ -61,6 +61,8 @@ use kartik\select2\Select2;
             'pd_width'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'pd_height'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'pd_weight'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'material'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'use'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
         ],
     ]);
     echo Form::widget([
@@ -180,6 +182,7 @@ $JS =<<<JS
             "goodssku-declaration_item_key1","goodssku-declaration_item_key2","goodssku-declaration_item_key3","goodssku-declaration_item_key4","goodssku-declaration_item_key5",
             "goodssku-declaration_item_value1", "goodssku-declaration_item_value2", "goodssku-declaration_item_value3", "goodssku-declaration_item_value4", "goodssku-declaration_item_value5",
             "goodssku-pd_height","goodssku-pd_weight","goodssku-sale_company" ,"skuvendor-vendor_code","skuvendor-bill_name",
+            "goodssku-material","goodssku-use",
             "skuvendor-bill_unit","skuvendor-pd_costprice","skuvendor-min_order_num","skuvendor-pd_get_days","skuvendor-origin_code"];
         var label;
        $("label[for='goodssku-sku']").addClass("label-require");

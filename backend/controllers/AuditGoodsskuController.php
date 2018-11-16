@@ -300,7 +300,7 @@ class AuditGoodsskuController extends Controller
                     g.declaration_item_key3,g.declaration_item_value3,g.declaration_item_key4,g.declaration_item_value4,
                     g.declaration_item_key5,g.declaration_item_value5,g.declaration_item_key6,g.declaration_item_value6,
                     g.declaration_item_key7,g.declaration_item_value7,g.declaration_item_key8,g.declaration_item_value8,
-                    g.declaration_item_key9,g.declaration_item_value9,
+                    g.declaration_item_key9,g.declaration_item_value9,g.material,g.use,
                     s.brand,s.bill_name,s.bill_unit,s.origin_code
                     FROM goodssku g LEFT JOIN sku_vendor s ON g.sku_id=s.sku_id  AND g.vendor_code = s.vendor_code  
                 where  g.sku_id = $id ";
@@ -364,6 +364,8 @@ class AuditGoodsskuController extends Controller
            'custitem_yaosu_value8' => $result[0]['declaration_item_value8'],
            'custitem_yaosu_name9' => $result[0]['declaration_item_key9'],
            'custitem_yaosu_value9' => $result[0]['declaration_item_value9'],
+           'custitemm_material' => $result[0]['material'],
+           'custitemm_purpose' => $result[0]['use'],
        ]];
         $result = $this->actionDoCurl($item_arr);
         $res = json_decode($result);
