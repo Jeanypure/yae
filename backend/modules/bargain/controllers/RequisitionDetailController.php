@@ -45,6 +45,7 @@ class RequisitionDetailController extends Controller
          $multiCurl = [];
          $result = [];
          $mh = curl_multi_init();
+         ini_set('max_execution_time', 300);
          foreach ($ids as $i=>$id){
              $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=176&deploy=2&id='.$id;
              $multiCurl[$i] = curl_init();
@@ -88,7 +89,6 @@ class RequisitionDetailController extends Controller
      * 入库进入requisition_detail 表
      */
      public  function actionToDetail(){
-         echo
          $result = $this->actionMultiCurl();
          $resultArr = json_decode($result,true);
          if(empty($resultArr['error'])){
