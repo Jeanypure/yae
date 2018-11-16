@@ -39,7 +39,7 @@ class RequisitionDetailController extends Controller
      }
 
      public function actionRequestDetail(){
-         $sql = 'select internal_id from requisition_list';
+         $sql = 'select internal_id from requisition_list ORDER BY internal_id DESC limit 1,5';
          $idSet = Yii::$app->db2->createCommand($sql)->queryAll();
          $ids = array_column($idSet,'internal_id');
          $multiCurl = [];
@@ -48,25 +48,82 @@ class RequisitionDetailController extends Controller
          foreach ($ids as $i=>$id){
              $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=176&deploy=2&id='.$id;
              $multiCurl[$i] = curl_init();
-             curl_setopt($multiCurl[$i], CURLOPT_HEADER,0);
-             curl_setopt($multiCurl[$i], CURLOPT_RETURNTRANSFER,1);
-             curl_setopt($multiCurl[$i],CURLOPT_URL,$url);
              curl_setopt($multiCurl[$i],CURLOPT_HTTPHEADER,['Authorization: NLAuth nlauth_account=5151251, nlauth_email=jenny.li@yaemart.com, nlauth_signature=Jenny666666, nlauth_role=1013',
                  'Content-Type: application/json',
                  'Accept: application/json']);
+             curl_setopt($multiCurl[$i], CURLOPT_HEADER,0);
+             curl_setopt($multiCurl[$i], CURLOPT_RETURNTRANSFER,true);
+             curl_setopt($multiCurl[$i], CURLOPT_FOLLOWLOCATION, 1);
+             curl_setopt($multiCurl[$i],CURLOPT_SSL_VERIFYHOST,2);
+             curl_setopt($multiCurl[$i],CURLOPT_SSL_VERIFYPEER,false);
+             curl_setopt($multiCurl[$i],CURLOPT_URL,$url);
              curl_multi_add_handle($mh, $multiCurl[$i]);
              }
-             $index = null;
-             do{
-                 $mrc = curl_multi_exec($mh,$index);
-             }while( $mrc == CURLM_CALL_MULTI_PERFORM);
-              foreach($multiCurl as $k =>$ch){
+         $active = count($ids);
+        //execute the handles
+         do {
+             $mrc = curl_multi_exec($mh, $active);
+         } while ($mrc == CURLM_CALL_MULTI_PERFORM);
+
+         while ($active && $mrc == CURLM_OK) {
+             if (curl_multi_select($mh) != -1) {
+                 do {
+                     $mrc = curl_multi_exec($mh, $active);
+                 } while ($mrc == CURLM_CALL_MULTI_PERFORM);
+             }
+         }
+
+
+         foreach($multiCurl as $k =>$ch){
                   $result[$k] = curl_multi_getcontent($ch);
                   curl_multi_remove_handle($mh,$ch);
               }
               //close
               curl_multi_close($mh);
 
-              return json_encode($result);
+              return json_encode($result,true);
+     }
+
+    /**
+     * 入库进入requisition_detail 表
+     */
+     public  function actionToDetail(){
+         $result = $this->actionRequestDetail();
+         $resultArr = json_decode($result,true);
+         if(empty($resultArr['error'])){
+             $tableName = 'requisition_detail';
+             $columnKey = ['tranid','amount','description','item_internal_id','item_name',
+//                 'linkedorder_internalid','linkedorder_name','linkedorderstatus',
+                 'povendor_internalid','povendor_name','quantity','rate','createdate','lastmodifieddate','trandate','currencyname'];
+             $recordArr = [];
+             $record = [];
+
+             foreach($resultArr as $key=>$value){
+                 $value = json_decode($value,true);
+                 $record[] = $value['tranid'];
+                 foreach($value['item'] as $k=>$v){
+                     $record[] = $v['amount'];
+                     $record[] = $v['description'];
+                     $record[] = $v['item']['internalid'];
+                     $record[] = $v['item']['name'];
+                    /* $record[] = $v['linkedorder']['internalid'];
+                     $record[] = $v['linkedorder']['name'];
+                     $record[] = $v['linkedorderstatus'];*/
+                     if(!empty($v['povendor'])){
+                         $record[] = $v['povendor']['internalid'];
+                         $record[] = $v['povendor']['name'];
+                     }
+                     $record[] = $v['quantity'];
+                     $record[] = $v['rate'];
+                     $recordArr[]  = $record;
+
+                 }
+
+             }
+
+         }
+
+
+
      }
 }
