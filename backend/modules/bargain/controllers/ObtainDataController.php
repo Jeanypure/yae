@@ -33,7 +33,7 @@ class ObtainDataController extends Controller
 
     }
 
-    public function  actionIntoDatabase(){
+    public function  actionToList(){
        $result = $this->actionDoCurl();
        $requisition_arr = json_decode($result,true);
        if($requisition_arr['message']=='OK'&&$requisition_arr['code']==0){
@@ -61,6 +61,7 @@ class ObtainDataController extends Controller
 
        }
     }
+
     public  function actionDoCurl()
     {
         $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=176&deploy=1';
