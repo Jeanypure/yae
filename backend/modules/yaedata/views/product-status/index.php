@@ -80,7 +80,7 @@ $this->registerJs($js);
 </div>
 <div class="row">
      <div class="col-md-12">
-         <h2>近30天拿样来源</h2>
+         <h2>近30天采购拿样来源</h2>
          <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
          <div id="sample-source" style="width: 1200px;height:800px;"></div>
      </div>
@@ -88,7 +88,7 @@ $this->registerJs($js);
 
 <div class="row">
      <div class="col-md-12">
-         <h2>销售推荐产品--拿样分布(包含直接下单)</h2>
+         <h2>近30天销售推荐产品--拿样分布(包含直接下单)</h2>
          <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
          <div id="recommend" style="width: 1200px;height:800px;"></div>
      </div>
