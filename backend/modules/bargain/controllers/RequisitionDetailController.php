@@ -38,7 +38,7 @@ class RequisitionDetailController extends Controller
 
      }
 
-     public function actionMultiCurl(){
+     public function actionMultiRequest(){
          $sql = 'select internal_id from requisition_list ORDER BY internal_id DESC limit 1,3';
          $idSet = Yii::$app->db2->createCommand($sql)->queryAll();
          $ids = array_column($idSet,'internal_id');
@@ -90,6 +90,7 @@ class RequisitionDetailController extends Controller
      */
      public  function actionToDetail(){
          $result = $this->actionMultiCurl();
+
          $resultArr = json_decode($result,true);
          if(empty($resultArr['error'])){
              $tableName = 'requisition_detail';
@@ -117,9 +118,11 @@ class RequisitionDetailController extends Controller
                      $record[] = $v['rate'];
                      $recordArr[]  = $record;
 
+                     var_dump($recordArr);die;
                  }
-                 $res =  Yii::$app->db2->createCommand($tableName,$columnKey,$recordArr)->batchInsert()->execute();
-                 unset($recordArr);
+
+//                 $res =  Yii::$app->db2->createCommand($tableName,$columnKey,$recordArr)->batchInsert()->execute();
+//                 unset($recordArr);
 
              }
 
