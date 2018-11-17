@@ -19,7 +19,7 @@ use kartik\builder\Form;
         'model'=>$model,
         'form'=>$form,
         'columns'=>6,
-        'contentBefore'=>'<legend class="text-info"><h2>5 审核记录</h2></legend>',
+        'contentBefore'=>'<legend class="text-info"><h2>6 审核记录</h2></legend>',
         'attributes'=>[       // 3 column layout
             'audit_result'=>['type'=>Form::INPUT_RADIO_LIST, 'items'=>[1=>'是', 2=>'否'],
                 'label'=>"<span style = 'color:red'><big>*</big></span>是否通过",],

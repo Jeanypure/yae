@@ -18,7 +18,7 @@ use kartik\grid\GridView;
 ?>
 <div class="sku-vendor-index">
 
-    <legend class="text-info"><h3>4.供应商信息</h3></legend>
+    <legend class="text-info"><h3>5.供应商信息</h3></legend>
 
 
     <?= GridView::widget([

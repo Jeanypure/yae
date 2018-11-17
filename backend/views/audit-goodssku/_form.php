@@ -113,7 +113,7 @@ use kartik\select2\Select2;
     echo Form::widget([
         'model'=>$model,
         'form'=>$form,
-        'columns'=>6,
+        'columns'=>2,
         'contentBefore'=>'<legend class="text-info"><h3>4.要素信息</h3></legend>',
         'attributes'=>[       // 6 column layout
             'declaration_item_key1'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
@@ -128,7 +128,7 @@ use kartik\select2\Select2;
     echo Form::widget([
         'model'=>$model,
         'form'=>$form,
-        'columns'=>6,
+        'columns'=>2,
         'attributes'=>[       // 6 column layout
             'declaration_item_key4'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'declaration_item_value4'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
@@ -142,7 +142,7 @@ use kartik\select2\Select2;
     echo Form::widget([
         'model'=>$model,
         'form'=>$form,
-        'columns'=>6,
+        'columns'=>2,
         'attributes'=>[       // 6 column layout
             'declaration_item_key7'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'declaration_item_value7'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
