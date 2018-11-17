@@ -132,7 +132,7 @@ use kartik\select2\Select2;
         'model'=>$model,
         'form'=>$form,
         'columns'=>2,
-        'contentBefore'=>'<legend class="text-info"><h3>4.要素信息</h3><a href="http://hs.bianmachaxun.com" target="_blank">http://hs.bianmachaxun.com</a></legend>',
+    'contentBefore'=>'<legend class="text-info"><h3>4.要素信息--按照官网顺序要求填写</h3> <a href="http://hs.bianmachaxun.com" target="_blank">官网地址:http://hs.bianmachaxun.com</a></legend>',
         'attributes'=>[       // 6 column layout
             'declaration_item_key1'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'declaration_item_value1'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
