@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\select2\Select2;
+use yii\helpers\Url;
 
 
 /* @var $this yii\web\View */
@@ -232,12 +233,21 @@ $JS =<<<JS
 JS;
 
 $this->registerJs($JS);
-
+$hsUrl = Url::to(['goodssku/get-elements']);
 $hs_code_js =<<<JS
-    $(function() {
-        var hsValue = $('#goodssku-hs_code').val();//hs_code
-      
-    });
+   $('#goodssku-hs_code').on('change',function() {
+       var hsCode = $(this).val();
+       $.get('{$hsUrl}',{hs_code:hsCode},function(res) {
+          var elementArr = res.split(',');
+          for( var element in elementArr){
+             var eleValue = elementArr[element];
+             var newEle = eleValue.replace(/\d+\:/g,'');
+             $('#goodssku-declaration_item_key'+element).val(newEle);
+          }
+          
+       });
+   });
 JS;
+$this->registerJs($hs_code_js);
 
 ?>

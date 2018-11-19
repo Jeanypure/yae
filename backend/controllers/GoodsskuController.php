@@ -66,16 +66,16 @@ class GoodsskuController extends Controller
         $goodssku = new Goodssku();
         $sku_vendor = new  SkuVendor();
         $post = Yii::$app->request->post();
-        if(isset($post['Goodssku'])&&isset($post['SkuVendor'])){
-                $goodssku->attributes=$post['Goodssku'];
-                $sku_vendor->attributes=$post['SkuVendor'];
-                $goodssku->pd_creator = Yii::$app->user->identity->username;
-                $goodssku->sale_company = implode(",", $post['Goodssku']['sale_company']);
-                $goodssku->vendor_code = $post['SkuVendor']['vendor_code'];
-                $goodssku->save(false);
-                $sku_vendor->sku_id = $goodssku->primaryKey;
-                $sku_vendor->save(false);
-                return $this->redirect(['index']);
+        if (isset($post['Goodssku']) && isset($post['SkuVendor'])) {
+            $goodssku->attributes = $post['Goodssku'];
+            $sku_vendor->attributes = $post['SkuVendor'];
+            $goodssku->pd_creator = Yii::$app->user->identity->username;
+            $goodssku->sale_company = implode(",", $post['Goodssku']['sale_company']);
+            $goodssku->vendor_code = $post['SkuVendor']['vendor_code'];
+            $goodssku->save(false);
+            $sku_vendor->sku_id = $goodssku->primaryKey;
+            $sku_vendor->save(false);
+            return $this->redirect(['index']);
         }
         return $this->render('create', [
             'model' => $goodssku,
@@ -93,12 +93,12 @@ class GoodsskuController extends Controller
     public function actionUpdate($id)
     {
         $goodssku = $this->findModel($id);
-        $sku_vendor = SkuVendor::find()->where(['sku_id'=>$id])->one();
-        $goodssku->sale_company = explode(',',$goodssku->sale_company); //ActiveForm 指定已存的销售公司
+        $sku_vendor = SkuVendor::find()->where(['sku_id' => $id])->one();
+        $goodssku->sale_company = explode(',', $goodssku->sale_company); //ActiveForm 指定已存的销售公司
         $post = Yii::$app->request->post();
-        if(isset($post['Goodssku'])&&isset($post['SkuVendor'])){
-            $goodssku->attributes=$post['Goodssku'];
-            $sku_vendor->attributes=$post['SkuVendor'];
+        if (isset($post['Goodssku']) && isset($post['SkuVendor'])) {
+            $goodssku->attributes = $post['Goodssku'];
+            $sku_vendor->attributes = $post['SkuVendor'];
             $goodssku->sale_company = implode(",", $post['Goodssku']['sale_company']);
             $goodssku->vendor_code = $post['SkuVendor']['vendor_code'];
             $goodssku->save(false);
@@ -107,10 +107,9 @@ class GoodsskuController extends Controller
         }
 
 
-
         return $this->render('update', [
             'model' => $goodssku,
-             'sku_vendor' => $sku_vendor
+            'sku_vendor' => $sku_vendor
         ]);
     }
 
@@ -125,9 +124,9 @@ class GoodsskuController extends Controller
     {
         $this->findModel($id)->delete();
 
-        try{
+        try {
             Yii::$app->db->createCommand("delete from sku_vendor where  sku_id = $id ")->execute();
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             throw $e;
         }
 
@@ -151,13 +150,14 @@ class GoodsskuController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public  function  actionVendorUpdate($id){
+    public function actionVendorUpdate($id)
+    {
 
-        $vendor_model =  SkuVendor::findOne($id);
+        $vendor_model = SkuVendor::findOne($id);
 
-        if ($vendor_model->load(Yii::$app->request->post()) ) {
+        if ($vendor_model->load(Yii::$app->request->post())) {
             $vendor_model->update_date = date('Y-m-d H:i:s');
-            if($vendor_model->save()){
+            if ($vendor_model->save()) {
                 return $this->redirect(['update', 'id' => $vendor_model->sku_id]);
             }
 
@@ -169,35 +169,37 @@ class GoodsskuController extends Controller
         ]);
     }
 
-     public  function  actionVendorCreate($id){
-         $vendor_model = new SkuVendor();
-         if ($vendor_model->load(Yii::$app->request->post()) ) {
-                 if($vendor_model->save()){
-                     return $this->redirect(['update', 'id' => $vendor_model->sku_id]);
-                 }
+    public function actionVendorCreate($id)
+    {
+        $vendor_model = new SkuVendor();
+        if ($vendor_model->load(Yii::$app->request->post())) {
+            if ($vendor_model->save()) {
+                return $this->redirect(['update', 'id' => $vendor_model->sku_id]);
+            }
 
-         }else{
-             if (isset($id) && !empty($id)) {
-                 $vendor_model->sku_id = $id;
-                 $vendor_model->save();
-             }
-         }
+        } else {
+            if (isset($id) && !empty($id)) {
+                $vendor_model->sku_id = $id;
+                $vendor_model->save();
+            }
+        }
 
-         return $this->renderAjax('vendor_create', [
-             'model' => $vendor_model,
-         ]);
-     }
+        return $this->renderAjax('vendor_create', [
+            'model' => $vendor_model,
+        ]);
+    }
 
-     public  function  actionVendorDelete($id){
-         $vendor = SkuVendor::find()->where(['id' => $id])->one();
+    public function actionVendorDelete($id)
+    {
+        $vendor = SkuVendor::find()->where(['id' => $id])->one();
 
-         if ($vendor->delete()) {
-             echo 1;
-             Yii::$app->end();
-         }
-         echo 0;
-         Yii::$app->end();
-     }
+        if ($vendor->delete()) {
+            echo 1;
+            Yii::$app->end();
+        }
+        echo 0;
+        Yii::$app->end();
+    }
 
     /**
      * @param null $id
@@ -205,7 +207,7 @@ class GoodsskuController extends Controller
      * @throws \yii\db\Exception
      */
 
-    public function  actionCopy($id = null)
+    public function actionCopy($id = null)
     {
 
         $db = Yii::$app->db;
@@ -256,14 +258,14 @@ class GoodsskuController extends Controller
     public function actionCommit()
     {
         $ids = $_POST['id'];
-        if(isset($ids)&&!empty($ids)){
+        if (isset($ids) && !empty($ids)) {
             $res = Yii::$app->db->createCommand("
             update `goodssku` set `has_commit`= 1 where `sku_id` in ($ids)
             ")->execute();
-            if($res){
+            if ($res) {
                 echo 'success';
             }
-        }else{
+        } else {
             echo 'error';
         }
 
@@ -276,20 +278,20 @@ class GoodsskuController extends Controller
     {
 
         $ids = $_POST['id'];
-        if(isset($ids)&&!empty($ids)){
-            try{
+        if (isset($ids) && !empty($ids)) {
+            try {
                 $res = Yii::$app->db->createCommand("
              update `goodssku` set `has_commit`= 0 where `sku_id` in ($ids)
             ")->execute();
 
-            }catch(\Exception $exception){
+            } catch (\Exception $exception) {
                 throw $exception;
             }
-            if($res){
+            if ($res) {
                 echo 'success';
                 Yii::$app->end();
             }
-        }else{
+        } else {
             echo 'error';
             Yii::$app->end();
         }
@@ -297,5 +299,11 @@ class GoodsskuController extends Controller
 
     }
 
+    public function actionGetElements($hs_code)
+    {
+        $sql = "SELECT declaration_elements FROM hs_code WHERE hs_code='$hs_code'";
+        $res = Yii::$app->db->createCommand($sql)->queryOne();
+        return $res['declaration_elements'];
+    }
 
 }
