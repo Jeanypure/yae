@@ -228,9 +228,16 @@ $JS =<<<JS
         });
     });
 
+  
 JS;
 
 $this->registerJs($JS);
 
+$hs_code_js =<<<JS
+    $(function() {
+        var hsValue = $('#goodssku-hs_code').val();//hs_code
+      
+    });
+JS;
 
 ?>
