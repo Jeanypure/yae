@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\PurInfo;
 use backend\models\Sample;
+use backend\models\Goodssku;
 use backend\models\MinisterAgreestSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -190,11 +191,10 @@ class MinisterAgreestController extends Controller
                         $sql = " SET @id = $id;
                             CALL purinfo_to_goodssku (@id);";
                         $res = Yii::$app->db->createCommand($sql)->execute();
-
+                        $hs_res =  $this->actionUpdateHs($id,$model->hs_code);
                     }catch(\Exception $exception){
                         throw $exception;
                     }
-
                    if($model->source == 0){
                         try{
                             Yii::$app->db->createCommand("
@@ -335,5 +335,25 @@ class MinisterAgreestController extends Controller
 
         }
 
+        public function  actionUpdateHs($id,$hs_code){
+            $goodssku = Goodssku::findOne(['pur_info_id'=>$id]);
+            $hs_code_sql = "select declaration_elements  from hs_code where  hs_code= '$hs_code'";
+            $hs_arr =  Yii::$app->db->createCommand($hs_code_sql)->queryOne();
+            $hs_code_arr =  explode(',',$hs_arr['declaration_elements']);
+            $column_key = ['declaration_item_key1','declaration_item_key2','declaration_item_key3','declaration_item_key4',
+                'declaration_item_key5','declaration_item_key6','declaration_item_key7','declaration_item_key8','declaration_item_key9'];
+            if(!empty($hs_code_arr )){
+                foreach ($hs_code_arr as $key=>$value){
+                    $attri = $column_key[$key];
+                    $goodssku->$attri = substr($value,2);
+                }
+                if($goodssku->save(false)){
+                    return 'ok';
+                }
+            }
+            return 'not found'.$hs_code;
 
+
+
+        }
 }
