@@ -40,6 +40,7 @@ use kartik\datetime\DateTimePicker;
                     '6'=>'域聪',
                     '7'=>'朋侯',
                     '8'=>'客尊',
+//                    '9'=>'朵邦',
                 ],
                 'options' => ['placeholder' => '选择销售公司'],
                 'pluginOptions' => [

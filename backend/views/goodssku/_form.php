@@ -242,7 +242,8 @@ $hs_code_js =<<<JS
           for( var element in elementArr){
              var eleValue = elementArr[element];
              var newEle = eleValue.replace(/\d+\:/g,'');
-             $('#goodssku-declaration_item_key'+element).val(newEle);
+             var addOneele = ++element;
+             $('#goodssku-declaration_item_key'+addOneele).val(newEle);
           }
           
        });
