@@ -97,7 +97,7 @@ class PurInfo extends \yii\db\ActiveRecord
             ['amazon_url','url','defaultScheme' => 'http'],
             ['else_url','url','defaultScheme' => 'http'],
             ['url_1688','url','defaultScheme' => 'http'],
-            [['pd_sku','pd_create_time','write_date','purchaser_send_time'], 'safe'],
+            [['pd_sku','pd_create_time','write_date','purchaser_send_time','sure_purchase_time'], 'safe'],
             [['sample_return', ], 'integer'],
             [['hs_code'],'match','pattern'=>'^\d{10}$','message'=>'请输入正确的HS编码'],
 

@@ -187,6 +187,7 @@ class MinisterAgreestController extends Controller
             $sample_model->attributes = $post['Sample'];
             $minister_result = $post['Sample']['minister_result'];
             if(isset($post['PurInfo']['is_purchase'])&&$post['PurInfo']['is_purchase']==1){
+                $model->sure_purchase_time = date('Y-m-d H:i:s');
                     try{
                         $sql = " SET @id = $id;
                             CALL purinfo_to_goodssku (@id);";
@@ -338,6 +339,14 @@ class MinisterAgreestController extends Controller
             return $sql;
 
         }
+
+    /**
+     * @param $id
+     * @param $hs_code
+     * @return string
+     * @throws \yii\db\Exception
+     * @memo update goodssku declaration elements key
+     */
 
         public function  actionUpdateHs($id,$hs_code){
             $goodssku = Goodssku::findOne(['pur_info_id'=>$id]);
