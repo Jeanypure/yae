@@ -183,6 +183,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'minister_result' => '部长判断',
             'write_date' => '到货日期',
             'pd_sku' => 'SKU',
+            'purchaser_send_time' => '采购提交时间',
 
         ];
     }

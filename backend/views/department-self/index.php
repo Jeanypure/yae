@@ -124,6 +124,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'90%'
                 ],
             ],
+            'purchaser_send_time',
             [
                 'attribute'=>'source',
                 'width'=>'50px',
