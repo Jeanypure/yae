@@ -191,9 +191,13 @@ class MinisterAgreestController extends Controller
                         $sql = " SET @id = $id;
                             CALL purinfo_to_goodssku (@id);";
                         $res = Yii::$app->db->createCommand($sql)->execute();
-                        $hs_res =  $this->actionUpdateHs($id,$model->hs_code);
+
                     }catch(\Exception $exception){
                         throw $exception;
+                    }
+                    $goodsSkuHsele = Yii::$app->db->createCommand("select count(*) as number_record from goodssku where pur_info_id = $id")->queryOne();
+                    if(!empty($goodsSkuHsele['number_record'])){
+                        $hs_res =  $this->actionUpdateHs($id,$model->hs_code);
                     }
                    if($model->source == 0){
                         try{
