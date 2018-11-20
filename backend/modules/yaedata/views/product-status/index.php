@@ -11,6 +11,7 @@ $this->title = '状态分布';
 $cat = Url::toRoute('compute');
 $sample_source = Url::toRoute('sample');
 $recommend_sample = Url::toRoute('recommend-sample');
+$surePurchase = Url::toRoute('sure-purchase');
 $js = <<< JS
 //设置背景色
 $('body').css('background','#FFF');
@@ -21,25 +22,27 @@ $('h3').remove();
                     url:'{$cat}', 
                     success:function (data) {
                         // var da = JSON.parse(data);  //推荐方法
-                        console.log(data);
                       init_chart(data);
                      
                     }
                 });
                 $.ajax({
-                    url:'{$sample_source}', 
+                    url:'{$sample_source}',    //拿样
                     success:function (data) {
-                        // var da = JSON.parse(data);  //推荐方法
-                        console.log(data);
-                      sample_chart(data,'sample-source');
+                      sample_chart(data,'sample-source','sample');
                      
                     }
                 });
                 $.ajax({
-                    url:'{$recommend_sample}', 
+                    url:'{$surePurchase}',    //确定采购 
                     success:function (data) {
-                        // var da = JSON.parse(data);  //推荐方法
-                        console.log(data);
+                      sample_chart(data,'sure-purchase','purchase');
+                     
+                    }
+                });
+                $.ajax({
+                    url:'{$recommend_sample}',  //销售推荐拿样
+                    success:function (data) {
                       sample_chart(data,'recommend');
                      
                     }
@@ -79,15 +82,21 @@ $this->registerJs($js);
      </div>
 </div>
 <div class="row">
-     <div class="col-md-12">
+     <div class="col-md-6">
          <h2>近30天采购拿样来源</h2>
          <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-         <div id="sample-source" style="width: 1200px;height:800px;"></div>
+         <div id="sample-source" style="width: 900px;height:600px;"></div>
      </div>
+
+    <div class="col-md-6">
+        <h2>近30天新品确定采购个数</h2>
+        <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+        <div id="sure-purchase" style="width: 900px;height:600px;"></div>
+    </div>
 </div>
 
 <div class="row">
-     <div class="col-md-12">
+     <div class="col-md-6">
          <h2>近30天销售推荐产品--拿样分布(包含直接下单)</h2>
          <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
          <div id="recommend" style="width: 1200px;height:800px;"></div>
@@ -160,11 +169,12 @@ $this->registerJs($js);
     }
 </script>
 <script>
-    function  sample_chart(sample_data,id) {
+    function  sample_chart(sample_data,id,type) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id));
         var data = eval("(" + sample_data + ")");
         var status,result;
+        var labelType = (type=='sample')?'拿样':'采购';
         status = data.status;
         result = data.num;
         option = {
@@ -179,7 +189,7 @@ $this->registerJs($js);
             },
             series: [
                 {
-                    name:'拿样产品',
+                    name:labelType+'产品',
                     type:'pie',
                     selectedMode: 'single',
                     radius: [0, '30%'],
@@ -202,7 +212,7 @@ $this->registerJs($js);
                     ]
                 },
                 {
-                    name:'拿样来源',
+                    name:labelType+'来源',
                     type:'pie',
                     radius: ['40%', '55%'],
                     label: {

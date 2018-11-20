@@ -105,4 +105,27 @@ class ProductStatusController extends Controller
         echo json_encode($result,true);
     }
 
+    public function actionSurePurchase()
+    {
+        $firstday = date('Y-m-d', strtotime("-29 day"));
+        $lastday = date('Y-m-d');
+        $sql = "SELECT 
+                o.purchaser,
+                count(purchaser) as total
+                FROM  pur_info o 
+                WHERE o.is_purchase='1' 
+                  AND  DATE_FORMAT(o.sure_purchase_time,'%Y-%m-%d') between  '$firstday' and '$lastday'  
+                GROUP BY purchaser
+                ORDER BY total desc";
+        $res = Yii::$app->db->createCommand($sql)->queryAll();
+        $status =  array_column($res,'purchaser');
+        foreach($res as $key=>$value){
+            $val['value'] = (int)$value['total'];
+            $val['name'] = $value['purchaser'];
+            $arr[] = $val;
+        }
+        $result['status'] = $status;
+        $result['num'] = $arr;
+        echo json_encode($result,true);
+    }
 }
