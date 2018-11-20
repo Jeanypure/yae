@@ -82,13 +82,13 @@ $this->registerJs($js);
      </div>
 </div>
 <div class="row">
-     <div class="col-md-6">
+     <div class="col-lg-6 col-md-3">
          <h2>近30天采购拿样来源</h2>
          <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
          <div id="sample-source" style="width: 900px;height:600px;"></div>
      </div>
 
-    <div class="col-md-6">
+    <div class="col-lg-6 col-md-3">
         <h2>近30天新品确定采购个数</h2>
         <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
         <div id="sure-purchase" style="width: 900px;height:600px;"></div>
