@@ -19,7 +19,7 @@ class DepartmentSelfSearch extends PurInfo
     {
         return [
             [['is_purchase','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee',  'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
-            [['pd_sku','master_result','master_mark','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'source', 'member', 'preview_status', 'brocast_status'], 'safe'],
+            [['purchaser_send_time','pd_sku','master_result','master_mark','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'source', 'member', 'preview_status', 'brocast_status'], 'safe'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice'], 'number'],
         ];
     }
@@ -75,6 +75,10 @@ class DepartmentSelfSearch extends PurInfo
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
+        }
+        if (!empty($this->purchaser_send_time)) {
+            $query->andFilterCompare('purchaser_send_time', explode('/', $this->purchaser_send_time)[0], '>=');//起始时间
+            $query->andFilterCompare('purchaser_send_time', explode('/', $this->purchaser_send_time)[1], '<');//结束时间
         }
 
         // grid filtering conditions
