@@ -345,7 +345,7 @@ class MinisterAgreestController extends Controller
             if(!empty($hs_code_arr )){
                 foreach ($hs_code_arr as $key=>$value){
                     $attri = $column_key[$key];
-                    $goodssku->$attri = substr($value,2);
+                    $goodssku->$attri = preg_replace('/\d+\:/','',$value);
                 }
                 if($goodssku->save(false)){
                     return 'ok';
