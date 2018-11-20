@@ -39,14 +39,12 @@ class RequisitionDetailController extends Controller
      }
 
      public function actionMultiRequest(){
-
-         $sql = 'select internal_id from requisition_list ORDER BY internal_id DESC limit 1,3';
+         $sql = 'select internal_id from requisition_list ORDER BY internal_id DESC limit 1,10';
          $idSet = Yii::$app->db2->createCommand($sql)->queryAll();
          $ids = array_column($idSet,'internal_id');
          $multiCurl = [];
          $result = [];
          $mh = curl_multi_init();
-         ini_set('max_execution_time', 300);
          foreach ($ids as $i=>$id){
              $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=176&deploy=2&id='.$id;
              $multiCurl[$i] = curl_init();
@@ -66,13 +64,13 @@ class RequisitionDetailController extends Controller
          do {
              $mrc = curl_multi_exec($mh, $active);
          } while ($mrc == CURLM_CALL_MULTI_PERFORM);
-
          while ($active && $mrc == CURLM_OK) {
-             if (curl_multi_select($mh) != -1) {
+             usleep(50000);
+//             if (curl_multi_select($mh) != -1) {
                  do {
                      $mrc = curl_multi_exec($mh, $active);
                  } while ($mrc == CURLM_CALL_MULTI_PERFORM);
-             }
+//             }
          }
 
 
@@ -105,23 +103,30 @@ class RequisitionDetailController extends Controller
 
              foreach($resultArr as $key=>$value){
                  $value = json_decode($value,true);
-                 $record[] = $value['tranid'];
-                 foreach($value['item'] as $k=>$v){
-                     $record[] = $v['amount'];
-                     $record[] = $v['description'];
-                     $record[] = $v['item']['internalid'];
-                     $record[] = $v['item']['name'];
-                     if(!empty($v['povendor'])){
-                         $record[] = $v['povendor']['internalid'];
-                         $record[] = $v['povendor']['name'];
+                 if(!empty($value['item'] )){
+                     foreach($value['item'] as $k=>$v){
+                         $record[] = $value['tranid'];
+                         $record[] = $v['amount'];
+                         $record[] = $v['description'];
+                         $record[] = $v['item']['internalid'];
+                         $record[] = $v['item']['name'];
+                         if(!empty($v['povendor'])){
+                             $record[] = $v['povendor']['internalid'];
+                             $record[] = $v['povendor']['name'];
+                         }else{
+
+                             $record[] = '';
+                             $record[] = '';
+                         }
+                         $record[] = $v['quantity'];
+                         $record[] = $v['rate'];
+                         $recordArr[]  = $record;
+                         unset($record);
                      }
-                     $record[] = $v['quantity'];
-                     $record[] = $v['rate'];
-                     $recordArr[]  = $record;
+                     $res =  Yii::$app->db2->createCommand()->batchInsert($tableName,$columnKey,$recordArr)->execute();
+                     unset($recordArr);
                  }
 
-//                 $res =  Yii::$app->db2->createCommand($tableName,$columnKey,$recordArr)->batchInsert()->execute();
-                 unset($recordArr);
 
              }
 
