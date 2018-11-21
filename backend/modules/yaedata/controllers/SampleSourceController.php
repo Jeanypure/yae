@@ -52,7 +52,7 @@ SELECT  o.purchaser,count(purchaser) as total ,
 			SELECT pur_group AS purchaser , count(pur_group) as total,'group' as result_type
 			FROM  pur_info o 
 			WHERE o.is_purchase='1' 
-			AND  DATE_FORMAT(o.sure_purchase_time,'%Y-%m-%d') between   '2018-10-23' and '2018-11-21'
+			AND  DATE_FORMAT(o.sure_purchase_time,'%Y-%m-%d') between  '$firstday' and '$lastday'
 			GROUP BY pur_group
 ) aa 
 ORDER BY aa.total DESC";
