@@ -52,6 +52,7 @@ $('h3').remove();
                         console.log(data);
                       sample_chart(data,'sample');
                       sample_chart(data,'purchase');
+                      sample_chart(data,'group');
                      
                     }
                 });
@@ -93,16 +94,23 @@ $this->registerJs($js);
     </div>
 </div>
 <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+<div class="row">
+    <div class="col-lg-6 col-md-3">
+        <h2>部门确定采购统计</h2>
+        <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+        <div id="group" style="width: 900px;height:600px;"></div>
+    </div>
 
+
+</div>
 
 <script>
     function  sample_chart(sample_data,type_id) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(type_id));
-        console.log(type_id);
         var data = eval("(" + sample_data + ")");
-        var purchase,result,resultType;
-        purchase = data.purchase;
+        var purchase,result,resultType,department;
+        purchase = data.purchase[type_id];
         result = data.num[type_id];
         resultType = (type_id=='sample')?'拿样':'采购';
         option = {

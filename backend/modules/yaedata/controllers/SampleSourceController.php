@@ -48,6 +48,12 @@ SELECT  o.purchaser,count(purchaser) as total ,
 			WHERE o.is_purchase='1' 
 			AND  DATE_FORMAT(o.sure_purchase_time,'%Y-%m-%d') between  '$firstday' and '$lastday'
 			GROUP BY purchaser
+			UNION
+			SELECT pur_group AS purchaser , count(pur_group) as total,'group' as result_type
+			FROM  pur_info o 
+			WHERE o.is_purchase='1' 
+			AND  DATE_FORMAT(o.sure_purchase_time,'%Y-%m-%d') between   '2018-10-23' and '2018-11-21'
+			GROUP BY pur_group
 ) aa 
 ORDER BY aa.total DESC";
         $res = Yii::$app->db->createCommand($sql)->queryAll();
@@ -59,15 +65,20 @@ ORDER BY aa.total DESC";
                     $val['value'] = (int)$value['total'];
                     $val['name'] = $value['purchaser'];
                     $arr['sample'][] = $val;
-                }else{
+                }elseif ($val['result_type']=='purchase'){
                     $val['value'] = (int)$value['total'];
                     $val['name'] = $value['purchaser'];
                     $arr['purchase'][] = $val;
+                }elseif ($val['result_type']=='group'){
+                    $val['value'] = (int)$value['total'];
+                    $val['name'] = $value['purchaser'].'部';
+                    $arr['group'][] = $val;
                 }
 
             }
-            $result['purchase'] = $purchase;
+            $result['purchase']['purchase'] = $purchase;
             $result['num'] = $arr;
+            $result['purchase']['group'] = ['1部','2部','3部','4部','5部','6部','7部','8部'];
             return json_encode($result,true);
         }else{
             return json_encode(['success'=>'200OK','msg'=>'所选时间段内没有数据'],true);
