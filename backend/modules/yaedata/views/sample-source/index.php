@@ -13,8 +13,8 @@ use kartik\widgets\ActiveForm;
 ?>
 <?php
     $form = ActiveForm::begin();
-
-echo '<div class="col-sm-5"><label class="control-label">Date Range</label>';
+echo '<div class="row">';
+echo '<div class="col-md-4"><label class="control-label">Date Range</label>';
 echo '<div class="drp-container">';
 echo DateRangePicker::widget([
     'name'=>'date_range_3',
@@ -24,16 +24,14 @@ echo DateRangePicker::widget([
 ]);
 echo '</div></div>';
 
-
 ?>
-
-
-<div class="form-group pull-center">
+<div class="col-md-4">
 
     <?php
         echo  Html::button('查询', ['id' => 'date-str', 'class' => 'btn btn-primary '])
          ;?>
 
+</div>
 </div>
 
 <?php ActiveForm::end(); ?>
@@ -52,7 +50,8 @@ $('h3').remove();
                     success:function (data) {
                         // var da = JSON.parse(data);  //推荐方法
                         console.log(data);
-                      sample_chart(data);
+                      sample_chart(data,'sample');
+                      sample_chart(data,'purchase');
                      
                     }
                 });
@@ -80,21 +79,26 @@ $this->registerJs($js);
 <body>
 
 <div class="row">
-    <div id="pie-nest" style="width: 1000px;height:600px;"></div>
-
+    <div id="sample" style="width: 1000px;height:600px;"></div>
+</div>
+  <div class="row">
+    <div id="purchase" style="width: 1000px;height:600px;"></div>
+    </div>
 
 </div>
 <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
 
 
 <script>
-    function  sample_chart(sample_data) {
+    function  sample_chart(sample_data,type_id) {
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('pie-nest'));
+        var myChart = echarts.init(document.getElementById(type_id));
+        console.log(type_id);
         var data = eval("(" + sample_data + ")");
-        var status,result;
-        status = data.status;
-        result = data.num;
+        var purchase,result,resultType;
+        purchase = data.purchase;
+        result = data.num[type_id];
+        resultType = (type_id=='sample')?'拿样':'采购';
         option = {
             tooltip: {
                 trigger: 'item',
@@ -103,11 +107,11 @@ $this->registerJs($js);
             legend: {
                 orient: 'vertical',
                 x: 'left',
-                data:status
+                data:purchase,
             },
             series: [
                 {
-                    name:'拿样产品',
+                    name: resultType+'产品',
                     type:'pie',
                     selectedMode: 'single',
                     radius: [0, '30%'],
@@ -130,7 +134,7 @@ $this->registerJs($js);
                         ]
                 },
                 {
-                    name:'拿样来源',
+                    name:resultType+'来源',
                     type:'pie',
                     radius: ['40%', '55%'],
                     label: {
@@ -195,22 +199,15 @@ $submit_date =<<<JS
          var button = $(this);
             button.attr('disabled','disabled');
             var date_range = $("#w1").val();
-            console.log(date_range);
-            // if(ids.length ==0) alert('请选择产品后再操作!');
             $.ajax({
             url:'{$submit}',
             type:'post',
             data:{date_range_2:date_range},
             success:function(res){
-                console.log(res);
                  var da = JSON.parse(res);  //推荐方法
                  if(da.success=='200OK') alert(da.msg);
                  sample_chart(res);
-                
-               
-                // if(res=='success') alert('提交成功!');
                 button.attr('disabled',false);
-
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 button.attr('disabled',false);

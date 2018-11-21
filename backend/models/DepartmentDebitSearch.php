@@ -44,7 +44,7 @@ class DepartmentDebitSearch extends YaeFreight
         $username = Yii::$app->user->identity->username;
 
         if($username=='Jenny'||$username=='David'||$username=='Mark') {
-            $query = YaeFreight::find()->where(['to_minister'=> 1]);
+            $query = YaeFreight::find()->where(['to_minister'=> 1])->orderBy('id desc');
 
         }else{
             $query = YaeFreight::find()

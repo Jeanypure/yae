@@ -234,6 +234,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'mini_res',
             'fina_res',
+            'build_at',
         ],
     ]); ?>
     <?php Pjax::end(); ?>
