@@ -125,7 +125,7 @@ class FinancialDebitController extends Controller
             $model->payer = $payer ;
             $model->pay_at = $pay_at ;
             $model->fina_deal = 1 ;
-            $model->save();
+            $model->save(false);
             return $this->redirect(['index']);
         }
 

@@ -219,10 +219,9 @@ $submit_date =<<<JS
             success:function(data){
                  var da = JSON.parse(data);  //推荐方法
                  if(da.success=='200OK') alert(da.msg);
-                 // sample_chart(res);
                    sample_chart(data,'sample');
-                      sample_chart(data,'purchase');
-                      sample_chart(data,'group');
+                   sample_chart(data,'purchase');
+                   sample_chart(data,'group');
                 button.attr('disabled',false);
             },
             error: function (jqXHR, textStatus, errorThrown) {
