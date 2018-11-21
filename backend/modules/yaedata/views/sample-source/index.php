@@ -49,7 +49,6 @@ $('h3').remove();
                     url:'{$sample_source}', 
                     success:function (data) {
                         // var da = JSON.parse(data);  //推荐方法
-                        console.log(data);
                       sample_chart(data,'sample');
                       sample_chart(data,'purchase');
                       sample_chart(data,'group');
@@ -217,10 +216,13 @@ $submit_date =<<<JS
             url:'{$submit}',
             type:'post',
             data:{date_range_2:date_range},
-            success:function(res){
-                 var da = JSON.parse(res);  //推荐方法
+            success:function(data){
+                 var da = JSON.parse(data);  //推荐方法
                  if(da.success=='200OK') alert(da.msg);
-                 sample_chart(res);
+                 // sample_chart(res);
+                   sample_chart(data,'sample');
+                      sample_chart(data,'purchase');
+                      sample_chart(data,'group');
                 button.attr('disabled',false);
             },
             error: function (jqXHR, textStatus, errorThrown) {
