@@ -47,7 +47,8 @@ class MinisterAgreestSearch extends PurInfo
             ->where("leader_id=".Yii::$app->user->identity->getId())->asArray()->one();
 
         $pur_group = $res['id']??'';
-        if($username=='Jenny'||$username=='David'||$username=='Mark'){
+        $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
+        if( array_key_exists('超级管理员',$role)){
             $query = PurInfo::find()
                 ->select(['
                     `pur_info`.pur_info_id,

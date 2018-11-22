@@ -15,8 +15,8 @@ class RequisitionDetailController extends Controller
 {
      public  function actionIndex()
      {
-         $startDate = date('Y/m/d H:i:s',strtotime('-7 day'));
-         $endDate = date('Y/m/d H:i:s');
+         $startDate = date('Y/m/d',strtotime('-7 day'));
+         $endDate = date('Y/m/d');
          echo  $startDate,$endDate;
      }
      public  function actionSingleCurl(){
@@ -41,11 +41,14 @@ class RequisitionDetailController extends Controller
      }
 
      public function actionMultiRequest($startDate,$endDate){
-         $startDate = date('Y/m/d');
-         $sql = "select internal_id from requisition_list where requisition_date between '$startDate' and '$endDate'";
+        /* $startDate = date('Y/m/d',strtotime('-7 day'));
+         $endDate = date('Y/m/d');
+         $sql = "select internal_id from requisition_list where requisition_date BETWEEN '$startDate' and '$endDate' AND internal_id NOT in(
+SELECT DISTINCT tran_internal_id FROM requisition_detail
+) ;";
          $idSet = Yii::$app->db2->createCommand($sql)->queryAll();
-         $ids = array_column($idSet,'internal_id');
-         $ids = [800209];
+         $ids = array_column($idSet,'internal_id');*/
+         $ids = [800209,2402440,2403675,2407392,2407495,2408012,2408028,2408029];
          $multiCurl = [];
          $result = [];
          set_time_limit(0);
@@ -139,7 +142,6 @@ class RequisitionDetailController extends Controller
 
 
              }
-
          }
 
 

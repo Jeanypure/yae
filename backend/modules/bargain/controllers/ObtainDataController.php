@@ -56,6 +56,7 @@ class ObtainDataController extends Controller
                'document_number',
                'requisition_name'
            ];
+           $truncateTab = Yii::$app->db2->createCommand('truncate table requisition_list')->execute();
            $response = Yii::$app->db2->createCommand()->batchInsert($table,$arr_key,$arr_set)->execute();
           return $response;
 
