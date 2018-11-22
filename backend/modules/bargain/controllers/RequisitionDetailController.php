@@ -15,7 +15,9 @@ class RequisitionDetailController extends Controller
 {
      public  function actionIndex()
      {
-         echo 123;
+         $startDate = date('Y/m/d H:i:s',strtotime('-7 day'));
+         $endDate = date('Y/m/d H:i:s');
+         echo  $startDate,$endDate;
      }
      public  function actionSingleCurl(){
        $ch = curl_init();
@@ -39,13 +41,14 @@ class RequisitionDetailController extends Controller
      }
 
      public function actionMultiRequest($startDate,$endDate){
-//         $sql = 'select internal_id from requisition_list ORDER BY internal_id DESC limit 1,10';
-
+         $startDate = date('Y/m/d');
          $sql = "select internal_id from requisition_list where requisition_date between '$startDate' and '$endDate'";
          $idSet = Yii::$app->db2->createCommand($sql)->queryAll();
          $ids = array_column($idSet,'internal_id');
+         $ids = [800209];
          $multiCurl = [];
          $result = [];
+         set_time_limit(0);
          $mh = curl_multi_init();
          foreach ($ids as $i=>$id){
              $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=176&deploy=2&id='.$id;
@@ -106,10 +109,15 @@ class RequisitionDetailController extends Controller
                  $value = json_decode($value,true);
                  if(!empty($value['item'] )){
                      foreach($value['item'] as $k=>$v){
-                         $record[] = $value['tran_internal_id'];
+                         $record[] = $value['id'];
                          $record[] = $value['tranid'];
                          $record[] = $v['amount'];
-                         $record[] = $v['description'];
+                         if(!empty($v['description'])){
+                             $record[] = $v['description'];
+                         }else{
+                             $record[] = '';
+                         }
+
                          $record[] = $v['item']['internalid'];
                          $record[] = $v['item']['name'];
                          if(!empty($v['povendor'])){
