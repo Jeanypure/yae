@@ -38,8 +38,10 @@ class RequisitionDetailController extends Controller
 
      }
 
-     public function actionMultiRequest(){
-         $sql = 'select internal_id from requisition_list ORDER BY internal_id DESC limit 1,10';
+     public function actionMultiRequest($startDate,$endDate){
+//         $sql = 'select internal_id from requisition_list ORDER BY internal_id DESC limit 1,10';
+
+         $sql = "select internal_id from requisition_list where requisition_date between '$startDate' and '$endDate'";
          $idSet = Yii::$app->db2->createCommand($sql)->queryAll();
          $ids = array_column($idSet,'internal_id');
          $multiCurl = [];
@@ -93,7 +95,7 @@ class RequisitionDetailController extends Controller
          $resultArr = json_decode($result,true);
          if(empty($resultArr['error'])){
              $tableName = 'requisition_detail';
-             $columnKey = ['tranid','amount','description','item_internal_id','item_name',
+             $columnKey = ['tran_internal_id','tranid','amount','description','item_internal_id','item_name',
 //                 'linkedorder_internalid','linkedorder_name','linkedorderstatus',
                  'povendor_internalid','povendor_name','quantity','rate',
 //                 'createdate','lastmodifieddate','trandate','currencyname'
@@ -105,6 +107,7 @@ class RequisitionDetailController extends Controller
                  $value = json_decode($value,true);
                  if(!empty($value['item'] )){
                      foreach($value['item'] as $k=>$v){
+                         $record[] = $value['tran_internal_id'];
                          $record[] = $value['tranid'];
                          $record[] = $v['amount'];
                          $record[] = $v['description'];
