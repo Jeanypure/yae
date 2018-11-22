@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model backend\modules\bargain\models\RequisitionList */
+/* @var $model backend\modules\bargain\models\RequisitionDetail */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Requisition Lists', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Requisition Details', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="requisition-list-view">
+<div class="requisition-detail-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,17 +29,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'internal_id',
-            'requisition_date',
-            'document_number',
-            'requisition_name',
-            'status',
-            'memo',
+            'tran_internal_id',
+            'tranid',
             'amount',
-            'currency',
-            'get_record_time',
-            'push_record_time',
-            'update_record_time',
+            'description',
+            'item_internal_id',
+            'item_name',
+            'linkedorder_internalid',
+            'linkedorder_name',
+            'linkedorderstatus',
+            'povendor_internalid',
+            'povendor_name',
+            'quantity',
+            'rate',
+            'createdate',
+            'lastmodifieddate',
+            'trandate',
+            'currencyname',
         ],
     ]) ?>
 

@@ -1,150 +1,127 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: YM-sale
- * Date: 2018/11/15
- * Time: 15:59
- */
 
 namespace backend\modules\bargain\controllers;
 
 use Yii;
+use backend\modules\bargain\models\RequisitionDetail;
+use backend\modules\bargain\models\RequisitionDetailSearch;
 use yii\web\Controller;
-use linslin\yii2\curl;
+use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
+
+/**
+ * RequisitionDetailController implements the CRUD actions for RequisitionDetail model.
+ */
 class RequisitionDetailController extends Controller
 {
-     public  function actionIndex()
-     {
-         $startDate = date('Y/m/d',strtotime('-7 day'));
-         $endDate = date('Y/m/d');
-         echo  $startDate,$endDate;
-     }
-     public  function actionSingleCurl(){
-       $ch = curl_init();
-       $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=176&deploy=2&id=170086';
-         curl_setopt($ch, CURLOPT_HTTPHEADER,[
-             'Authorization: NLAuth nlauth_account=5151251, nlauth_email=jenny.li@yaemart.com, nlauth_signature=Jenny666666, nlauth_role=1013',
-             'Content-Type: application/json',
-             'Accept: application/json'
-         ]);
-         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-         curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,2);
-         curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,false);
-         curl_setopt($ch, CURLOPT_URL, $url);
-         ob_start();
-         curl_exec($ch);
-         $result = ob_get_contents();
-         ob_end_clean();
-         curl_close($ch);
-         return $result;
-
-     }
-
-     public function actionMultiRequest($startDate,$endDate){
-        /* $startDate = date('Y/m/d',strtotime('-7 day'));
-         $endDate = date('Y/m/d');
-         $sql = "select internal_id from requisition_list where requisition_date BETWEEN '$startDate' and '$endDate' AND internal_id NOT in(
-SELECT DISTINCT tran_internal_id FROM requisition_detail
-) ;";
-         $idSet = Yii::$app->db2->createCommand($sql)->queryAll();
-         $ids = array_column($idSet,'internal_id');*/
-         $ids = [800209,2402440,2403675,2407392,2407495,2408012,2408028,2408029];
-         $multiCurl = [];
-         $result = [];
-         set_time_limit(0);
-         $mh = curl_multi_init();
-         foreach ($ids as $i=>$id){
-             $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=176&deploy=2&id='.$id;
-             $multiCurl[$i] = curl_init();
-             curl_setopt($multiCurl[$i],CURLOPT_HTTPHEADER,['Authorization: NLAuth nlauth_account=5151251, nlauth_email=jenny.li@yaemart.com, nlauth_signature=Jenny666666, nlauth_role=1013',
-                 'Content-Type: application/json',
-                 'Accept: application/json']);
-             curl_setopt($multiCurl[$i], CURLOPT_HEADER,0);
-             curl_setopt($multiCurl[$i], CURLOPT_RETURNTRANSFER,1);
-             curl_setopt($multiCurl[$i], CURLOPT_FOLLOWLOCATION, 1);
-             curl_setopt($multiCurl[$i],CURLOPT_SSL_VERIFYHOST,2);
-             curl_setopt($multiCurl[$i],CURLOPT_SSL_VERIFYPEER,false);
-             curl_setopt($multiCurl[$i],CURLOPT_URL,$url);
-             curl_multi_add_handle($mh, $multiCurl[$i]);
-             }
-         $active = null;
-        //execute the handles
-         do {
-             $mrc = curl_multi_exec($mh, $active);
-         } while ($mrc == CURLM_CALL_MULTI_PERFORM);
-         while ($active && $mrc == CURLM_OK) {
-             usleep(50000);
-//             if (curl_multi_select($mh) != -1) {
-                 do {
-                     $mrc = curl_multi_exec($mh, $active);
-                 } while ($mrc == CURLM_CALL_MULTI_PERFORM);
-//             }
-         }
-
-
-         foreach($multiCurl as $k =>$ch){
-                  $result[$k] = curl_multi_getcontent($ch);
-                  curl_multi_remove_handle($mh,$ch);
-              }
-              //close
-              curl_multi_close($mh);
-
-              return json_encode($result,true);
-     }
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
 
     /**
-     * 入库进入requisition_detail 表
+     * Lists all RequisitionDetail models.
+     * @return mixed
      */
-     public  function actionToDetail($startDate,$endDate){
-         $result = $this->actionMultiRequest($startDate,$endDate);
-         $resultArr = json_decode($result,true);
-         if(empty($resultArr['error'])){
-             $tableName = 'requisition_detail';
-             $columnKey = ['tran_internal_id','tranid','amount','description','item_internal_id','item_name',
-//                 'linkedorder_internalid','linkedorder_name','linkedorderstatus',
-                 'povendor_internalid','povendor_name','quantity','rate',
-//                 'createdate','lastmodifieddate','trandate','currencyname'
-             ];
-             $recordArr = [];
-             $record = [];
+    public function actionIndex()
+    {
+        $searchModel = new RequisitionDetailSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-             foreach($resultArr as $key=>$value){
-                 $value = json_decode($value,true);
-                 if(!empty($value['item'] )){
-                     foreach($value['item'] as $k=>$v){
-                         $record[] = $value['id'];
-                         $record[] = $value['tranid'];
-                         $record[] = $v['amount'];
-                         if(!empty($v['description'])){
-                             $record[] = $v['description'];
-                         }else{
-                             $record[] = '';
-                         }
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
-                         $record[] = $v['item']['internalid'];
-                         $record[] = $v['item']['name'];
-                         if(!empty($v['povendor'])){
-                             $record[] = $v['povendor']['internalid'];
-                             $record[] = $v['povendor']['name'];
-                         }else{
+    /**
+     * Displays a single RequisitionDetail model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
 
-                             $record[] = '';
-                             $record[] = '';
-                         }
-                         $record[] = $v['quantity'];
-                         $record[] = $v['rate'];
-                         $recordArr[]  = $record;
-                         unset($record);
-                     }
-                     $res =  Yii::$app->db2->createCommand()->batchInsert($tableName,$columnKey,$recordArr)->execute();
-                     unset($recordArr);
-                 }
+    /**
+     * Creates a new RequisitionDetail model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $model = new RequisitionDetail();
 
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
 
-             }
-         }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
 
+    /**
+     * Updates an existing RequisitionDetail model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
 
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
 
-     }
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Deletes an existing RequisitionDetail model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Finds the RequisitionDetail model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return RequisitionDetail the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = RequisitionDetail::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
 }
