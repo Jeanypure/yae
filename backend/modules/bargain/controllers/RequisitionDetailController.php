@@ -89,9 +89,8 @@ class RequisitionDetailController extends Controller
     /**
      * 入库进入requisition_detail 表
      */
-     public  function actionToDetail(){
-         $result = $this->actionMultiRequest();
-
+     public  function actionToDetail($startDate,$endDate){
+         $result = $this->actionMultiRequest($startDate,$endDate);
          $resultArr = json_decode($result,true);
          if(empty($resultArr['error'])){
              $tableName = 'requisition_detail';
