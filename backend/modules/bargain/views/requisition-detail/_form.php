@@ -24,12 +24,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'item_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'linkedorder_internalid')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'linkedorder_name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'linkedorderstatus')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'povendor_internalid')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'povendor_name')->textInput(['maxlength' => true]) ?>
@@ -45,6 +39,30 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'trandate')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'currencyname')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'supplier_name')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'contact_name')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'contact_tel')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'contact_qq')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'bill_type')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'arrival_data')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'payment_method')->textInput() ?>
+
+    <?= $form->field($model, 'negotiant')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'commit_time')->textInput() ?>
+
+    <?= $form->field($model, 'commit_status')->textInput() ?>
+
+    <?= $form->field($model, 'audit_time')->textInput() ?>
+
+    <?= $form->field($model, 'audit_status')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

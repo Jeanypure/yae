@@ -14,9 +14,6 @@ use Yii;
  * @property string $description 产品名称
  * @property string $item_internal_id SKU内部ID
  * @property string $item_name SKU
- * @property string $linkedorder_internalid 采购单内部ID
- * @property string $linkedorder_name 采购单号
- * @property string $linkedorderstatus 采购单状态
  * @property string $povendor_internalid 供应商ID
  * @property string $povendor_name 供应商代码
  * @property int $quantity 数量
@@ -25,6 +22,18 @@ use Yii;
  * @property string $lastmodifieddate 最近修改日期
  * @property string $trandate 交易日期
  * @property string $currencyname 币种
+ * @property string $supplier_name 供应商名称
+ * @property string $contact_name 联系姓名
+ * @property string $contact_tel 联系电话
+ * @property string $contact_qq QQ
+ * @property string $bill_type 开票类型
+ * @property string $arrival_data 到货日期
+ * @property int $payment_method 票款顺序 付款方式 1 票到付款  2 先预付再开票再付尾款  3 先付款后开票
+ * @property string $negotiant 议价人
+ * @property string $commit_time 议价人提交时间
+ * @property int $commit_status 提交状态 0 未提交 1 已提交
+ * @property string $audit_time 审核时间
+ * @property int $audit_status 审核状态 0 未审核 1 已审核同步
  */
 class RequisitionDetail extends \yii\db\ActiveRecord
 {
@@ -51,13 +60,16 @@ class RequisitionDetail extends \yii\db\ActiveRecord
     {
         return [
             [['amount', 'rate'], 'number'],
-            [['quantity'], 'integer'],
+            [['quantity', 'payment_method', 'commit_status', 'audit_status'], 'integer'],
+            [['commit_time', 'audit_time'], 'safe'],
             [['tran_internal_id', 'item_internal_id', 'povendor_internalid', 'povendor_name'], 'string', 'max' => 11],
             [['tranid', 'item_name', 'createdate', 'lastmodifieddate', 'trandate'], 'string', 'max' => 20],
             [['description'], 'string', 'max' => 200],
-            [['linkedorder_internalid', 'linkedorder_name'], 'string', 'max' => 8],
-            [['linkedorderstatus'], 'string', 'max' => 30],
-            [['currencyname'], 'string', 'max' => 10],
+            [['currencyname', 'arrival_data'], 'string', 'max' => 10],
+            [['supplier_name'], 'string', 'max' => 64],
+            [['contact_name', 'contact_tel'], 'string', 'max' => 32],
+            [['contact_qq', 'negotiant'], 'string', 'max' => 16],
+            [['bill_type'], 'string', 'max' => 30],
         ];
     }
 
@@ -71,20 +83,29 @@ class RequisitionDetail extends \yii\db\ActiveRecord
             'tran_internal_id' => 'Tran Internal ID',
             'tranid' => 'Tranid',
             'amount' => 'Amount',
-            'description' => '中文名',
+            'description' => 'Description',
             'item_internal_id' => 'Item Internal ID',
-            'item_name' => 'SKU',
-            'linkedorder_internalid' => 'Linkedorder Internalid',
-            'linkedorder_name' => 'Linkedorder Name',
-            'linkedorderstatus' => 'Linkedorderstatus',
+            'item_name' => 'Item Name',
             'povendor_internalid' => 'Povendor Internalid',
-            'povendor_name' => '供应商代码',
-            'quantity' => '采购数量',
+            'povendor_name' => 'Povendor Name',
+            'quantity' => 'Quantity',
             'rate' => 'Rate',
-            'createdate' => '请购日期',
+            'createdate' => 'Createdate',
             'lastmodifieddate' => 'Lastmodifieddate',
             'trandate' => 'Trandate',
             'currencyname' => 'Currencyname',
+            'supplier_name' => 'Supplier Name',
+            'contact_name' => 'Contact Name',
+            'contact_tel' => 'Contact Tel',
+            'contact_qq' => 'Contact Qq',
+            'bill_type' => 'Bill Type',
+            'arrival_data' => 'Arrival Data',
+            'payment_method' => 'Payment Method',
+            'negotiant' => 'Negotiant',
+            'commit_time' => 'Commit Time',
+            'commit_status' => 'Commit Status',
+            'audit_time' => 'Audit Time',
+            'audit_status' => 'Audit Status',
         ];
     }
 }

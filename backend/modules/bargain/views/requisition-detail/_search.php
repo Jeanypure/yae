@@ -29,12 +29,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'item_name') ?>
 
-    <?php // echo $form->field($model, 'linkedorder_internalid') ?>
-
-    <?php // echo $form->field($model, 'linkedorder_name') ?>
-
-    <?php // echo $form->field($model, 'linkedorderstatus') ?>
-
     <?php // echo $form->field($model, 'povendor_internalid') ?>
 
     <?php // echo $form->field($model, 'povendor_name') ?>
@@ -50,6 +44,30 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'trandate') ?>
 
     <?php // echo $form->field($model, 'currencyname') ?>
+
+    <?php // echo $form->field($model, 'supplier_name') ?>
+
+    <?php // echo $form->field($model, 'contact_name') ?>
+
+    <?php // echo $form->field($model, 'contact_tel') ?>
+
+    <?php // echo $form->field($model, 'contact_qq') ?>
+
+    <?php // echo $form->field($model, 'bill_type') ?>
+
+    <?php // echo $form->field($model, 'arrival_data') ?>
+
+    <?php // echo $form->field($model, 'payment_method') ?>
+
+    <?php // echo $form->field($model, 'negotiant') ?>
+
+    <?php // echo $form->field($model, 'commit_time') ?>
+
+    <?php // echo $form->field($model, 'commit_status') ?>
+
+    <?php // echo $form->field($model, 'audit_time') ?>
+
+    <?php // echo $form->field($model, 'audit_status') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

@@ -18,8 +18,8 @@ class RequisitionDetailSearch extends RequisitionDetail
     public function rules()
     {
         return [
-            [['id', 'quantity'], 'integer'],
-            [['tran_internal_id', 'tranid', 'description', 'item_internal_id', 'item_name', 'linkedorder_internalid', 'linkedorder_name', 'linkedorderstatus', 'povendor_internalid', 'povendor_name', 'createdate', 'lastmodifieddate', 'trandate', 'currencyname'], 'safe'],
+            [['id', 'quantity', 'payment_method', 'commit_status', 'audit_status'], 'integer'],
+            [['tran_internal_id', 'tranid', 'description', 'item_internal_id', 'item_name', 'povendor_internalid', 'povendor_name', 'createdate', 'lastmodifieddate', 'trandate', 'currencyname', 'supplier_name', 'contact_name', 'contact_tel', 'contact_qq', 'bill_type', 'arrival_data', 'negotiant', 'commit_time', 'audit_time'], 'safe'],
             [['amount', 'rate'], 'number'],
         ];
     }
@@ -64,6 +64,11 @@ class RequisitionDetailSearch extends RequisitionDetail
             'amount' => $this->amount,
             'quantity' => $this->quantity,
             'rate' => $this->rate,
+            'payment_method' => $this->payment_method,
+            'commit_time' => $this->commit_time,
+            'commit_status' => $this->commit_status,
+            'audit_time' => $this->audit_time,
+            'audit_status' => $this->audit_status,
         ]);
 
         $query->andFilterWhere(['like', 'tran_internal_id', $this->tran_internal_id])
@@ -71,15 +76,19 @@ class RequisitionDetailSearch extends RequisitionDetail
             ->andFilterWhere(['like', 'description', $this->description])
             ->andFilterWhere(['like', 'item_internal_id', $this->item_internal_id])
             ->andFilterWhere(['like', 'item_name', $this->item_name])
-            ->andFilterWhere(['like', 'linkedorder_internalid', $this->linkedorder_internalid])
-            ->andFilterWhere(['like', 'linkedorder_name', $this->linkedorder_name])
-            ->andFilterWhere(['like', 'linkedorderstatus', $this->linkedorderstatus])
             ->andFilterWhere(['like', 'povendor_internalid', $this->povendor_internalid])
             ->andFilterWhere(['like', 'povendor_name', $this->povendor_name])
             ->andFilterWhere(['like', 'createdate', $this->createdate])
             ->andFilterWhere(['like', 'lastmodifieddate', $this->lastmodifieddate])
             ->andFilterWhere(['like', 'trandate', $this->trandate])
-            ->andFilterWhere(['like', 'currencyname', $this->currencyname]);
+            ->andFilterWhere(['like', 'currencyname', $this->currencyname])
+            ->andFilterWhere(['like', 'supplier_name', $this->supplier_name])
+            ->andFilterWhere(['like', 'contact_name', $this->contact_name])
+            ->andFilterWhere(['like', 'contact_tel', $this->contact_tel])
+            ->andFilterWhere(['like', 'contact_qq', $this->contact_qq])
+            ->andFilterWhere(['like', 'bill_type', $this->bill_type])
+            ->andFilterWhere(['like', 'arrival_data', $this->arrival_data])
+            ->andFilterWhere(['like', 'negotiant', $this->negotiant]);
 
         return $dataProvider;
     }
