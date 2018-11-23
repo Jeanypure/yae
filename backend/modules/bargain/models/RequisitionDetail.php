@@ -59,7 +59,7 @@ class RequisitionDetail extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['amount', 'rate'], 'number'],
+            [['amount', 'rate','last_price_min','after_bargain_price'], 'number'],
             [['quantity', 'payment_method', 'commit_status', 'audit_status'], 'integer'],
             [['commit_time', 'audit_time'], 'safe'],
             [['tran_internal_id', 'item_internal_id', 'povendor_internalid', 'povendor_name'], 'string', 'max' => 11],
@@ -70,6 +70,7 @@ class RequisitionDetail extends \yii\db\ActiveRecord
             [['contact_name', 'contact_tel'], 'string', 'max' => 32],
             [['contact_qq', 'negotiant'], 'string', 'max' => 16],
             [['bill_type'], 'string', 'max' => 30],
+            [['after_bargain_price','bill_type',''], 'string', 'max' => 30],
         ];
     }
 
@@ -81,31 +82,36 @@ class RequisitionDetail extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'tran_internal_id' => 'Tran Internal ID',
-            'tranid' => 'Tranid',
+            'tranid' => '请购单号',
             'amount' => 'Amount',
-            'description' => 'Description',
+            'description' => '产品中文名',
             'item_internal_id' => 'Item Internal ID',
-            'item_name' => 'Item Name',
+            'item_name' => 'SKU',
             'povendor_internalid' => 'Povendor Internalid',
-            'povendor_name' => 'Povendor Name',
-            'quantity' => 'Quantity',
+            'povendor_name' => '供应商代码',
+            'quantity' => '数量',
             'rate' => 'Rate',
-            'createdate' => 'Createdate',
+            'createdate' => '请购日期',
             'lastmodifieddate' => 'Lastmodifieddate',
             'trandate' => 'Trandate',
             'currencyname' => 'Currencyname',
-            'supplier_name' => 'Supplier Name',
-            'contact_name' => 'Contact Name',
-            'contact_tel' => 'Contact Tel',
-            'contact_qq' => 'Contact Qq',
-            'bill_type' => 'Bill Type',
-            'arrival_data' => 'Arrival Data',
-            'payment_method' => 'Payment Method',
-            'negotiant' => 'Negotiant',
+            'supplier_name' => '供应商名字',
+            'contact_name' => '联系人',
+            'contact_tel' => '电话或手机号',
+            'contact_qq' => 'QQ',
+            'bill_type' => '开票类型',
+            'arrival_data' => '到货日期',
+            'payment_method' => '付款方式',
+            'negotiant' => '议价人',
             'commit_time' => 'Commit Time',
             'commit_status' => 'Commit Status',
             'audit_time' => 'Audit Time',
             'audit_status' => 'Audit Status',
+            'last_price_min' => '近期底价',
+            'after_bargain_price' => '议价后价格',
+
+
+
         ];
     }
 }
