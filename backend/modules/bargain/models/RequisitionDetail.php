@@ -27,7 +27,7 @@ use Yii;
  * @property string $contact_tel 联系电话
  * @property string $contact_qq QQ
  * @property string $bill_type 开票类型
- * @property string $arrival_data 到货日期
+ * @property string $arrival_date 到货日期
  * @property int $payment_method 票款顺序 付款方式 1 票到付款  2 先预付再开票再付尾款  3 先付款后开票
  * @property string $negotiant 议价人
  * @property string $commit_time 议价人提交时间
@@ -65,14 +65,18 @@ class RequisitionDetail extends \yii\db\ActiveRecord
             [['tran_internal_id', 'item_internal_id', 'povendor_internalid', 'povendor_name'], 'string', 'max' => 11],
             [['tranid', 'item_name', 'createdate', 'lastmodifieddate', 'trandate'], 'string', 'max' => 20],
             [['description'], 'string', 'max' => 200],
-            [['currencyname', 'arrival_data'], 'string', 'max' => 10],
+            [['currencyname', 'arrival_date'], 'string', 'max' => 10],
             [['supplier_name'], 'string', 'max' => 64],
             [['contact_name', 'contact_tel'], 'string', 'max' => 32],
             [['contact_qq', 'negotiant'], 'string', 'max' => 16],
             [['bill_type'], 'string', 'max' => 30],
-            [['after_bargain_price','bill_type',''], 'string', 'max' => 30],
+            [['povendor_name','supplier_name','contact_name','contact_tel','contact_qq','after_bargain_price','bill_type','payment_method','arrival_date'], 'required'],
         ];
     }
+
+
+
+
 
     /**
      * {@inheritdoc}
@@ -100,7 +104,7 @@ class RequisitionDetail extends \yii\db\ActiveRecord
             'contact_tel' => '电话或手机号',
             'contact_qq' => 'QQ',
             'bill_type' => '开票类型',
-            'arrival_data' => '到货日期',
+            'arrival_date' => '到货日期',
             'payment_method' => '付款方式',
             'negotiant' => '议价人',
             'commit_time' => 'Commit Time',

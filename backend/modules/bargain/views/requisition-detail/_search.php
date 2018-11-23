@@ -55,7 +55,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'bill_type') ?>
 
-    <?php // echo $form->field($model, 'arrival_data') ?>
+    <?php // echo $form->field($model, 'arrival_date') ?>
 
     <?php // echo $form->field($model, 'payment_method') ?>
 

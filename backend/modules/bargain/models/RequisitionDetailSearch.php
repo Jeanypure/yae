@@ -19,7 +19,7 @@ class RequisitionDetailSearch extends RequisitionDetail
     {
         return [
             [['id', 'quantity', 'payment_method', 'commit_status', 'audit_status'], 'integer'],
-            [['tran_internal_id', 'tranid', 'description', 'item_internal_id', 'item_name', 'povendor_internalid', 'povendor_name', 'createdate', 'lastmodifieddate', 'trandate', 'currencyname', 'supplier_name', 'contact_name', 'contact_tel', 'contact_qq', 'bill_type', 'arrival_data', 'negotiant', 'commit_time', 'audit_time'], 'safe'],
+            [['tran_internal_id', 'tranid', 'description', 'item_internal_id', 'item_name', 'povendor_internalid', 'povendor_name', 'createdate', 'lastmodifieddate', 'trandate', 'currencyname', 'supplier_name', 'contact_name', 'contact_tel', 'contact_qq', 'bill_type', 'arrival_date', 'negotiant', 'commit_time', 'audit_time'], 'safe'],
             [['amount', 'rate'], 'number'],
         ];
     }
@@ -87,7 +87,7 @@ class RequisitionDetailSearch extends RequisitionDetail
             ->andFilterWhere(['like', 'contact_tel', $this->contact_tel])
             ->andFilterWhere(['like', 'contact_qq', $this->contact_qq])
             ->andFilterWhere(['like', 'bill_type', $this->bill_type])
-            ->andFilterWhere(['like', 'arrival_data', $this->arrival_data])
+            ->andFilterWhere(['like', 'arrival_date', $this->arrival_date])
             ->andFilterWhere(['like', 'negotiant', $this->negotiant]);
 
         return $dataProvider;

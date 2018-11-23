@@ -6,13 +6,12 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model backend\modules\bargain\models\RequisitionDetail */
 
-$this->title = $model->id;
+$this->title = $model->item_name;
 $this->params['breadcrumbs'][] = ['label' => 'Requisition Details', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="requisition-detail-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -48,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'contact_tel',
             'contact_qq',
             'bill_type',
-            'arrival_data',
+            'arrival_date',
             'payment_method',
             'negotiant',
             'commit_time',

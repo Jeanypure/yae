@@ -48,7 +48,7 @@ use kartik\widgets\ActiveForm;
                     'type' =>Form::INPUT_DROPDOWN_LIST,
                     'items' =>['','票到付款','先预付再开票再付尾款','先付款后开票']
             ],
-            'arrival_data'=>['type'=>Form::INPUT_TEXT],
+            'arrival_date'=>['type'=>Form::INPUT_TEXT],
         ],
 
     ]);
@@ -61,3 +61,24 @@ use kartik\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+<?php
+
+$requiredStar = <<<JS
+  $(function(){
+    $('.form-control').css('border-radius','7px');
+    
+    var labelFor = ['requisitiondetail-after_bargain_price','requisitiondetail-povendor_name','requisitiondetail-supplier_name',
+                    'requisitiondetail-contact_name','requisitiondetail-contact_tel','requisitiondetail-contact_qq','requisitiondetail-bill_type',
+                    'requisitiondetail-payment_method','requisitiondetail-arrival_date'];
+    for(var index in labelFor){
+    $("label[for='"+labelFor[index]+"']").addClass("label-require");
+}
+            
+    $('.label-require').html(function(_,html) {
+        return html.replace(/(.*?)/, "<span style = 'color:red'><big>*$1</big></span>");
+    });
+    });
+
+JS;
+$this->registerJs($requiredStar);
+?>
