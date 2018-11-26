@@ -112,9 +112,7 @@ class RequisitionDetail extends \yii\db\ActiveRecord
             'audit_time' => 'Audit Time',
             'audit_status' => 'Audit Status',
             'last_price_min' => '近期底价',
-            'after_bargain_price' => '议价后价格',
-
-
+            'after_bargain_price' => '议价后价格(含税)',
 
         ];
     }

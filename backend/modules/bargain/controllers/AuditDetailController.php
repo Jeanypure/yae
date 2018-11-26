@@ -141,13 +141,15 @@ class AuditDetailController extends Controller
     $lineItem['item']  = $internalItem;
     $externalItems[] = $lineItem;
     $record['item'] = $externalItems;
-    $itemArr = json_encode($record,true);
-    $result = $this->actionDoCurl($itemArr);
-        if($result==$model->tran_internal_id){
+    $res = $this->actionDoCurl($record);
+        if($res=='"'.$model->tran_internal_id.'"'){
             return 'success!';
+        }else{
+            return 'error!';
         }
 
     }
+
     /**
      * @param $item_arr
      * @return string
@@ -156,10 +158,10 @@ class AuditDetailController extends Controller
     public  function  actionDoCurl($item_arr){
 
         try{
-            $url = ' https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=176&deploy=3';
+            $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=176&deploy=3';
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                'Authorization: NLAuth nlauth_account=5151251, nlauth_email=jenny.li@yaemart.com, nlauth_signature=Jenny666666, nlauth_role=1013',
+                'Authorization: NLAuth nlauth_account=5151251, nlauth_email=jenny.li@yaemart.com, nlauth_signature=Jenny666666, nlauth_role=1047',
                 'Content-Type: application/json',
                 'Accept: application/json'
             ));
@@ -181,4 +183,8 @@ class AuditDetailController extends Controller
 
 
     }
+
+
+
+
 }
