@@ -131,7 +131,8 @@ return [
             //controller/action
             'site/*',
             'winit/*',
-            'bargain/obtain-data/*'
+            'bargain/obtain-data/*',
+            'bargain/requisition-request/*',
 
         ]
     ],
