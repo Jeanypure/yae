@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use kartik\builder\Form;
 use kartik\widgets\ActiveForm;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model backend\modules\bargain\models\RequisitionDetail */
@@ -55,12 +56,36 @@ use kartik\widgets\ActiveForm;
         ?>
 
         <div class="form-group">
-            <?= Html::submitButton('审核通过并同步', ['class' => 'btn btn-success']) ?>
+            <?= Html::Button('审核通过并同步', ['class' => 'btn btn-success' ]) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
 
     </div>
+<?php
+$toRequistion = Url::toRoute(['post-item']);
+$id = $model->id;
+$postItem = <<<JS
+    $('.btn-success').on('click',function() {
+        console.log(123);
+        var btn = $(this);
+        $.ajax({
+          url: "{$toRequistion}",
+          type: 'get',
+          data:{id:$id},
+          success:function(res) {
+            button.attr('disabled',false);
+            alert(res);
+            
+          }
+            
+        })
+    })
+JS;
+
+$this->registerJs($postItem);
+
+?>
 <?php
 
 $requiredStar = <<<JS
