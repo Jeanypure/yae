@@ -124,4 +124,61 @@ class AuditDetailController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    /**
+     * 同步更新请购单
+     */
+    public function  actionPostItem($id){
+    $model = $this->findModel($id);
+    $record = [];
+    $record['id'] = $model->tran_internal_id;
+    $record['tranid'] = $model->tranid;
+    $externalItems = [];
+    $lineItem['description']  = $model->description;
+    $internalItem['internalid'] = $model->item_internal_id;
+    $internalItem['name'] = $model->item_name;
+    $lineItem['custcol_after_bargain'] = $model->after_bargain_price;
+    $lineItem['item']  = $internalItem;
+    $externalItems[] = $lineItem;
+    $record['item'] = $externalItems;
+    $itemArr = json_encode($record,true);
+    $result = $this->actionDoCurl($itemArr);
+        if($result==$model->tran_internal_id){
+            return 'success!';
+        }
+
+    }
+    /**
+     * @param $item_arr
+     * @return string
+     * @throws \Exception
+     */
+    public  function  actionDoCurl($item_arr){
+
+        try{
+            $url = ' https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=176&deploy=3';
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Authorization: NLAuth nlauth_account=5151251, nlauth_email=jenny.li@yaemart.com, nlauth_signature=Jenny666666, nlauth_role=1013',
+                'Content-Type: application/json',
+                'Accept: application/json'
+            ));
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+            curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,2);
+            curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,false);
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($item_arr));
+            ob_start();
+            curl_exec($ch);
+            $result = ob_get_contents();
+            ob_end_clean();
+            curl_close($ch);
+            return $result;
+        }catch (\Exception $exception){
+            throw $exception;
+        }
+
+
+    }
 }

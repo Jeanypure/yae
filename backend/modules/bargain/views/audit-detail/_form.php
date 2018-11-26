@@ -55,7 +55,7 @@ use kartik\widgets\ActiveForm;
         ?>
 
         <div class="form-group">
-            <?= Html::submitButton('保存并同步', ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton('审核通过并同步', ['class' => 'btn btn-success']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
