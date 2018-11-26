@@ -42,7 +42,7 @@ class RequisitionDetailSearch extends RequisitionDetail
      */
     public function search($params)
     {
-        $query = RequisitionDetail::find()->orderBy('id desc');
+        $query = RequisitionDetail::find()->orderBy('createdate desc');
 
         // add conditions that should always apply here
 
