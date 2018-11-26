@@ -41,8 +41,10 @@ class RequisitionRequestController extends Controller
      }
 
      public function actionMultiRequest($startDate,$endDate){
-        /* $startDate = date('Y/m/d',strtotime('-7 day'));
-         $endDate = date('Y/m/d');*/
+         if(empty($startDate)&&empty($endDate)){
+             $startDate = date('Y/m/d',strtotime('-20 day'));
+             $endDate = date('Y/m/d');
+         }
          $sql = "select internal_id from requisition_list where requisition_date BETWEEN '$startDate' and '$endDate' AND internal_id NOT in(
 SELECT DISTINCT tran_internal_id FROM requisition_detail
 ) ;";
