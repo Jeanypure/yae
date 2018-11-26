@@ -42,7 +42,7 @@ class RequisitionRequestController extends Controller
 
      public function actionMultiRequest($startDate,$endDate){
          if(empty($startDate)&&empty($endDate)){
-             $startDate = date('Y/m/d',strtotime('-20 day'));
+             $startDate = date('Y/m/d',strtotime('-40 day'));
              $endDate = date('Y/m/d');
          }
          $sql = "select internal_id from requisition_list where requisition_date BETWEEN '$startDate' and '$endDate' AND internal_id NOT in(
@@ -96,7 +96,7 @@ SELECT DISTINCT tran_internal_id FROM requisition_detail
     /**
      * 入库进入requisition_detail 表
      */
-     public  function actionToDetail($startDate,$endDate){
+     public  function actionToDetail($startDate=null,$endDate=null){
          $result = $this->actionMultiRequest($startDate,$endDate);
          $resultArr = json_decode($result,true);
          if(empty($resultArr['error'])){
