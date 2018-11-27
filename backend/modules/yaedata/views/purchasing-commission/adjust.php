@@ -7,7 +7,6 @@
  */
 use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
-use kartik\date\DatePicker;
 use kartik\select2\Select2;
 
 
@@ -27,8 +26,49 @@ $this->params['breadcrumbs'][] = Yii::t('app', '产品等级调整');
 </p>
     <?php $form = ActiveForm::begin(); ?>
 
-    <legend class="text-info"><h2>产品等级调整</h2></legend>
 
+    <div class="row">
+        <div class="col-sm-3">
+            <?php
+        // Usage with ActiveForm and model
+        echo $form->field($model, 'minister_result')->widget(Select2::classname(), [
+            'data' => [
+                '1'=>'半价产品',
+                '2'=>'新品',
+                '3'=>'推送产品',
+                '4'=>'简单重复',
+                '5'=>'不算提成',
+            ],
+            'options' => ['placeholder' => '产品等级'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+
+        ]);
+        ?>
+        </div>
+        <div class ="col-sm-3">
+            <?php
+        // Usage with ActiveForm and model
+        echo $form->field($model, 'purchaser_result')->widget(Select2::classname(), [
+            'data' => [
+                '1'=>'半价产品',
+                '2'=>'新品',
+                '3'=>'推送产品',
+                '4'=>'简单重复',
+                '5'=>'不算提成',
+            ],
+            'options' => ['placeholder' => '产品等级'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+
+        ]);
+        ?>
+
+        </div>
+    </div>
+    <legend class="text-info"><h2>产品等级调整</h2></legend>
     <div class="row">
 
         <div class="col-sm-6">
@@ -49,14 +89,14 @@ $this->params['breadcrumbs'][] = Yii::t('app', '产品等级调整');
 
             ]);
             ?>
-        </div>
 
+        </div>
 
     </div>
 
     <div class="row">
         <div class="col-sm-12">
-            <?php
+          <?php
             echo $form->field($model,'audit_team_reason')->textarea();
             ?>
         </div>
