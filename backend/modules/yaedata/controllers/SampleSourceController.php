@@ -38,7 +38,7 @@ SELECT  o.purchaser,count(purchaser) as total ,
 			'sample' as result_type
 			FROM  sample e
 			LEFT JOIN pur_info o ON o.pur_info_id = e.spur_info_id
-			WHERE o.master_result='1' 
+			WHERE (o.master_result=1 or o.master_result=4)
 			AND  DATE_FORMAT(e.create_date,'%Y-%m-%d') between '$firstday' and '$lastday'
 			GROUP BY purchaser
 

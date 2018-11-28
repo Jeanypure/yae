@@ -68,6 +68,13 @@ $this->params['breadcrumbs'][] = Yii::t('app', '产品等级调整');
 
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <?php
+            echo $form->field($model,'minister_reason')->textarea();
+            ?>
+        </div>
+    </div>
     <legend class="text-info"><h2>产品等级调整</h2></legend>
     <div class="row">
 
