@@ -65,7 +65,7 @@ class ProductStatusController extends Controller
                 count(purchaser) as total
                 FROM  sample e
                 LEFT JOIN pur_info o ON o.pur_info_id = e.spur_info_id
-                WHERE o.master_result='1' 
+                WHERE (o.master_result=1 or o.master_result=4)
                   AND  DATE_FORMAT(e.create_date,'%Y-%m-%d') between  '$firstday' and '$lastday'  
                 GROUP BY purchaser
                 ORDER BY total desc ;";
