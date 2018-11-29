@@ -126,8 +126,6 @@ use kartik\builder\Form;
                 'items'=>[1=>'是', 0=>'否'],
                 'options'=>['placeholder'=>'']],
 
-//            'no_rebate_amount'=>['type'=>Form::INPUT_HIDDEN, 'options'=>['placeholder'=>'']],
-
         ]
     ]);
 
@@ -162,31 +160,22 @@ $this->registerJs("
         ", \yii\web\View::POS_END);
 $readonly_js =<<<JS
         $(function(){
-            $("#purinfo-pd_throw_weight").attr("readonly","readonly");
-            $("#purinfo-pd_count_weight").attr("readonly","readonly");
-            $("#purinfo-is_huge").attr("readonly","readonly");
-            $("#purinfo-bill_rebate_amount").attr("readonly","readonly");
-            $("#purinfo-shipping_fee").attr("readonly","readonly");
-            $("#purinfo-oversea_shipping_fee").attr("readonly","readonly");
-            $("#purinfo-transaction_fee").attr("readonly","readonly");
-            $("#purinfo-gross_profit").attr("readonly","readonly");
-            $("#purinfo-no_rebate_amount").attr("readonly","readonly");
-            $("#purinfo-pur_group").attr("readonly","readonly");
-            
-            $("label[for='purinfo-pd_title'] ").addClass("label-require");
-            $("label[for='purinfo-pd_title_en'] ").addClass("label-require");
-            $("label[for='purinfo-pd_pic_url'] ").addClass("label-require");
-            $("label[for='purinfo-pd_length'] ").addClass("label-require");
-            $("label[for='purinfo-pd_width'] ").addClass("label-require");
-            $("label[for='purinfo-pd_height'] ").addClass("label-require");
-            $("label[for='purinfo-pd_weight'] ").addClass("label-require");
-            $("label[for='purinfo-pd_package'] ").addClass("label-require");
-            $("label[for='purinfo-pd_material'] ").addClass("label-require");
-            $("label[for='purinfo-pd_material'] ").addClass("label-require");
-            $("label[for='purinfo-pd_pur_costprice'] ").addClass("label-require");
-            $("label[for='purinfo-bill_tax_rebate'] ").addClass("label-require");
-            $("label[for='purinfo-retail_price'] ").addClass("label-require");
-            $("label[for='purinfo-pd_purchase_num'] ").addClass("label-require");
+           //只读
+            var idReadonly = ["#purinfo-pd_throw_weight","#purinfo-pd_count_weight","#purinfo-is_huge","#purinfo-bill_rebate_amount",
+            "#purinfo-shipping_fee","#purinfo-oversea_shipping_fee","#purinfo-transaction_fee","#purinfo-gross_profit","#purinfo-profit_rate",
+            "#purinfo-gross_profit_amz","#purinfo-profit_rate_amz","#purinfo-ams_logistics_fee","#purinfo-amz_retail_price_rmb",
+            "#purinfo-no_rebate_amount","#purinfo-pur_group"
+            ];
+            for (var index in idReadonly){
+                $(idReadonly[index]).attr("readonly","readonly");
+            }
+            //必填
+            var labelRequire = ['purinfo-pd_title','purinfo-pd_title_en','purinfo-pd_pic_url','purinfo-pd_length','purinfo-pd_width',
+            'purinfo-pd_height','purinfo-pd_weight','purinfo-pd_package','purinfo-pd_material','purinfo-pd_pur_costprice','purinfo-bill_tax_rebate',
+            'purinfo-retail_price','purinfo-pd_purchase_num','purinfo-bill_type','purinfo-amz_retail_price','purinfo-hs_code'];
+             for (var i in  labelRequire){
+                 $("label[for='"+labelRequire[i]+"']").addClass("label-require");
+             } 
             
             $('.label-require').html(function(_,html) {
                 return html.replace(/(.*?)/, "<span style = 'color:red'><big>*$1</big></span>");
