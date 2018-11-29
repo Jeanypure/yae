@@ -68,6 +68,43 @@ $this->params['breadcrumbs'][] = $this->title;
             'master_member',
             'master_result',
             'master_mark',
+            [
+                'attribute'=>'trading_company',
+                'format'=>'raw',
+                'value' => function ($model) {
+                    if($model->trading_company ==1 ){
+                        return '是';
+                    }else{
+                        return '否';
+                    }
+                },
+            ],
+            [
+                'attribute'=>'is_patent_right',
+                'format'=>'raw',
+                'value' => function ($model) {
+                    if($model->is_patent_right ==1 ){
+                        return '是';
+                    }elseif($model->is_patent_right ==0){
+                        return '否';
+                    }else{
+                        return '未判断';
+                    }
+                },
+            ],
+            [
+                'attribute'=>'is_third_party_abroad_right',
+                'format'=>'raw',
+                'value' => function ($model) {
+                    if($model->is_third_party_abroad_right ==1 ){
+                        return '是';
+                    }elseif($model->is_third_party_abroad_right ==0){
+                        return '否';
+                    }else{
+                        return '未判断';
+                    }
+                },
+            ],
 
         ],
     ]) ?>
