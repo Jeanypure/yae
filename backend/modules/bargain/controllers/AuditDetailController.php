@@ -143,8 +143,9 @@ class AuditDetailController extends Controller
     $lineItem['item']  = $internalItem;
     $externalItems[] = $lineItem;
     $record['item'] = $externalItems;
-    $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=176&deploy=3';
-    $res = $this->actionDoCurl($record,$url);
+    $url1 = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=176&deploy=3';
+    $res = $this->actionDoCurl($record,$url1);
+
         if($res=='"'.$model->tran_internal_id.'"'){
             return 'success!';
         }else{
@@ -189,9 +190,37 @@ class AuditDetailController extends Controller
 
     /**
      * post同步更新供应商信息
+     *
      */
-    public function actionUpdateVendor(){
+    public function actionUpdateVendor($model){
+        $vendor_detail= VendorDetail::find()->where(['internalid' =>$model->povendor_internalid])->one();
+        $vendorItem = [];
+        $vendorItem['id'] = $model->povendor_internalid;
+        $vendorItem['recordtype'] = 'vendor';
+        $fields['entityid'] = $vendor_detail->supplier_code;
+        $fields['companyname'] = $vendor_detail->supplier_name;
+        $fields['custentity_qq_number'] = $vendor_detail->contact_qq;
+        $fields['phone'] = $vendor_detail->contact_tel;
+        $fields['custentity_attention'] = $vendor_detail->contact_name;
+        $fields['custentity_invoice_type'] = $vendor_detail->bill_type;
+        $vendorItem['fields'][] = $fields;
 
+        $url2 = "https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=154&deploy=2";
+        $ret = $this->actionDoCurl($vendorItem,$url2);
+
+
+    }
+
+    function actionPuturl($url,$data){
+        $data = json_encode($data);
+        $ch = curl_init(); //初始化CURL句柄
+        curl_setopt ($ch, CURLOPT_HTTPHEADER, array('Content-type:application/json'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1); //设为TRUE把curl_exec()结果转化为字串，而不是直接输出
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST,"PUT"); //设置请求方式
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);//设置提交的字符串
+        $output = curl_exec($ch);
+        curl_close($ch);
+        return json_decode($output,true);
     }
 
 
