@@ -42,8 +42,9 @@ class VendorDetail extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date_create', 'date_update'], 'safe'],
+            [['date_create', 'date_update','arrival_date'], 'safe'],
             [['internalid'], 'string', 'max' => 11],
+            [['payment_method'], 'integer', 'max' => 1],
             [['supplier_code', 'contact_tel', 'contact_name'], 'string', 'max' => 32],
             [['supplier_name'], 'string', 'max' => 64],
             [['contact_qq'], 'string', 'max' => 16],
@@ -51,6 +52,8 @@ class VendorDetail extends \yii\db\ActiveRecord
             [['supplier_code'], 'unique'],
             [['supplier_name'], 'unique'],
             [['supplier_code', 'supplier_name'], 'unique', 'targetAttribute' => ['supplier_code', 'supplier_name']],
+            [['supplier_code','supplier_name','contact_name','contact_tel','contact_qq','bill_type','payment_method',
+                'arrival_date'],'required'],
         ];
     }
 
@@ -62,14 +65,17 @@ class VendorDetail extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'internalid' => 'Internalid',
-            'supplier_code' => 'Supplier Code',
-            'supplier_name' => 'Supplier Name',
-            'contact_qq' => 'Contact Qq',
-            'contact_tel' => 'Contact Tel',
-            'contact_name' => 'Contact Name',
-            'bill_type' => 'Bill Type',
+            'supplier_code' => '供应商代码',
+            'supplier_name' => '供应商名称',
+            'contact_qq' => 'QQ',
+            'contact_tel' => '联系电话',
+            'contact_name' => '联系人',
+            'bill_type' => '开票类型',
             'date_create' => 'Date Create',
             'date_update' => 'Date Update',
+            'arrival_date' => '到货日期',
+            'payment_method' => '票款方式',
         ];
     }
 }
+

@@ -2,6 +2,7 @@
 
 namespace backend\modules\bargain\controllers;
 
+use backend\modules\bargain\models\VendorDetail;
 use Yii;
 use backend\modules\bargain\models\RequisitionDetail;
 use backend\modules\bargain\models\RequisitionDetailSearch;
@@ -85,13 +86,19 @@ class RequisitionDetailController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $vendor_detail= VendorDetail::find()->where(['internalid' =>$model->povendor_internalid])->one();
+        $post = Yii::$app->request->post();
+        if (isset($post['RequisitionDetail'])&& isset($post['VendorDetail'])) {
+            $model->attributes = $post['RequisitionDetail'];
+            $vendor_detail->attributes = $post['VendorDetail'];
+            $model->save(false);
+            $vendor_detail->save(false);
+//            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'vendor_detail' => $vendor_detail
         ]);
     }
 
