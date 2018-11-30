@@ -128,7 +128,8 @@ class ObtainDataController extends Controller
 
     public function  actionMultiRequest($startTime=null,$endTime=null){
         //获取 id/
-        $sql = "SELECT internal_id FROM tb_vendor_list WHERE datecreated BETWEEN '2018-08-01 00:00:00' AND '2018-08-30 23:59:59' limit 1,3;";
+//        $sql = "SELECT internal_id FROM tb_vendor_list WHERE datecreated BETWEEN '2018-08-01 00:00:00' AND '2018-08-30 23:59:59' limit 1,3;";
+        $sql = "SELECT internal_id FROM tb_vendor_list WHERE internal_id NOT in (SELECT DISTINCT internalid FROM tb_vendor_detail);";
         $idSet = Yii::$app->db2->createCommand($sql)->queryAll();
         $ids = array_column($idSet,'internal_id');
         $multiCurl = [];
@@ -200,31 +201,26 @@ class ObtainDataController extends Controller
                 }
             }
         }
+       /* foreach ($recordArr as $index =>$item){
+            foreach ($item as $key=>$val){
 
-        foreach ($recordArr as $key=>$val){
-            if(VendorDetail::updateAllCounters([
-                'supplier_code' => $val,
-                'supplier_name' =>$val,
-                'contact_qq' => $val,
-                'contact_tel' => $val,
-                'contact_name' => $val,
-                'bill_type' => $val
-            ],['internalid'=>$val['internalid']])){continue;}
-            $data[] = [
-                'internalid' => $val['internalid'],
-                'supplier_code' => $val['supplier_code'],
-                'supplier_name' =>$val['supplier_name'],
-                'contact_qq' => $val['contact_qq'],
-                'contact_tel' => $val['contact_tel'],
-                'contact_name' => $val['contact_name'],
-                'bill_type' => $val['bill_type'],
-            ];
-        }
-        if(isset($data)){
+                if(VendorDetail::updateAllCounters(['supplier_code' => $item['supplier_code']],
+                    ['internalid'=>"$key"])){continue;}
+                $data[] = [
+                    'internalid' => $item['internalid'],
+                    'supplier_code' => $item['supplier_code'],
+                    'supplier_name' =>$item['supplier_name'],
+                    'contact_qq' => $item['contact_qq'],
+                    'contact_tel' => $item['contact_tel'],
+                    'contact_name' => $item['contact_name'],
+                    'bill_type' => $item['bill_type'],
+                ];
+            }
+        }*/
+
+
             $response = Yii::$app->db2->createCommand()->batchInsert($tbName,$column,$recordArr)->execute();
             return $response;
-        }
-
 
     }
 
