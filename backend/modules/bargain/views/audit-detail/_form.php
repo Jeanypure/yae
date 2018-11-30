@@ -32,12 +32,12 @@ use yii\helpers\Url;
 
         ]);
         echo Form::widget([
-            'model'=>$model,
+            'model'=>$vendor_detail,
             'form'=>$form,
             'columns'=>4,
             'contentBefore'=>'<legend class="text-info"><h3>2.供应商信息</h3></legend>',
             'attributes'=>[       // 3 column layout
-                'povendor_name'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'supplier_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'supplier_name'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'contact_name'=>['type'=>Form::INPUT_TEXT, ],
                 'contact_tel'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
@@ -92,9 +92,9 @@ $requiredStar = <<<JS
   $(function(){
     $('.form-control').css('border-radius','7px');
     
-    var labelFor = ['requisitiondetail-after_bargain_price','requisitiondetail-povendor_name','requisitiondetail-supplier_name',
-                    'requisitiondetail-contact_name','requisitiondetail-contact_tel','requisitiondetail-contact_qq','requisitiondetail-bill_type',
-                    'requisitiondetail-payment_method','requisitiondetail-arrival_date'];
+    var labelFor = ['requisitiondetail-after_bargain_price','vendordetail-supplire_name','vendordetail-supplier_name',
+                    'vendordetail-contact_name','vendordetail-contact_tel','vendordetail-contact_qq','vendordetail-bill_type',
+                    'vendordetail-payment_method','vendordetail-arrival_date'];
     for(var index in labelFor){
     $("label[for='"+labelFor[index]+"']").addClass("label-require");
 }

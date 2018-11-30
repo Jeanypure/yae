@@ -4,6 +4,7 @@ namespace backend\modules\bargain\controllers;
 
 use Yii;
 use backend\modules\bargain\models\RequisitionDetail;
+use backend\modules\bargain\models\VendorDetail;
 use backend\modules\bargain\models\RequisitionDetailSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -85,13 +86,14 @@ class AuditDetailController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $vendor_detail= VendorDetail::find()->where(['internalid' =>$model->povendor_internalid])->one();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'vendor_detail' => $vendor_detail
         ]);
     }
 
@@ -141,7 +143,8 @@ class AuditDetailController extends Controller
     $lineItem['item']  = $internalItem;
     $externalItems[] = $lineItem;
     $record['item'] = $externalItems;
-    $res = $this->actionDoCurl($record);
+    $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=176&deploy=3';
+    $res = $this->actionDoCurl($record,$url);
         if($res=='"'.$model->tran_internal_id.'"'){
             return 'success!';
         }else{
@@ -155,10 +158,10 @@ class AuditDetailController extends Controller
      * @return string
      * @throws \Exception
      */
-    public  function  actionDoCurl($item_arr){
+    public  function  actionDoCurl($item_arr,$url){
 
         try{
-            $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=176&deploy=3';
+
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                 'Authorization: NLAuth nlauth_account=5151251, nlauth_email=jenny.li@yaemart.com, nlauth_signature=Jenny666666, nlauth_role=1047',
@@ -181,6 +184,13 @@ class AuditDetailController extends Controller
             throw $exception;
         }
 
+
+    }
+
+    /**
+     * post同步更新供应商信息
+     */
+    public function actionUpdateVendor(){
 
     }
 
