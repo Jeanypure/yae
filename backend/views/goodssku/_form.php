@@ -135,11 +135,11 @@ use yii\helpers\Url;
         'columns'=>2,
     'contentBefore'=>'<legend class="text-info"><h3>4.要素信息</h3> <a href="http://hs.bianmachaxun.com" target="_blank">官网地址:http://hs.bianmachaxun.com</a></legend>',
         'attributes'=>[       // 6 column layout
-            'declaration_item_key1'=>['type'=>Form::INPUT_STATIC, 'options'=>['placeholder'=>'']],
+            'declaration_item_key1'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'declaration_item_value1'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'declaration_item_key2'=>['type'=>Form::INPUT_STATIC, 'options'=>['placeholder'=>'']],
+            'declaration_item_key2'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'declaration_item_value2'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'declaration_item_key3'=>['type'=>Form::INPUT_STATIC, 'options'=>['placeholder'=>'']],
+            'declaration_item_key3'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'declaration_item_value3'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
         ],
     ]);
@@ -149,11 +149,11 @@ use yii\helpers\Url;
         'form'=>$form,
         'columns'=>2,
         'attributes'=>[       // 6 column layout
-            'declaration_item_key4'=>['type'=>Form::INPUT_STATIC, 'options'=>['placeholder'=>'']],
+            'declaration_item_key4'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'declaration_item_value4'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'declaration_item_key5'=>['type'=>Form::INPUT_STATIC, 'options'=>['placeholder'=>'']],
+            'declaration_item_key5'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'declaration_item_value5'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'declaration_item_key6'=>['type'=>Form::INPUT_STATIC, 'options'=>['placeholder'=>'']],
+            'declaration_item_key6'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'declaration_item_value6'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
         ],
     ]);
@@ -163,11 +163,11 @@ use yii\helpers\Url;
         'form'=>$form,
         'columns'=>2,
         'attributes'=>[       // 6 column layout
-            'declaration_item_key7'=>['type'=>Form::INPUT_STATIC, 'options'=>['placeholder'=>'']],
+            'declaration_item_key7'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'declaration_item_value7'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'declaration_item_key8'=>['type'=>Form::INPUT_STATIC, 'options'=>['placeholder'=>'']],
+            'declaration_item_key8'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'declaration_item_value8'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'declaration_item_key9'=>['type'=>Form::INPUT_STATIC, 'options'=>['placeholder'=>'']],
+            'declaration_item_key9'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'declaration_item_value9'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
         ],
     ]);
