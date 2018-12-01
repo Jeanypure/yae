@@ -67,16 +67,14 @@ $toRequistion = Url::toRoute(['post-item']);
 $id = $model->id;
 $postItem = <<<JS
     $('.btn-success').on('click',function() {
-        console.log(123);
         var btn = $(this);
         $.ajax({
           url: "{$toRequistion}",
           type: 'get',
           data:{id:$id},
           success:function(res) {
-            button.attr('disabled',false);
+            btn.attr('disabled',false);
             alert(res);
-            
           }
             
         })

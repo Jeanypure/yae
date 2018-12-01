@@ -147,9 +147,9 @@ class AuditDetailController extends Controller
     $res = $this->actionDoCurl($record,$url1);
 
         if($res=='"'.$model->tran_internal_id.'"'){
-            return 'success!';
+            echo 'success!';
         }else{
-            return 'error!';
+            echo 'error!';
         }
 
     }
@@ -192,7 +192,8 @@ class AuditDetailController extends Controller
      * post同步更新供应商信息
      *
      */
-    public function actionUpdateVendor($model){
+    public function actionUpdateVendor(){
+        $model = $this->findModel(1355);
         $vendor_detail= VendorDetail::find()->where(['internalid' =>$model->povendor_internalid])->one();
         $vendorItem = [];
         $vendorItem['id'] = $model->povendor_internalid;
@@ -203,29 +204,31 @@ class AuditDetailController extends Controller
         $fields['phone'] = $vendor_detail->contact_tel;
         $fields['custentity_attention'] = $vendor_detail->contact_name;
         $fields['custentity_invoice_type'] = $vendor_detail->bill_type;
-        $vendorItem['fields'][] = $fields;
-
+        $vendorItem['fields'] = $fields;
         $url2 = "https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=154&deploy=2";
-        $ret = $this->actionPuturl($vendorItem,$url2);
-        return json_decode($ret,true);
+        $ret = $this->actionPutUrl(json_encode($vendorItem),$url2);
+        $result = json_decode($ret,true);
 
+        return $ret;
     }
 
-    function actionPuturl($data,$url){
-        $data = json_encode($data);
+    function actionPutUrl($data,$url){
         $ch = curl_init(); //初始化CURL句柄
-        curl_setopt ($ch, CURLOPT_HTTPHEADER,[
-            'Authorization: NLAuth nlauth_account=5151251, nlauth_email=jenny.li@yaemart.com, nlauth_signature=Jenny666666, nlauth_role=1047',
-            'Content-Type: application/json',
-            'Accept: application/json'
-        ]);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1); //设为TRUE把curl_exec()结果转化为字串，而不是直接输出
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST,"PUT"); //设置请求方式
         curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data,true));//设置提交的字符串
+        curl_setopt ($ch, CURLOPT_HTTPHEADER,[
+            'Authorization: NLAuth nlauth_account=5151251, nlauth_email=jenny.li@yaemart.com, nlauth_signature=Jenny666666, nlauth_role=1013',
+            'Content-Type: application/json',
+            'Accept: application/json',
+            'Content-Length: ' . strlen($data)
+        ]);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+        curl_setopt($ch, CURLOPT_POSTFIELDS,$data);//设置提交的字符串
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER,true); //设为TRUE把curl_exec()结果转化为字串，而不是直接输出
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
         $output = curl_exec($ch);
         curl_close($ch);
-        return json_decode($output,true);
+        return $output;
     }
 
 
