@@ -145,12 +145,13 @@ class AuditDetailController extends Controller
     $record['item'] = $externalItems;
     $url1 = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=176&deploy=3';
     $res = $this->actionDoCurl($record,$url1);
+    $ret = $this->actionUpdateVendor($model);
+        if($res=='"'.$model->tran_internal_id.'"' && $ret == '"'.$model->povendor_internalid.'"'){
+                echo 'success!';
+            }else{
+                echo 'error!';
+            }
 
-        if($res=='"'.$model->tran_internal_id.'"'){
-            echo 'success!';
-        }else{
-            echo 'error!';
-        }
 
     }
 
@@ -192,8 +193,7 @@ class AuditDetailController extends Controller
      * post同步更新供应商信息
      *
      */
-    public function actionUpdateVendor(){
-        $model = $this->findModel(1355);
+    public function actionUpdateVendor($model){
         $vendor_detail= VendorDetail::find()->where(['internalid' =>$model->povendor_internalid])->one();
         $vendorItem = [];
         $vendorItem['id'] = $model->povendor_internalid;
@@ -207,8 +207,6 @@ class AuditDetailController extends Controller
         $vendorItem['fields'] = $fields;
         $url2 = "https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=154&deploy=2";
         $ret = $this->actionPutUrl(json_encode($vendorItem),$url2);
-        $result = json_decode($ret,true);
-
         return $ret;
     }
 
