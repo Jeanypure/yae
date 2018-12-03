@@ -42,10 +42,22 @@ class RequisitionDetailSearch extends RequisitionDetail
      */
     public function search($params)
     {
-        $query = RequisitionDetail::find()
-            ->select(['`requisition_detail`.*,`requisition_list`.requisition_name'])
-            ->joinWith('requisition_list')
-            ->orderBy('createdate desc');
+        $username = Yii::$app->user->identity->username;
+        $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
+        if(array_key_exists('超级管理员',$role)){
+            $query = RequisitionDetail::find()
+                ->select(['`requisition_detail`.*,`requisition_list`.requisition_name'])
+                ->joinWith('requisition_list')
+                ->orderBy('createdate desc');
+
+        }else{
+            $query = RequisitionDetail::find()
+                ->select(['`requisition_detail`.*,`requisition_list`.requisition_name'])
+                ->joinWith('requisition_list')
+                ->where(['negotiant'=>$username])
+                ->orderBy('createdate desc');
+
+        }
 
 
         // add conditions that should always apply here
