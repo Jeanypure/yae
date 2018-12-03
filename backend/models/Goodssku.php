@@ -61,7 +61,7 @@ class Goodssku extends yii\db\ActiveRecord
             [['vendor_code', 'pd_costprice_code'], 'string', 'max' => 30],
             [['origin_code'], 'string', 'max' => 1000],
             [['bill_name'], 'string', 'max' => 50],
-            [['declaration_item_key6','declaration_item_key7','declaration_item_key8','declaration_item_key9',], 'string', 'max' => 20],
+            [['declaration_item_key6','declaration_item_key7','declaration_item_key8','declaration_item_key9',], 'string', 'max' => 100],
             [['declaration_item_value6','declaration_item_value7','declaration_item_value8','declaration_item_value9',], 'string', 'max' => 30],
             [['pd_title', 'pd_title_en'], 'string', 'max' => 300],
             [['pd_length','pd_width','pd_height','pd_weight','pd_creator',], 'string', 'max' =>10 ],

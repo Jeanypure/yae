@@ -24,6 +24,7 @@ use kartik\widgets\ActiveForm;
             'description'=>['type'=>Form::INPUT_STATIC, ],
             'quantity'=>['type'=>Form::INPUT_STATIC],
             'last_price_min'=>['type'=>Form::INPUT_STATIC],
+            'name'=>['type'=>Form::INPUT_STATIC],
             'after_bargain_price'=>['type'=>Form::INPUT_TEXT],
 
 
