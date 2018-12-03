@@ -230,7 +230,7 @@ class DepartmentController extends Controller
         $meg = array_merge($non_arr,$has_arr);
 
         foreach($meg as $k=>$val){
-            if($val==5)   unset($meg[$k]) ; //任务数满 不可选
+            if($val==10)   unset($meg[$k]) ; //任务数满 不可选
         }
         foreach($meg as $k=>$val){
             $pur_set[$k] = $k;

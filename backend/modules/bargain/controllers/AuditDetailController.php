@@ -204,6 +204,7 @@ class AuditDetailController extends Controller
         $fields['phone'] = $vendor_detail->contact_tel;
         $fields['custentity_attention'] = $vendor_detail->contact_name;
         $fields['custentity_invoice_type'] = $vendor_detail->bill_type;
+        $fields['custentitypayment_method'] = $vendor_detail->payment_method;
         $vendorItem['fields'] = $fields;
         $url2 = "https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=154&deploy=2";
         $ret = $this->actionPutUrl(json_encode($vendorItem),$url2);
