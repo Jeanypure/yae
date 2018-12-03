@@ -70,7 +70,6 @@ class RequisitionDetail extends \yii\db\ActiveRecord
             [['contact_name', 'contact_tel'], 'string', 'max' => 32],
             [['contact_qq', 'negotiant'], 'string', 'max' => 16],
             [['bill_type'], 'string', 'max' => 30],
-            [['povendor_name','supplier_name','contact_name','contact_tel','contact_qq','after_bargain_price','bill_type','payment_method','arrival_date'], 'required'],
         ];
     }
 
@@ -99,13 +98,6 @@ class RequisitionDetail extends \yii\db\ActiveRecord
             'lastmodifieddate' => 'Lastmodifieddate',
             'trandate' => 'Trandate',
             'currencyname' => 'Currencyname',
-            'supplier_name' => '供应商名字',
-            'contact_name' => '联系人',
-            'contact_tel' => '电话或手机号',
-            'contact_qq' => 'QQ',
-            'bill_type' => '开票类型',
-            'arrival_date' => '到货日期',
-            'payment_method' => '付款方式',
             'negotiant' => '议价人',
             'commit_time' => 'Commit Time',
             'commit_status' => 'Commit Status',
@@ -113,6 +105,7 @@ class RequisitionDetail extends \yii\db\ActiveRecord
             'audit_status' => 'Audit Status',
             'last_price_min' => '近期底价',
             'after_bargain_price' => '议价后价格(含税)',
+            'name' => '请购人'
 
         ];
     }
