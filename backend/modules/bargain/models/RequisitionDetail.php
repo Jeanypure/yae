@@ -37,6 +37,7 @@ use Yii;
  */
 class RequisitionDetail extends \yii\db\ActiveRecord
 {
+    public $requisition_name;
     /**
      * {@inheritdoc}
      */
@@ -105,8 +106,13 @@ class RequisitionDetail extends \yii\db\ActiveRecord
             'audit_status' => 'Audit Status',
             'last_price_min' => '近期底价',
             'after_bargain_price' => '议价后价格(含税)',
-            'name' => '请购人'
+            'name' => '请购人2',
+            'requisition_name' => '请购人',
 
         ];
+    }
+
+    public function  getRequisition_list(){
+        return $this->hasMany(RequisitionList::className(),['document_number' => 'tranid']);
     }
 }

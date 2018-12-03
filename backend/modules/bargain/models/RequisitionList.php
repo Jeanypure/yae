@@ -12,7 +12,8 @@ use Yii;
  * @property string $requisition_date 请购日期
  * @property string $document_number 请购单号
  * @property string $requisition_name 请购人
- * @property string $status 请购状态  0 Pending Order 1 Fully Ordered  2 Partially Ordered             3 Partially Received 4 Closed 5 Pending Approval
+ * @property string $status 请购状态  0 Pending Order 1 Fully Ordered  2 Partially Ordered 
+            3 Partially Received 4 Closed 5 Pending Approval
  * @property string $memo 备注
  * @property string $amount 请购数额
  * @property string $currency 币种
@@ -65,7 +66,7 @@ class RequisitionList extends \yii\db\ActiveRecord
             'internal_id' => 'Internal ID',
             'requisition_date' => 'Requisition Date',
             'document_number' => 'Document Number',
-            'requisition_name' => 'Requisition Name',
+            'requisition_name' => '请购人',
             'status' => 'Status',
             'memo' => 'Memo',
             'amount' => 'Amount',
@@ -75,4 +76,6 @@ class RequisitionList extends \yii\db\ActiveRecord
             'update_record_time' => 'Update Record Time',
         ];
     }
+
+
 }

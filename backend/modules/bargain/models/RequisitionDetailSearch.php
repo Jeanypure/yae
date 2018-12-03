@@ -19,7 +19,7 @@ class RequisitionDetailSearch extends RequisitionDetail
     {
         return [
             [['id', 'quantity','commit_status', 'audit_status'], 'integer'],
-            [['tran_internal_id', 'tranid', 'description', 'item_internal_id', 'item_name', 'povendor_internalid', 'povendor_name', 'createdate', 'lastmodifieddate', 'trandate', 'currencyname','negotiant', 'commit_time', 'audit_time'], 'safe'],
+            [['requisition_name','tran_internal_id', 'tranid', 'description', 'item_internal_id', 'item_name', 'povendor_internalid', 'povendor_name', 'createdate', 'lastmodifieddate', 'trandate', 'currencyname','negotiant', 'commit_time', 'audit_time'], 'safe'],
             [['amount', 'rate'], 'number'],
         ];
     }
@@ -42,7 +42,11 @@ class RequisitionDetailSearch extends RequisitionDetail
      */
     public function search($params)
     {
-        $query = RequisitionDetail::find()->orderBy('createdate desc');
+        $query = RequisitionDetail::find()
+            ->select(['`requisition_detail`.*,`requisition_list`.requisition_name'])
+            ->joinWith('requisition_list')
+            ->orderBy('createdate desc');
+
 
         // add conditions that should always apply here
 
@@ -81,6 +85,7 @@ class RequisitionDetailSearch extends RequisitionDetail
             ->andFilterWhere(['like', 'lastmodifieddate', $this->lastmodifieddate])
             ->andFilterWhere(['like', 'trandate', $this->trandate])
             ->andFilterWhere(['like', 'currencyname', $this->currencyname])
+            ->andFilterWhere(['like', 'requisition_name', $this->requisition_name])
             ->andFilterWhere(['like', 'negotiant', $this->negotiant]);
 
         return $dataProvider;

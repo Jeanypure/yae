@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'description',
             'povendor_name',
             'quantity',
+            'requisition_name',
             'createdate',
         ],
     ]); ?>
