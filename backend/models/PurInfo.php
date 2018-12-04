@@ -81,7 +81,7 @@ class PurInfo extends \yii\db\ActiveRecord
             [['is_purchase','trading_company','source','brocast_status','is_quality','sample_submit1','sample_submit2','pur_complete_status','is_assign','junior_submit','pur_group', 'pd_purchase_num', 'parent_product_id','preview_status'], 'integer'],
             [['trading_company', 'bill_type','pd_title','pd_title_en','pd_package','pd_length', 'pd_width', 'pd_height','pd_weight',
                 'pd_pur_costprice','bill_tax_rebate','retail_price','pd_purchase_num','hs_code',
-                'has_shipping_fee','is_patent_right','is_third_party_abroad_right'], 'required'],
+                'has_shipping_fee','is_patent_right','is_third_party_abroad_right','promise_rights','special_auth_FDA'], 'required'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice',
                 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'shipping_fee',
                 'amz_retail_price',
@@ -184,6 +184,8 @@ class PurInfo extends \yii\db\ActiveRecord
             'purchaser_send_time' => '采购提交时间',
             'is_patent_right' => '工厂对此产品是否有专利权或商标权',
             'is_third_party_abroad_right' => '国外第三方对此产品是否有专利权或商标权',
+            'promise_rights' => '供应商承诺没有知识产权方面问题',
+            'special_auth_FDA' => '是否需要特殊认证FDA或者电器CE Rosh',
 
         ];
     }

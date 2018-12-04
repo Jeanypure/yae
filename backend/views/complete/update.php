@@ -177,6 +177,16 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                     'label'=>"<span style = 'color:red'><big>*</big></span>国外第三方对此产品是否有专利权或商标权",
                     'items'=>[1=>'是', 0=>'否'],
                     'options'=>['placeholder'=>'']],
+                'promise_rights'=>[
+                    'type'=>Form::INPUT_RADIO_LIST,
+                    'label'=>"<span style = 'color:red'><big>*</big></span>供应商承诺没有知识产权方面问题",
+                    'items'=>[1=>'是', 0=>'否'],
+                    'options'=>['placeholder'=>'']],
+                'special_auth_FDA'=>[
+                    'type'=>Form::INPUT_RADIO_LIST,
+                    'label'=>"<span style = 'color:red'><big>*</big></span>是否需要特殊认证FDA或者电器CE Rosh",
+                    'items'=>[1=>'是', 0=>'否'],
+                    'options'=>['placeholder'=>'']],
 
             ]
         ]);
