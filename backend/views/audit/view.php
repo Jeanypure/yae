@@ -140,9 +140,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'promise_rights',
                 'format'=>'raw',
                 'value' => function ($model) {
-                    if($model->is_third_party_abroad_right ==1 ){
+                    if($model->promise_rights ==1 ){
                         return '是';
-                    }elseif($model->is_third_party_abroad_right ==0){
+                    }elseif($model->promise_rights ==0){
                         return '否';
                     }else{
                         return '未判断';
@@ -153,9 +153,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'special_auth_FDA',
                 'format'=>'raw',
                 'value' => function ($model) {
-                    if($model->is_third_party_abroad_right ==1 ){
+                    if($model->special_auth_FDA ==1 ){
                         return '是';
-                    }elseif($model->is_third_party_abroad_right ==0){
+                    }elseif($model->special_auth_FDA ==0){
                         return '否';
                     }else{
                         return '未判断';
