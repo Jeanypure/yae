@@ -191,9 +191,7 @@ use yii\helpers\Url;
         ?>
 
 
-        <div class="form-group">
-            <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-lg']) ?>
-        </div>
+
 
         <?php ActiveForm::end(); ?>
 
