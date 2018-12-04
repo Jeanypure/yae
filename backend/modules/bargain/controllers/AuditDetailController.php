@@ -147,6 +147,8 @@ class AuditDetailController extends Controller
     $res = $this->actionDoCurl($record,$url1);
     $ret = $this->actionUpdateVendor($model);
         if($res=='"'.$model->tran_internal_id.'"' && $ret == '"'.$model->povendor_internalid.'"'){
+            $model->audit_status = 1;
+            $model->save(false);
                 echo 'success!';
             }else{
                 echo 'error!';

@@ -44,7 +44,7 @@ class VendorDetail extends \yii\db\ActiveRecord
         return [
             [['date_create', 'date_update','arrival_date'], 'safe'],
             [['internalid'], 'string', 'max' => 11],
-            [['payment_method'], 'integer', 'max' => 1],
+            [['payment_method'], 'integer', 'max' => 10],
             [['supplier_code', 'contact_tel', 'contact_name'], 'string', 'max' => 32],
             [['supplier_name'], 'string', 'max' => 64],
             [['contact_qq'], 'string', 'max' => 16],
