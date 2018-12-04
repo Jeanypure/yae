@@ -71,7 +71,7 @@ class YaeSupplier extends \yii\db\ActiveRecord
             [['supplier_code','supplier_name','supplier_address','pay_cycleTime_type','account_type','account_proportion',
                 'has_cooperate','submitter','pay_bank','pay_card','pay_name','pd_bill_name','bill_unit','bill_type',
                 'business_licence','bank_account_data','check_status','complete_num','bill_pass', 'bank_data_pass',
-                'licence_pass','supplier_pay_methon','commitment_date'
+                'licence_pass','supplier_pay_methon','commitment_date','promise_sign_right'
             ], 'required'],
             [['into_eccang_date','create_date','update_date','update_date','check_date' ], 'safe'],
             [['bill_img1_name_unit','bill_img2_name_unit'], function ($attribute, $param) {//至少要一个
@@ -132,6 +132,8 @@ class YaeSupplier extends \yii\db\ActiveRecord
             'has_tons' => '已导NS?',
             'supplier_pay_methon' => '供应商接受付款方式',
             'commitment_date' => '承诺到票日期',
+            'promise_sign_right' =>'供应商是否答应签署侵犯知识产权责任书',
+            'sign_right_pic_location' => '侵犯知识产权责任书的图片'
         ];
 
     }

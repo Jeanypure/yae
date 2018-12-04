@@ -38,7 +38,7 @@ class SupplierContact extends \yii\db\ActiveRecord
             [['contact_address'], 'string', 'max' => 216],
             [['contact_qq'], 'string', 'max' => 16],
             [['contact_wechat', 'contact_wangwang', 'contact_memo', 'skype'], 'string', 'max' => 64],
-            [['contact_name','contact_tel','contact_address','contact_qq'],'required']
+            [['contact_name','contact_tel','contact_address','contact_qq','contact_wangwang'],'required']
         ];
     }
 

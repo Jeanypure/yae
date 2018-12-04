@@ -279,24 +279,44 @@ use kartik\datetime\DateTimePicker;
 <!--        </div>-->
 <!---->
 <!--    </div>-- -->
+    <fieldset id="w6">
+    <legend class="text-info"><h3>6.知识产权相关</h3></legend>
+    <div class="col-sm-3">
     <?php
-
     echo Form::widget([
         'model'=>$model,
         'form'=>$form,
         'columns'=>4,
-        'contentBefore'=>'<legend class="text-info"><h3>6.其他注意事項</h3></legend>',
+        'attributes'=>[       // 3 column layout
+            'promise_sign_right'=>['type'=>Form::INPUT_RADIO_LIST,
+                'items'=>[1=>'是', 0=>'否'],
+                'label'=>"<span style = 'color:red'><big>*</big></span>供应商是否答应签署侵犯知识产权责任书",
+                'options'=>['placeholder'=>'']],
+        ],
+
+    ]);
+
+    ?>
+    </div>
+    <div class="col-sm-3">
+        <?php
+        echo $form->field($model, 'sign_right_pic_location')->widget('manks\FileInput', []);
+        ?>
+    </div>
+    </fieldset>
+
+<?php
+    echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>4,
+        'contentBefore'=>'<legend class="text-info"><h3>7.其他注意事項</h3></legend>',
         'attributes'=>[       // 3 column layout
             'sup_remark'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'']],
 
         ],
 
     ]);
-
-
-
-
-
     ?>
     <div class="form-group">
         <?php
@@ -344,7 +364,7 @@ $JS =<<<JS
            'yaesupplier-pd_bill_name' ,'yaesupplier-bill_unit' ,'yaesupplier-pay_card' ,'yaesupplier-pay_name' ,'yaesupplier-pay_bank' ,'yaesupplier-sale_company',
            'yaesupplier-account_proportion' ,'yaesupplier-pay_cycletime_type' ,'yaesupplier-account_type' ,'yaesupplier-bank_account_data' ,'yaesupplier-supplier_pay_methon',
            'yaesupplier-bill_img1_name_unit','yaesupplier-bill_img1','suppliercontact-contact_name','suppliercontact-contact_address','suppliercontact-contact_tel',
-           'suppliercontact-contact_qq','yaesupplier-commitment_date'
+           'suppliercontact-contact_qq','yaesupplier-commitment_date','suppliercontact-contact_wangwang'
         ];
         var label;
        $("label[for='goodssku-sku']").addClass("label-require");
