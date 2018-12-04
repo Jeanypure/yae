@@ -220,6 +220,32 @@ use kartik\select2\Select2;
     ]);
 
     ?>
+
+    <fieldset id="w6">
+        <legend class="text-info"><h3>6.知识产权相关</h3></legend>
+        <div class="col-sm-3">
+            <?php
+            echo Form::widget([
+                'model'=>$model,
+                'form'=>$form,
+                'columns'=>4,
+                'attributes'=>[       // 3 column layout
+                    'promise_sign_right'=>['type'=>Form::INPUT_RADIO_LIST,
+                        'items'=>[1=>'是', 0=>'否'],
+                        'label'=>"<span style = 'color:red'><big>*</big></span>供应商是否答应签署侵犯知识产权责任书",
+                        'options'=>['placeholder'=>'']],
+                ],
+
+            ]);
+
+            ?>
+        </div>
+        <div class="col-sm-3">
+            <?php
+            echo $form->field($model, 'sign_right_pic_location')->widget('manks\FileInput', []);
+            ?>
+        </div>
+    </fieldset>
     <?php
 
     echo Form::widget([
