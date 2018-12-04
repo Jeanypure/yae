@@ -314,6 +314,7 @@ class AuditSupplierController extends Controller
             "custentity_attention" => $data[0]['contact_name'],
            // "custentitypayment_method" => $data[0]['supplier_pay_methon'],
             "custentity9" => $data[0]['pay_name'],
+            "custentity_wangwang" => $data[0]['contact_wangwang'],
         ];
         $res = $this->actionDoVendorCurl($vendor_arr);
         if (is_string($res)){
