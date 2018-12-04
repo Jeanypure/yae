@@ -91,6 +91,7 @@ class RequisitionDetailController extends Controller
         if (isset($post['RequisitionDetail'])&& isset($post['VendorDetail'])) {
             $model->attributes = $post['RequisitionDetail'];
             $vendor_detail->attributes = $post['VendorDetail'];
+            $model->commit_status = 1;
             $model->save(false);
             $vendor_detail->save(false);
 //            return $this->redirect(['view', 'id' => $model->id]);

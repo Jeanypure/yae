@@ -2,7 +2,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\bargain\models\RequisitionDetailSearch */
@@ -27,6 +27,17 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn',
                 'header' =>'操作',
                 'template' => '{update}'
+            ], [
+                'attribute'=>'commit_status',
+                'value' => function($model) { if($model->commit_status==1){return '是';}else{ return '否';} },
+                'contentOptions'=> ['style' => 'width:5%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '是', '0' => '否'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'提交状态'],
             ],
             'item_name',
             'description',
