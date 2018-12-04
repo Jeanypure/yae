@@ -48,7 +48,7 @@ class RequisitionDetailSearch extends RequisitionDetail
             $query = RequisitionDetail::find()
                 ->select(['`requisition_detail`.*,`requisition_list`.requisition_name'])
                 ->joinWith('requisition_list')
-                ->where(['commit_status' => 1])
+//                ->where(['commit_status' => 1])
                 ->orderBy('createdate desc');
 
         }else{

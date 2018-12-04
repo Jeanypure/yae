@@ -63,8 +63,8 @@ class ObtainDataController extends Controller
                'document_number',
                'requisition_name'
            ];
-           $truncateTab = Yii::$app->db2->createCommand('truncate table requisition_list')->execute();
-           $response = Yii::$app->db2->createCommand()->batchInsert($table,$arr_key,$arr_set)->execute();
+           $truncateTab = Yii::$app->db->createCommand('truncate table requisition_list')->execute();
+           $response = Yii::$app->db->createCommand()->batchInsert($table,$arr_key,$arr_set)->execute();
           return $response;
 
        }
@@ -108,7 +108,7 @@ class ObtainDataController extends Controller
             }
             $tbName = 'tb_vendor_list';
             $column = ['internal_id','vendor_code','vendor_name','datecreated'];
-            $res = Yii::$app->db2->createCommand()->batchInsert($tbName,$column,$vendorList)->execute();
+            $res = Yii::$app->db->createCommand()->batchInsert($tbName,$column,$vendorList)->execute();
             return $res;
         }
 
@@ -130,7 +130,7 @@ class ObtainDataController extends Controller
         //获取 id/
 //        $sql = "SELECT internal_id FROM tb_vendor_list WHERE datecreated BETWEEN '2018-08-01 00:00:00' AND '2018-08-30 23:59:59' limit 1,3;";
         $sql = "SELECT internal_id FROM tb_vendor_list WHERE internal_id NOT in (SELECT DISTINCT internalid FROM tb_vendor_detail);";
-        $idSet = Yii::$app->db2->createCommand($sql)->queryAll();
+        $idSet = Yii::$app->db->createCommand($sql)->queryAll();
         $ids = array_column($idSet,'internal_id');
         $multiCurl = [];
         $result = [];
@@ -219,7 +219,7 @@ class ObtainDataController extends Controller
         }*/
 
 
-            $response = Yii::$app->db2->createCommand()->batchInsert($tbName,$column,$recordArr)->execute();
+            $response = Yii::$app->db->createCommand()->batchInsert($tbName,$column,$recordArr)->execute();
             return $response;
 
     }
