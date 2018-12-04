@@ -69,10 +69,10 @@ $JS = <<< JS
     $("a span:contains('经理评审')").after('<sup class="label label-info">{$status_map["经理评审"]}</sup>');
     $("a span:contains('采购开发')").after('<sup class="label label-default">{$status_map["采购开发"]}</sup>');
     $("a span:contains('推送产品开发')").after('<sup class="label label-primary">{$status_map["推送产品开发"]}</sup>');
-    
     $("a span:contains('拿样制单')").after('<sup class="label label-info">{$status_map["拿样制单"]}</sup>');
     $("a span:contains('部长审批')").after('<sup class="label label-warning">{$status_map["部长审批"]}</sup>');
     $("a span:contains('财务付款')").after('<sup class="label label-success">{$status_map["财务付款"]}</sup>');
+    $("a span:contains('议价产品列表')").after('<sup class="label label-success">{$status_map["议价产品列表"]}</sup>');
 
     
 JS;
