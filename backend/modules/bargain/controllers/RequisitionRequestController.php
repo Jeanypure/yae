@@ -48,7 +48,7 @@ class RequisitionRequestController extends Controller
          $sql = "select internal_id from requisition_list where requisition_date BETWEEN '$startDate' and '$endDate' AND internal_id NOT in(
 SELECT DISTINCT tran_internal_id FROM requisition_detail
 ) ;";
-         $idSet = Yii::$app->db2->createCommand($sql)->queryAll();
+         $idSet = Yii::$app->db->createCommand($sql)->queryAll();
          $ids = array_column($idSet,'internal_id');
          $multiCurl = [];
          $result = [];
@@ -139,7 +139,7 @@ SELECT DISTINCT tran_internal_id FROM requisition_detail
                          $recordArr[]  = $record;
                          unset($record);
                      }
-                     $res =  Yii::$app->db2->createCommand()->batchInsert($tableName,$columnKey,$recordArr)->execute();
+                     $res =  Yii::$app->db->createCommand()->batchInsert($tableName,$columnKey,$recordArr)->execute();
                      unset($recordArr);
                  }
 
