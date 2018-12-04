@@ -136,6 +136,32 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 },
             ],
+            [
+                'attribute'=>'promise_rights',
+                'format'=>'raw',
+                'value' => function ($model) {
+                    if($model->is_third_party_abroad_right ==1 ){
+                        return '是';
+                    }elseif($model->is_third_party_abroad_right ==0){
+                        return '否';
+                    }else{
+                        return '未判断';
+                    }
+                },
+            ],
+            [
+                'attribute'=>'special_auth_FDA',
+                'format'=>'raw',
+                'value' => function ($model) {
+                    if($model->is_third_party_abroad_right ==1 ){
+                        return '是';
+                    }elseif($model->is_third_party_abroad_right ==0){
+                        return '否';
+                    }else{
+                        return '未判断';
+                    }
+                },
+            ],
 
         ],
     ]) ?>
