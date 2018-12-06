@@ -102,10 +102,8 @@ SELECT DISTINCT tran_internal_id FROM requisition_detail
          if(empty($resultArr['error'])){
              $tableName = 'requisition_detail';
              $columnKey = ['tran_internal_id','tranid','amount','description','item_internal_id','item_name',
-//                 'linkedorder_internalid','linkedorder_name','linkedorderstatus',
                  'povendor_internalid','povendor_name','quantity','rate',
-                 'createdate',
-//'lastmodifieddate','trandate','currencyname'
+                 'createdate','po_internalid','po_name'
              ];
              $recordArr = [];
              $record = [];
@@ -122,7 +120,6 @@ SELECT DISTINCT tran_internal_id FROM requisition_detail
                          }else{
                              $record[] = '';
                          }
-
                          $record[] = $v['item']['internalid'];
                          $record[] = $v['item']['name'];
                          if(!empty($v['povendor'])){
@@ -136,6 +133,13 @@ SELECT DISTINCT tran_internal_id FROM requisition_detail
                          $record[] = $v['quantity'];
                          $record[] = $v['rate'];
                          $record[] = $value['createddate'];
+                         if(!empty($v['linkedorder'])){
+                             $record[] = $v['linkedorder']['internalid'];
+                             $record[] = $v['linkedorder']['name'];
+                         }else{
+                             $record[] = '';
+                             $record[] = '';
+                         }
                          $recordArr[]  = $record;
                          unset($record);
                      }
