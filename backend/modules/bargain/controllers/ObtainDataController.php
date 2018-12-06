@@ -6,6 +6,7 @@ use Yii;
 use  yii\web\Controller;
 use linslin\yii2\curl;
 use backend\modules\bargain\models\VendorDetail;
+use backend\modules\bargain\models\VendorList;
 class ObtainDataController extends Controller
 {
     public function action()
@@ -104,12 +105,25 @@ class ObtainDataController extends Controller
                $vendor['vendor_code'] = $value['values']['entityid'];
                $vendor['vendor_name'] = $value['values']['companyname'];
                $vendor['datecreated'] = $value['values']['datecreated'];
-               $vendorList[] = $vendor;
+               $test = Yii::$app->db->createCommand("select count(*) as num  from tb_vendor_list where internal_id=$value[id]")->queryOne();
+               if(!empty($test['num'])){
+                   $updateRes = VendorList::updateAll([
+                       'vendor_code' => $value['values']['entityid'],
+                       'vendor_name' => $value['values']['companyname'],
+                   ],[
+                       'internal_id'=>$value['id'],
+                   ]);
+                   continue;
+               }else{
+                   $vendorList[] = $vendor;
+               }
             }
             $tbName = 'tb_vendor_list';
             $column = ['internal_id','vendor_code','vendor_name','datecreated'];
-            $res = Yii::$app->db->createCommand()->batchInsert($tbName,$column,$vendorList)->execute();
-            return $res;
+            if(isset($vendorList)) {
+                $res = Yii::$app->db->createCommand()->batchInsert($tbName, $column, $vendorList)->execute();
+                return $res;
+            }
         }
 
 
@@ -126,7 +140,7 @@ class ObtainDataController extends Controller
 
     }
 
-    public function  actionMultiRequest($startTime=null,$endTime=null){
+    public function  actionMultiRequest(){
         //获取 id/
 //        $sql = "SELECT internal_id FROM tb_vendor_list WHERE datecreated BETWEEN '2018-08-01 00:00:00' AND '2018-08-30 23:59:59' limit 1,3;";
         $sql = "SELECT internal_id FROM tb_vendor_list WHERE internal_id NOT in (SELECT DISTINCT internalid FROM tb_vendor_detail);";
@@ -181,9 +195,7 @@ class ObtainDataController extends Controller
     public function actionIntoVendorDetail(){
         $tbName = 'tb_vendor_detail';
         $column = ['internalid','supplier_code','supplier_name','contact_qq','contact_tel','contact_name','bill_type'];
-        $startTime = '2018-08-01 00:00:00';
-        $endTime = '2018-08-30 23:59:59';
-        $result = $this->actionMultiRequest($startTime,$endTime);
+        $result = $this->actionMultiRequest();
         $recordArr = [];
         $res = json_decode($result,true);
         if(!empty($res)&&!array_key_exists('error',$res)){
@@ -201,23 +213,6 @@ class ObtainDataController extends Controller
                 }
             }
         }
-       /* foreach ($recordArr as $index =>$item){
-            foreach ($item as $key=>$val){
-
-                if(VendorDetail::updateAllCounters(['supplier_code' => $item['supplier_code']],
-                    ['internalid'=>"$key"])){continue;}
-                $data[] = [
-                    'internalid' => $item['internalid'],
-                    'supplier_code' => $item['supplier_code'],
-                    'supplier_name' =>$item['supplier_name'],
-                    'contact_qq' => $item['contact_qq'],
-                    'contact_tel' => $item['contact_tel'],
-                    'contact_name' => $item['contact_name'],
-                    'bill_type' => $item['bill_type'],
-                ];
-            }
-        }*/
-
 
             $response = Yii::$app->db->createCommand()->batchInsert($tbName,$column,$recordArr)->execute();
             return $response;
