@@ -3,6 +3,7 @@
 namespace backend\modules\bargain\controllers;
 
 use backend\modules\bargain\models\VendorDetail;
+use backend\modules\bargain\models\VendorDetailCopy;
 use Yii;
 use backend\modules\bargain\models\RequisitionDetail;
 use backend\modules\bargain\models\RequisitionDetailSearch;
@@ -87,6 +88,8 @@ class RequisitionDetailController extends Controller
     {
         $model = $this->findModel($id);
         $vendor_detail= VendorDetail::find()->where(['internalid' =>$model->povendor_internalid])->one();
+        $vendor_copy = new VendorDetailCopy();
+        $vendor_copy2 = VendorDetailCopy::find()->where(['internalid' =>$model->povendor_internalid])->one();
         $post = Yii::$app->request->post();
         if (isset($post['RequisitionDetail'])&& isset($post['VendorDetail'])) {
             $model->attributes = $post['RequisitionDetail'];
@@ -94,6 +97,13 @@ class RequisitionDetailController extends Controller
             $model->commit_status = 1;
             $model->save(false);
             $vendor_detail->save(false);
+            if(isset($vendor_copy2)&&!empty($vendor_copy2)){
+                $vendor_copy2->attributes = $post['VendorDetail'];
+                $vendor_copy2->save(false);
+            }else{
+                $vendor_copy->attributes = $post['VendorDetail'];
+                $vendor_copy->save(false);
+            }
 //            return $this->redirect(['view', 'id' => $model->id]);
         }
 

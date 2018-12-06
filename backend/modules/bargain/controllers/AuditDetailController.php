@@ -2,9 +2,11 @@
 
 namespace backend\modules\bargain\controllers;
 
+
 use Yii;
 use backend\modules\bargain\models\RequisitionDetail;
 use backend\modules\bargain\models\VendorDetail;
+use backend\modules\bargain\models\VendorDetailCopy;
 use backend\modules\bargain\models\RequisitionDetailSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -196,7 +198,7 @@ class AuditDetailController extends Controller
      *
      */
     public function actionUpdateVendor($model){
-        $vendor_detail= VendorDetail::find()->where(['internalid' =>$model->povendor_internalid])->one();
+        $vendor_detail= VendorDetailCopy::find()->where(['internalid' =>$model->povendor_internalid])->one();
         $vendorItem = [];
         $vendorItem['id'] = $model->povendor_internalid;
         $vendorItem['recordtype'] = 'vendor';
