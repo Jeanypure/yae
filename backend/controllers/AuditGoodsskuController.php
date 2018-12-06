@@ -366,6 +366,7 @@ class AuditGoodsskuController extends Controller
            'custitem_yaosu_value9' => $result[0]['declaration_item_value9'],
            'custitemm_material' => $result[0]['material'],
            'custitemm_purpose' => $result[0]['use'],
+           'salesdescription' => $result[0]['pd_title'],
        ]];
         $result = $this->actionDoCurl($item_arr);
         $res = json_decode($result);
