@@ -41,9 +41,9 @@ class Negotiant extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'sku_code1' => 'Sku Code1',
-            'purchaser' => 'Purchaser',
-            'negotiant' => 'Negotiant',
+            'sku_code1' => 'SKU前缀',
+            'purchaser' => '开发人员',
+            'negotiant' => '议价人',
         ];
     }
 }
