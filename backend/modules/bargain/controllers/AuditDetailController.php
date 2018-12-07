@@ -142,6 +142,8 @@ class AuditDetailController extends Controller
     $internalItem['internalid'] = $model->item_internal_id;
     $internalItem['name'] = $model->item_name;
     $lineItem['custcol_after_bargain'] = $model->after_bargain_price;
+    $lineItem['custcol_negotiant'] = $model->negotiant;
+    $lineItem['custbodym_contract_types'] = false;
     $lineItem['item']  = $internalItem;
     $externalItems[] = $lineItem;
     $record['item'] = $externalItems;
