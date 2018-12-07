@@ -45,6 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'quantity',
             'requisition_name',
             'createdate',
+            'negotiant'
         ],
     ]); ?>
 </div>
