@@ -235,15 +235,22 @@ class ObtainDataController extends Controller
             $record['item_name'] = $value['values']['item'][0]['text'];
             $record['quantity'] = $value['values']['quantity'];
             $record['createdate'] = $value['values']['trandate'];
+            //存在更新 不存在插入
+            $sql = "select count(*) as num from tb_requisition_non_purchase where tran_internal_id='$value[id]' and item_name = '$record[item_name]'";
+            $num = Yii::$app->db->createCommand($sql)->queryOne();
+            if ($num['num']){
+                continue;
+            }
             $record_set[] = $record;
         }
         $table = 'tb_requisition_non_purchase';
         $column = ['tran_internal_id','tranid','name','amount','description','item_internal_id','item_name','quantity','createdate'];
         if(isset($record_set)){
-            Yii::$app->db->createCommand('truncate table tb_requisition_non_purchase')->execute();
+            $response = Yii::$app->db->createCommand()->batchInsert($table,$column,$record_set)->execute();
+            return $response;
         }
-        $response = Yii::$app->db->createCommand()->batchInsert($table,$column,$record_set)->execute();
-        return $response;
+
+
     }
 
 
