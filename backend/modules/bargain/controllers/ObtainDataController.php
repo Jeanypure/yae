@@ -51,6 +51,9 @@ class ObtainDataController extends Controller
                    $arr[] = $value['columns']['trandate'];
                    $arr[] = $value['columns']['tranid'];
                    $arr[] = $value['columns']['entity']['name'];
+                   $sql = "select count(*) as num from requisition_list where internal_id = '$value[id]'";
+                   $is_has = Yii::$app->db->createCommand($sql)->queryOne();
+                   if($is_has['num']){continue;}
                    $arr_set[] = $arr;
                    unset($arr);
 
@@ -63,10 +66,10 @@ class ObtainDataController extends Controller
                'document_number',
                'requisition_name'
            ];
-           $truncateTab = Yii::$app->db->createCommand('truncate table requisition_list')->execute();
-           $response = Yii::$app->db->createCommand()->batchInsert($table,$arr_key,$arr_set)->execute();
-          return $response;
-
+           if(isset($arr_set)) {
+               $response = Yii::$app->db->createCommand()->batchInsert($table, $arr_key, $arr_set)->execute();
+               return $response;
+           }
        }
     }
 
