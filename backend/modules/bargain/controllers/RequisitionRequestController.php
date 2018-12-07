@@ -45,7 +45,7 @@ class RequisitionRequestController extends Controller
              $startDate = date('Y-m-d',strtotime('-40 day'));
              $endDate = date('Y-m-d');
          }
-         $sql = "select internal_id from requisition_list where requisition_date BETWEEN '$startDate' and '$endDate' AND internal_id NOT in(
+         $sql = "select internal_id from requisition_list where internal_id NOT in(
 SELECT DISTINCT tran_internal_id FROM requisition_detail
 ) ;";
          $idSet = Yii::$app->db->createCommand($sql)->queryAll();
@@ -103,7 +103,7 @@ SELECT DISTINCT tran_internal_id FROM requisition_detail
              $tableName = 'requisition_detail';
              $columnKey = ['tran_internal_id','tranid','amount','description','item_internal_id','item_name',
                  'povendor_internalid','povendor_name','quantity','rate',
-                 'createdate','po_internalid','po_name'
+                 'createdate'
              ];
              $recordArr = [];
              $record = [];
@@ -131,23 +131,14 @@ SELECT DISTINCT tran_internal_id FROM requisition_detail
                              $record[] = '';
                          }
                          $record[] = $v['quantity'];
-                         $record[] = $v['rate'];
+                         $record[] = empty($v['rate'])?$v['rate']:0;
                          $record[] = $value['createddate'];
-                         if(!empty($v['linkedorder'])){
-                             $record[] = $v['linkedorder']['internalid'];
-                             $record[] = $v['linkedorder']['name'];
-                         }else{
-                             $record[] = '';
-                             $record[] = '';
-                         }
                          $recordArr[]  = $record;
                          unset($record);
                      }
                      $res =  Yii::$app->db->createCommand()->batchInsert($tableName,$columnKey,$recordArr)->execute();
                      unset($recordArr);
                  }
-
-
              }
          }
 
