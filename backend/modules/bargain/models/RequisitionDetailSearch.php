@@ -48,13 +48,15 @@ class RequisitionDetailSearch extends RequisitionDetail
             $query = RequisitionDetail::find()
                 ->select(['`requisition_detail`.*,`requisition_list`.requisition_name'])
                 ->joinWith('requisition_list')
+                ->joinWith('tb_requisition_non_purchase as np')
+                ->where(['not',['np.tranid' =>null]])
 //                ->where(['commit_status' => 1])
                 ->orderBy('createdate desc');
-
         }else{
             $query = RequisitionDetail::find()
                 ->select(['`requisition_detail`.*,`requisition_list`.requisition_name'])
                 ->joinWith('requisition_list')
+
                 ->where(['negotiant'=>$username])
                 ->orderBy('createdate desc');
 

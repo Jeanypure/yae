@@ -116,4 +116,8 @@ class RequisitionDetail extends \yii\db\ActiveRecord
     public function  getRequisition_list(){
         return $this->hasMany(RequisitionList::className(),['document_number' => 'tranid']);
     }
+
+    public function getTb_requisition_non_purchase(){
+        return $this->hasOne(RequisitionNonPurchase::className(),['tranid' => 'tranid','item_name' => 'item_name']);
+    }
 }
