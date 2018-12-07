@@ -5,7 +5,6 @@ namespace backend\modules\bargain\controllers;
 use Yii;
 use  yii\web\Controller;
 use linslin\yii2\curl;
-use backend\modules\bargain\models\VendorDetail;
 use backend\modules\bargain\models\VendorList;
 class ObtainDataController extends Controller
 {
@@ -142,7 +141,6 @@ class ObtainDataController extends Controller
 
     public function  actionMultiRequest(){
         //获取 id/
-//        $sql = "SELECT internal_id FROM tb_vendor_list WHERE datecreated BETWEEN '2018-08-01 00:00:00' AND '2018-08-30 23:59:59' limit 1,3;";
         $sql = "SELECT internal_id FROM tb_vendor_list WHERE internal_id NOT in (SELECT DISTINCT internalid FROM tb_vendor_detail);";
         $idSet = Yii::$app->db->createCommand($sql)->queryAll();
         $ids = array_column($idSet,'internal_id');
@@ -219,7 +217,34 @@ class ObtainDataController extends Controller
 
     }
 
-
+    /**
+     * 获取请购未采购明细
+     */
+    public function  actionGetRequisitionNonPurchase(){
+        $url = "https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=184&deploy=1";
+        $result = $this->actionDoCurl($url);
+        $result_arr = json_decode($result,true);
+        $record_set = [];
+        foreach ($result_arr as $key =>$value){
+            $record['tran_internal_id'] = $value['id'];
+            $record['tranid'] = $value['values']['tranid'];
+            $record['name'] = $value['values']['employee.altname'];
+            $record['amount'] = $value['values']['amount'];
+            $record['description'] = $value['values']['memo'];
+            $record['item_internal_id'] = $value['values']['item'][0]['value'];
+            $record['item_name'] = $value['values']['item'][0]['text'];
+            $record['quantity'] = $value['values']['quantity'];
+            $record['createdate'] = $value['values']['trandate'];
+            $record_set[] = $record;
+        }
+        $table = 'tb_requisition_non_purchase';
+        $column = ['tran_internal_id','tranid','name','amount','description','item_internal_id','item_name','quantity','createdate'];
+        if(isset($record_set)){
+            Yii::$app->db->createCommand('truncate table tb_requisition_non_purchase')->execute();
+        }
+        $response = Yii::$app->db->createCommand()->batchInsert($table,$column,$record_set)->execute();
+        return $response;
+    }
 
 
 
