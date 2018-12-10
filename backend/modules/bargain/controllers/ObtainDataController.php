@@ -256,6 +256,43 @@ class ObtainDataController extends Controller
 
     }
 
+    /**
+     * @return int
+     * @throws \yii\db\Exception
+     * 获取产品和所属人列表
+     */
+    public function actionGetNumberedItem(){
+        $url = "https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=187&deploy=1";
+        $numbered_item = $this->actionDoCurl($url);
+        $numbered_arr = json_decode($numbered_item,true);
+        $inventory_item = [];
+        foreach ($numbered_arr as $key=>$value){
+           $item['internalid'] = $value['id'];
+           $item['sku'] = $value['values']['itemid'];
+           $item['property'] = $value['values']['custitem20'];
+           if(strpos($value['values']['custitem20'],'-') !== false){
+               $item['bargain'] = ltrim(strstr($value['values']['custitem20'],'-'),'-');
+           }else{
+               $item['bargain'] = $value['values']['custitem20'];
+           }
+           $sql = "select count(*) as num from tb_lotnumbered_inventory_item where internalid = '$value[id]'";
+           $has = Yii::$app->db->createCommand($sql)->queryOne();
+           if($has['num']){
+//                continue;
+              $update_sql = "update tb_lotnumbered_inventory_item set sku= '$item[sku]',property='$item[property]',bargain='$item[bargain]' where internalid='$value[id]'";
+              $update_res = Yii::$app->db->createCommand($update_sql)->execute();
+           }else{
+               $inventory_item[] = $item;
+           }
+
+        }
+        $table = 'tb_lotnumbered_inventory_item';
+        $column = ['internalid','sku','property','bargain'];
+        $result = Yii::$app->db->createCommand()->batchInsert($table,$column,$inventory_item)->execute();
+        return $result;
+
+    }
+
 
 
 }
