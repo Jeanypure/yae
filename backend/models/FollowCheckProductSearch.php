@@ -50,7 +50,8 @@ class FollowCheckProductSearch extends Goodssku
             'Ivy'=> '3,4',
             'Belle'=> '3,4',
             'Fiona'=> '3',
-            'Miguel'=> '3',
+            'Honey'=> '3',
+            'Miguel'=> '2',
             'Eleanor'=> '4',
             'Nita'=> '2',
             'Yilia'=> '1,2,3,4,5,6,7,8'];
