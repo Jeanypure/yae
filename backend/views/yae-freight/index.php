@@ -94,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         3 => '上海昊宏国际货物运输代理有限公司',
                         4 => '深圳市安泰克物流有限公司',
                         5 => '文鼎供应链管理(上海)有限公司',*/
-                        '1' => '大森林', '2' => '珑瑗', '3' => '昊宏', '4' => '安泰克', '5' => '文鼎'
+                        '1' => '大森林', '2' => '珑瑗', '3' => '昊宏', '4' => '安泰克', '5' => '文鼎','6'=>'龙辕'
                     ];
                         return $company[$model->receiver];
                     },
@@ -104,7 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>[ '1' => '大森林', '2' => '珑瑗', '3' => '昊宏', '4' => '安泰克', '5' => '文鼎'],
+                'filter'=>[ '1' => '大森林', '2' => '珑瑗', '3' => '昊宏', '4' => '安泰克', '5' => '文鼎','6'=>'龙辕'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
