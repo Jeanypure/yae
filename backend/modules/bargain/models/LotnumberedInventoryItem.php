@@ -43,9 +43,9 @@ class LotnumberedInventoryItem extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'internalid' => 'Internalid',
-            'sku' => 'Sku',
-            'property' => 'Property',
-            'bargain' => 'Bargain',
+            'sku' => 'SKU',
+            'property' => '产品所属开发人',
+            'bargain' => '议价人',
         ];
     }
 }
