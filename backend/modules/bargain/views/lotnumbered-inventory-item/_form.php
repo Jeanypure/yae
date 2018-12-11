@@ -12,8 +12,6 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'internalid')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'sku')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'property')->textInput(['maxlength' => true]) ?>

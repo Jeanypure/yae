@@ -100,8 +100,8 @@ class RequisitionDetailSearch extends RequisitionDetail
             ->andfilterwhere(['like', 'lastmodifieddate', $this->lastmodifieddate])
             ->andfilterwhere(['like', 'trandate', $this->trandate])
             ->andfilterwhere(['like', 'currencyname', $this->currencyname])
-//            ->andFilterWhere(['like', 'name', $this->name])
-//            ->andFilterWhere(['like', 'bargain', $this->bargain])
+            ->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'bargain', $this->bargain])
             ->andFilterWhere(['like', 'negotiant', $this->negotiant]);
 
         return $dataProvider;
