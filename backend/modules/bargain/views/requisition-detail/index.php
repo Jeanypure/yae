@@ -43,9 +43,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'description',
             'povendor_name',
             'quantity',
-            'requisition_name',
+//            'requisition_name',
+            'name',
             'createdate',
-            'negotiant'
+            'bargain',
         ],
     ]); ?>
 </div>

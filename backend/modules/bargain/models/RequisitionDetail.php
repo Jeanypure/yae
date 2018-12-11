@@ -37,7 +37,8 @@ use Yii;
  */
 class RequisitionDetail extends \yii\db\ActiveRecord
 {
-    public $requisition_name;
+    public $bargain;
+    public $name;
     /**
      * {@inheritdoc}
      */
@@ -107,17 +108,18 @@ class RequisitionDetail extends \yii\db\ActiveRecord
             'last_price_min' => '近期底价',
             'after_bargain_price' => '议价后价格(含税)',
             'name' => '请购人2',
-            'requisition_name' => '请购人',
+            'bargain' => '议价人',
             'commit_status' => '是否提交'
 
         ];
     }
 
-    public function  getRequisition_list(){
-        return $this->hasMany(RequisitionList::className(),['document_number' => 'tranid']);
-    }
 
     public function getTb_requisition_non_purchase(){
         return $this->hasOne(RequisitionNonPurchase::className(),['tranid' => 'tranid','item_name' => 'item_name']);
+    }
+
+    public function  getTb_lotnumbered_inventory_item(){
+        return $this->hasMany(LotnumberedInventoryItem::className(),['sku' =>'item_name']);
     }
 }

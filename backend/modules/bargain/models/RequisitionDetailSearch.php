@@ -19,7 +19,7 @@ class RequisitionDetailSearch extends RequisitionDetail
     {
         return [
             [['id', 'quantity','commit_status', 'audit_status'], 'integer'],
-            [['requisition_name','tran_internal_id', 'tranid', 'description', 'item_internal_id', 'item_name', 'povendor_internalid', 'povendor_name', 'createdate', 'lastmodifieddate', 'trandate', 'currencyname','negotiant', 'commit_time', 'audit_time'], 'safe'],
+            [['name','bargain','tran_internal_id', 'tranid', 'description', 'item_internal_id', 'item_name', 'povendor_internalid', 'povendor_name', 'createdate', 'lastmodifieddate', 'trandate', 'currencyname','negotiant', 'commit_time', 'audit_time'], 'safe'],
             [['amount', 'rate'], 'number'],
         ];
     }
@@ -46,22 +46,22 @@ class RequisitionDetailSearch extends RequisitionDetail
         $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
         if(array_key_exists('超级管理员',$role)){
             $query = RequisitionDetail::find()
-                ->select(['`requisition_detail`.*,`requisition_list`.requisition_name'])
-                ->joinWith('requisition_list')
-                ->joinWith('tb_requisition_non_purchase as np')
+                ->select(['`requisition_detail`.*,`np`.name,`m`.bargain'])
+                ->joinwith('tb_requisition_non_purchase as np')
+                ->joinwith('tb_lotnumbered_inventory_item as m')
                 ->where(['not',['np.tranid' =>null]])
 //                ->where(['commit_status' => 1])
-                ->orderBy('createdate desc');
+                ->orderby('createdate desc');
         }else{
-            $query = RequisitionDetail::find()
-                ->select(['`requisition_detail`.*,`requisition_list`.requisition_name'])
-                ->joinWith('requisition_list')
-
-                ->where(['negotiant'=>$username])
-                ->orderBy('createdate desc');
+            $query = requisitiondetail::find()
+                ->select(['`requisition_detail`.*,`np`.name,`m`.bargain'])
+                ->joinwith('tb_requisition_non_purchase as np')
+                ->joinwith('tb_lotnumbered_inventory_item as m')
+                ->where(['not',['np.tranid' =>null]])
+                ->andWhere(['`m`.bargain'=>$username])
+                ->orderby('createdate desc');
 
         }
-
 
         // add conditions that should always apply here
 
@@ -78,7 +78,7 @@ class RequisitionDetailSearch extends RequisitionDetail
         }
 
         // grid filtering conditions
-        $query->andFilterWhere([
+        $query->andfilterwhere([
             'id' => $this->id,
             'amount' => $this->amount,
             'quantity' => $this->quantity,
@@ -89,18 +89,19 @@ class RequisitionDetailSearch extends RequisitionDetail
             'audit_status' => $this->audit_status,
         ]);
 
-        $query->andFilterWhere(['like', 'tran_internal_id', $this->tran_internal_id])
-            ->andFilterWhere(['like', 'tranid', $this->tranid])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'item_internal_id', $this->item_internal_id])
-            ->andFilterWhere(['like', 'item_name', $this->item_name])
-            ->andFilterWhere(['like', 'povendor_internalid', $this->povendor_internalid])
-            ->andFilterWhere(['like', 'povendor_name', $this->povendor_name])
-            ->andFilterWhere(['like', 'createdate', $this->createdate])
-            ->andFilterWhere(['like', 'lastmodifieddate', $this->lastmodifieddate])
-            ->andFilterWhere(['like', 'trandate', $this->trandate])
-            ->andFilterWhere(['like', 'currencyname', $this->currencyname])
-            ->andFilterWhere(['like', 'requisition_name', $this->requisition_name])
+        $query->andfilterwhere(['like', 'tran_internal_id', $this->tran_internal_id])
+            ->andfilterwhere(['like', 'tranid', $this->tranid])
+            ->andfilterwhere(['like', 'description', $this->description])
+            ->andfilterwhere(['like', 'item_internal_id', $this->item_internal_id])
+            ->andfilterwhere(['like', 'item_name', $this->item_name])
+            ->andfilterwhere(['like', 'povendor_internalid', $this->povendor_internalid])
+            ->andfilterwhere(['like', 'povendor_name', $this->povendor_name])
+            ->andfilterwhere(['like', 'createdate', $this->createdate])
+            ->andfilterwhere(['like', 'lastmodifieddate', $this->lastmodifieddate])
+            ->andfilterwhere(['like', 'trandate', $this->trandate])
+            ->andfilterwhere(['like', 'currencyname', $this->currencyname])
+//            ->andFilterWhere(['like', 'name', $this->name])
+//            ->andFilterWhere(['like', 'bargain', $this->bargain])
             ->andFilterWhere(['like', 'negotiant', $this->negotiant]);
 
         return $dataProvider;
