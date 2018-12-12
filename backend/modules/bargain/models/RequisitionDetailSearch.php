@@ -44,7 +44,7 @@ class RequisitionDetailSearch extends RequisitionDetail
     {
         $username = Yii::$app->user->identity->username;
         $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
-        if(array_key_exists('超级管理员',$role)){
+        if(array_key_exists('超级管理员',$role)||array_key_exists('审核组',$role)){
             $query = RequisitionDetail::find()
                 ->select(['`requisition_detail`.*,`np`.name,`m`.bargain'])
                 ->joinwith('tb_requisition_non_purchase as np')
