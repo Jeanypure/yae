@@ -268,18 +268,17 @@ class ObtainDataController extends Controller
         $inventory_item = [];
         if(isset($numbered_arr)&&!empty($numbered_arr)){
             foreach ($numbered_arr as $key=>$value){
-                $item['internalid'] = $value['id'];
-                $item['sku'] = $value['values']['itemid'];
-                $item['property'] = $value['values']['custitem20'];
-                if(strpos($value['values']['custitem20'],'-') !== false){
-                    $item['bargain'] = ltrim(strstr($value['values']['custitem20'],'-'),'-');
+                $item['sku'] = $value['itemid'];
+                $item['property'] = $value['owner'];
+                if(strpos($value['owner'],'-') !== false){
+                    $item['bargain'] = ltrim(strstr($value['owner'],'-'),'-');
                 }else{
-                    $item['bargain'] = $value['values']['custitem20'];
+                    $item['bargain'] = $value['owner'];
                 }
-                $sql = "select count(*) as num from tb_lotnumbered_inventory_item where internalid = '$value[id]'";
+                $sql = "select count(*) as num from tb_lotnumbered_inventory_item where sku= '$value[itemid]'";
                 $has = Yii::$app->db->createCommand($sql)->queryOne();
                 if($has['num']){
-                    $update_sql = "update tb_lotnumbered_inventory_item set sku= '$item[sku]',property='$item[property]',bargain='$item[bargain]' where internalid='$value[id]'";
+                    $update_sql = "update tb_lotnumbered_inventory_item set property='$item[property]',bargain='$item[bargain]' where sku='$value[sku]'";
                     $update_res = Yii::$app->db->createCommand($update_sql)->execute();
                 }else{
                     $inventory_item[] = $item;
@@ -289,7 +288,7 @@ class ObtainDataController extends Controller
         }
 
         $table = 'tb_lotnumbered_inventory_item';
-        $column = ['internalid','sku','property','bargain'];
+        $column = ['sku','property','bargain'];
         $result = Yii::$app->db->createCommand()->batchInsert($table,$column,$inventory_item)->execute();
         return $result;
 
