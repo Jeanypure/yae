@@ -29,7 +29,6 @@ class LotnumberedInventoryItem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['internalid'], 'string', 'max' => 11],
             [['sku', 'property'], 'string', 'max' => 30],
             [['bargain'], 'string', 'max' => 20],
         ];
@@ -42,7 +41,6 @@ class LotnumberedInventoryItem extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'internalid' => 'Internalid',
             'sku' => 'SKU',
             'property' => '产品所属开发人',
             'bargain' => '议价人',

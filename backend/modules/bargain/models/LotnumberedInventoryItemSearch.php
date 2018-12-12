@@ -19,7 +19,7 @@ class LotnumberedInventoryItemSearch extends LotnumberedInventoryItem
     {
         return [
             [['id'], 'integer'],
-            [['internalid', 'sku', 'property', 'bargain'], 'safe'],
+            [[ 'sku', 'property', 'bargain'], 'safe'],
         ];
     }
 
@@ -62,8 +62,7 @@ class LotnumberedInventoryItemSearch extends LotnumberedInventoryItem
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'internalid', $this->internalid])
-            ->andFilterWhere(['like', 'sku', $this->sku])
+        $query->andFilterWhere(['like', 'sku', $this->sku])
             ->andFilterWhere(['like', 'property', $this->property])
             ->andFilterWhere(['like', 'bargain', $this->bargain]);
 

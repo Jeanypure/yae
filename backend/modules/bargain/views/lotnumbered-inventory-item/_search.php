@@ -17,8 +17,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'internalid') ?>
-
     <?= $form->field($model, 'sku') ?>
 
     <?= $form->field($model, 'property') ?>
