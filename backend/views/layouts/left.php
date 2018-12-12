@@ -8,11 +8,11 @@ use mdm\admin\components\MenuHelper;
 $username = Yii::$app->user->identity->username;
 
 $sql = "CALL proc_SelectTaskNum ('$username')";
-//$status_result = yii::$app->db->createCommand($sql)->queryAll();
-/*$status_map = [];
+$status_result = yii::$app->db->createCommand($sql)->queryAll();
+$status_map = [];
 foreach ($status_result as $res){
     $status_map[$res['task_name']] = $res['task_num'];
-}*/
+}
 
 $callback = function($menu){
     $data = json_decode($menu['data'], true);
@@ -57,7 +57,10 @@ $callback = function($menu){
 </aside>
 
 <?php
-/*$("a span:contains('销售推荐')").after('<sup class="label label-default">{$status_map["销售推荐"]}</sup>');
+//注册JS 为每个模块加数量
+$JS = <<< JS
+//找到产品推荐模块并追加<span>
+    $("a span:contains('销售推荐')").after('<sup class="label label-default">{$status_map["销售推荐"]}</sup>');
     $("a span:contains('产品分部1')").after('<sup class="label label-primary">{$status_map["产品分部1"]}</sup>');
     $("a span:contains('公示列表1')").after('<sup class="label label-danger">{$status_map["公示列表1"]}</sup>');
     $("a span:contains('产品分部2')").after('<sup class="label label-info">{$status_map["产品分部2"]}</sup>');
@@ -70,15 +73,11 @@ $callback = function($menu){
     $("a span:contains('部长审批')").after('<sup class="label label-warning">{$status_map["部长审批"]}</sup>');
     $("a span:contains('财务付款')").after('<sup class="label label-success">{$status_map["财务付款"]}</sup>');
     $("a span:contains('议价产品列表')").after('<sup class="label label-primary">{$status_map["议价产品列表"]}</sup>');
-    $("a span:contains('审核议价产品')").after('<sup class="label label-success">{$status_map["审核议价产品"]}</sup>');*/
-//注册JS 为每个模块加数量
-$JS = <<< JS
-//找到产品推荐模块并追加<span>
-    
+    $("a span:contains('审核议价产品')").after('<sup class="label label-success">{$status_map["审核议价产品"]}</sup>');
 
     
 JS;
-//$this->registerJs($JS);
+$this->registerJs($JS);
 
 ?>
 
