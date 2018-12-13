@@ -42,12 +42,10 @@ class RequisitionRequestController extends Controller
 
      public function actionMultiRequest($startDate,$endDate){
          if(empty($startDate)&&empty($endDate)){
-             $startDate = date('Y-m-d',strtotime('-40 day'));
-             $endDate = date('Y-m-d');
+             $startDate = date('Y-m-d H:i:s',strtotime('-40 day'));
+             $endDate = date('Y-m-d H:i:s');
          }
-         $sql = "select internal_id from requisition_list where internal_id NOT in(
-SELECT DISTINCT tran_internal_id FROM requisition_detail
-) ;";
+         $sql = "select internal_id from requisition_list where requisition_date between '$startDate' and  '$endDate';";
          $idSet = Yii::$app->db->createCommand($sql)->queryAll();
          $ids = array_column($idSet,'internal_id');
          $multiCurl = [];
