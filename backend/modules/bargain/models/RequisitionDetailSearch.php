@@ -63,6 +63,8 @@ class RequisitionDetailSearch extends RequisitionDetail
 
         }
 
+
+        echo $query->createCommand()->getRawSql();
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

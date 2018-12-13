@@ -116,7 +116,7 @@ class RequisitionDetail extends \yii\db\ActiveRecord
 
 
     public function getTb_requisition_non_purchase(){
-        return $this->hasOne(RequisitionNonPurchase::className(),['tranid' => 'tranid','item_name' => 'item_name']);
+        return $this->hasOne(RequisitionNonPurchase::className(),['tranid' => 'tranid','sku' => 'item_name']);
     }
 
     public function  getTb_lotnumbered_inventory_item(){
