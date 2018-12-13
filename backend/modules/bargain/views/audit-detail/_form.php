@@ -51,7 +51,7 @@ use yii\helpers\Url;
                     'type' =>Form::INPUT_DROPDOWN_LIST,
                     'items' =>['','票到付款','先预付再开票再付尾款','先付款后开票']
                 ],
-                'arrival_date'=>['type'=>Form::INPUT_TEXT],
+//                'arrival_date'=>['type'=>Form::INPUT_TEXT],
             ],
 
         ]);
