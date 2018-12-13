@@ -278,7 +278,8 @@ class ObtainDataController extends Controller
                 $sql = "select count(*) as num from tb_lotnumbered_inventory_item where sku= '$value[itemid]'";
                 $has = Yii::$app->db->createCommand($sql)->queryOne();
                 if($has['num']){
-                    $update_sql = "update tb_lotnumbered_inventory_item set property='$item[property]',bargain='$item[bargain]' where sku='$value[sku]'";
+//                    continue;
+                    $update_sql = "update tb_lotnumbered_inventory_item set property='$item[property]',bargain='$item[bargain]' where sku='$value[itemid]'";
                     $update_res = Yii::$app->db->createCommand($update_sql)->execute();
                 }else{
                     $inventory_item[] = $item;
