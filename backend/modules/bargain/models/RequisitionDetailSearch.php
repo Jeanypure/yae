@@ -62,9 +62,6 @@ class RequisitionDetailSearch extends RequisitionDetail
                 ->orderby('createdate desc');
 
         }
-
-
-        echo $query->createCommand()->getRawSql();
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
