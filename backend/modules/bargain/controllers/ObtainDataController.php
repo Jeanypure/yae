@@ -233,7 +233,7 @@ class ObtainDataController extends Controller
             $record['tranid'] = $value['values']['tranid'];
             $record['name'] = $value['values']['employee.altname'];
             $record['amount'] = $value['values']['amount'];
-            $record['description'] = $value['values']['memo'];
+            $record['description2'] = $value['values']['memo'];
             $record['item_internal_id'] = $value['values']['item'][0]['value'];
             $record['sku'] = $value['values']['item'][0]['text'];
             $record['quantity'] = $value['values']['quantity'];
@@ -247,7 +247,7 @@ class ObtainDataController extends Controller
             $record_set[] = $record;
         }
         $table = 'tb_requisition_non_purchase';
-        $column = ['tran_internal_id','tranid','name','amount','description','item_internal_id','sku','quantity','createdate'];
+        $column = ['tran_internal_id','tranid','name','amount','description2','item_internal_id','sku','quantity','createdate'];
         if(isset($record_set)){
             $response = Yii::$app->db->createCommand()->batchInsert($table,$column,$record_set)->execute();
             return $response;
