@@ -239,7 +239,7 @@ class ObtainDataController extends Controller
             $record['quantity'] = $value['values']['quantity'];
             $record['createdate'] = $value['values']['trandate'];
             //存在更新 不存在插入
-            $sql = "select count(*) as num from tb_requisition_non_purchase where tran_internal_id='$value[id]' and item_name = '$record[item_name]'";
+            $sql = "select count(*) as num from tb_requisition_non_purchase where tran_internal_id='$value[id]' and sku = '$record[sku]'";
             $num = Yii::$app->db->createCommand($sql)->queryOne();
             if ($num['num']){
                 continue;
