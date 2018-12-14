@@ -61,7 +61,6 @@ class RequisitionDetailSearch extends RequisitionDetail
                 ->select(['`l`.id,`l`.tran_internal_id,`l`.tranid,`l`.item_name,`l`.povendor_internalid,
                 `l`.povendor_name,`l`.quantity,`l`.description,`l`.createdate,
                 `np`.name,`m`.bargain'])
-                ->select(['`requisition_detail`.*,`np`.name,`m`.bargain'])
                 ->joinwith('tb_requisition_non_purchase as np')
                 ->joinwith('tb_lotnumbered_inventory_item as m')
                 ->where(['not',['np.tranid' =>null]])
