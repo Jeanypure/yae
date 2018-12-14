@@ -46,20 +46,27 @@ class RequisitionDetailSearch extends RequisitionDetail
         $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
         if(array_key_exists('超级管理员',$role)||array_key_exists('审核组',$role)){
             $query = RequisitionDetail::find()
-                ->select(['`requisition_detail`.*,`np`.name,`m`.bargain'])
+                ->alias('l')
+                ->select(['`l`.id,`l`.tran_internal_id,`l`.tranid,`l`.item_name,`l`.povendor_internalid,
+                `l`.povendor_name,`l`.quantity,`l`.description,`l`.createdate,
+                `np`.name,`m`.bargain'])
                 ->joinwith('tb_requisition_non_purchase as np')
                 ->joinwith('tb_lotnumbered_inventory_item as m')
                 ->where(['not',['np.tranid' =>null]])
 //                ->where(['commit_status' => 1])
-                ->orderby('createdate desc');
+                ->orderby('l.createdate desc');
         }else{
             $query = requisitiondetail::find()
+                ->alias('l')
+                ->select(['`l`.id,`l`.tran_internal_id,`l`.tranid,`l`.item_name,`l`.povendor_internalid,
+                `l`.povendor_name,`l`.quantity,`l`.description,`l`.createdate,
+                `np`.name,`m`.bargain'])
                 ->select(['`requisition_detail`.*,`np`.name,`m`.bargain'])
                 ->joinwith('tb_requisition_non_purchase as np')
                 ->joinwith('tb_lotnumbered_inventory_item as m')
                 ->where(['not',['np.tranid' =>null]])
                 ->andWhere(['`m`.bargain'=>$username])
-                ->orderby('createdate desc');
+                ->orderby('l.createdate desc');
 
         }
         // add conditions that should always apply here
