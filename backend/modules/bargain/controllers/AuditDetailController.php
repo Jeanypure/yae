@@ -3,6 +3,7 @@
 namespace backend\modules\bargain\controllers;
 
 
+use backend\modules\bargain\models\LotnumberedInventoryItem;
 use Yii;
 use backend\modules\bargain\models\RequisitionDetail;
 use backend\modules\bargain\models\VendorDetail;
@@ -134,6 +135,7 @@ class AuditDetailController extends Controller
      */
     public function  actionPostItem($id){
     $model = $this->findModel($id);
+    $negotiant = LotnumberedInventoryItem::find()->select(['bargain'])->where(['sku'=>$model->item_name])->one();
     $record = [];
     $record['id'] = $model->tran_internal_id;
     $record['tranid'] = $model->tranid;
@@ -142,7 +144,7 @@ class AuditDetailController extends Controller
     $internalItem['internalid'] = $model->item_internal_id;
     $internalItem['name'] = $model->item_name;
     $lineItem['custcol_after_bargain'] = $model->after_bargain_price;
-    $lineItem['custcol_negotiant'] = $model->negotiant;
+    $lineItem['custcol_negotiant'] = $negotiant->bargain;
     $lineItem['custbodym_contract_types'] = false;
     $lineItem['item']  = $internalItem;
     $externalItems[] = $lineItem;
