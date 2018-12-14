@@ -131,11 +131,23 @@ class RequisitionRequestController extends Controller
                          $record[] = $v['quantity'];
                          $record[] = empty($v['rate'])?$v['rate']:0;
                          $record[] = $value['createddate'];
+                         $sql = "select count(*) as num from requisition_detail
+                           where tran_internal_id='$value[id]' and item_name='".$v['item']['name']."' and quantity=$v[quantity]";
+                         $resNum = Yii::$app->db->createCommand($sql)->queryOne();
+                         if($resNum['num']){
+                             unset($record);
+                           continue;
+                         }
+
                          $recordArr[]  = $record;
                          unset($record);
+
                      }
-                     $res =  Yii::$app->db->createCommand()->batchInsert($tableName,$columnKey,$recordArr)->execute();
-                     unset($recordArr);
+                     if(isset($recordArr)&&!empty($recordArr)){
+                         $res =  Yii::$app->db->createCommand()->batchInsert($tableName,$columnKey,$recordArr)->execute();
+                         unset($recordArr);
+                     }
+
                  }
              }
          }
