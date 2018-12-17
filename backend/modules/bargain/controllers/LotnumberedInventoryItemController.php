@@ -85,13 +85,20 @@ class LotnumberedInventoryItemController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $sql = "SELECT DISTINCT negotiant from tb_negotiant where negotiant is NOT NULL AND negotiant <> ''";
+        $rest = Yii::$app->db->createCommand($sql)->queryAll();
+        $negotiant = [];
+        foreach ($rest as $key=>$value){
+            $negotiant[$value['negotiant']] = $value['negotiant'];
+        }
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'negotiant' =>$negotiant
         ]);
     }
 
