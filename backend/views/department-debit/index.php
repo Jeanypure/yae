@@ -116,7 +116,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'receiver',
                 'value' => function($model) {
-                    $company = [ '1' => '大森林', '2' => '珑瑗', '3' => '昊宏', '4' => '安泰克', '5' => '文鼎','6'=>'龙辕'];
+                    $company = [ '1' => '大森林', '2' => '珑瑗', '3' => '昊宏', '4' => '安泰克', '5' => '文鼎','6'=>'龙辕','7'=>'瀚明'];
                     return $company[$model->receiver];
                 },
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
@@ -125,7 +125,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>[ '1' => '大森林', '2' => '珑瑗', '3' => '昊宏', '4' => '安泰克', '5' => '文鼎','6'=>'龙辕'],
+                'filter'=>[ '1' => '大森林', '2' => '珑瑗', '3' => '昊宏', '4' => '安泰克', '5' => '文鼎','6'=>'龙辕','7'=>'瀚明'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
