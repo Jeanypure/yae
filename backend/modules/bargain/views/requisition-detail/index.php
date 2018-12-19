@@ -27,7 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn',
                 'header' =>'操作',
                 'template' => '{update}'
-            ], [
+            ],
+            [
                 'attribute'=>'commit_status',
                 'value' => function($model) { if($model->commit_status==1){return '是';}else{ return '否';} },
                 'contentOptions'=> ['style' => 'width:5%; word-wrap: break-word;white-space:pre-line;'],
@@ -38,6 +39,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'提交状态'],
+            ],
+            [
+                'attribute'=>'audit_status',
+                'value' => function($model) { if($model->audit_status==1){return '是';}else{ return '否';} },
+                'contentOptions'=> ['style' => 'width:5%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>[ 0 => '否',1 => '是'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'审核?'],
             ],
             'item_name',
             'description',

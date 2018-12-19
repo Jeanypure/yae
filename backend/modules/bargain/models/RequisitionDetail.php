@@ -109,7 +109,8 @@ class RequisitionDetail extends \yii\db\ActiveRecord
             'after_bargain_price' => '议价后价格(含税)',
             'name' => '请购人2',
             'bargain' => '议价人',
-            'commit_status' => '是否提交'
+            'commit_status' => '提交?',
+            'audit_status' => '审核?'
 
         ];
     }

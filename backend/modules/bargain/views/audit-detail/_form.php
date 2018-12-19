@@ -26,7 +26,7 @@ use yii\helpers\Url;
                 'quantity'=>['type'=>Form::INPUT_STATIC],
                 'last_price_min'=>['type'=>Form::INPUT_STATIC],
                 'name'=>['type'=>Form::INPUT_STATIC],
-                'after_bargain_price'=>['type'=>Form::INPUT_TEXT],
+                'after_bargain_price'=>['type'=>Form::INPUT_STATIC],
 
 
 
@@ -39,11 +39,11 @@ use yii\helpers\Url;
             'columns'=>4,
             'contentBefore'=>'<legend class="text-info"><h3>2.供应商信息</h3></legend>',
             'attributes'=>[       // 3 column layout
-                'supplier_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'supplier_name'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'contact_name'=>['type'=>Form::INPUT_TEXT, ],
-                'contact_tel'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-                'contact_qq'=>['type'=>Form::INPUT_TEXT ],
+                'supplier_code'=>['type'=>Form::INPUT_STATIC, 'options'=>['placeholder'=>'']],
+                'supplier_name'=>['type'=>Form::INPUT_STATIC, 'options'=>['placeholder'=>'']],
+                'contact_name'=>['type'=>Form::INPUT_STATIC, ],
+                'contact_tel'=>['type'=>Form::INPUT_STATIC, 'options'=>['placeholder'=>'']],
+                'contact_qq'=>['type'=>Form::INPUT_STATIC],
                 'bill_type'=>['type'=>Form::INPUT_DROPDOWN_LIST,
                     'items'=>['16%专票'=>'16%专票','增值税普通普票'=>'增值税普通普票', '3%专票'=>'3%专票'],
                     'options'=>['placeholder'=>'']],

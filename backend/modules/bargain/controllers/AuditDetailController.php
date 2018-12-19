@@ -8,7 +8,7 @@ use Yii;
 use backend\modules\bargain\models\RequisitionDetail;
 use backend\modules\bargain\models\VendorDetail;
 use backend\modules\bargain\models\VendorDetailCopy;
-use backend\modules\bargain\models\RequisitionDetailSearch;
+use backend\modules\bargain\models\AuditDetailSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -39,7 +39,7 @@ class AuditDetailController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new RequisitionDetailSearch();
+        $searchModel = new AuditDetailSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

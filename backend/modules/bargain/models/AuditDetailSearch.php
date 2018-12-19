@@ -9,7 +9,7 @@ use yii\data\ActiveDataProvider;
 /**
  * RequisitionDetailSearch represents the model behind the search form of `backend\modules\bargain\models\RequisitionDetail`.
  */
-class RequisitionDetailSearch extends RequisitionDetail
+class AuditDetailSearch extends RequisitionDetail
 {
     /**
      * {@inheritdoc}
@@ -54,6 +54,7 @@ class RequisitionDetailSearch extends RequisitionDetail
                 ->where(['not',['np.tranid' =>null]])
 //                ->where(['commit_status' => 1])
                 ->orderby('l.createdate desc');
+
         }else{
             $query = RequisitionDetail::find()
                 ->alias('l')
@@ -72,6 +73,8 @@ class RequisitionDetailSearch extends RequisitionDetail
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        $this->commit_status = 1;
+        $this->audit_status = 0;
         $this->load($params);
 
         if (!$this->validate()) {
