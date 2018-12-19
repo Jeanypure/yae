@@ -51,9 +51,9 @@ class PurInfoTrackSearch extends PurInfo
                     `pur_info`.pur_info_id,
                     `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
                     `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
-                    `pur_info`.sample_submit1,`pur_info`.is_quality,`pur_info`.submit1_at,
-                    `pur_info`.payer,`pur_info`.has_pay,`pur_info`.pay_at,`pur_info`.submit2_at,`pur_info`.sample_return,
-                    `pur_info`.is_purchase,
+                   `sample`.sample_submit1,`pur_info`.is_quality,`pur_info`.submit1_at,
+                   `sample`.payer,`pur_info`.has_pay,`pur_info`.pay_at,`pur_info`.submit2_at,`pur_info`.sample_return,
+                   `sample`.is_purchase,
                     `sample`.write_date,`sample`.spur_info_id,`sample`.create_date,
                     `sample`.is_agreest,`sample`.pd_sku,`sample`.purchaser_result'])
                 ->joinWith('sample')
@@ -68,9 +68,9 @@ class PurInfoTrackSearch extends PurInfo
                     `pur_info`.pur_info_id,
                     `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
                     `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
-                    `pur_info`.sample_submit1,`pur_info`.is_quality,`pur_info`.submit1_at, 
-                    `pur_info`.payer,`pur_info`.has_pay,`pur_info`.pay_at,`pur_info`.submit2_at, `pur_info`.sample_return, 
-                    `pur_info`.is_purchase,
+                    `sample`.sample_submit1,`pur_info`.is_quality,`pur_info`.submit1_at,
+                   `sample`.payer,`pur_info`.has_pay,`pur_info`.pay_at,`pur_info`.submit2_at,`pur_info`.sample_return,
+                   `sample`.is_purchase,
                     `sample`.write_date, `sample`.spur_info_id,`sample`.create_date,`sample`.is_agreest,`sample`.pd_sku,
                     `sample`.purchaser_result'])
                 ->joinWith('sample')
@@ -81,7 +81,7 @@ class PurInfoTrackSearch extends PurInfo
                 ->orderBy('pur_info_id desc')
             ;
         }
-        $this->sample_submit1 = 0;
+//        $this->sample_submit1 = 0;
 
 //            echo  $query->createCommand()->getRawSql();die;
         // add conditions that should always apply here
