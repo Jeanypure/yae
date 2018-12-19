@@ -72,6 +72,7 @@ class RequisitionDetailSearch extends RequisitionDetail
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        $this->commit_status = 0;
         $this->load($params);
 
         if (!$this->validate()) {
