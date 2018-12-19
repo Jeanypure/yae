@@ -52,7 +52,7 @@ class RequisitionDetailSearch extends RequisitionDetail
                 ->joinwith('tb_requisition_non_purchase as np')
                 ->joinwith('tb_lotnumbered_inventory_item as m')
                 ->where(['not',['np.tranid' =>null]])
-//                ->where(['commit_status' => 1])
+                ->andwhere(['>','`l`.quantity',1])
                 ->orderby('l.createdate desc');
         }else{
             $query = RequisitionDetail::find()
@@ -64,6 +64,7 @@ class RequisitionDetailSearch extends RequisitionDetail
                 ->joinwith('tb_lotnumbered_inventory_item as m')
                 ->where(['not',['np.tranid' =>null]])
                 ->andWhere(['`m`.bargain'=>$username])
+                ->andwhere(['>','`l`.quantity',1])
                 ->orderby('l.createdate desc');
 
         }
@@ -72,7 +73,7 @@ class RequisitionDetailSearch extends RequisitionDetail
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-        $this->commit_status = 0;
+//        $this->commit_status = 0;
         $this->load($params);
 
         if (!$this->validate()) {
