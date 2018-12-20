@@ -44,8 +44,9 @@ class PurInfoTrackSearch extends PurInfo
      */
     public function search($params)
     {
-        $username =  Yii::$app->user->identity->username;
-        if($username=='Jenny'||$username=='David'||$username=='Mark'){
+        $username = Yii::$app->user->identity->username;
+        $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
+        if(array_key_exists('超级管理员',$role)||array_key_exists('审核组',$role)){
             $query = PurInfo::find()
                 ->select(['
                     `pur_info`.pur_info_id,

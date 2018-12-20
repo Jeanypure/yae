@@ -42,7 +42,8 @@ class YaeFreightSearch extends YaeFreight
     public function search($params)
     {
         $username = Yii::$app->user->identity->username;
-        if($username=='Jenny'||$username=='Winnie'||$username=='David'||$username=='Mark'){
+        $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
+        if(array_key_exists('超级管理员',$role)||array_key_exists('审核组',$role)){
             $query = YaeFreight::find()
                 ->orderBy('id desc')
             ;

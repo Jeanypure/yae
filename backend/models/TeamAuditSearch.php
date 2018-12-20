@@ -43,16 +43,13 @@ class TeamAuditSearch extends PurInfo
     public function search($params)
     {
         $username = Yii::$app->user->identity->username;
-
-
-        if($username == 'Jenny'||$username == 'David'||$username == 'admin'){
+        $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
+        if(array_key_exists('超级管理员',$role)||array_key_exists('审核组',$role)){
             $query = PurInfo::find()
-
                 ->andWhere(['junior_submit'=>1])
                 ->orderBy('pur_info_id desc')
             ;
         }else{
-
             $code = Yii::$app->db->createCommand("
         select code from purchaser where purchaser= '$username'
         ")->queryOne();

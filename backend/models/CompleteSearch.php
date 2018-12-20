@@ -42,9 +42,9 @@ class CompleteSearch extends PurInfo
      */
     public function search($params)
     {
-        $username = Yii::$app->user->getIdentity()->username;
-
-        if($username=='admin'||$username=='Jenny'||$username=='David'){
+        $username = Yii::$app->user->identity->username;
+        $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
+        if(array_key_exists('超级管理员',$role)||array_key_exists('审核组',$role)){
             $query = PurInfo::find()
                 ->andWhere(['source'=>0 ])
             ;

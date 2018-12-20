@@ -43,8 +43,8 @@ class JuniorPurInfoSearch extends PurInfo
     public function search($params)
     {
         $username = Yii::$app->user->identity->username;
-
-        if($username=='admin'||$username=='Jenny'||$username=='David'){
+        $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
+        if(array_key_exists('超级管理员',$role)||array_key_exists('审核组',$role)){
             $query = PurInfo::find()->orderBy('pur_info_id desc');
 
         }else{

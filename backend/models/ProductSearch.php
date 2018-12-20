@@ -43,8 +43,8 @@ class ProductSearch extends Product
     public function search($params,$sub_company)
     {
         $creator = Yii::$app->user->identity->username;
-
-        if($creator=='Jenny'||$creator=='admin'||$creator=='David'){
+        $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
+        if(array_key_exists('超级管理员',$role)||array_key_exists('审核组',$role)){
             $query = Product::find()
                 ->orderBy('product_id desc');
         }else{
