@@ -266,4 +266,11 @@ class PurInfoTrackController extends Controller
 
     }
 
+    /**
+     * 重新拿样产品
+     * 复制后标记下
+     */
+    public  function actionResample(){
+//        $sql = "";
+    }
 }
