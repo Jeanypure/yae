@@ -9,8 +9,7 @@ use kartik\daterange\DateRangePicker;
 /* @var $searchModel backend\models\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-//$this->title = Yii::t('app', 'Products');
-$this->title = '销售推荐';
+$this->title = '1销售推荐';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-index">
@@ -124,8 +123,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'分部状态'],
-//                'group'=>true,  // enable grouping
-
             ],
             [
                 'attribute'=>'sub_company',
