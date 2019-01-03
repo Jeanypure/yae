@@ -41,6 +41,10 @@ class ObtainDataController extends Controller
 
     public function  actionToList(){
        $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=176&deploy=1';
+       $dateto = date('Y/m/d',time());
+       $datefrom = date('Y/m/d',strtotime("-40 day"));
+       $time_range = '&datefrom='.$datefrom.'&dateto='.$dateto;
+       $url = $url.$time_range;
        $result = $this->actionDoCurl($url);
        $requisition_arr = json_decode($result,true);
        if($requisition_arr['message']=='OK'&&$requisition_arr['code']==0){
