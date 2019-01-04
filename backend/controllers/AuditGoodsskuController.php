@@ -115,176 +115,6 @@ class AuditGoodsskuController extends Controller
     }
 
 
-
-
-    public function actionExport($id = null)
-    {
-        $objPHPExcel = new \PHPExcel();
-        $header = [
-            'A1' => '产品SKU',
-            'B1' => '产品名称',
-            'C1' => '产品英文名称',
-            'D1' => '产品品类（代码）',
-            'E1' => '重量',
-            'F1' => '长',
-            'G1' => '宽',
-            'H1' => '高',
-            'I1' => '海关申报代码',
-            'J1' => '英文申报品名',
-            'K1' => '中文申报品名',
-            'L1' => '申报价值',
-            'M1' => '申报币种',
-            'N1' => '采购价',
-            'O1' => '采购币种',
-            'P1' => '默认供应商代码',
-            'Q1' => '销售价格',
-            'R1' => '销售运费',
-            'S1' => '建立原因',
-            'T1' => '供应商产品地址',
-            'U1' => '供应商品号',
-            'V1' => '款式代码',
-            'W1' => '成品',
-            'X1' => '运营方式',
-            'Y1' => '贴标容易度',
-            'Z1' => '产品销售状态',
-            'AA1' => '销售负责人',
-            'AB1' => '开发负责人',
-            'AC1' => '自定义分类',
-            'AD1' => '是否需要质检',
-            'AE1' => '组织机构（代码）',
-            'AF1' => '申报说明',
-            'AG1' => '是否包含电池',
-            'AH1' => '是否为仿制品',
-            'AI1' => '最小采购量',
-            'AJ1' => '交期',
-            'AK1' => '中文描述',
-            'AL1' => '英文描述',
-            'AM1' => '净重',
-            'AN1' => 'EAN码',
-            'AO1' => '产品单位代码',
-            'AQ1' => 'UPC码',
-
-        ];
-        //设置表格头的输出
-        foreach ($header as $key => $value) {
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue("$key", "$value");
-        }
-           $sql = "
-                    SELECT 
-                        g.sku,g.pd_title,g.pd_title_en,g.pd_weight,g.pd_length,g.pd_width,g.pd_height,
-                        g.declared_value,g.currency_code,g.pd_costprice,g.pd_costprice_code,g.vendor_code,s.bill_name,s.bill_unit
-                        FROM goodssku g LEFT JOIN sku_vendor s ON g.sku_id=s.sku_id  AND g.vendor_code = s.vendor_code  
-                    where  g.sku_id in ($id)
-                    ;
-            ";
-        $data = Yii::$app->db->createCommand($sql)->queryAll();
-        $company = Yii::$app->db->createCommand("select sub_company,memo from company")->queryAll();
-        $company_arr = [];
-        foreach ($company as $key => $val) {
-            $company_arr[$val['sub_company']] = $val['memo'];
-        }
-
-
-        foreach ($data as $k => $v) {
-            $num = 2;
-            $num = $num + $k;
-            $objPHPExcel->setActiveSheetIndex(0)
-                //Excel的第A列，uid是你查出数组的键值，下面以此类推
-                ->setCellValue('A' . $num, $v['sku'])
-                ->setCellValue('B' . $num, $v['pd_title'])
-                ->setCellValue('C' . $num, $v['pd_title_en'])
-                ->setCellValue('E' . $num, $v['pd_weight'])
-                ->setCellValue('F' . $num, $v['pd_length'])
-                ->setCellValue('G' . $num, $v['pd_width'])
-                ->setCellValue('H' . $num, $v['pd_height'])
-                ->setCellValue('J' . $num, $v['pd_title_en'])
-                ->setCellValue('K' . $num, $v['pd_title'])
-                ->setCellValue('L' . $num, $v['declared_value'])
-                ->setCellValue('M' . $num, $v['currency_code'])
-                ->setCellValue('N' . $num, $v['pd_costprice'])
-                ->setCellValue('O' . $num, $v['pd_costprice_code'])
-                ->setCellValue('P' . $num, $v['vendor_code'])
-                ->setCellValue('U' . $num, $v['bill_name'].'/'.$v['bill_unit'])
-            ;
-        }
-
-        //设置工作簿的名称
-        $objPHPExcel->getActiveSheet()->setTitle('产品');
-
-
-        //创建第二个工作表
-        $msgWorkSheet = new \PHPExcel_Worksheet($objPHPExcel, '产品图片'); //创建2个工作表
-        $objPHPExcel->addSheet($msgWorkSheet); //插入工作表
-        $objPHPExcel->setActiveSheetIndex(1); //切换到新创建的工作表
-        $header_arr2 = [
-            'A1' => '产品SKU',
-            'B1' => '图片URL',
-            'C1' => '是否主图(Y/N)'
-        ];
-        //设置表格头的输出
-        foreach($header_arr2 as $key=>$value){
-            $objPHPExcel->setActiveSheetIndex(1)->setCellValue("$key", "$value");
-        }
-
-        //创建第3个工作表
-        $msgWorkSheet = new \PHPExcel_Worksheet($objPHPExcel, '产品包材'); //创建3个工作表
-        $objPHPExcel->addSheet($msgWorkSheet); //插入工作表
-        $objPHPExcel->setActiveSheetIndex(2); //切换到新创建的工作表
-        $header_arr3 = [
-            'A1' => '产品SKU',
-            'B1' => '包材代码',
-            'C1' => '包材数量',
-            'D1' => '仓库代码',
-        ];
-        //设置表格头的输出
-        foreach($header_arr3 as $key=>$value){
-            $objPHPExcel->setActiveSheetIndex(2)->setCellValue("$key", "$value");
-        }
-
-        //创建第4个工作表
-        $msgWorkSheet = new \PHPExcel_Worksheet($objPHPExcel, '基础数据（供应商_产品单位）'); //创建4个工作表
-        $objPHPExcel->addSheet($msgWorkSheet); //插入工作表
-        $objPHPExcel->setActiveSheetIndex(3); //切换到新创建的工作表
-        $header_arr4 = [
-            'A1' => '供应商代码',
-            'B1' => '供应商名称',
-            'D1' => '产品单位代码',
-            'E1' => '产品单位名称',
-        ];
-        //设置表格头的输出
-        foreach($header_arr4 as $key=>$value){
-            $objPHPExcel->setActiveSheetIndex(3)->setCellValue("$key", "$value");
-        }
-
-        //创建第5个工作表
-        $msgWorkSheet = new \PHPExcel_Worksheet($objPHPExcel, '基础数据（产品品类）'); //创建5个工作表
-        $objPHPExcel->addSheet($msgWorkSheet); //插入工作表
-        $objPHPExcel->setActiveSheetIndex(4); //切换到新创建的工作表
-        $header_arr5 = [
-            'A1' => '品类ID',
-            'B1' => '等级',
-            'C1' => '品类中文名称',
-            'D1' => '品类英文名称',
-        ];
-        //设置表格头的输出
-        foreach($header_arr5 as $key=>$value){
-            $objPHPExcel->setActiveSheetIndex(4)->setCellValue("$key", "$value");
-        }
-
-        $this->actionMendEccang($id);
-
-        //数据结束
-        $filename = date('Y-m-d')."导产品到易仓.xls";
-        ob_end_clean();
-        ob_start();
-        header('Content-Type: application/vnd.ms-excel');
-        header("Content-Disposition: attachment;filename=$filename");
-        header('Cache-Control: max-age=0');
-        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-        $objWriter->save('php://output');
-
-    }
-
     /**
      * @param $id
      * @return array|string
@@ -301,8 +131,10 @@ class AuditGoodsskuController extends Controller
                     g.declaration_item_key5,g.declaration_item_value5,g.declaration_item_key6,g.declaration_item_value6,
                     g.declaration_item_key7,g.declaration_item_value7,g.declaration_item_key8,g.declaration_item_value8,
                     g.declaration_item_key9,g.declaration_item_value9,g.material,g.use,
-                    s.brand,s.bill_name,s.bill_unit,s.origin_code
+                    s.brand,s.bill_name,s.bill_unit,s.origin_code,
+                    o.url_1688
                     FROM goodssku g LEFT JOIN sku_vendor s ON g.sku_id=s.sku_id  AND g.vendor_code = s.vendor_code  
+                    LEFT JOIN pur_info o ON o.pur_info_id=g.pur_info_id
                 where  g.sku_id = $id ";
        $result =  Yii::$app->db->createCommand("$sql")->queryAll();
        $is_quantity_check = empty($result[0]['is_quantity_check'])?'F':'T';
@@ -367,6 +199,7 @@ class AuditGoodsskuController extends Controller
            'custitemm_material' => $result[0]['material'],
            'custitemm_purpose' => $result[0]['use'],
            'salesdescription' => $result[0]['pd_title'],
+           'custitem_cs_1688linkurl' => $result[0]['url_1688'],
        ]];
         $result = $this->actionDoCurl($item_arr);
         $res = json_decode($result);
