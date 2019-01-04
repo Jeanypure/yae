@@ -12,10 +12,6 @@ $this->title = Yii::t('app', '今日新品分部公示');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pur-info-index">
-
-<!--    <h1>--><?php //echo Html::encode($this->title) ?><!--</h1>-->
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <p>
         <?= Html::button('确认公示', ['id' => 'brocast', 'class' => 'btn btn-primary']) ;?>
         <?=  Html::button('公示结束', ['id' => 'end-brocast', 'class' => 'btn btn-info']) ?>
@@ -76,12 +72,20 @@ $this->params['breadcrumbs'][] = $this->title;
                         return '七部';
                     }elseif ($model->pur_group==8){
                         return '八部';
+                    }elseif ($model->pur_group=='3,8'){
+                        return '三和八部';
+                    }elseif ($model->pur_group=='2,8'){
+                        return '二和八部';
+                    }elseif ($model->pur_group=='4,8'){
+                        return '四和八部';
                     }
+                    
                 },
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>['1' => '一部', '2' => '二部','3' => '三部','4' => '四部','5' => '五部','6' => '六部','7' => '七部','8' => '八部',],
+                'filter'=>['1' => '一部', '2' => '二部','3' => '三部','4' => '四部','5' => '五部','6' => '六部','7' => '七部','8' => '八部',
+                    '2,8' => '二和八部','3,8' => '三和八部','4,8' => '四和八部',],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],

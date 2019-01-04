@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
-
+use kartik\select2\Select2;
 /* @var $this yii\web\View */
 /* @var $model backend\models\PurInfo */
 
@@ -20,14 +20,36 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
     <div class="pur-info-form">
         <?php
         $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL]);
-
+        ?>
+        <div class="form-group">
+            <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        </div>
+        <?php
+        echo '<legend class="text-info"><h3>1.基本信息</h3></legend>';
+        echo $form->field($model, 'pur_group')->widget(Select2::classname(), [
+        'data' => [
+            '1'=>'商舟',
+            '2'=>'雅耶',
+            '3'=>'朗探',
+            '4'=>'域聪',
+            '5'=>'鹏侯',
+            '6'=>'客尊',
+            '7'=>'朵邦',
+            '8'=>'日本',
+        ],
+        'options' => ['placeholder' => '选择销售公司.....'],
+        'pluginOptions' => [
+            'multiple' => true,
+            'allowClear' => true
+        ],
+    ]);
         echo Form::widget([
             'model'=>$model,
             'form'=>$form,
             'columns'=>4,
-            'contentBefore'=>'<legend class="text-info"><h3>1.基本信息</h3></legend>',
+//            'contentBefore'=>'<legend class="text-info"><h3>1.基本信息</h3></legend>',
             'attributes'=>[       // 3 column layout
-                'pur_group'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+//                'pur_group'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_title'=>['type'=>Form::INPUT_TEXT,
                     'labelOptions'=>['class'=>'label-require'],
                     'options'=>['placeholder'=>'','class'=>'label-require']],

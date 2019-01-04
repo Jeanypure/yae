@@ -78,7 +78,7 @@ class PurInfo extends \yii\db\ActiveRecord
     {
 
         return [
-            [['is_purchase','trading_company','source','brocast_status','is_quality','sample_submit1','sample_submit2','pur_complete_status','is_assign','junior_submit','pur_group', 'pd_purchase_num', 'parent_product_id','preview_status'], 'integer'],
+            [['is_purchase','trading_company','source','brocast_status','is_quality','sample_submit1','sample_submit2','pur_complete_status','is_assign','junior_submit', 'pd_purchase_num', 'parent_product_id','preview_status'], 'integer'],
             [['trading_company', 'bill_type','pd_title','pd_title_en','pd_package','pd_length', 'pd_width', 'pd_height','pd_weight',
                 'pd_pur_costprice','bill_tax_rebate','retail_price','pd_purchase_num','hs_code',
                 'has_shipping_fee','is_patent_right','is_third_party_abroad_right','promise_rights','special_auth_FDA'], 'required'],
@@ -89,7 +89,7 @@ class PurInfo extends \yii\db\ActiveRecord
             [['hs_code','master_result','pd_title', 'pd_title_en', 'remark'], 'string', 'max' => 500],
             [['master_mark','pd_pic_url', 'ebay_url', 'amazon_url', 'url_1688','else_url'], 'string', 'max' => 2000],
             [['pd_package', 'pd_material'], 'string', 'max' => 1000],
-            [['member','purchaser', 'pd_length', 'pd_width', 'pd_height', 'bill_type'], 'string', 'max' => 10],
+            [['member','purchaser','pd_length', 'pd_width','pd_height','bill_type','pur_group'], 'string', 'max' => 10],
             [['is_submit_manager','is_submit','is_huge', 'has_shipping_fee'], 'string', 'max' => 1],
             [[ 'bill_tax_rebate'], 'string', 'max' => 4],
             [['new_member'], 'string', 'max' => 30],

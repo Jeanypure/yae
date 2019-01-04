@@ -90,7 +90,8 @@ class GroupPurController extends Controller
     {
         $model = $this->findModel($id);
         $rate = $this->actionExchangeRate();
-        if ($model->load(Yii::$app->request->post()) ) {
+        $post = Yii::$app->request->post();
+        if ($model->load($post) ) {
             if($model->brocast_status == 2){ //如果结束公示在更新部门 同步更新评审表的member2
                 try{
                 $pur_group = Yii::$app->request->post()['PurInfo']['pur_group'];
@@ -104,10 +105,13 @@ class GroupPurController extends Controller
                 }
 
             }
+            $model->pur_group = implode(',',$post['PurInfo']['pur_group']);
             $model->save(false);
             return $this->redirect(['index']);
         }
-
+        if(!empty($model->pur_group)){
+            $model->pur_group = explode(',',$model->pur_group);
+        }
         return $this->render('update', [
             'model' => $model,
             'exchange_rate' => $rate
@@ -220,13 +224,14 @@ class GroupPurController extends Controller
 
 // 同部更新到评审表中
 
-    public function actionPreview($id_set){
-
-        $lead = Yii::$app->db->createCommand("select DISTINCT leader FROM company ;")->queryAll();
-
+    public function actionPreview($id_set=null){
+        $id_set = 2848;
+        $lead = Yii::$app->db->createCommand("select DISTINCT sub_company,leader FROM company ;")->queryAll();
         $leader ='';
+        $new_leader = [];
         foreach ($lead as $k=>$v){
             $leader.= "'".$v['leader']."',";
+            $new_leader[$v['sub_company']] = $v['leader'];
         }
 
         $leaders = rtrim($leader,",");
@@ -260,81 +265,27 @@ class GroupPurController extends Controller
 
 
             }
-
-
         }
         else{//insert
-
-            //批量插入语句
-            $member2_pid = Yii::$app->db->createCommand("
-                SELECT leader,pur_info_id,1 FROM pur_info o
-        LEFT JOIN company y ON y.sub_company=o.pur_group
-        WHERE pur_info_id in ($id_set);
-        ")->queryAll();
-
-            foreach($member2_pid as $k=>$v){
-                $arr[] =array_values($v);
+            //按部门分开 逐条分开插入
+            $id_arr = explode(',',$id_set);
+            foreach($id_arr  as $k => $v ){
+                $model = $this->findModel($v);
+                $group_arr = explode(',',$model->pur_group);
+                $arr[] = [$new_leader[$group_arr[0]],$v,1];
+                $arr[] = [$new_leader[$group_arr[1]],$v,1];
             }
-
             $table = 'preview';
             $arr_key = ['member2','product_id','audit_role'];
-
-            $res = $this->actionMultArray2Insert($table,$arr_key, $arr, $split = '`');
-
-            try{
-                $result =   Yii::$app->db->createCommand("$res")->execute();
-
-            }
-            catch(Exception $e){
-                throw new Exception();
-            }
-
-
+            $res = Yii::$app->db->createCommand()->batchInsert($table,$arr_key,$arr)->execute();
+//TODO 单部门和多部门混合情况的处理
         }
 
-        return $result;
+        return $res;
 
     }
 
-    /**
 
-     * 多条数据同时转化成插入SQL语句
-
-     * @ CreatBy:IT自由职业者
-
-     * @param string $table 表名
-
-     * @$arr_key是表字段名的key：$arr_key=array("field1","field2","field3")
-
-     * @param array $arr是字段值 数组示例 arrat(("a","b","c"), ("bbc","bbb","caaa"),('add',"bppp","cggg"))
-
-     * @return string
-
-     */
-
-    public  function actionMultArray2Insert($table,$arr_key, $arr, $split = '`') {
-
-        $arrValues = array();
-
-        if (empty($table) || !is_array($arr_key) || !is_array($arr)) {
-
-            return false;
-
-        }
-
-        $sql = "INSERT INTO %s( %s ) values %s ";
-
-        foreach ($arr as $k => $v) {
-
-            $arrValues[$k] = "'".implode("','",array_values($v))."'";
-
-        }
-
-        $sql = sprintf($sql, $table, "{$split}" . implode("{$split} ,{$split}", $arr_key) . "{$split}", "(" . implode(") , (", array_values($arrValues)) . ")");
-
-        return $sql;
-
-    }
 
 
 }
