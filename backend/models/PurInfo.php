@@ -89,7 +89,7 @@ class PurInfo extends \yii\db\ActiveRecord
             [['hs_code','master_result','pd_title', 'pd_title_en', 'remark'], 'string', 'max' => 500],
             [['master_mark','pd_pic_url', 'ebay_url', 'amazon_url', 'url_1688','else_url'], 'string', 'max' => 2000],
             [['pd_package', 'pd_material'], 'string', 'max' => 1000],
-            [['member','purchaser','pd_length', 'pd_width','pd_height','bill_type','pur_group'], 'string', 'max' => 10],
+            [['member','purchaser','pd_length', 'pd_width','pd_height','bill_type'], 'string', 'max' => 10],
             [['is_submit_manager','is_submit','is_huge', 'has_shipping_fee'], 'string', 'max' => 1],
             [[ 'bill_tax_rebate'], 'string', 'max' => 4],
             [['new_member'], 'string', 'max' => 30],
@@ -97,7 +97,7 @@ class PurInfo extends \yii\db\ActiveRecord
             ['amazon_url','url','defaultScheme' => 'http'],
             ['else_url','url','defaultScheme' => 'http'],
             ['url_1688','url','defaultScheme' => 'http'],
-            [['pd_sku','pd_create_time','write_date','purchaser_send_time','sure_purchase_time'], 'safe'],
+            [['pd_sku','pd_create_time','write_date','purchaser_send_time','sure_purchase_time','pur_group'], 'safe'],
             [['sample_return', ], 'integer'],
             [['hs_code'],'match','pattern'=>'^\d{10}$','message'=>'请输入正确的HS编码'],
 
