@@ -80,6 +80,9 @@ class GroupPurSearch extends PurInfo
             'bill_tax_rebate' => $this->bill_tax_rebate,
             'parent_product_id' => $this->parent_product_id,
             'is_assign' => $this->is_assign,
+            'source' => $this->source,
+            'brocast_status' => $this->brocast_status,
+            'preview_status' => $this->preview_status,
         ]);
 
         $query->andFilterWhere(['like', 'purchaser', $this->purchaser])
@@ -103,10 +106,7 @@ class GroupPurSearch extends PurInfo
             ->andFilterWhere(['like', 'transaction_fee', $this->transaction_fee])
             ->andFilterWhere(['like', 'gross_profit', $this->gross_profit])
             ->andFilterWhere(['like', 'remark', $this->remark])
-            ->andFilterWhere(['like', 'source', $this->source])
-            ->andFilterWhere(['like', 'member', $this->member])
-            ->andFilterWhere(['like', 'brocast_status', $this->brocast_status])
-            ->andFilterWhere(['like', 'preview_status', $this->preview_status]);
+            ->andFilterWhere(['like', 'member', $this->member]);
 
         return $dataProvider;
     }

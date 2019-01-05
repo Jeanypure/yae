@@ -225,7 +225,6 @@ class GroupPurController extends Controller
 // 同部更新到评审表中
 
     public function actionPreview($id_set=null){
-        $id_set = 2848;
         $lead = Yii::$app->db->createCommand("select DISTINCT sub_company,leader FROM company ;")->queryAll();
         $leader ='';
         $new_leader = [];
@@ -273,12 +272,13 @@ class GroupPurController extends Controller
                 $model = $this->findModel($v);
                 $group_arr = explode(',',$model->pur_group);
                 $arr[] = [$new_leader[$group_arr[0]],$v,1];
-                $arr[] = [$new_leader[$group_arr[1]],$v,1];
-            }
+                if(count($group_arr)>=2){
+                    $arr[] = [$new_leader[$group_arr[1]],$v,1];}
+                }
             $table = 'preview';
             $arr_key = ['member2','product_id','audit_role'];
             $res = Yii::$app->db->createCommand()->batchInsert($table,$arr_key,$arr)->execute();
-//TODO 单部门和多部门混合情况的处理
+// 单部门和多部门混合情况的处理
         }
 
         return $res;
