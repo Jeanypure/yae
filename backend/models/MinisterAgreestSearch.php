@@ -62,7 +62,6 @@ class MinisterAgreestSearch extends PurInfo
                 ->andWhere(['sample_submit1'=>1])
                 ->orderBy('pur_info_id desc')
             ;
-
             $this->is_agreest = 2;
         }else{ //按部门显示
             $query = PurInfo::find()
@@ -74,14 +73,13 @@ class MinisterAgreestSearch extends PurInfo
                     `pur_info`.submit1_at,`pur_info`.sample_return,`pur_info`.has_pay,`pur_info`.payer,`pur_info`.pay_at,   
                     `sample`.spur_info_id,`sample`.is_agreest,`sample`.for_free,`sample`.has_arrival,`sample`.minister_result,`sample`.pd_sku,`sample`.write_date'])
                 ->joinWith('sample')
-                ->andWhere(['pur_group'=>$pur_group])
+                ->where('pur_group IN('.$pur_group.')')
                 ->andWhere(['sample_submit1'=>1])
                 ->orderBy('pur_info_id desc')
             ;
 
 //            $this->is_agreest = 2;
         }
-
 
         // add conditions that should always apply here
 
