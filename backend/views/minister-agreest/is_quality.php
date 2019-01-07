@@ -65,7 +65,7 @@ use kartik\select2\Select2;
         ],
 
     ]);
-
+    echo $form->field($sample_model,'minister_reason')->textarea();
     ?>
 
 

@@ -46,7 +46,7 @@ class Sample extends \yii\db\ActiveRecord
             [['purchaser_result','spur_info_id','fee_return','is_agreest'], 'required'],
             [['audit_team_result','minister_result','has_arrival','for_free', 'spur_info_id', 'is_audit', 'is_agreest',  'fee_return', 'audit_mem1', 'applicant'], 'integer'],
             [['procurement_cost', 'sample_freight', 'else_fee', 'pay_amount'], 'number'],
-            [['write_date','arrival_date','create_date', 'lastop_date'], 'safe'],
+            [['purchaser_reason','write_date','arrival_date','create_date', 'lastop_date'], 'safe'],
             [['pay_way', 'mark'], 'string', 'max' => 500],
             [['audit_team_reason','minister_reason'], 'string', 'max' => 100],
             [['pd_sku',], 'string', 'max' => 60],
@@ -85,11 +85,12 @@ class Sample extends \yii\db\ActiveRecord
             'arrival_date' => '到货标记日期',
             'write_date' => '到货日期',
             'minister_result' => '部长判断',
-            'minister_reason' => '备注',
+            'minister_reason' => '销售产品等级判断原因',
             'audit_team_result' => '审核组判断',
             'purchaser_result' => '采购判断',
             'audit_team_reason' => '审核组备注',
             'pd_sku' => 'SKU',
+            'purchaser_reason' => '采购产品等级判断原因',
         ];
     }
 
