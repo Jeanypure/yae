@@ -82,6 +82,7 @@ use kartik\select2\Select2;
         ],
 
     ]);
+    echo $form->field($model,'purchaser_reason')->textarea();
 
     ?>
 

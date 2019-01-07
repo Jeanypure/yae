@@ -1,16 +1,11 @@
 <?php
-
 use yii\helpers\Html;
-
 /* @var $this yii\web\View */
 /* @var $model backend\models\PurInfo */
 
 $this->title = Yii::t('app', '样品申请: ' . $model->pur_info_id, [
     'nameAttribute' => '' . $model->pur_info_id,
 ]);
-//$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Pur Infos'), 'url' => ['index']];
-//$this->params['breadcrumbs'][] = ['label' => $model->pur_info_id, 'url' => ['view', 'id' => $model->pur_info_id]];
-//$this->params['breadcrumbs'][] = Yii::t('app', '样品申请');
 ?>
 <div class="pur-info-update">
 
@@ -23,8 +18,4 @@ $this->title = Yii::t('app', '样品申请: ' . $model->pur_info_id, [
     <?= $this->render('view', [
         'model' => $model,
     ]) ?>
-
-
-
-
 </div>
