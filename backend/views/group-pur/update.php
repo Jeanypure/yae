@@ -28,14 +28,22 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
         echo '<legend class="text-info"><h3>1.基本信息</h3></legend>';
         echo $form->field($model, 'pur_group')->widget(Select2::classname(), [
         'data' => [
-            '1'=>'商舟',
+           /* '1'=>'商舟',
             '2'=>'雅耶',
             '3'=>'朗探',
             '4'=>'域聪',
             '5'=>'鹏侯',
             '6'=>'客尊',
             '7'=>'朵邦',
-            '8'=>'日本',
+            '8'=>'日本',*/
+            '1'=>'1',
+            '2'=>'2',
+            '3'=>'3',
+            '4'=>'4',
+//            '5'=>'5',
+            '6'=>'6',
+            '7'=>'7',
+            '8'=>'8',
         ],
         'options' => ['placeholder' => '选择销售公司.....'],
         'pluginOptions' => [
