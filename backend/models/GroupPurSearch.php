@@ -68,7 +68,6 @@ class GroupPurSearch extends PurInfo
         // grid filtering conditions
         $query->andFilterWhere([
             'pur_info_id' => $this->pur_info_id,
-            'pur_group' => $this->pur_group,
             'is_huge' => $this->is_huge,
             'pd_weight' => $this->pd_weight,
             'pd_throw_weight' => $this->pd_throw_weight,
@@ -106,6 +105,7 @@ class GroupPurSearch extends PurInfo
             ->andFilterWhere(['like', 'transaction_fee', $this->transaction_fee])
             ->andFilterWhere(['like', 'gross_profit', $this->gross_profit])
             ->andFilterWhere(['like', 'remark', $this->remark])
+            ->andFilterWhere(['like', 'pur_group', $this->pur_group])
             ->andFilterWhere(['like', 'member', $this->member]);
 
         return $dataProvider;
