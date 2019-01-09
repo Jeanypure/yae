@@ -69,7 +69,6 @@ class BrocastPurSearch extends PurInfo
         // grid filtering conditions
         $query->andFilterWhere([
             'pur_info_id' => $this->pur_info_id,
-            'pur_group' => $this->pur_group,
             'is_huge' => $this->is_huge,
             'pd_weight' => $this->pd_weight,
             'pd_throw_weight' => $this->pd_throw_weight,
@@ -106,6 +105,7 @@ class BrocastPurSearch extends PurInfo
             ->andFilterWhere(['like', 'source', $this->source])
             ->andFilterWhere(['like', 'member', $this->member])
             ->andFilterWhere(['like', 'preview_status', $this->preview_status])
+            ->andFilterWhere(['like', 'pur_group', $this->pur_group])
             ->andFilterWhere(['like', 'brocast_status', $this->brocast_status]);
 
         return $dataProvider;
