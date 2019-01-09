@@ -113,7 +113,6 @@ class AuditSearch extends PurInfo
             'view_status' => $this->view_status,
             'result' => $this->result,
             'submit_manager' => $this->submit_manager,
-            'pur_group' => $this->pur_group,
             'is_huge' => $this->is_huge,
             'pd_weight' => $this->pd_weight,
             'pd_throw_weight' => $this->pd_throw_weight,
@@ -148,8 +147,8 @@ class AuditSearch extends PurInfo
             ->andFilterWhere(['like', 'oversea_shipping_fee', $this->oversea_shipping_fee])
             ->andFilterWhere(['like', 'transaction_fee', $this->transaction_fee])
             ->andFilterWhere(['like', 'gross_profit', $this->gross_profit])
+            ->andFilterWhere(['like', 'pur_group', $this->pur_group])
             ->andFilterWhere(['like', 'remark', $this->remark]);
-
         return $dataProvider;
     }
 }
