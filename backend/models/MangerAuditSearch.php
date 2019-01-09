@@ -94,7 +94,6 @@ class MangerAuditSearch extends PurInfo
             'pur_info_id' => $this->pur_info_id,
             'audit_a' => $this->audit_a,
             'audit_b' => $this->audit_b,
-            'pur_group' => $this->pur_group,
             'is_huge' => $this->is_huge,
             'pd_weight' => $this->pd_weight,
             'pd_throw_weight' => $this->pd_throw_weight,
@@ -128,6 +127,7 @@ class MangerAuditSearch extends PurInfo
             ->andFilterWhere(['like', 'transaction_fee', $this->transaction_fee])
             ->andFilterWhere(['like', 'gross_profit', $this->gross_profit])
             ->andFilterWhere(['like', 'remark', $this->remark])
+            ->andFilterWhere(['like', 'pur_group', $this->pur_group])
             ->andFilterWhere(['like', 'source', $this->source])
             ->andFilterWhere(['like', 'member', $this->member])
             ->andFilterWhere(['like', 'preview_status', $this->preview_status])
