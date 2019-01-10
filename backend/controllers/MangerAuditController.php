@@ -80,12 +80,12 @@ class MangerAuditController extends Controller
        $exchange_rate = PurInfoController::actionExchangeRate();
        $sid =  $this->actionCheckSample($id); //样品表的id
        $pd_sku =  $this->actionBorn($id);    //生成sku
-
+       $post =  Yii::$app->request->post();
         if($num ==3){
             if ($model_update->load(Yii::$app->request->post()) ) {
                 //采样状态 入采样流程
-                if(Yii::$app->request->post()['PurInfo']['master_result']==1 ||
-                    Yii::$app->request->post()['PurInfo']['master_result']==4){
+                if($post['PurInfo']['master_result']==1 ||
+                    $post['PurInfo']['master_result']==4){
                     if($sid != $id){
                         Yii::$app->db->createCommand("
                         INSERT INTO `sample`  (spur_info_id,procurement_cost,pd_sku) value ($id,'$costprice','$pd_sku');
@@ -98,7 +98,7 @@ class MangerAuditController extends Controller
                        delete from sample where spur_info_id= $sid
                       ")->execute();
                     }
-                    if(Yii::$app->request->post()['PurInfo']['master_result']==2 ){//需要议价和谈其他条件
+                    if($post['PurInfo']['master_result']==2 ){//需要议价和谈其他条件
                         Yii::$app->db->createCommand("
                         update pur_info set old_costprice = pd_pur_costprice where  pur_info_id=$id
                          ")->execute();
@@ -108,9 +108,13 @@ class MangerAuditController extends Controller
                 $model_update->master_member = $master_member;
                 $model_update->preview_status = 1;
                 $model_update->priview_time = date('Y-m-d H:i:s');
+                $model_update->pur_group = implode(',',$post['PurInfo']['pur_group']);
                 $model_update->save(false);
 
                 return $this->redirect(['index']);
+            }
+            if(!empty($model_update->pur_group)){
+                $model_update->pur_group = explode(',',$model_update->pur_group);
             }
             return $this->render('view', [
                 'model' => $this->findModel($id),
@@ -166,10 +170,14 @@ class MangerAuditController extends Controller
               $model_update->master_member = $master_member;
               $model_update->preview_status = 1;
               $model_update->priview_time = date('Y-m-d H:i:s');
+              $model_update->pur_group = implode(',',$post['PurInfo']['pur_group']);
               $model_update->save(false);
 
               return $this->redirect(['index']);
           }
+            if(!empty($model_update->pur_group)){
+                $model_update->pur_group = explode(',',$model_update->pur_group);
+            }
           return $this->render('view', [
               'model' => $this->findModel($id),
               'preview' => $preview[0],
@@ -206,11 +214,15 @@ class MangerAuditController extends Controller
               $model_update->master_member = $master_member;
               $model_update->preview_status = 1;
               $model_update->priview_time = date('Y-m-d H:i:s');
+              $model_update->pur_group = implode(',',$post['PurInfo']['pur_group']);
               $model_update->save(false);
               return $this->redirect(['index']);
 
           }
 
+          if(!empty($model_update->pur_group)){
+              $model_update->pur_group = explode(',',$model_update->pur_group);
+          }
           return $this->render('view', [
               'model' => $this->findModel($id),
               'num' =>$num,

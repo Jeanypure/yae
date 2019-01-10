@@ -30,6 +30,30 @@ use kartik\builder\Form;
         <?= $form->field($model, 'master_member')->textInput() ->hiddenInput([])->label(false);?>
 
         <?php
+        echo $form->field($model, 'pur_group')->widget(Select2::classname(), [
+            'data' => [
+                /* '1'=>'Emily',
+                '2'=>'Bianca',
+                '3'=>'Molly',
+                '4'=>'Joe',
+//                 '5'=>'Becky',
+                '6'=>'Laura',
+                '7'=>'Helen',
+                '8'=>'Randy',*/
+                '1'=>'1部',
+                '2'=>'2部',
+                '3'=>'3部',
+                '4'=>'4部',
+                '6'=>'6部',
+                '7'=>'7部',
+                '8'=>'8部',
+            ],
+            'options' => ['placeholder' => '选择销售公司.....'],
+            'pluginOptions' => [
+                'multiple' => true,
+                'allowClear' => true
+            ],
+        ]);
         // Usage with ActiveForm and model
         echo $form->field($model, 'master_result')->widget(Select2::classname(), [
             'data' => [
