@@ -54,23 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'pur_group',
                 'value' => function($model) {
-                    if($model->pur_group==1){
-                        return '一部';
-                    }elseif ($model->pur_group==2){
-                        return '二部';
-                    }elseif ($model->pur_group==3){
-                        return '三部';
-                    }elseif ($model->pur_group==4){
-                        return '四部';
-                    }elseif ($model->pur_group==5){
-                        return '五部';
-                    }elseif ($model->pur_group==6){
-                        return '六部';
-                    }elseif ($model->pur_group==7){
-                        return '七部';
-                    }elseif ($model->pur_group==8){
-                        return '八部';
-                    }
+                    return $model->pur_group;
                 },
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',

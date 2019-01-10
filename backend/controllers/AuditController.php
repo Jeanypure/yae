@@ -9,8 +9,6 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use backend\models\Preview;
-use backend\models\Company;
-
 
 /**
  * AuditController implements the CRUD actions for PurInfo model.
@@ -87,13 +85,11 @@ class AuditController extends Controller
     public function actionUpdate($id)
     {
         $exchange_rate = PurInfoController::actionExchangeRate();
-
         $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->pur_info_id]);
         }
-
         return $this->render('update', [
             'model' => $model,
             'exchange_rate' =>$exchange_rate
@@ -148,7 +144,7 @@ class AuditController extends Controller
             'member2'=>Yii::$app->user->identity->username])))
         { // 审核组 更新评审
             if ($model_preview->load(Yii::$app->request->post()) ) {
-
+                 $model_preview->priview_time = date('Y-m-d H:i:s');
                  $model_preview->view_status = 1;
                  $model_preview->save(false);
                     return $this->redirect('index');
@@ -164,6 +160,7 @@ class AuditController extends Controller
         }else {
             $model_preview =  new Preview();
             if ($model_preview->load(Yii::$app->request->post())) {
+                $model_preview->priview_time = date('Y-m-d H:i:s');
                 $model_preview->view_status = 1;
                 $model_preview->save(false);
                 return $this->redirect('index');
