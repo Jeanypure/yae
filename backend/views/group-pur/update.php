@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
         </div>
         <?php
+        $model->pur_group=[8];  //默认8部日本看全品类的产品
         echo '<legend class="text-info"><h3>1.基本信息</h3></legend>';
         echo $form->field($model, 'pur_group')->widget(Select2::classname(), [
         'data' => [
