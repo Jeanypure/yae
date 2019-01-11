@@ -89,6 +89,8 @@ use yii\helpers\Url;
             '7'=>'鹏侯',
             '8'=>'客尊',
             '9'=>'朵邦',
+            '13'=>'杭州雅耶',
+
         ],
         'options' => ['placeholder' => '选择销售公司.....'],
         'pluginOptions' => [

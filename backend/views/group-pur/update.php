@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             'columns'=>4,
 //            'contentBefore'=>'<legend class="text-info"><h3>1.基本信息</h3></legend>',
             'attributes'=>[       // 3 column layout
-//                'pur_group'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+//                   'pur_group'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'pd_title'=>['type'=>Form::INPUT_TEXT,
                     'labelOptions'=>['class'=>'label-require'],
                     'options'=>['placeholder'=>'','class'=>'label-require']],
