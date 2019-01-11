@@ -54,9 +54,11 @@ class FollowCheckProductSearch extends Goodssku
             'Miguel'=> '2',
             'Eleanor'=> '4',
             'Nita'=> '2',
-            'Yilia'=> '1,2,3,4,5,6,7,8'];
-
-        if ($username =='Jenny'||$username =='David'||$username =='Mark' ){
+            'Yilia'=> '1,2,3,4,5,6,7,8',
+            'Mary'=> '1,2,3,4,5,6,7,8'
+        ];
+        $userRole = Yii::$app->authManager->getRolesByUser(Yii::$app->user->identity->getId());
+        if (array_key_exists('超级管理员',$userRole)){
             $query = Goodssku::find()->orderBy('sku_id desc');
         }else{
             $val = $user_dict[$username];

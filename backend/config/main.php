@@ -35,6 +35,7 @@ return [
         'bargain' => [
             'class' => 'backend\modules\bargain\Module',
         ],
+        'hangzhou' => ['class' =>'backend\modules\hangzhou\Module']
     ],
     "aliases" => [
         "@mdm/admin" => "@vendor/mdmsoft/yii2-admin",
