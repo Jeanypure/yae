@@ -51,9 +51,10 @@ class CommissionSearch extends PurInfo
                 CASE  WHEN po.`pd_pur_costprice` >= 150 THEN 500
                 ELSE 400 END AS 'unit_price',    
                 CASE WHEN e.`audit_team_result`=0 THEN 0
-                     WHEN e.`audit_team_result`=1   THEN '5'
-                     WHEN e.`audit_team_result`=2   THEN '10'
-                     WHEN e.`audit_team_result`=3   THEN '7'
+                     WHEN e.`audit_team_result`=1   THEN '50'
+                     WHEN e.`audit_team_result`=2   THEN '100'
+                     WHEN e.`audit_team_result`=3   THEN '70'
+                     WHEN e.`audit_team_result`=6   THEN '25'
                 ELSE 0 END AS 'weight',
                pr.`grade` 
                 "])
@@ -70,9 +71,10 @@ class CommissionSearch extends PurInfo
                 CASE  WHEN po.`pd_pur_costprice` >= 150 THEN 500
                 ELSE 400 END AS 'unit_price',    
                 CASE WHEN e.`audit_team_result`=0 THEN 0
-                     WHEN e.`audit_team_result`=1   THEN '5'
-                     WHEN e.`audit_team_result`=2   THEN '10'
-                     WHEN e.`audit_team_result`=3   THEN '5'
+                     WHEN e.`audit_team_result`=1   THEN '50'
+                     WHEN e.`audit_team_result`=2   THEN '100'
+                     WHEN e.`audit_team_result`=3   THEN '50'
+                     WHEN e.`audit_team_result`=6   THEN '25'
                 ELSE 0 END AS 'weight',
                 pr.`grade` 
                 "])
@@ -89,9 +91,10 @@ class CommissionSearch extends PurInfo
                 CASE  WHEN po.`pd_pur_costprice` >= 150 THEN 500
                 ELSE 400 END AS 'unit_price',    
                 CASE WHEN e.`audit_team_result`=0 THEN 0
-                     WHEN e.`audit_team_result`=1   THEN '5'
-                     WHEN e.`audit_team_result`=2   THEN '10'
-                     WHEN e.`audit_team_result`=3   THEN '7'
+                     WHEN e.`audit_team_result`=1   THEN '50'
+                     WHEN e.`audit_team_result`=2   THEN '100'
+                     WHEN e.`audit_team_result`=3   THEN '70'
+                     WHEN e.`audit_team_result`=6   THEN '25'
                 ELSE 0 END AS 'weight',
                 pr.`grade` 
                 "])
@@ -101,8 +104,6 @@ class CommissionSearch extends PurInfo
                 ->andWhere(['po.purchaser'=>$username])
                 ->orderBy('po.pur_info_id desc');
         }
-
-//           echo $query->createCommand()->getRawSql();die;
 
         // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([

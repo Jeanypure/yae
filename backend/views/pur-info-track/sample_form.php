@@ -74,7 +74,7 @@ use kartik\select2\Select2;
             '3'=>'推送产品',
             '4'=>'简单重复',
             '5'=>'不算提成',
-
+            '6'=>'推送且半价=0.25个',
         ],
         'options' => ['placeholder' => '产品等级',  ],
         'pluginOptions' => [

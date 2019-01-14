@@ -64,25 +64,7 @@ echo GridView::widget([
             'attribute'=>'pur_group',
             'label'=>'部门',
             'value'=>function ($model, $key, $index, $widget) {
-                if($model->pur_group==1){
-                    return '一部';
-                }elseif($model->pur_group==2){
-                    return '二部';
-                }elseif($model->pur_group==3){
-                    return '三部';
-                }elseif($model->pur_group==4){
-                    return '四部';
-                }elseif($model->pur_group==5){
-                    return '五部';
-                }elseif($model->pur_group==6){
-                    return '六部';
-                }elseif($model->pur_group==7){
-                    return '七部';
-                }elseif($model->pur_group==8){
-                    return '八部';
-                }else{
-                    return '9部';
-                }
+                return $model->pur_group;
             },
             'filterType'=>GridView::FILTER_SELECT2,
             'filter'=>ArrayHelper::map(\backend\models\Company::find()->orderBy('sub_company')->asArray()->all(), 'id', 'department_suffix'),
@@ -179,26 +161,23 @@ echo GridView::widget([
                     return '未判断';
                 }elseif($model->minister_result==1){
                     return '半价产品';
-
                 }elseif($model->minister_result==2){
                     return '新品';
-
                 }elseif($model->minister_result==3){
                     return '推送产品';
-
                 }elseif($model->minister_result==4){
                     return '简单重复';
-
                 }elseif($model->minister_result==5){
                     return '不算提成';
-
+                }elseif($model->minister_result==6){
+                    return '推送且半价';
                 }else{
                     return '其他';
 
                 }
             },
             'filterType'=>GridView::FILTER_SELECT2,
-            'filter'=>[0=>'未判断',1=>'半价产品',2=>'新品',3=>'推送产品',4=>'简单重复'],
+            'filter'=>[0=>'未判断',1=>'半价产品',2=>'新品',3=>'推送产品',4=>'简单重复',5=>'不算提成',6=>'推送且半价'],
             'filterWidgetOptions'=>[
                 'pluginOptions'=>['allowClear'=>true],
             ],
@@ -208,27 +187,27 @@ echo GridView::widget([
             'attribute'=>'purchaser_result',
             'label'=>'采购判断',
             'value' => function($model) {
-                if($model->purchaser_result==0){
+                if($model->minister_result==0){
                     return '未判断';
-                }elseif($model->purchaser_result==1){
+                }elseif($model->minister_result==1){
                     return '半价产品';
-
-                }elseif($model->purchaser_result==2){
+                }elseif($model->minister_result==2){
                     return '新品';
-
-                }elseif($model->purchaser_result==3){
+                }elseif($model->minister_result==3){
                     return '推送产品';
-
-                }elseif($model->purchaser_result==4){
+                }elseif($model->minister_result==4){
                     return '简单重复';
-
+                }elseif($model->minister_result==5){
+                    return '不算提成';
+                }elseif($model->minister_result==6){
+                    return '推送且半价';
                 }else{
                     return '其他';
 
                 }
             },
             'filterType'=>GridView::FILTER_SELECT2,
-            'filter'=>[0=>'未判断',1=>'半价产品',2=>'新品',3=>'推送产品',4=>'简单重复'],
+            'filter'=>[0=>'未判断',1=>'半价产品',2=>'新品',3=>'推送产品',4=>'简单重复',5=>'不算提成',6=>'推送且半价'],
             'filterWidgetOptions'=>[
                 'pluginOptions'=>['allowClear'=>true],
             ],
@@ -238,27 +217,27 @@ echo GridView::widget([
             'attribute'=>'audit_team_result',
             'label'=>'审核组判断',
             'value' => function($model) {
-                if($model->audit_team_result==0){
+                if($model->minister_result==0){
                     return '未判断';
-                }elseif($model->audit_team_result==1){
+                }elseif($model->minister_result==1){
                     return '半价产品';
-
-                }elseif($model->audit_team_result==2){
+                }elseif($model->minister_result==2){
                     return '新品';
-
-                }elseif($model->audit_team_result==3){
+                }elseif($model->minister_result==3){
                     return '推送产品';
-
-                }elseif($model->audit_team_result==4){
+                }elseif($model->minister_result==4){
                     return '简单重复';
-
+                }elseif($model->minister_result==5){
+                    return '不算提成';
+                }elseif($model->minister_result==6){
+                    return '推送且半价';
                 }else{
                     return '其他';
 
                 }
             },
             'filterType'=>GridView::FILTER_SELECT2,
-            'filter'=>[0=>'未判断',1=>'半价产品',2=>'新品',3=>'推送产品',4=>'简单重复'],
+            'filter'=>[0=>'未判断',1=>'半价产品',2=>'新品',3=>'推送产品',4=>'简单重复',5=>'不算提成',6=>'推送且半价'],
             'filterWidgetOptions'=>[
                 'pluginOptions'=>['allowClear'=>true],
             ],
@@ -283,12 +262,12 @@ echo GridView::widget([
             'header'=>'个数',
             'value'=>function ($model, $key, $index, $widget) {
                 $p = compact('model', 'key', 'index');
-                return  $widget->col(16, $p) /10;
+                return  $widget->col(16, $p) /100;
             },
             'mergeHeader'=>true,
             'width'=>'150px',
             'hAlign'=>'right',
-            'format'=>['decimal', 1],
+            'format'=>['decimal', 2],
             'pageSummary'=>true
         ],
         [
@@ -307,7 +286,7 @@ echo GridView::widget([
                 if($model->source == 0){
                     return $widget->col(15, $p) * $widget->col(16, $p)/10;
                 }
-                return $widget->col(15, $p) * $widget->col(16, $p) * $widget->col(18, $p)/10;
+                return $widget->col(15, $p) * $widget->col(16, $p) * $widget->col(18, $p)/100;
             },
             'mergeHeader'=>true,
             'width'=>'150px',
