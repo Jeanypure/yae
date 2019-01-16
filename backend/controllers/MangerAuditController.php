@@ -56,12 +56,10 @@ class MangerAuditController extends Controller
      */
     public function actionView($id)
     {
-
-        $spur_id = Yii::$app->db->createCommand("
+       $spur_id = Yii::$app->db->createCommand("
                    select spur_info_id  from sample where spur_info_id = $id
                   ")->queryOne();
-        $master_member = Yii::$app->user->identity->username;
-
+       $master_member = Yii::$app->user->identity->username;
        $preview =   Preview::find()->where(['product_id'=>$id])->all();
        $leader =   Yii::$app->db->createCommand("
        select sub_company, leader from `company`
@@ -80,6 +78,7 @@ class MangerAuditController extends Controller
        $exchange_rate = PurInfoController::actionExchangeRate();
        $sid =  $this->actionCheckSample($id); //样品表的id
        $pd_sku =  $this->actionBorn($id);    //生成sku
+       $sample_sku = $pd_sku.date('YmdHis');
        $post =  Yii::$app->request->post();
         if($num ==3){
             if ($model_update->load(Yii::$app->request->post()) ) {
@@ -88,7 +87,7 @@ class MangerAuditController extends Controller
                     $post['PurInfo']['master_result']==4){
                     if($sid != $id){
                         Yii::$app->db->createCommand("
-                        INSERT INTO `sample`  (spur_info_id,procurement_cost,pd_sku) value ($id,'$costprice','$pd_sku');
+                        INSERT INTO `sample`  (spur_info_id,procurement_cost,pd_sku,sample_sku) value ($id,'$costprice','$pd_sku','$sample_sku');
                       ")->execute();
                     }
 
@@ -129,11 +128,9 @@ class MangerAuditController extends Controller
             ]);
         }elseif($num ==2){
           if ($model_update->load(Yii::$app->request->post()) ) {
-
               $new_member = Yii::$app->request->post()['PurInfo']['new_member']; //部门ID
               $sid =  $this->actionCheckSample($id);
               if(!empty($new_member)&&isset($new_member)){
-
                   $member2 = Yii::$app->db->createCommand("
                      select leader from company where sub_company = $new_member
                       ")->queryOne();
@@ -151,7 +148,7 @@ class MangerAuditController extends Controller
                   Yii::$app->request->post()['PurInfo']['master_result']==4 ){
                      if($sid != $id){
                              Yii::$app->db->createCommand("
-                      INSERT INTO `sample`  (spur_info_id,procurement_cost,pd_sku) value ($id,'$costprice','$pd_sku');
+                     INSERT INTO `sample`  (spur_info_id,procurement_cost,pd_sku,sample_sku) value ($id,'$costprice','$pd_sku','$sample_sku');
                       ")->execute();
                      }
               }else{
@@ -195,7 +192,7 @@ class MangerAuditController extends Controller
                   Yii::$app->request->post()['PurInfo']['master_result']==4){
                   if($sid != $id){
                       Yii::$app->db->createCommand("
-                      INSERT INTO `sample`  (spur_info_id,procurement_cost,pd_sku) value ($id,'$costprice','$pd_sku');
+                      INSERT INTO `sample`  (spur_info_id,procurement_cost,pd_sku,sample_sku) value ($id,'$costprice','$pd_sku','$sample_sku');
                       ")->execute();
                   }
               }else{
@@ -219,7 +216,6 @@ class MangerAuditController extends Controller
               return $this->redirect(['index']);
 
           }
-
           if(!empty($model_update->pur_group)){
               $model_update->pur_group = explode(',',$model_update->pur_group);
           }

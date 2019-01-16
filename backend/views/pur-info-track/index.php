@@ -54,6 +54,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=>'SKU',
             ],
             [
+                'attribute'=>'sample_sku',
+                'value' => function($model) { return $model->pd_sku;},
+                'label'=>'拿样SKU',
+            ],
+            [
                 'attribute'=>'pd_title',
                 'value' => function($model) { return $model->pd_title;},
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
@@ -68,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($model) { return $model->pd_title_en;},
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
-                'headerOptions' => [
+                'headerOptionss' => [
                     'width'=>'80%'
                 ],
             ],

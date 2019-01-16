@@ -29,9 +29,9 @@ use kartik\select2\Select2;
                 'options'=>['placeholder'=>'','class'=>'label-require']],
             'else_fee'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'pay_amount'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-            'pd_sku'=>['type'=>Form::INPUT_TEXT,
-                'options'=>['placeholder'=>'','class'=>'label-require']],
-        ],
+            'pd_sku'=>['type'=>Form::INPUT_TEXT],
+            'sample_sku'=>['type'=>Form::INPUT_STATIC],
+            ]
 
     ]);
     echo Form::widget([
