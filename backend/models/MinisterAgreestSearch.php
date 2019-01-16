@@ -45,7 +45,6 @@ class MinisterAgreestSearch extends PurInfo
         $username = Yii::$app->user->identity->username;
         $res = Company::find()->select('id,sub_company')
             ->where("leader_id=".Yii::$app->user->identity->getId())->asArray()->one();
-
         $pur_group = $res['id']??'';
         $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
         if( array_key_exists('超级管理员',$role)){
@@ -73,14 +72,14 @@ class MinisterAgreestSearch extends PurInfo
                     `pur_info`.submit1_at,`pur_info`.sample_return,`pur_info`.has_pay,`pur_info`.payer,`pur_info`.pay_at,   
                     `sample`.spur_info_id,`sample`.is_agreest,`sample`.for_free,`sample`.has_arrival,`sample`.minister_result,`sample`.pd_sku,`sample`.write_date'])
                 ->joinWith('sample')
-                ->where('pur_group IN('.$pur_group.')')
+                ->where('pur_group like \'%'.$pur_group.'%\'')
                 ->andWhere(['sample_submit1'=>1])
                 ->orderBy('pur_info_id desc')
             ;
 
 //            $this->is_agreest = 2;
         }
-
+//            echo $query->createCommand()->getRawSql();die;
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -105,7 +104,6 @@ class MinisterAgreestSearch extends PurInfo
             'pur_info_id' => $this->pur_info_id,
             'is_agreest' => $this->is_agreest,
             'is_purchase' => $this->is_purchase,
-            'pur_group' => $this->pur_group,
             'is_huge' => $this->is_huge,
             'sample_return' => $this->sample_return,
             'pd_weight' => $this->pd_weight,
@@ -146,6 +144,7 @@ class MinisterAgreestSearch extends PurInfo
 
         $query->andFilterWhere(['like', 'purchaser', $this->purchaser])
             ->andFilterWhere(['like', 'pd_title', $this->pd_title])
+            ->andFilterWhere(['like', 'pur_group', $this->pur_group])
             ->andFilterWhere(['like', 'pd_title_en', $this->pd_title_en])
             ->andFilterWhere(['like', 'pd_pic_url', $this->pd_pic_url])
             ->andFilterWhere(['like', 'pd_package', $this->pd_package])
