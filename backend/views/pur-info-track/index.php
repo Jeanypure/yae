@@ -36,14 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'class' => 'yii\grid\Column',
-                'headerOptions' => [
-                    'width'=>'100'
-                ],
+                'headerOptions' => ['width'=>'100'],
                 'header' => '图片',
                 'content' => function ($model, $key, $index, $column){
                     return "<img src='" .$model->pd_pic_url. "' width='100' height='100'>";
-
-
                 }
             ],
             'purchaser',
@@ -73,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($model) { return $model->pd_title_en;},
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
                 'format'=>'html',
-                'headerOptionss' => [
+                'headerOptions' => [
                     'width'=>'80%'
                 ],
             ],
