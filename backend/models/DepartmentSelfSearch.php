@@ -54,7 +54,7 @@ class DepartmentSelfSearch extends PurInfo
         }else{
             $query = PurInfo::find()
                 ->select(['`pur_info`.*,`sample`.pd_sku'])
-                ->andWhere(['pur_group'=>$pur_group])
+                ->where('pur_group like \'%'.$pur_group.'%\'')
                 ->joinWith('sample')
                 ->andWhere(['is_submit'=>1])
                 ->orderBy('pur_info_id   desc');
@@ -84,7 +84,6 @@ class DepartmentSelfSearch extends PurInfo
         // grid filtering conditions
         $query->andFilterWhere([
             'pur_info_id' => $this->pur_info_id,
-            'pur_group' => $this->pur_group,
             'is_huge' => $this->is_huge,
             'pd_weight' => $this->pd_weight,
             'pd_throw_weight' => $this->pd_throw_weight,
@@ -125,6 +124,7 @@ class DepartmentSelfSearch extends PurInfo
             ->andFilterWhere(['like', 'member', $this->member])
             ->andFilterWhere(['like', 'master_result', $this->master_result])
             ->andFilterWhere(['like', 'master_mark', $this->master_mark])
+            ->andFilterWhere(['like', 'pur_group', $this->pur_group])
      ;
 
         return $dataProvider;
