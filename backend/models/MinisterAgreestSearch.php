@@ -79,7 +79,6 @@ class MinisterAgreestSearch extends PurInfo
 
 //            $this->is_agreest = 2;
         }
-//            echo $query->createCommand()->getRawSql();die;
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
