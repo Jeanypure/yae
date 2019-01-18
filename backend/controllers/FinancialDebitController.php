@@ -180,41 +180,39 @@ class FinancialDebitController extends Controller
             'H1' => 'gbp',
             'I1' => 'eur',
             'J1' => '备注',
-
+            'K1' => 'shipmentID',
         ];
         $sql = "
-                SELECT bill_to,receiver ,contract_no , debit_no,remark,
+                   SELECT bill_to,memo,receiver ,contract_no , debit_no,shipment_id,remark,fina_deal,
 								MAX(CASE aa.currency WHEN 5 THEN aa.amount ELSE 0 END ) RMB,
                 MAX(CASE aa.currency WHEN 3 THEN aa.amount ELSE 0 END ) CAD,
                 MAX(CASE aa.currency WHEN 1 THEN aa.amount ELSE 0 END ) USD,
                 MAX(CASE aa.currency WHEN 2 THEN aa.amount ELSE 0 END ) GBP,
                 MAX(CASE aa.currency WHEN 4 THEN aa.amount ELSE 0 END ) EUR
 FROM (
-SELECT t.bill_to,
- case t.receiver when 1 then '深圳大森林国际货代有限公司'
- when 2 then '上海珑瑗国际货物运输代理有限公司'
- when 3 then '上海昊宏国际货物运输代理有限公司'
- when 4 then '深圳市安泰克物流有限公司'
- when 5 then '文鼎供应链管理(上海)有限公司'
- else t.receiver end  as receiver,
+SELECT 
+  t.bill_to,
+  y.memo,
+  s.receiver,
   t.contract_no,
   t.debit_no,
+  t.shipment_id,
   t.remark,
+  fina_deal,
 	sum(e.amount) AS amount,
 	e.currency
 	FROM yae_freight  t 
   LEFT JOIN freight_fee e ON e.freight_id=t.id
-  WHERE t.id IN ($id) GROUP BY e.currency,contract_no
-)aa GROUP BY aa.contract_no;
-            
+LEFT JOIN company y on y.sub_company= t.bill_to
+LEFT JOIN freight_forwarders s ON t.receiver=s.id
+ WHERE t.id in ($id)
+GROUP BY e.currency,contract_no
+)aa 
+GROUP BY aa.contract_no;
         ";
 
         $data =  Yii::$app->db->createCommand($sql)->queryAll();
-        $company = Yii::$app->db->createCommand("select sub_company,memo from company")->queryAll();
-        $company_arr = [];
-        foreach($company as $key=>$val){
-            $company_arr[$val['sub_company']]  = $val['memo'];
-        }
+
 
         //设置表格头的输出
         foreach($header as $key=>$value){
@@ -225,7 +223,7 @@ SELECT t.bill_to,
             $num = $num+$k;
             $objPHPExcel->setActiveSheetIndex(0)
                 //Excel的第A列，uid是你查出数组的键值，下面以此类推
-                ->setCellValue('A'.$num, $company_arr[$v['bill_to']])
+                ->setCellValue('A'.$num, $v['memo'])
                 ->setCellValue('B'.$num, $v['receiver'])
                 ->setCellValue('C'.$num, $v['contract_no'])
                 ->setCellValue('D'.$num, $v['debit_no'])
@@ -234,6 +232,7 @@ SELECT t.bill_to,
                 ->setCellValue('G'.$num, $v['CAD'])
                 ->setCellValue('H'.$num, $v['GBP'])
                 ->setCellValue('I'.$num, $v['EUR'])
+                ->setCellValue('K'.$num, $v['shipment_id'])
             ;
         }
 

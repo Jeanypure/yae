@@ -263,6 +263,7 @@ class AuditSupplierController extends Controller
             '6'=>'上海域聪贸易有限公司',
             '7'=>'上海朋侯贸易有限公司',
             '8'=>'上海客尊贸易有限公司',
+            '9'=>'上海朵邦贸易有限公司',
         ];
         $list = [];
         foreach ($data as $key=>$val){
