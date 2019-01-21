@@ -236,6 +236,7 @@ GROUP BY aa.contract_no;
             ;
         }
 
+
         //汇总项
         $sum  = count($data) + 2;
         $v  = count($data) + 1;
