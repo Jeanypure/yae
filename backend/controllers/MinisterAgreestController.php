@@ -256,8 +256,8 @@ class MinisterAgreestController extends Controller
                 select pur_group from pur_info where  pur_info_id = $id
             ")->queryOne();
 
-            $no_site = Yii::$app->db->createCommand("
-                select no_site from company where  id= $group[pur_group]
+            $no_site = Yii::$app->db->createCommand(    "
+                select no_site from company where  id in ($group[pur_group])  
             ")->queryOne();
 
             $site_arr = explode(',',$no_site['no_site']);
