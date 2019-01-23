@@ -250,8 +250,7 @@ class MinisterAgreestController extends Controller
      * @throws \yii\db\Exception
      * 插入到组长评审表中
      */
-        public  function actionToHeadman($id){
-
+     public  function actionToHeadman($id){
            $group =  Yii::$app->db->createCommand("
                 select pur_group from pur_info where  pur_info_id = $id
             ")->queryOne();
@@ -294,11 +293,7 @@ class MinisterAgreestController extends Controller
 
 //            return $result;
 
-
-
         }
-
-
 
         /**
 
@@ -367,6 +362,14 @@ class MinisterAgreestController extends Controller
             return 'not found'.$hs_code;
 
 
+
+        }
+
+    /**
+     * 拿样产品供应商导入NS
+     *
+     */
+        public function  actionToNsSample(){
 
         }
 }

@@ -91,6 +91,7 @@ class Sample extends \yii\db\ActiveRecord
             'audit_team_reason' => '审核组备注',
             'pd_sku' => 'SKU',
             'sample_sku' => '拿样SKU',
+            'vendor_code' => '拿样供应商代码',
             'purchaser_reason' => '采购产品等级判断原因',
         ];
     }

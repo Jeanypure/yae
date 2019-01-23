@@ -40,6 +40,7 @@ use kartik\widgets\ActiveForm;
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn-lg btn-success']) ?>
+        <?= Html::button(Yii::t('app', '导到NS'), ['class' => 'btn-lg btn-info','id'=>'to_ns_sample']) ?>
 
     </div>
     <div class="form-group">
@@ -103,4 +104,6 @@ JS;
 
     $this->registerJs($js);
 ?>
-
+<?php
+    $to_ns_sample = Url::toRoute([''])
+?>
