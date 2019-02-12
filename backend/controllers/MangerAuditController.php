@@ -79,6 +79,7 @@ class MangerAuditController extends Controller
        $sid =  $this->actionCheckSample($id); //样品表的id
        $pd_sku =  $this->actionBorn($id);    //生成sku
        $sample_sku = $pd_sku.date('YmdHis');
+       $vendor_code = $pd_sku.'A'.date('YmdHis');
        $post =  Yii::$app->request->post();
         if($num ==3){
             if ($model_update->load(Yii::$app->request->post()) ) {
@@ -87,7 +88,7 @@ class MangerAuditController extends Controller
                     $post['PurInfo']['master_result']==4){
                     if($sid != $id){
                         Yii::$app->db->createCommand("
-                        INSERT INTO `sample`  (spur_info_id,procurement_cost,pd_sku,sample_sku) value ($id,'$costprice','$pd_sku','$sample_sku');
+                        INSERT INTO `sample`  (spur_info_id,procurement_cost,pd_sku,sample_sku,vendor_code) value ($id,'$costprice','$pd_sku','$sample_sku','$vendor_code');
                       ")->execute();
                     }
 
@@ -148,7 +149,7 @@ class MangerAuditController extends Controller
                   Yii::$app->request->post()['PurInfo']['master_result']==4 ){
                      if($sid != $id){
                              Yii::$app->db->createCommand("
-                     INSERT INTO `sample`  (spur_info_id,procurement_cost,pd_sku,sample_sku) value ($id,'$costprice','$pd_sku','$sample_sku');
+                      INSERT INTO `sample`  (spur_info_id,procurement_cost,pd_sku,sample_sku,vendor_code) value ($id,'$costprice','$pd_sku','$sample_sku','$vendor_code');
                       ")->execute();
                      }
               }else{
@@ -192,7 +193,7 @@ class MangerAuditController extends Controller
                   Yii::$app->request->post()['PurInfo']['master_result']==4){
                   if($sid != $id){
                       Yii::$app->db->createCommand("
-                      INSERT INTO `sample`  (spur_info_id,procurement_cost,pd_sku,sample_sku) value ($id,'$costprice','$pd_sku','$sample_sku');
+                       INSERT INTO `sample`  (spur_info_id,procurement_cost,pd_sku,sample_sku,vendor_code) value ($id,'$costprice','$pd_sku','$sample_sku','$vendor_code');
                       ")->execute();
                   }
               }else{

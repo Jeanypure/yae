@@ -147,7 +147,7 @@ class AuditGoodsskuController extends Controller
             $sale_company = array_diff($sale_company,['9']);
         }
 
-       $item_arr = [[
+        $item_arr = [[
            "itemid" => $result[0]['sku'],
            "taxschedule" => "1",
            "custitem_cn_declared_name" => $result[0]['pd_title'],

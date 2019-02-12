@@ -39,7 +39,7 @@ use kartik\select2\Select2;
         'form'=>$form,
         'columns'=>1,
         'attributes'=>[       // 6 column layout
-
+            'vendor_code'=>['type'=>Form::INPUT_STATIC],
             'pay_way'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'mark'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'']],
         ],

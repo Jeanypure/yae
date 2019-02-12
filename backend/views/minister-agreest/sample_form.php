@@ -13,7 +13,11 @@ use kartik\widgets\ActiveForm;
 
 <div class="sample-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+            'id' =>'sample',
+            'enableAjaxValidation' => true,
+            'validationUrl' => Url::toRoute(['validate-form'])
+        ]); ?>
 
     <?php
     echo Form::widget([
@@ -40,6 +44,7 @@ use kartik\widgets\ActiveForm;
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn-lg btn-success']) ?>
+        <?php echo Html::button( '导到NS', ['class' => 'btn-lg btn-info to-ns-sample']) ?>
 
     </div>
     <div class="form-group">
@@ -76,7 +81,6 @@ use kartik\widgets\ActiveForm;
     });
         
     });
-
     $('#un_submit').on('click',function(){
         var  button = $(this);
          button.attr('disabled','disabled');
@@ -100,7 +104,40 @@ use kartik\widgets\ActiveForm;
     });
 
 JS;
-
-    $this->registerJs($js);
+//   $this->registerJs($js);
+?>
+<?php
+//导入NS
+    $export_ns = Url::toRoute(['ns-sample']);
+    $id = $model->spur_info_id;
+    $tonsjs = <<<JS
+          $(".to-ns-sample").on('click',function(){
+            var  button = $(this);
+            button.attr('disabled','disabled');
+            $.ajax({
+            url: "{$export_ns}",
+            type: 'post',
+            data:{id:$id},
+            success:function(res) {
+                console.log(res);
+              // var obj = JSON.parse(res);
+              // console.log(obj);
+              button.attr('disabled',false);
+              alert(res);
+              // if(obj.error){
+              //    alert('code:'+obj.error.code+'\\n message:'+obj.error.message);
+              // }else{
+              //     alert(obj.message);
+              // }
+              
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                button.attr('disabled',false);
+            }
+            });
+   
+          });
+JS;
+    $this->registerJs($tonsjs);
 ?>
 
