@@ -7,6 +7,7 @@ use backend\models\PurInfo;
 use backend\models\Sample;
 use backend\models\Goodssku;
 use backend\models\MinisterAgreestSearch;
+use yii\base\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -311,7 +312,7 @@ class MinisterAgreestController extends Controller
 
          */
 
-        public  function actionMultArray2Insert($table,$arr_key, $arr, $split = '`') {
+     public  function actionMultArray2Insert($table,$arr_key, $arr, $split = '`') {
 
             $arrValues = array();
 
@@ -343,7 +344,7 @@ class MinisterAgreestController extends Controller
      * @memo update goodssku declaration elements key
      */
 
-        public function  actionUpdateHs($id,$hs_code){
+     public function  actionUpdateHs($id,$hs_code){
             $goodssku = Goodssku::findOne(['pur_info_id'=>$id]);
             $hs_code_sql = "select declaration_elements  from hs_code where  hs_code= '$hs_code'";
             $hs_arr =  Yii::$app->db->createCommand($hs_code_sql)->queryOne();
@@ -369,7 +370,70 @@ class MinisterAgreestController extends Controller
      * 拿样产品供应商导入NS
      *
      */
-        public function  actionToNsSample(){
+     public function  actionNsSample(){
+            $id = $_POST['id'];
+            $sql = "SELECT s.pd_sku,s.pay_amount,p.pd_title,p.pur_group,s.pay_way,s.vendor_code FROM sample s 
+                    LEFT JOIN pur_info p on s.spur_info_id=p.pur_info_id
+                    WHERE s.spur_info_id=$id;";
+            $result = Yii::$app->db->createCommand($sql)->queryAll();
+            $pur_group = [1=>2,2=>3,3=>5,4=>6,5=>7,6=>8,7=>9,8=>2];
+            $item_arr = [
+                "recordtype" => "LotNumberedInventoryItem",
+                "itemid" => $result[0]['pd_sku'],
+                "subsidiary" => $pur_group[$result[0]['pur_group']],
+                "taxschedule" => "1",
+                "cost" => $result[0]['pay_amount'],
+                "custitem_item_spec" => $result[0]['pd_title'],
+                "purchasedescription" => $result[0]['pay_way'],
+                "custitem2" => $result[0]['vendor_code']
+            ];
+            $vendor_arr = [
+              "recordtype" => "Vendor",
+              "entityid" => $result[0]['vendor_code'],
+              "companyname" => $result[0]['pd_title'],
+              "subsidiary" => $pur_group[$result[0]['pur_group']]
+            ];
+            //创建产品
+            $item_res = $this->actionDoCurl($item_arr);
+            //创建供应商
+            $vendor_res = $this->actionDoCurl($vendor_arr);
+            $res = $item_res.$vendor_res;
+            return $res;
 
+     }
+
+    /**
+     * @param $item_arr
+     * @return string
+     * @throws \Exception
+     */
+     public  function  actionDoCurl($item_arr){
+
+        try{
+            $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=154&deploy=2';
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_HTTPHEADER,
+                [
+                'Authorization: NLAuth nlauth_account=5151251, nlauth_email=jenny.li@yaemart.com, nlauth_signature=Jenny666666, nlauth_role=1013',
+                'Content-Type: application/json',
+                'Accept: application/json'
+            ]
+            );
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+            curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,2);
+            curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,false);
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($item_arr));
+            ob_start();
+            curl_exec($ch);
+            $result = ob_get_contents();
+            ob_end_clean();
+            curl_close($ch);
+            return $result;
+        }catch (\Exception $exception){
+            throw $exception;
         }
+    }
+
 }
