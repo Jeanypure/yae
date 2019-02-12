@@ -53,8 +53,8 @@ class CommissionSearch extends PurInfo
                 CASE WHEN e.`audit_team_result`=0 THEN 0
                      WHEN e.`audit_team_result`=1   THEN '50'
                      WHEN e.`audit_team_result`=2   THEN '100'
-                     WHEN e.`audit_team_result`=3   THEN '70'
-                     WHEN e.`audit_team_result`=6   THEN '25'
+                     WHEN e.`audit_team_result`=3   THEN '100'
+                     WHEN e.`audit_team_result`=6   THEN '50'
                 ELSE 0 END AS 'weight',
                pr.`grade` 
                 "])
@@ -73,7 +73,7 @@ class CommissionSearch extends PurInfo
                 CASE WHEN e.`audit_team_result`=0 THEN 0
                      WHEN e.`audit_team_result`=1   THEN '50'
                      WHEN e.`audit_team_result`=2   THEN '100'
-                     WHEN e.`audit_team_result`=3   THEN '50'
+                     WHEN e.`audit_team_result`=3   THEN '100'
                      WHEN e.`audit_team_result`=6   THEN '25'
                 ELSE 0 END AS 'weight',
                 pr.`grade` 
@@ -93,8 +93,8 @@ class CommissionSearch extends PurInfo
                 CASE WHEN e.`audit_team_result`=0 THEN 0
                      WHEN e.`audit_team_result`=1   THEN '50'
                      WHEN e.`audit_team_result`=2   THEN '100'
-                     WHEN e.`audit_team_result`=3   THEN '70'
-                     WHEN e.`audit_team_result`=6   THEN '25'
+                     WHEN e.`audit_team_result`=3   THEN '100' 
+                     WHEN e.`audit_team_result`=6   THEN '50'
                 ELSE 0 END AS 'weight',
                 pr.`grade` 
                 "])
