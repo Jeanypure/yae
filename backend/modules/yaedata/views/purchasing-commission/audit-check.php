@@ -284,7 +284,7 @@ echo GridView::widget([
             'value'=>function ($model, $key, $index, $widget) {
                 $p = compact('model', 'key', 'index');
                 if($model->source == 0){
-                    return $widget->col(15, $p) * $widget->col(16, $p)/10;
+                    return $widget->col(15, $p) * $widget->col(16, $p)/100;
                 }
                 return $widget->col(15, $p) * $widget->col(16, $p) * $widget->col(18, $p)/100;
             },
