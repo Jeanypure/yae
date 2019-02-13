@@ -186,7 +186,7 @@ echo GridView::widget([
             'header'=>'个数',
             'value'=>function ($model, $key, $index, $widget) {
                 $p = compact('model', 'key', 'index');
-                return  $widget->col(12, $p) /10;
+                return  $widget->col(12, $p) /100;
             },
             'mergeHeader'=>true,
             'width'=>'150px',
@@ -208,9 +208,9 @@ echo GridView::widget([
             'value'=>function ($model, $key, $index, $widget) {
                 $p = compact('model', 'key', 'index');
                 if($model->source == 0){
-                    return $widget->col(11, $p) * $widget->col(12, $p) /10;
+                    return $widget->col(11, $p) * $widget->col(12, $p) /100;
                 }
-                return $widget->col(11, $p) * $widget->col(12, $p) * $widget->col(14, $p)/10;
+                return $widget->col(11, $p) * $widget->col(12, $p) * $widget->col(14, $p)/100;
             },
             'mergeHeader'=>true,
             'width'=>'150px',

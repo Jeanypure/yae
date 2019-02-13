@@ -37,7 +37,7 @@ class CommissionSearch extends PurInfo
              $userrole = $key;
             }
         }
-        /*1 推送产品  部长 权重5 采购权重7  不乘等级
+        /*1 推送产品  部长 权重5 采购权重10  不乘等级
         2 部长看自己部门产品
         3 采购自己名下产品
         4 审核组审核所有产品
