@@ -145,7 +145,7 @@ class PurchaserDataController extends Controller
                     GROUP BY purchaser 
                 ) p ON p.purchaser=o.purchaser
                 
-                WHERE o.source=0  GROUP BY  o.purchaser  ORDER BY uncommit_num desc";
+                WHERE o.source=0 AND ( purchaser_send_time BETWEEN '2018-12-01' AND '2019-03-01') GROUP BY  o.purchaser  ORDER BY uncommit_num desc";
         }
 
 
