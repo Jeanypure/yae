@@ -6,7 +6,37 @@
  * Time: 10:59
  */
 use kartik\grid\GridView;
+use yii\helpers\Html;
+use yii\helpers\Url;
+use kartik\daterange\DateRangePicker;
+use kartik\widgets\ActiveForm;
 
+?>
+<?php
+    $form = ActiveForm::begin();
+echo '<div class="form-group"><div class="row">';
+echo '<div class="col-md-4"><label class="control-label">Date Range</label>';
+echo '<div class="drp-container">';
+echo DateRangePicker::widget([
+    'name'=>'date_range_3',
+    'value'=>date('Y-m-d',strtotime('-90 day')) . ' - '. date('Y-m-d') ,
+    'presetDropdown'=>true,
+    'hideInput'=>true
+]);
+echo '</div></div>';
+
+?>
+<!--<div class="form-group">-->
+<div class="col-md-4">
+<?= Html::submitButton(Yii::t('app', '查询'), ['class' => 'btn-lg btn-success']) ?>
+    <?php
+//        echo  Html::submitButton('查询', ['id' => 'date-str', 'class' => 'btn btn-primary '])
+         ;?>
+
+</div>
+</div></br></br>
+<?php ActiveForm::end(); ?>
+<?php
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'showPageSummary'=>true,
@@ -198,7 +228,7 @@ echo GridView::widget([
             'header'=>'拒绝率%',
             'value'=>function ($model, $key, $index, $widget) {
                 $p = compact('model', 'key', 'index');
-                return $widget->col(2, $p) / $widget->col(8, $p) *100;
+                return ($widget->col(8, $p) *100>0)?$widget->col(2, $p) / $widget->col(8, $p) *100:0;
             },
             'mergeHeader'=>true,
             'width'=>'150px',
@@ -212,7 +242,8 @@ echo GridView::widget([
             'header'=>'成功率%',
             'value'=>function ($model, $key, $index, $widget) {
                 $p = compact('model', 'key', 'index');
-                return ($widget->col(3, $p)+ $widget->col(6, $p))/ $widget->col(8, $p) *100;
+
+                return ($widget->col(8, $p) *100>0)?(($widget->col(3, $p)+ $widget->col(6, $p))/ $widget->col(8, $p) *100):0;
             },
             'mergeHeader'=>true,
             'width'=>'150px',
@@ -256,3 +287,25 @@ echo GridView::widget([
         ],
     ],
 ]);
+?>
+<?php
+    $submit = Url::toRoute('compute');
+    $js =<<<JS
+    $('#date-str').on('click',function() {
+      var button = $(this);
+      button.attr('disabled','disabled');
+      var date_range = $('#w1').val();
+      console.log(date_range);
+      $.ajax({
+          url:'{$submit}',
+          type: 'post',
+          data:{date_range:date_range},
+          success:function(data) {
+            button.attr('disabled',false);
+          }
+      });
+    });
+JS;
+
+//$this->registerJs($js);
+?>

@@ -15,8 +15,6 @@ use kartik\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin([
             'id' =>'sample',
-            'enableAjaxValidation' => true,
-            'validationUrl' => Url::toRoute(['validate-form'])
         ]); ?>
 
     <?php
