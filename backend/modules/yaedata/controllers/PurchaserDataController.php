@@ -88,7 +88,7 @@ class PurchaserDataController extends Controller
                     GROUP BY purchaser 
                 ) p ON p.purchaser=o.purchaser
                 
-                WHERE o.source=0  GROUP BY  o.purchaser  ORDER BY uncommit_num desc";
+                WHERE o.source=0 and (purchaser_send_time between '$date_arr[0]' and '$date_arr[1]') GROUP BY  o.purchaser  ORDER BY uncommit_num desc";
         } else {
             // -- 产品拒绝率 采样率 采购率统计
             $sql = "
@@ -145,7 +145,7 @@ class PurchaserDataController extends Controller
                     GROUP BY purchaser 
                 ) p ON p.purchaser=o.purchaser
                 
-                WHERE o.source=0 AND ( purchaser_send_time BETWEEN '2018-12-01' AND '2019-03-01') GROUP BY  o.purchaser  ORDER BY uncommit_num desc";
+                WHERE o.source=0  GROUP BY  o.purchaser  ORDER BY uncommit_num desc";
         }
 
 
