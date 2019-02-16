@@ -217,19 +217,19 @@ echo GridView::widget([
             'attribute'=>'audit_team_result',
             'label'=>'审核组判断',
             'value' => function($model) {
-                if($model->purchaser_result==0){
+                if($model->audit_team_result==0){
                     return '未判断';
-                }elseif($model->purchaser_result==1){
+                }elseif($model->audit_team_result==1){
                     return '半价产品';
-                }elseif($model->purchaser_result==2){
+                }elseif($model->audit_team_result==2){
                     return '新品';
-                }elseif($model->purchaser_result==3){
+                }elseif($model->audit_team_result==3){
                     return '推送产品';
-                }elseif($model->purchaser_result==4){
+                }elseif($model->audit_team_result==4){
                     return '简单重复';
-                }elseif($model->purchaser_result==5){
+                }elseif($model->audit_team_result==5){
                     return '不算提成';
-                }elseif($model->purchaser_result==6){
+                }elseif($model->audit_team_result==6){
                     return '推送且半价';
                 }else{
                     return '其他';
