@@ -398,6 +398,9 @@ class MinisterAgreestController extends Controller
             //创建供应商
             $vendor_res = $this->actionDoCurl($vendor_arr);
             $res = $item_res.$vendor_res;
+            //返回的id 要写到表中之后按 id更新
+            $internalid = trim($item_res,'"');
+            Yii::$app->db->createCommand("update sample set internalid= '$internalid' where spur_info_id = $id")->execute();
             return $res;
 
      }

@@ -219,7 +219,7 @@ class AuditDetailController extends Controller
         return $ret;
     }
 
-    function actionPutUrl($data,$url){
+     public function actionPutUrl($data,$url){
         $ch = curl_init(); //初始化CURL句柄
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt ($ch, CURLOPT_HTTPHEADER,[

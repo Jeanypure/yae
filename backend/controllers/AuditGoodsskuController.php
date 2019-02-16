@@ -202,6 +202,7 @@ class AuditGoodsskuController extends Controller
            'custitem_cs_1688linkurl' => $result[0]['url_1688'],
        ]];
         $result = $this->actionDoCurl($item_arr);
+        //TODO 创建记录成功需要把NS中的内部id回写到goodssku表中， 再次导入时做更新操作
         $res = json_decode($result);
         if( isset($res->code)&&$res->code=='200 OK'){
             try{
@@ -222,6 +223,7 @@ class AuditGoodsskuController extends Controller
 
         try{
 //            $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=116&deploy=8';
+            //script=153 version 1.0 创建带编号的库存商品
             $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=153&deploy=2';
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -248,20 +250,27 @@ class AuditGoodsskuController extends Controller
 
     }
 
-
     /**
-     * @param $id
-     * @return string
-     * @throws \Exception
+     * put更新已存在的带编号的库存产品
      */
-    public function actionMendEccang($id){
-        try{
-          $res = Yii::$app->db->createCommand("update goodssku set has_toeccang=1  where sku_id = $id ")->execute();
-        }catch(\Exception $exception){
-            throw $exception;
-        }
-        return 'success';
-
+    public function actionPutItem($data,$url){
+        $ch = curl_init(); //初始化CURL句柄
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Authorization: NLAuth nlauth_account=5151251, nlauth_email=jenny.li@yaemart.com, nlauth_signature=Jenny666666, nlauth_role=1013',
+            'Content-Type: application/json',
+            'Accept: application/json',
+            'Content-Length: ' . strlen($data)]);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+        curl_setopt($ch, CURLOPT_POSTFIELDS,$data);//设置提交的字符串
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER,true); //设为TRUE把curl_exec()结果转化为字串，而不是直接输出
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+        $output = curl_exec($ch);
+        curl_close($ch);
+        return $output;
     }
+
+
 
 }
