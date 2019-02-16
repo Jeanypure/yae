@@ -49,11 +49,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($model) { return $model->pd_sku;},
                 'label'=>'SKU',
             ],
-            [
+           /* [
                 'attribute'=>'sample_sku',
                 'value' => function($model) { return $model->pd_sku;},
                 'label'=>'拿样SKU',
-            ],
+            ],*/
             [
                 'attribute'=>'pd_title',
                 'value' => function($model) { return $model->pd_title;},
