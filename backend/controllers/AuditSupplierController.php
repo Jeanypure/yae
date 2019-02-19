@@ -328,7 +328,7 @@ class AuditSupplierController extends Controller
         return $res;
     }
 
-    public  function  actionDoVendorCurl($item_arr){
+    public static  function  actionDoVendorCurl($item_arr){
 
         try{
 //            $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=139&deploy=1';

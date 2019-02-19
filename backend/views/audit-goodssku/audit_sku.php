@@ -97,10 +97,11 @@ $export_ns = <<<JS
                  type: 'get',
                  data:{id:$id},
                  success:function(res){
-                     var obj = JSON.parse(res);
                    button.attr('disabled',false);
+                  /* var obj = JSON.parse(res);
                    if(obj.code =='200 OK'){ alert(obj.message); }
-                   else{alert('code:'+obj.error.code+'\\n message:'+obj.error.message);}
+                   else{alert('code:'+obj.error.code+'\\n message:'+obj.error.message);}*/
+                  alert(res);
                  },
                  error: function (jqXHR, textStatus, errorThrown) {
                             button.attr('disabled',false);

@@ -11,6 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
 
+
 /**
  * GoodsskuController implements the CRUD actions for Goodssku model.
  */
@@ -122,7 +123,7 @@ class AuditGoodsskuController extends Controller
      */
    public function actionExportNs($id){
        $sql = "SELECT 
-                    g.sku,g.pd_title,g.pd_title_en,g.pd_weight,g.pd_length,g.pd_width,g.pd_height,
+                    g.internalid,g.sku,g.pd_title,g.pd_title_en,g.pd_weight,g.pd_length,g.pd_width,g.pd_height,
                     g.declared_value,g.currency_code,g.pd_costprice,g.pd_costprice_code,g.vendor_code,
                     g.is_quantity_check, g.contain_battery,g.qty_of_ctn,g.ctn_length,g.pd_width,g.pd_height,
                     g.ctn_width, g.ctn_height, g.ctn_fact_weight, g.pd_creator, g.sale_company,g.sku_mark,g.hs_code,
@@ -137,17 +138,13 @@ class AuditGoodsskuController extends Controller
                     LEFT JOIN pur_info o ON o.pur_info_id=g.pur_info_id
                 where  g.sku_id = $id ";
        $result =  Yii::$app->db->createCommand("$sql")->queryAll();
-       $is_quantity_check = empty($result[0]['is_quantity_check'])?'F':'T';
-       $contain_battery = empty($result[0]['contain_battery'])?'F':'T';
+       $contain_battery = empty($result[0]['contain_battery'])?FALSE:TRUE;
+       $is_quantity_check = empty($result[0]['is_quantity_check'])?FALSE:TRUE;
        $sale_company =  explode(',',$result[0]['sale_company']);
-
-        if($sale_company == [0=>"9"]){
-            $sale_company = ["2"];
-        }elseif (in_array(9,$sale_company)){
-            $sale_company = array_diff($sale_company,['9']);
+        if (in_array(9,$sale_company)){
+            $sale_company =['2','9'];
         }
-
-        $item_arr = [[
+        $item_min = [
            "itemid" => $result[0]['sku'],
            "taxschedule" => "1",
            "custitem_cn_declared_name" => $result[0]['pd_title'],
@@ -174,7 +171,8 @@ class AuditGoodsskuController extends Controller
            "subsidiary" => $sale_company,
            "custitem24" => $result[0]['hs_code'],
            "lastpurchaseprice" => $result[0]['pd_costprice'],
-           "usebins" => 'T',
+//           "usebins" => 'T',
+            "usebins" => TRUE,
            "purchasedescription" => $result[0]['pd_title'],
            "custitem_item_spec" => $result[0]['origin_code'],
            "custitemgoodssku_memo" => $result[0]['sku_mark'],
@@ -200,24 +198,39 @@ class AuditGoodsskuController extends Controller
            'custitemm_purpose' => $result[0]['use'],
            'salesdescription' => $result[0]['pd_title'],
            'custitem_cs_1688linkurl' => $result[0]['url_1688'],
-       ]];
-        $result = $this->actionDoCurl($item_arr);
-        //TODO 创建记录成功需要把NS中的内部id回写到goodssku表中， 再次导入时做更新操作
-        $res = json_decode($result);
-        if( isset($res->code)&&$res->code=='200 OK'){
-            try{
-                Yii::$app->db->createCommand("update goodssku set has_tons=1 where sku_id=$id ")->execute();
-            }catch (\Exception $exception){
-               throw $exception;
+       ];
+        $recordtype = ['recordtype' => 'LotNumberedInventoryItem'];
+        $item_arr =  array_merge($item_min,$recordtype);
+        $data_arr = [
+            'id' => $result[0]['internalid'],
+            'recordtype' => 'LotNumberedInventoryItem',
+            'fields' => $item_min
+            ];
+        if(isset($result[0]['internalid'])&&!empty($result[0]['internalid'])){
+            $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=154&deploy=2';
+            $result = $this->actionPutItem(json_encode($data_arr),$url);
+        }else {
+            $result = $this->actionPostItem($item_arr);
+            $internalid = trim($result,'"');
+//            $result = $this->actionDoCurl($item_arr);
+            //创建记录成功需要把NS中的内部id回写到goodssku表中， 再次导入时做更新操作
+            if (strlen($internalid)>=5 && strlen($internalid)<=6) {
+                try {
+                    Yii::$app->db->createCommand("update goodssku set internalid= '$internalid',has_tons=1 where sku_id=$id ")->execute();
+                } catch (\Exception $exception) {
+                    throw $exception;
+                }
             }
         }
      return $result;
    }
 
+
     /**
      * @param $item_arr
      * @return string
      * @throws \Exception
+     * suitescript 1.0 version
      */
     public  function  actionDoCurl($item_arr){
 
@@ -270,7 +283,14 @@ class AuditGoodsskuController extends Controller
         curl_close($ch);
         return $output;
     }
-
-
+    /**
+     * post use SuiteScript 2.0 Version Create LotNumbered Inventory Item
+     *
+     */
+    public function actionPostItem($item_arr)
+    {
+        $res = AuditSupplierController::actionDoVendorCurl($item_arr);
+        return $res;
+    }
 
 }
