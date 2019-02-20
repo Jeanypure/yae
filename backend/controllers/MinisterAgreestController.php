@@ -377,10 +377,22 @@ class MinisterAgreestController extends Controller
                     WHERE s.spur_info_id=$id;";
             $result = Yii::$app->db->createCommand($sql)->queryAll();
             $pur_group = [1=>2,2=>3,3=>5,4=>6,5=>7,6=>8,7=>9,8=>2];
+
+            if(strlen($result[0]['pur_group'])==1){
+                $subsidiary = $pur_group[$result[0]['pur_group']];
+                $subsidiary_vendor = $pur_group[$result[0]['pur_group']];
+            }else{
+                $group_arr = explode(',',$result[0]['pur_group']);
+                foreach ($group_arr as $key=>$value){
+                    $subsidiary[] = $pur_group[$value];
+                    $subsidiary_vendor = $pur_group[$value[0]];
+                }
+            }
+
             $item_arr = [
                 "recordtype" => "LotNumberedInventoryItem",
                 "itemid" => $result[0]['pd_sku'],
-                "subsidiary" => $pur_group[$result[0]['pur_group']],
+                "subsidiary" => $subsidiary,
                 "taxschedule" => "1",
                 "cost" => $result[0]['pay_amount'],
                 "custitem_item_spec" => $result[0]['pd_title'],
@@ -391,7 +403,7 @@ class MinisterAgreestController extends Controller
               "recordtype" => "Vendor",
               "entityid" => $result[0]['vendor_code'],
               "companyname" => $result[0]['pd_title'],
-              "subsidiary" => $pur_group[$result[0]['pur_group']]
+                "subsidiary" => $subsidiary_vendor,
             ];
             //创建产品
             $item_res = $this->actionDoCurl($item_arr);
