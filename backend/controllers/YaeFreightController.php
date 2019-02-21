@@ -48,7 +48,7 @@ class YaeFreightController extends Controller
     {
         $searchModel = new YaeFreightSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $param_data = $this->actionParam();
+        $param_data = self::actionParam();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -264,12 +264,12 @@ class YaeFreightController extends Controller
         ]);
     }
 
-    public function actionParam()
+    public static function actionParam()
     {
 
         $fee_cate = FeeCategory::find()->select('id,name_zn')->asArray()->All();
         $cur = YaeExchangeRate::find()->select('id,currency')->asArray()->All();
-        $forwarders = FreightForwarders::find()->select('id,receiver')->asArray()->All();
+        $forwarders = FreightForwarders::find()->select('id,receiver,memo')->asArray()->All();
         $saler = Purchaser::find()->select('id,purchaser')->asArray()->where(['code'=>'freight_contact'])->All();
         $company = Company::find()->select('id,full_name')->asArray()->andWhere(['NOT', ['full_name' => null]])->All();
         $group = YaeGroup::find()->select('group_id,group_name')->asArray()->orderBy('group_id asc')->All();
@@ -279,6 +279,7 @@ class YaeFreightController extends Controller
         $minister = [];
         $full_name = [];
         $group_name = [];
+        $memo = [];
         foreach ($fee_cate as $key => $value) {
             $arr[$value['id']] = $value['name_zn'];
         }
@@ -287,6 +288,7 @@ class YaeFreightController extends Controller
         }
         foreach ($forwarders as $key => $value) {
             $freight_for[$value['id']] = $value['receiver'];
+            $memo[$value['id']] = $value['memo'];
         }
         foreach ($saler as $key => $value) {
             $minister[$value['purchaser']] = $value['purchaser'];
@@ -301,6 +303,7 @@ class YaeFreightController extends Controller
         $param['name_zn'] = $arr;
         $param['currency'] = $currency;
         $param['receiver'] = $freight_for;
+        $param['memo'] = $memo;
         $param['minister'] = $minister;
         $param['full_name'] = $full_name;
         $param['group_name'] = $group_name;

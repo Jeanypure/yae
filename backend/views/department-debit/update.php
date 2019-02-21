@@ -47,40 +47,17 @@ $this->params['breadcrumbs'][] = 'Update';
                     'attribute'=>'bill_to',
                     'format'=>'raw',
                     'value' => function ($model) {
-                        if($model->bill_to ==1 ){
-                            return '上海商舟船舶用品有限公司';
-                        }elseif($model->bill_to ==2 ){
-                            return '上海雅耶贸易有限公司';
-                        }elseif($model->bill_to ==3 ){
-                            return '上海朗探贸易有限公司';
-                        }elseif($model->bill_to ==4 ){
-                            return '上海域聪贸易有限公司';
-                        }elseif($model->bill_to ==5 ){
-                            return '上海朋侯贸易有限公司';
-                        }elseif($model->bill_to ==6 ) {
-                            return '上海客尊贸易有限公司';
-                        }else{
-                            return '其他';
-                        }
+                        $suffix = [ '1' => '商舟', '2' => '雅耶', '3' => '朗探', '4' => '域聪', '5' => '鹏侯', '6' => '客尊'];
+                        return $suffix[$model->bill_to];
                     },
                 ],
                 [
                     'attribute'=>'receiver',
                     'format'=>'raw',
                     'value' => function ($model) {
-                        if($model->receiver ==1 ){
-                            return '深圳大森林国际货代有限公司';
-                        }elseif($model->receiver ==2 ){
-                            return '上海珑瑗国际货物运输代理有限公司';
-                        }elseif($model->receiver ==3 ){
-                            return '上海昊宏国际货物运输代理有限公司';
-                        }elseif($model->receiver ==4 ){
-                            return '深圳市安泰克物流有限公司';
-                        }elseif($model->bill_to ==5 ){
-                            return '文鼎供应链管理(上海)有限公司';
-                        }else{
-                            return '其他';
-                        }
+                        $company = [ '1' => '大森林', '2' => '珑瑗', '3' => '昊宏', '4' => '安泰克', '5' => '文鼎','6'=>'龙辕',
+                            '7'=>'瀚明','8'=>'德威','9'=>'世纪卓越'];
+                        return $company[$model->receiver];
                     },
                 ],
                 'shipment_id',

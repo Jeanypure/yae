@@ -7,7 +7,6 @@ use backend\models\YaeGroup;
 use backend\models\YaeFreight;
 use backend\models\FreightFee;
 use backend\models\DepartmentDebitSearch;
-use backend\models\FreightFeeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
