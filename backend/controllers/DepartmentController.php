@@ -213,7 +213,7 @@ class DepartmentController extends Controller
                             p.`purchaser`,
                             0 as num         
                          from `purchaser` p 
-                         where (p.`code`=1 or p.`code`=2 or p.`code`=3 or p.`code`=4) AND has_used=1
+                         where (p.`code`=1 or p.`code`=2 or p.`code`=3 or p.`code`=4 or p.`code`=6) AND has_used=1
                          GROUP BY p.`purchaser` 
                          ")->queryAll();
 
