@@ -83,13 +83,13 @@ $this->registerJs($js);
     <div class="col-lg-6 col-md-3">
         <h2>采购拿样来源</h2>
         <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-        <div id="sample" style="width: 900px;height:600px;"></div>
+        <div id="sample" style="width: 1000px;height:900px;"></div>
     </div>
 
     <div class="col-lg-6 col-md-3">
         <h2>新品确定采购个数</h2>
         <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-        <div id="purchase" style="width: 900px;height:600px;"></div>
+        <div id="purchase" style="width: 1000px;height:900px;"></div>
     </div>
 </div>
 <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->

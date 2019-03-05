@@ -34,20 +34,23 @@ class SampleSourceController extends Controller
             $lastday = $arr_date[1];
         }
         $sql = "SELECT * FROM (
-SELECT  o.purchaser,count(purchaser) as total ,
+		SELECT r.purchaser,IFNULL(t1.total,0) as total,'sample' as result_type   from purchaser r LEFT JOIN ( 
+      SELECT  o.purchaser,count(purchaser) as total ,
 			'sample' as result_type
 			FROM  sample e
 			LEFT JOIN pur_info o ON o.pur_info_id = e.spur_info_id
 			WHERE (o.master_result=1 or o.master_result=4)
 			AND  DATE_FORMAT(e.create_date,'%Y-%m-%d') between '$firstday' and '$lastday'
 			GROUP BY purchaser
-
-			UNION 
+) t1   ON t1.purchaser = r.purchaser where sku_code1 is NOT NULL AND sku_code1<> '' AND has_used=1
+			UNION
+SELECT r.purchaser,IFNULL(t1.total,0) as total ,'purchase' as result_type from purchaser r LEFT JOIN (  
 			SELECT o.purchaser,  count(purchaser) as total,'purchase' as result_type
 			FROM  pur_info o 
 			WHERE o.is_purchase='1' 
 			AND  DATE_FORMAT(o.sure_purchase_time,'%Y-%m-%d') between  '$firstday' and '$lastday'
 			GROUP BY purchaser
+) t1   ON t1.purchaser = r.purchaser where sku_code1 is NOT NULL AND sku_code1<> '' AND has_used=1
 			UNION
 			SELECT pur_group AS purchaser , count(pur_group) as total,'group' as result_type
 			FROM  pur_info o 
