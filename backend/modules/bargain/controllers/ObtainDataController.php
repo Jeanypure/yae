@@ -77,7 +77,7 @@ class ObtainDataController extends Controller
        }
     }
 
-    public  function actionDoCurl($url)
+   static public  function  actionDoCurl($url)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HTTPHEADER,[
