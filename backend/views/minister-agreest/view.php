@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'else_fee',
             'pay_amount',
             'pay_way',
+            'paying_url',
             'mark',
             ['attribute'=>'fee_return',
                 'value'=>function($model){

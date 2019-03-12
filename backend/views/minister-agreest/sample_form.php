@@ -3,9 +3,6 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\builder\Form;
 use kartik\widgets\ActiveForm;
-
-
-
 /* @var $this yii\web\View */
 /* @var $model backend\models\PurInfo */
 /* @var $form yii\widgets\ActiveForm */
@@ -36,9 +33,6 @@ use kartik\widgets\ActiveForm;
     ]);
 
     ?>
-
-
-
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn-lg btn-success']) ?>

@@ -47,9 +47,9 @@ class Sample extends \yii\db\ActiveRecord
             [['audit_team_result','minister_result','has_arrival','for_free', 'spur_info_id', 'is_audit', 'is_agreest',  'fee_return', 'audit_mem1', 'applicant'], 'integer'],
             [['procurement_cost', 'sample_freight', 'else_fee', 'pay_amount'], 'number'],
             [['purchaser_reason','write_date','arrival_date','create_date', 'lastop_date'], 'safe'],
-            [['pay_way', 'mark'], 'string', 'max' => 500],
+            [['pay_way','paying_url','mark'], 'string', 'max' => 500],
             [['audit_team_reason','minister_reason'], 'string', 'max' => 100],
-            [['sample_sku','pd_sku',], 'string', 'max' => 60],
+            [['sample_sku','pd_sku'], 'string', 'max' => 60],
             [['procurement_cost', 'sample_freight', 'pay_amount','pay_way','pd_sku'], 'required'],
 
         ];
@@ -93,6 +93,7 @@ class Sample extends \yii\db\ActiveRecord
             'sample_sku' => '拿样SKU',
             'vendor_code' => '拿样供应商代码',
             'purchaser_reason' => '采购产品等级判断原因',
+            'paying_url' => '代付链接',
         ];
     }
 

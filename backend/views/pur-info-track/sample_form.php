@@ -37,10 +37,11 @@ use kartik\select2\Select2;
     echo Form::widget([
         'model'=>$model,
         'form'=>$form,
-        'columns'=>1,
+        'columns'=>6,
         'attributes'=>[       // 6 column layout
             'vendor_code'=>['type'=>Form::INPUT_STATIC],
-            'pay_way'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'pay_way'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'']],
+            'paying_url'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'']],
             'mark'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'']],
         ],
 

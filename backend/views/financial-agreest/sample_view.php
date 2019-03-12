@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'else_fee',
             'pay_amount',
             'pay_way',
+            'paying_url',
             'mark',
             'is_audit',
             [
