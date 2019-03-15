@@ -79,7 +79,7 @@ class PurInfo extends \yii\db\ActiveRecord
 
         return [
             [['is_purchase','trading_company','source','brocast_status','is_quality','sample_submit1','sample_submit2','pur_complete_status','is_assign','junior_submit', 'pd_purchase_num', 'parent_product_id','preview_status'], 'integer'],
-            [['trading_company', 'bill_type','pd_title','pd_title_en','pd_package','pd_length', 'pd_width', 'pd_height','pd_weight',
+            [['trading_company','bill_name','bill_unit','bill_type','pd_title','pd_title_en','pd_package','pd_length', 'pd_width', 'pd_height','pd_weight',
                 'pd_pur_costprice','bill_tax_rebate','retail_price','pd_purchase_num','hs_code',
                 'has_shipping_fee','is_patent_right','is_third_party_abroad_right','promise_rights','special_auth_FDA'], 'required'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice',
@@ -132,6 +132,8 @@ class PurInfo extends \yii\db\ActiveRecord
             'pd_pur_costprice' => '含税价格¥',
             'has_shipping_fee' => '是否含运',
             'bill_type' => '开票类型',
+            'bill_name' => '开票品名',
+            'bill_unit' => '开票单位',
             'hs_code' => 'HS编码',
             'bill_tax_rebate' => '退税率%',
             'bill_rebate_amount' => '退税金额¥',

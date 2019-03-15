@@ -58,6 +58,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
 
+            'bill_name',
+            'bill_unit',
             'bill_type',
             'hs_code',
             'bill_tax_rebate',

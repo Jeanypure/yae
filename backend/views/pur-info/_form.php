@@ -117,6 +117,7 @@ use kartik\builder\Form;
 //            'contentBefore'=>'<legend class="text-info"><h3>其他信息</h3></legend>',
 
         'attributes'=>[       // 6 column layout
+
             'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
                 'items'=>['16%专票'=>'16%专票','增值税普通普票'=>'增值税普通普票', '3%专票'=>'3%专票'],
                 'options'=>['placeholder'=>'']],

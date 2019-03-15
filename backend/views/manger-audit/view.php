@@ -40,11 +40,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'pd_pur_costprice',
             'old_costprice',
             'has_shipping_fee',
+            'bill_name',
+            'bill_unit',
             'bill_type',
             'hs_code',
             'bill_tax_rebate',
             'bill_rebate_amount',
-
             ['attribute'=>'ebay_url','format'=>['url',['target'=>'_blank']]],
             ['attribute'=>'amazon_url','format'=>['url',['target'=>'_blank']]],
             ['attribute'=>'url_1688','format'=>['url',['target'=>'_blank']]],

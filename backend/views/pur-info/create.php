@@ -140,6 +140,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'pd_purchase_num'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
                 'hs_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'bill_name'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'bill_unit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
                 'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
                     'items'=>['16%专票'=>'16%专票','增值税普通普票'=>'增值税普通普票', '3%专票'=>'3%专票'],
@@ -202,11 +204,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     </div>
 
-
-
-
 </div>
-    <?php
+<?php
 
     //css 表单input 变圆润
 
