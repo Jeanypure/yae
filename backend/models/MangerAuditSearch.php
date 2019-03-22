@@ -20,7 +20,7 @@ class MangerAuditSearch extends PurInfo
     public function rules()
     {
         return [
-            [['audit_a','audit_b','is_submit_manager','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee',  'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
+            [['is_submit','audit_a','audit_b','is_submit_manager','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee',  'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
             [['pd_create_time','preview_status','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount',
                 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688','else_url', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'source', 'member', 'preview_status',
                 'brocast_status', 'master_member', 'master_mark', 'master_result'], 'safe'],
@@ -55,11 +55,10 @@ class MangerAuditSearch extends PurInfo
        }
 
         $query = PurInfo::find()
+            ->andWhere(['is_submit'=>1])
             ->andWhere(['in','pur_info_id',$ids])
             ->orderBy('pur_info_id desc')
-
         ;
-//        $this->master_result = 3;
         $this->preview_status = 0;
         $this->audit_a = 1;
         $this->audit_b = 1;
@@ -104,6 +103,8 @@ class MangerAuditSearch extends PurInfo
             'hs_code' => $this->hs_code,
             'bill_tax_rebate' => $this->bill_tax_rebate,
             'parent_product_id' => $this->parent_product_id,
+            'preview_status' => $this->preview_status,
+            'brocast_status' => $this->brocast_status,
         ]);
 
         $query->andFilterWhere(['like', 'purchaser', $this->purchaser])
@@ -130,8 +131,6 @@ class MangerAuditSearch extends PurInfo
             ->andFilterWhere(['like', 'pur_group', $this->pur_group])
             ->andFilterWhere(['like', 'source', $this->source])
             ->andFilterWhere(['like', 'member', $this->member])
-            ->andFilterWhere(['like', 'preview_status', $this->preview_status])
-            ->andFilterWhere(['like', 'brocast_status', $this->brocast_status])
             ->andFilterWhere(['like', 'master_member', $this->master_member])
             ->andFilterWhere(['like', 'master_mark', $this->master_mark])
             ->andFilterWhere(['like', 'master_result', $this->master_result]);
