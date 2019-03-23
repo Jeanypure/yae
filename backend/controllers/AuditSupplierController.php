@@ -189,49 +189,6 @@ class AuditSupplierController extends Controller
 
     }
 
-
-
-    /**
-     * 重写fputcsv方法，添加转码功能
-     * @param $handle
-     * @param array $fields
-     * @param string $delimiter
-     * @param string $enclosure
-     * @param string $escape_char
-     */
-    function actionFputcsv2($handle, array $fields, $delimiter = ",", $enclosure = '"', $escape_char = "\\") {
-        foreach ($fields as $k => $v) {
-            $fields[$k] = iconv("UTF-8", "GB2312//IGNORE", $v);  // 这里将UTF-8转为GB2312编码
-        }
-         fputcsv($handle, $fields, $delimiter, $enclosure, $escape_char);
-    }
-
-    function actionExportToNshh($id) {
-        // 文件名
-        $filename = "供应商信息" . date('Y-m-d H:i:s');
-        // 设置输出头部信息
-        header('Content-Encoding: UTF-8');
-        header("Content-Type: text/csv; charset=UTF-8");
-        header("Content-Disposition: attachment; filename={$filename}.csv");
-        $tableHead = ['供应商代码','供应商名称','供应商地址','支付周期类型','结算方式','预付比例%','开票类型','是否为合作过的供应商','默认产品开发员',
-            '开户银行','银行收款账号','联系人','联系人职位','联系电话','QQ','微信','注意事项', '公司',];
-        // 获取句柄
-        $output = fopen('php://output', 'w') or die("can't open php://output");
-
-        // 输出头部标题
-        $this->actionFputcsv2($output, $tableHead);
-
-        //记录
-
-        $list = $this->actionRecords($id);
-        foreach ($list as $item) {
-             $this->actionFputcsv2($output, array_values($item));
-        }
-
-        // 关闭句柄
-        fclose($output) or die("can't close php://output");
-    }
-
     public function actionSignToNetsuite($id){
        $res =  Yii::$app->db->createCommand("update yae_supplier set has_tons =1 where id in ($id)")->execute();
        if($res){
@@ -284,8 +241,7 @@ class AuditSupplierController extends Controller
      * @throws \Exception
      */
     public function actionClickToNs($id){
-
-        $query = YaeSupplier::find()->select(['r.supplier_code','r.supplier_name','r.pd_bill_name','r.bill_unit','r.submitter',
+        $query = YaeSupplier::find()->select(['r.internal_id','r.supplier_code','r.supplier_name','r.pd_bill_name','r.bill_unit','r.submitter',
             'r.bill_type','r.pay_card','r.pay_name','r.pay_bank','r.sup_remark','r.pay_cycleTime_type','r.account_type',
             'r.account_proportion','r.has_cooperate','r.sale_company','r.supplier_address','r.supplier_pay_methon',
             't.supplier_id','t.contact_name','t.contact_tel','t.contact_address','t.contact_qq','t.contact_wechat','t.contact_wangwang',
@@ -313,11 +269,33 @@ class AuditSupplierController extends Controller
             "custentity_address" => $data[0]['contact_address'],
             "altphone" => $data[0]['contact_tel'],
             "custentity_attention" => $data[0]['contact_name'],
-           // "custentitypayment_method" => $data[0]['supplier_pay_methon'],
             "custentity_wangwang" => $data[0]['contact_wangwang'],
             "custentity_payee" => $data[0]['pay_name'],
         ];
-        $res = $this->actionDoVendorCurl($vendor_arr);
+        $internalid = $data[0]['internal_id'];
+        $data_arr = [
+            'id' => $internalid,
+            'recordtype' =>'Vendor',
+            'fields' =>$vendor_arr
+        ];
+        //记录已存在则更新 不存在则创建
+        if(isset($internalid)&&!empty($internalid)){
+            $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=154&deploy=2';
+            $res = $this->actionPutVendor(json_encode($data_arr),$url);
+
+        }else{
+            //创建成功需要把internal_id 回写到yae_supplier
+            $res = $this->actionDoVendorCurl($vendor_arr);
+            $internalid = trim($res,'"');
+            if ( strlen($internalid)<=16) {
+                try {
+                    Yii::$app->db->createCommand("update yae_supplier set internal_id= '$internalid',has_tons=1 where id=$id ")->execute();
+                } catch (\Exception $exception) {
+                    throw $exception;
+                }
+            }
+        }
+
         if (is_string($res)){
             try{
                 Yii::$app->db->createCommand("update yae_supplier set has_tons=1 where id=$id ")->execute();
@@ -328,10 +306,16 @@ class AuditSupplierController extends Controller
         return $res;
     }
 
+    /**
+     * @param $item_arr
+     * @return string
+     * @throws \Exception
+     * @description post创建供应商
+     */
+
     public static  function  actionDoVendorCurl($item_arr){
 
         try{
-//            $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=139&deploy=1';
             $url = 'https://5151251.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=154&deploy=2';
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -355,6 +339,13 @@ class AuditSupplierController extends Controller
             throw $exception;
         }
 
-
     }
+
+   /**
+    * 更新已存在的供应商 按internalid
+    */
+   public  function actionPutVendor($data,$url){
+       $res = AuditGoodsskuController::actionPutItem($data,$url);
+       return $res;
+   }
 }

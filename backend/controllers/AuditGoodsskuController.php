@@ -266,7 +266,7 @@ class AuditGoodsskuController extends Controller
     /**
      * put更新已存在的带编号的库存产品
      */
-    public function actionPutItem($data,$url){
+    public static function actionPutItem($data,$url){
         $ch = curl_init(); //初始化CURL句柄
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
