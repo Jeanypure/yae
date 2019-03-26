@@ -7,16 +7,15 @@ use yii\grid\GridView;
 /* @var $searchModel backend\modules\cost\models\DomesticFreightSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Domestic Freights';
+$this->title = '国内运费';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="domestic-freight-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Domestic Freight', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -24,19 +23,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'dfid',
+            ['class' => 'yii\grid\ActionColumn'],
+//            'dfid',
             'purchase_no',
             'sku',
             'freight',
-            'creator',
-            //'applicant',
-            //'subsidiaries',
-            //'group',
-            //'create_date',
-            //'application_date',
-
-            ['class' => 'yii\grid\ActionColumn'],
+//            'creator',
+            'applicant',
+            'subsidiaries',
+            'group',
+//            'create_date',
+            'application_date:date',
         ],
     ]); ?>
 </div>

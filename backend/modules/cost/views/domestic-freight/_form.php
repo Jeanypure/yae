@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use kartik\widgets\ActiveForm;
+use kartik\builder\Form;
 
 /* @var $this yii\web\View */
 /* @var $model backend\modules\cost\models\DomesticFreight */
@@ -12,23 +13,26 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'purchase_no')->textInput(['maxlength' => true]) ?>
+    <?php
+    echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>6,
+        'contentBefore'=>'<legend class="text-info"><h3>1.基本信息</h3></legend>',
+        'attributes'=>[       // 3 column layout
+            'purchase_no'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'sku'=>['type'=>Form::INPUT_TEXT,
+                'labelOptions'=>['class'=>'label-require'],
+                'options'=>['placeholder'=>'','class'=>'label-require']],
+            'freight'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'subsidiaries'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'group'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'application_date'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+        ],
 
-    <?= $form->field($model, 'sku')->textInput(['maxlength' => true]) ?>
+    ]);
+    ?>
 
-    <?= $form->field($model, 'freight')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'creator')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'applicant')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'subsidiaries')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'group')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'create_date')->textInput() ?>
-
-    <?= $form->field($model, 'application_date')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -50,15 +50,15 @@ class DomesticFreight extends \yii\db\ActiveRecord
     {
         return [
             'dfid' => 'Dfid',
-            'purchase_no' => 'Purchase No',
-            'sku' => 'Sku',
-            'freight' => 'Freight',
-            'creator' => 'Creator',
-            'applicant' => 'Applicant',
-            'subsidiaries' => 'Subsidiaries',
-            'group' => 'Group',
-            'create_date' => 'Create Date',
-            'application_date' => 'Application Date',
+            'purchase_no' => '合同号',
+            'sku' => '货号',
+            'freight' => '费用',
+            'creator' => '创建者',
+            'applicant' => '申请人',
+            'subsidiaries' => '分公司',
+            'group' => '组别',
+            'create_date' => '创建日期',
+            'application_date' => '申请日期',
         ];
     }
 }
