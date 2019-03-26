@@ -1,16 +1,16 @@
 <?php
 
-namespace backend\modules\hangzhou;
+namespace backend\modules\cost;
 
 /**
- * hangzhou module definition class
+ * cost module definition class
  */
 class Module extends \yii\base\Module
 {
     /**
      * {@inheritdoc}
      */
-    public $controllerNamespace = 'backend\modules\hangzhou\controllers';
+    public $controllerNamespace = 'backend\modules\cost\controllers';
 
     /**
      * {@inheritdoc}
