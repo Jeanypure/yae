@@ -84,6 +84,8 @@ class MangerAuditController extends Controller
        $post =  Yii::$app->request->post();
         if($num ==3){
             if ($model_update->load(Yii::$app->request->post()) ) {
+                //流转产品到新部门
+                $newdepart = $this->actionCriculation($model_update,$id);
                 //采样状态 入采样流程
                 if($post['PurInfo']['master_result']==1 ||
                     $post['PurInfo']['master_result']==4){
@@ -130,21 +132,20 @@ class MangerAuditController extends Controller
             ]);
         }elseif($num ==2){
           if ($model_update->load(Yii::$app->request->post()) ) {
-              $new_member = Yii::$app->request->post()['PurInfo']['new_member']; //部门ID
-              $sid =  $this->actionCheckSample($id);
+              //流转产品到新部门
+             $newdepart = $this->actionCriculation($model_update,$id);
+             /* $new_member = Yii::$app->request->post()['PurInfo']['new_member']; //部门ID
               if(!empty($new_member)&&isset($new_member)){
                   $member2 = Yii::$app->db->createCommand("
                      select leader from company where sub_company = $new_member
                       ")->queryOne();
-
                   if($new_member!= $model_update->pur_group){ //进入preview
                       $model_update->pur_group = $new_member;
                       Yii::$app->db->createCommand("
                         INSERT INTO `preview`  (member2,product_id) value ('$member2[leader]',$id)
                     ")->execute();
-
                   }
-              }
+              }*/
               //采样状态 入采样流程
               if(Yii::$app->request->post()['PurInfo']['master_result']==1||
                   Yii::$app->request->post()['PurInfo']['master_result']==4 ){
@@ -234,6 +235,29 @@ class MangerAuditController extends Controller
     }
 
     /**
+     * @throws \yii\db\Exception
+     */
+    public  function actionCriculation($model_update,$id){
+        //流转产品到新部门
+        $new_member = Yii::$app->request->post()['PurInfo']['new_member']; //部门ID
+        if(!empty($new_member)&&isset($new_member)){
+            $member2 = Yii::$app->db->createCommand("
+                     select leader from company where sub_company = $new_member
+                      ")->queryOne();
+            //把新部门之外的部门preview删掉
+            $delElse = Yii::$app->db->createCommand("delete from `preview` where product_id =$id and member2  in (select leader from company ) ")->execute();
+            if($new_member!= $model_update->pur_group){ //进入preview
+                $model_update->pur_group = $new_member;
+               $result = Yii::$app->db->createCommand("
+                        INSERT INTO `preview`  (member2,product_id) value ('$member2[leader]',$id)
+                    ")->execute();
+            }
+        }
+        return $result;
+    }
+
+
+    /**
      * Creates a new PurInfo model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -310,11 +334,14 @@ class MangerAuditController extends Controller
             ]);
         }
 
-
-
-
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     * @throws \yii\db\Exception
+     * @description 检查是否在样品表中存在
+     */
 
     public function actionCheckSample($id){
         $spur_id = Yii::$app->db->createCommand("
