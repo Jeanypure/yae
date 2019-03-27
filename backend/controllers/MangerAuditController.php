@@ -249,7 +249,8 @@ class MangerAuditController extends Controller
             if($new_member!= $model_update->pur_group){ //进入preview
                 $model_update->pur_group = $new_member;
                $result = Yii::$app->db->createCommand("
-                        INSERT INTO `preview`  (member2,product_id) value ('$member2[leader]',$id)
+                        INSERT INTO `preview`  (member2,product_id) value ('$member2[leader]',$id);
+                        update pur_info set pur_group = $model_update->pur_group where  pur_info_id=$id;
                     ")->execute();
             }
         }
