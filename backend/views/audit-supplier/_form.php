@@ -25,6 +25,7 @@ use kartik\select2\Select2;
         'attributes'=>[       // 3 column layout
             'supplier_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'supplier_name'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'credit_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'supplier_address'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
         ],
@@ -385,7 +386,7 @@ $JS =<<<JS
            'yaesupplier-pd_bill_name' ,'yaesupplier-bill_unit' ,'yaesupplier-pay_card' ,'yaesupplier-pay_name' ,'yaesupplier-pay_bank' ,
            'yaesupplier-account_proportion' ,'yaesupplier-pay_cycletime_type' ,'yaesupplier-account_type' ,'yaesupplier-bank_account_data' ,
            'yaesupplier-bill_img1_name_unit','yaesupplier-bill_img1','suppliercontact-contact_name','suppliercontact-contact_address','suppliercontact-contact_tel',
-           'suppliercontact-contact_qq','yaesupplier-complete_num','yaesupplier-check_status'
+           'suppliercontact-contact_qq','yaesupplier-complete_num','yaesupplier-check_status','yaesupplier-credit_code'
         ];
         var label;
        $("label[for='goodssku-sku']").addClass("label-require");

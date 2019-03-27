@@ -59,7 +59,7 @@ class YaeSupplier extends \yii\db\ActiveRecord
     {
         return [
             [['sale_company','into_eccang_status','check_status','is_submit_vendor','bill_type', 'pay_cycleTime_type', 'account_type', 'has_cooperate', 'licence_pass', 'bill_pass', 'bank_data_pass'], 'integer'],
-            [['supplier_code', 'bill_unit', 'submitter'], 'string', 'max' => 32],
+            [['credit_code','supplier_code', 'bill_unit', 'submitter'], 'string', 'max' => 32],
             [['supplier_name', 'pd_bill_name'], 'string', 'max' => 64],
             [['business_licence', 'bank_account_data', 'bill_img1', 'bill_img2'], 'string', 'max' => 200],
             [['pay_name', 'pay_bank', 'bill_img1_name_unit', 'bill_img2_name_unit'], 'string', 'max' => 128],
@@ -67,7 +67,7 @@ class YaeSupplier extends \yii\db\ActiveRecord
             [['account_proportion', 'complete_num', 'checker'], 'string', 'max' => 20],
             [['supplier_address'], 'string', 'max' => 216],
             [['check_memo'], 'string', 'max' => 300],
-            [['supplier_code'], 'unique'],
+            [['credit_code','supplier_code'], 'unique'],
             [['pay_card'], 'number'],
             [['supplier_code','supplier_name','supplier_address','pay_cycleTime_type','account_type','account_proportion',
                 'has_cooperate','submitter','pay_bank','pay_card','pay_name','pd_bill_name','bill_unit','bill_type',
@@ -134,7 +134,8 @@ class YaeSupplier extends \yii\db\ActiveRecord
             'supplier_pay_methon' => '供应商接受付款方式',
             'commitment_date' => '承诺到票日期',
             'promise_sign_right' =>'供应商是否答应签署侵犯知识产权责任书',
-            'sign_right_pic_location' => '侵犯知识产权责任书的图片'
+            'sign_right_pic_location' => '侵犯知识产权责任书的图片',
+            'credit_code' => '统一社会信用代码'
         ];
 
     }

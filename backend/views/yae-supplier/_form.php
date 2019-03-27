@@ -23,6 +23,7 @@ use kartik\datetime\DateTimePicker;
         'attributes'=>[       // 3 column layout
             'supplier_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'supplier_name'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'credit_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'supplier_address'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
         ],
@@ -364,7 +365,7 @@ $JS =<<<JS
            'yaesupplier-pd_bill_name' ,'yaesupplier-bill_unit' ,'yaesupplier-pay_card' ,'yaesupplier-pay_name' ,'yaesupplier-pay_bank' ,'yaesupplier-sale_company',
            'yaesupplier-account_proportion' ,'yaesupplier-pay_cycletime_type' ,'yaesupplier-account_type' ,'yaesupplier-bank_account_data' ,'yaesupplier-supplier_pay_methon',
            'yaesupplier-bill_img1_name_unit','yaesupplier-bill_img1','suppliercontact-contact_name','suppliercontact-contact_address','suppliercontact-contact_tel',
-           'suppliercontact-contact_qq','yaesupplier-commitment_date','suppliercontact-contact_wangwang'
+           'suppliercontact-contact_qq','yaesupplier-commitment_date','suppliercontact-contact_wangwang','yaesupplier-credit_code'
         ];
         var label;
        $("label[for='goodssku-sku']").addClass("label-require");
