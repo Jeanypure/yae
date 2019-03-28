@@ -134,18 +134,6 @@ class MangerAuditController extends Controller
           if ($model_update->load(Yii::$app->request->post()) ) {
               //流转产品到新部门
              $newdepart = $this->actionCriculation($model_update,$id);
-             /* $new_member = Yii::$app->request->post()['PurInfo']['new_member']; //部门ID
-              if(!empty($new_member)&&isset($new_member)){
-                  $member2 = Yii::$app->db->createCommand("
-                     select leader from company where sub_company = $new_member
-                      ")->queryOne();
-                  if($new_member!= $model_update->pur_group){ //进入preview
-                      $model_update->pur_group = $new_member;
-                      Yii::$app->db->createCommand("
-                        INSERT INTO `preview`  (member2,product_id) value ('$member2[leader]',$id)
-                    ")->execute();
-                  }
-              }*/
               //采样状态 入采样流程
               if(Yii::$app->request->post()['PurInfo']['master_result']==1||
                   Yii::$app->request->post()['PurInfo']['master_result']==4 ){
@@ -235,7 +223,10 @@ class MangerAuditController extends Controller
     }
 
     /**
+     * @param $model_update
+     * @param $id
      * @throws \yii\db\Exception
+     * @description 流转产品到新部门 删除原有部门的评论 部门号改变
      */
     public  function actionCriculation($model_update,$id){
         //流转产品到新部门
@@ -254,7 +245,6 @@ class MangerAuditController extends Controller
                     ")->execute();
             }
         }
-        return $result;
     }
 
 
