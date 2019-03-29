@@ -8,6 +8,7 @@ use backend\modules\cost\models\DomesticFreightSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * DomesticFreightController implements the CRUD actions for DomesticFreight model.
@@ -62,10 +63,16 @@ class DomesticFreightController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($pid=0,$typeid=1)
     {
+        $pid = (int)Yii::$app->request->get('pid');
+        $typeid = (int)Yii::$app->request->get('typeid');
         $model = new DomesticFreight();
-
+        $model->getSonList($pid);
+        if($typeid == 1){
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return $model->getSonList($pid);
+        }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->dfid]);
         }

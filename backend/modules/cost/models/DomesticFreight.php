@@ -3,6 +3,7 @@
 namespace backend\modules\cost\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "domestic_freight".
@@ -40,6 +41,7 @@ class DomesticFreight extends \yii\db\ActiveRecord
             [['sku'], 'string', 'max' => 20],
             [['creator', 'applicant'], 'string', 'max' => 10],
             [['subsidiaries'], 'string', 'max' => 60],
+            [['memo'], 'string', 'max' => 200],
         ];
     }
 
@@ -59,6 +61,17 @@ class DomesticFreight extends \yii\db\ActiveRecord
             'group' => '组别',
             'create_date' => '创建日期',
             'application_date' => '申请日期',
+            'memo' => '备注'
         ];
+    }
+
+    /**
+     * @param $pid
+     * @return array
+     * @description 获取部门对应的组
+     */
+    public function getSonList($pid){
+        $model = YaeGroupType::find()->where('parent_id=:pid',[':pid'=>$pid])->all();
+        return ArrayHelper::map($model,'id','item_name');
     }
 }
