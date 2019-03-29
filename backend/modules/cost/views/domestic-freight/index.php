@@ -30,6 +30,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'freight',
 //            'creator',
             'applicant',
+            [
+                'label'=>'销售组',
+                'attribute'=>'subsidiaries',
+                'enableSorting' => false,
+                'value'=>function($model){
+                    $sub = [1=>'商舟',2=>'雅耶',3=>'朗探'];
+                    return "{$sub[$model->subsidiaries]}-{$model->group}";
+                },
+                'headerOptions' => ['style'=>'color:red'],
+                'contentOptions' => ['style'=>'color:blue'],
+            ],
             'subsidiaries',
             'group',
 //            'create_date',
