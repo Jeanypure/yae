@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\cost\models\DomesticFreightSearch */
@@ -21,13 +21,23 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'showPageSummary'=>true,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'kartik\grid\SerialColumn'],
+            ['class' => 'kartik\grid\CheckboxColumn'],
+            ['class' => 'kartik\grid\ActionColumn'],
 //            'dfid',
             'purchase_no',
             'sku',
-            'freight',
+//            'freight',
+            [
+                'class'=>'kartik\grid\FormulaColumn',
+                'attribute'=>'freight',
+                'format'=>['decimal',3],
+                'pageSummary'=>true
+
+
+            ],
 //            'creator',
             'applicant',
             [
@@ -41,8 +51,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['style'=>'color:red'],
                 'contentOptions' => ['style'=>'color:blue'],
             ],
-            'subsidiaries',
-            'group',
 //            'create_date',
             'application_date:date',
         ],
