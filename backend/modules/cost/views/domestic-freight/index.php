@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\cost\models\DomesticFreightSearch */
@@ -12,7 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="domestic-freight-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a('Create', ['create'], ['class' => 'btn btn-success']) ?>
@@ -22,14 +22,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'showPageSummary'=>true,
+        'pjax' =>true,
+        'striped' =>true,
+        'hover' =>true,
+        'panel'=>['type'=>'primary','heading'=>'国内运费列表'],
         'columns' => [
             ['class' => 'kartik\grid\SerialColumn'],
-            ['class' => 'kartik\grid\CheckboxColumn'],
-            ['class' => 'kartik\grid\ActionColumn'],
-//            'dfid',
+            ['class' => 'kartik\grid\CheckboxColumn',
+            ],
+            ['class' => 'kartik\grid\ActionColumn',
+                'header' =>'操作'],
             'purchase_no',
             'sku',
-//            'freight',
             [
                 'class'=>'kartik\grid\FormulaColumn',
                 'attribute'=>'freight',
@@ -50,6 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'headerOptions' => ['style'=>'color:red'],
                 'contentOptions' => ['style'=>'color:blue'],
+                'filter' => [1=>'商舟',2=>'雅耶',3=>'朗探',4=>'域聪',5=>'鹏侯',6=>'客尊',7=>'朵邦',8=>'1部日本']
             ],
 //            'create_date',
             'application_date:date',

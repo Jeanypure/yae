@@ -304,8 +304,6 @@ $this->registerJs($is_submit);
 
 $undel = <<<JS
     $(function() {
-   
-        
         $(".btn-warning").attr("disabled","disabled"); 
       
     })

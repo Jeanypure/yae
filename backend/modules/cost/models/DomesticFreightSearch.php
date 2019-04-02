@@ -18,7 +18,7 @@ class DomesticFreightSearch extends DomesticFreight
     public function rules()
     {
         return [
-            [['dfid'], 'integer'],
+            [['dfid','has_checked'], 'integer'],
             [['purchase_no', 'sku', 'creator', 'applicant', 'subsidiaries', 'group', 'create_date', 'application_date'], 'safe'],
             [['freight'], 'number'],
         ];
@@ -64,6 +64,7 @@ class DomesticFreightSearch extends DomesticFreight
             'freight' => $this->freight,
             'create_date' => $this->create_date,
             'application_date' => $this->application_date,
+            'has_checked'=> $this->has_checked
         ]);
 
         $query->andFilterWhere(['like', 'purchase_no', $this->purchase_no])

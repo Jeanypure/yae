@@ -131,4 +131,100 @@ class DomesticFreightController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    /**
+     * @return string
+     * @description 经理助理审核
+     */
+    public function actionCheckedFreight(){
+        $searchModel = new DomesticFreightSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('checked', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     * @throws NotFoundHttpException
+     * @description 单个 标记已审核
+     */
+    public  function actionChecked($id){
+        $frightRecord = $this->findModel($id);
+        $frightRecord->has_checked = 1;
+        $frightRecord->auditor = Yii::$app->user->identity->username;
+        $frightRecord->checked_time = date('Y-m-d H:i:s');
+        $frightRecord->save();
+        return $this->redirect(['checked-freight']);
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     * @throws NotFoundHttpException
+     * @description 单个 取消标记
+     */
+
+    public  function actionUnChecked($id){
+        $frightRecord = $this->findModel($id);
+        $frightRecord->has_checked = 0;
+        $frightRecord->checked_time = date('Y-m-d H:i:s');
+        $frightRecord->save();
+        return $this->redirect(['checked-freight']);
+    }
+
+    /**
+     * @description 批量标记审核 则批量更新已标记
+     */
+    public function actionMultiChecked(){
+        $ids = $_POST['id'];
+        $product_ids = '';
+        $username = Yii::$app->user->identity->username;
+        foreach ($ids as $k=>$v){
+            $product_ids.=$v.',';
+        }
+        $ids_str = trim($product_ids,',');
+
+        if(isset($ids)&&!empty($ids)){
+            $res = Yii::$app->db->createCommand("
+            update `domestic_freight` set `has_checked`= 1,`auditor`= '$username',`checked_time`=Now() where `dfid` in ($ids_str)
+            ")->execute();
+            if($res){
+                echo 'success';
+            }
+        }else{
+            echo 'error';
+        }
+
+
+    }
+
+    /**
+     * @throws \yii\db\Exception
+     * @description 取消标记
+     */
+    public function  actionMultiUnChecked(){
+        $ids = $_POST['id'];
+        $product_ids = '';
+        $username = Yii::$app->user->identity->username;
+        foreach ($ids as $k=>$v){
+            $product_ids.=$v.',';
+        }
+        $ids_str = trim($product_ids,',');
+
+        if(isset($ids)&&!empty($ids)){
+            $res = Yii::$app->db->createCommand("
+            update `domestic_freight` set `has_checked`= 0,`auditor`= '$username',`checked_time`=Now() where `dfid` in ($ids_str)
+            ")->execute();
+            if($res){
+                echo 'success';
+            }
+        }else{
+            echo 'error';
+        }
+    }
+
 }
