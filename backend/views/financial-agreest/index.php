@@ -181,6 +181,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ])
             ],
             [
+                'attribute' => 'sure_purchase_time'
+            ],
+            [
                 'attribute'=>'sample_return',
                 'width'=>'100px',
                 'value'=>function ($model, $key, $index, $widget) {

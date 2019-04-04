@@ -188,6 +188,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'is_third_party_abroad_right' => '国外第三方对此产品是否有专利权或商标权',
             'promise_rights' => '供应商承诺没有知识产权方面问题',
             'special_auth_FDA' => '是否需要特殊认证FDA或者电器CE Rosh',
+            'sure_purchase_time' => '确定采购日期'
         ];
     }
 

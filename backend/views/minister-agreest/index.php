@@ -196,6 +196,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     ])
                 ],
                 [
+                    'attribute' => 'sure_purchase_time',
+                    'headerOptions' => ['width' => '12%']
+                ],
+                [
                     'attribute'=>'is_quality',
                     'width'=>'100px',
                     'value'=>function ($model, $key, $index, $widget) {
@@ -345,23 +349,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]
                     ])
                 ],
-                [
-                    'attribute' => 'submit2_at',
-                    'headerOptions' => ['width' => '12%'],
-                    'filter' => DateRangePicker::widget([
-                        'name' => 'MinisterAgreestSearch[submit2_at]',
-                        'value' => Yii::$app->request->get('MinisterAgreestSearch')['submit2_at'],
-                        'convertFormat' => true,
-                        'pluginOptions' => [
-                            'locale' => [
-                                'format' => 'Y-m-d H:i:s',
-                                'separator' => '/',
-                            ]
-                        ]
-                    ])
-                ],
-
-
 
             ],
         ]); ?>

@@ -206,6 +206,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 ])
             ],
             [
+                'attribute' => 'sure_purchase_time',
+                'headerOptions' => ['width' => '12%'],
+//                'filter' => DateRangePicker::widget([
+//                    'name' => 'FinancialAgreestSearch[sure_purchase_time]',
+//                    'value' => Yii::$app->request->get('FinancialAgreestSearch')['sure_purchase_time'],
+//                    'convertFormat' => true,
+//                    'pluginOptions' => [
+//                        'locale' => [
+//                            'format' => 'Y-m-d H:i:s',
+//                            'separator' => '/',
+//                        ]
+//                    ]
+//                ])
+            ],
+            [
                 'attribute'=>'purchaser_result',
                 'label'=>'采购判断',
                 'value' => function($model) {
