@@ -166,6 +166,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterInputOptions'=>['placeholder'=>'是否付款'],
                 ],
                 [
+                   'attribute' => 'submit2_at',
+                    'headerOptions' => ['width' => '12%'],
+                    'filter' => DateRangePicker::widget([
+                        'name' => 'FinancialAgreestSearch[submit2_at]',
+                        'value' => Yii::$app->request->get('FinancialAgreestSearch')['submit2_at'],
+                        'convertFormat' => true,
+                        'pluginOptions' => [
+                            'locale' => [
+                                'format' => 'Y-m-d H:i:s',
+                                'separator' => '/',
+                            ]
+                        ]
+                    ])
+                ],
+                [
                     'attribute' => 'pay_at',
                     'headerOptions' => ['width' => '12%'],
                     'filter' => DateRangePicker::widget([
