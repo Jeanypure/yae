@@ -42,20 +42,47 @@ class FinancialAgreestSearch extends PurInfo
      */
     public function search($params)
     {
-        $query = PurInfo::find()
-            ->select(['
+
+
+        $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
+        if(array_key_exists('超级管理员',$role)){
+            $query = PurInfo::find()
+                ->select(['
                     `pur_info`.pur_info_id,
                     `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
                     `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
                     `pur_info`.payer,`pur_info`.pay_at,`pur_info`.has_pay,`pur_info`.sample_return, 
                     `sample`.pay_amount,`sample`.pd_sku,`sample`.for_free'
-            ])
-            ->joinWith('sample')
-        ->andWhere(['sample_submit1'=>1])
-        ->andWhere(['sample_submit2'=>1])
-        ->andWhere(['is_agreest'=>1])
-        ->orderBy('pur_info_id desc')
-        ;
+                ])
+                ->joinWith('sample')
+                ->andWhere(['sample_submit1'=>1])
+                ->andWhere(['sample_submit2'=>1])
+                ->andWhere(['is_agreest'=>1])
+                ->orderBy('pur_info_id desc')
+            ;
+        }else{
+            $username = Yii::$app->user->identity->username;
+            $groupPayer = [
+                'Michael' => [2,3],
+                '赵志星' => [1,4,7,8],
+                '刘胜男' => [5,6]
+            ];
+            $query = PurInfo::find()
+                ->select(['
+                    `pur_info`.pur_info_id,
+                    `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
+                    `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
+                    `pur_info`.payer,`pur_info`.pay_at,`pur_info`.has_pay,`pur_info`.sample_return, 
+                    `sample`.pay_amount,`sample`.pd_sku,`sample`.for_free'
+                ])
+                ->joinWith('sample')
+                ->andWhere(['sample_submit1'=>1])
+                ->andWhere(['sample_submit2'=>1])
+                ->andWhere(['is_agreest'=>1])
+                ->orderBy('pur_info_id desc')
+            ;
+        }
+
         $this->has_pay = 0;
         // add conditions that should always apply here
 

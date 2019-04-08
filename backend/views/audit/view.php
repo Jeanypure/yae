@@ -88,7 +88,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 },
             ],
+            [
+                'attribute'=>'else_url',
+                'format'=>'raw',
+                'value' => function ($model) {
+                    if (!empty($model->else_url)) return "<a href='$model->else_url' target='_blank'>".parse_url($model->else_url)['host']."</a>";
 
+                },
+            ],
             'shipping_fee',
             'oversea_shipping_fee',
             'transaction_fee',
