@@ -73,7 +73,6 @@ class FinancialAgreestSearch extends PurInfo
                     `pur_info`.pur_info_id,
                     `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
                     `pur_info`.pur_group,
-                     substring_index(`pur_info`.pur_group,",",1)  as  department,
                     `pur_info`.master_result,`pur_info`.master_mark,
                     `pur_info`.payer,`pur_info`.pay_at,`pur_info`.has_pay,`pur_info`.sample_return, 
                     `sample`.pay_amount,`sample`.pd_sku,`sample`.for_free,`sample`.pay_way'
@@ -86,7 +85,6 @@ class FinancialAgreestSearch extends PurInfo
                 ->orderBy('pur_info_id desc')
             ;
         }
-// echo $query->createCommand()->getRawSql();
         $this->has_pay = 0;
         // add conditions that should always apply here
 
