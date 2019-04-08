@@ -60,7 +60,7 @@ class PurInfo extends \yii\db\ActiveRecord
     public  $audit_team_result;
     public  $purchaser_result;
     public  $is_diff;
-    public  $pd_sku;
+    public  $pd_sku,$pay_way;
 
 
     /**

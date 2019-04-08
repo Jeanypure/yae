@@ -19,7 +19,7 @@ class FinancialAgreestSearch extends PurInfo
     {
         return [
             [['sample_return','has_pay','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_rebate', 'parent_product_id', 'source', 'preview_status', 'brocast_status', 'master_result', 'is_submit', 'is_submit_manager', 'pur_group_status', 'junior_submit', 'is_assign', 'audit_a', 'audit_b', 'bill_tax_value', 'pur_complete_status', 'pur_compelte_result', 'sample_submit2', 'sample_submit1'], 'integer'],
-            [['pd_sku','pay_at','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'hs_code', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'else_url', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'member', 'master_member', 'master_mark', 'priview_time', 'pd_create_time', 'purchaser_leader', 'profit_rate', 'gross_profit_amz', 'profit_rate_amz', 'amz_fulfillment_cost', 'selling_on_amz_fee', 'amz_retail_price', 'amz_retail_price_rmb', 'commit_date'], 'safe'],
+            [['pay_way','pd_sku','pay_at','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'hs_code', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'else_url', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'member', 'master_member', 'master_mark', 'priview_time', 'pd_create_time', 'purchaser_leader', 'profit_rate', 'gross_profit_amz', 'profit_rate_amz', 'amz_fulfillment_cost', 'selling_on_amz_fee', 'amz_retail_price', 'amz_retail_price_rmb', 'commit_date'], 'safe'],
             [['pay_amount','pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice', 'ams_logistics_fee'], 'number'],
         ];
     }
@@ -52,7 +52,7 @@ class FinancialAgreestSearch extends PurInfo
                     `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
                     `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
                     `pur_info`.payer,`pur_info`.pay_at,`pur_info`.has_pay,`pur_info`.sample_return, 
-                    `sample`.pay_amount,`sample`.pd_sku,`sample`.for_free'
+                    `sample`.pay_amount,`sample`.pd_sku,`sample`.for_free,`sample`.pay_way'
                 ])
                 ->joinWith('sample')
                 ->andWhere(['sample_submit1'=>1])
@@ -65,24 +65,28 @@ class FinancialAgreestSearch extends PurInfo
             $groupPayer = [
                 'Michael' => [2,3],
                 '赵志星' => [1,4,7,8],
-                '刘胜男' => [5,6]
+                '刘胜男' => [5,6],
+                'Xiexiaolong' => [1,2,3,4,5,6,7,8]
             ];
             $query = PurInfo::find()
                 ->select(['
                     `pur_info`.pur_info_id,
                     `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
-                    `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
+                    `pur_info`.pur_group,
+                     substring_index(`pur_info`.pur_group,",",1)  as  department,
+                    `pur_info`.master_result,`pur_info`.master_mark,
                     `pur_info`.payer,`pur_info`.pay_at,`pur_info`.has_pay,`pur_info`.sample_return, 
-                    `sample`.pay_amount,`sample`.pd_sku,`sample`.for_free'
+                    `sample`.pay_amount,`sample`.pd_sku,`sample`.for_free,`sample`.pay_way'
                 ])
                 ->joinWith('sample')
                 ->andWhere(['sample_submit1'=>1])
                 ->andWhere(['sample_submit2'=>1])
                 ->andWhere(['is_agreest'=>1])
+                ->andWhere(['in','substring_index(`pur_info`.pur_group,",",1)',$groupPayer[$username]])
                 ->orderBy('pur_info_id desc')
             ;
         }
-
+// echo $query->createCommand()->getRawSql();
         $this->has_pay = 0;
         // add conditions that should always apply here
 
@@ -174,7 +178,9 @@ class FinancialAgreestSearch extends PurInfo
             ->andFilterWhere(['like', 'amz_fulfillment_cost', $this->amz_fulfillment_cost])
             ->andFilterWhere(['like', 'selling_on_amz_fee', $this->selling_on_amz_fee])
             ->andFilterWhere(['like', 'amz_retail_price', $this->amz_retail_price])
-            ->andFilterWhere(['like', 'amz_retail_price_rmb', $this->amz_retail_price_rmb]);
+            ->andFilterWhere(['like', 'amz_retail_price_rmb', $this->amz_retail_price_rmb])
+            ->andFilterWhere(['like', 'pay_way', $this->pay_way])
+        ;
 
         return $dataProvider;
     }
