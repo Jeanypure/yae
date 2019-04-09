@@ -53,7 +53,7 @@ class FinancialAgreestSearch extends PurInfo
                     `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
                     `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
                     `pur_info`.payer,`pur_info`.pay_at,`pur_info`.has_pay,`pur_info`.sample_return,
-                    `pur_info`.submit2_at,`pur_info`.sure_purchase_time,
+                    `pur_info`.submit1_at,`pur_info`.submit2_at,`pur_info`.sure_purchase_time,
                     `sample`.pay_amount,`sample`.pd_sku,`sample`.for_free,`sample`.pay_way'
                 ])
                 ->joinWith('sample')
@@ -77,6 +77,7 @@ class FinancialAgreestSearch extends PurInfo
                     `pur_info`.pur_group,
                     `pur_info`.master_result,`pur_info`.master_mark,
                     `pur_info`.payer,`pur_info`.pay_at,`pur_info`.has_pay,`pur_info`.sample_return, 
+                    `pur_info`.submit1_at,`pur_info`.submit2_at,`pur_info`.sure_purchase_time,
                     `sample`.pay_amount,`sample`.pd_sku,`sample`.for_free,`sample`.pay_way'
                 ])
                 ->joinWith('sample')
@@ -89,7 +90,6 @@ class FinancialAgreestSearch extends PurInfo
         }
         $this->has_pay = 0;
         // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -108,10 +108,14 @@ class FinancialAgreestSearch extends PurInfo
         }
 
         if (!empty($this->sure_purchase_time)) {
-            $query->andFilterCompare('sure_purchase_time', explode('/', $this->pay_at)[0], '>=');//起始时间
-            $query->andFilterCompare('sure_purchase_time', explode('/', $this->pay_at)[1], '<');//结束时间
+            $query->andFilterCompare('sure_purchase_time', explode('/', $this->sure_purchase_time)[0], '>=');//起始时间
+            $query->andFilterCompare('sure_purchase_time', explode('/', $this->sure_purchase_time)[1], '<');//结束时间
         }
 
+        if (!empty($this->submit2_at)) {
+            $query->andFilterCompare('submit2_at', explode('/', $this->submit2_at)[0], '>=');//起始时间
+            $query->andFilterCompare('submit2_at', explode('/', $this->submit2_at)[1], '<');//结束时间
+        }
         // grid filtering conditions
         $query->andFilterWhere([
             'pur_info_id' => $this->pur_info_id,
@@ -148,6 +152,7 @@ class FinancialAgreestSearch extends PurInfo
             'sample_submit2' => $this->sample_submit2,
             'sample_submit1' => $this->sample_submit1,
             'pd_sku' => $this->pd_sku,
+            'submit2_at' => $this->submit2_at,
         ]);
 
         $query->andFilterWhere(['like', 'purchaser', $this->purchaser])
