@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel backend\modules\cost\models\CostShipstationBillSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Cost Shipstation Bills');
+$this->title = Yii::t('app', 'Shipstation账单');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cost-shipstation-bill-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Cost Shipstation Bill'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

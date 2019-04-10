@@ -47,7 +47,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'purchaser',
+            [
+                'attribute'=>'pur_group',
+                'value' => function($model) {
+                    return $model->pur_group;
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '一部', '2' => '二部','3' => '三部','4' => '四部','5' => '五部','6' => '六部','7' => '七部','8' => '八部',],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'部门'],
+                'group'=>true,  // enable grouping
 
+            ],
             [
                 'attribute'=>'pd_title',
                 'value' => function($model) { return $model->pd_title;},

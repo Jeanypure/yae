@@ -7,16 +7,15 @@ use yii\widgets\Pjax;
 /* @var $searchModel backend\modules\cost\models\CostTongtoolBillSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Cost Tongtool Bills');
+$this->title = Yii::t('app', 'Tongtool账单');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cost-tongtool-bill-index">
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Cost Tongtool Bill'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
