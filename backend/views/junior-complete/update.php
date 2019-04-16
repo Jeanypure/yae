@@ -154,7 +154,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                 'hs_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
                 'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
-                    'items'=>['16%专票'=>'16%专票','增值税普通普票'=>'增值税普通普票', '3%专票'=>'3%专票'],
+                    'items'=>['13%专票'=>'13%专票','增值税普通普票'=>'增值税普通普票', '3%专票'=>'3%专票'],
                     'label'=>"<span style = 'color:red'><big>*</big></span>开票类型",
                     'options'=>['placeholder'=>'']],
                 'has_shipping_fee'=>[
