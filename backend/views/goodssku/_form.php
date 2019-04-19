@@ -129,13 +129,39 @@ use yii\helpers\Url;
 
     ]);
     ?>
+    <fieldset id="w5">
+        <legend class="text-info"><h3>4.发票相关</h3></legend>
+        <div class="col-sm-3">
+
+            <?php
+            echo Form::widget([
+                'model'=>$model,
+                'form'=>$form,
+                'attributes'=>[       // 3 column layout
+                    'bill_img1_name_unit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                ],
+
+            ]);
+            ?>
+        </div>
+        <div class="col-sm-3">
+            <?php
+            echo $form->field($model, 'bill_img1')->widget('manks\FileInput', []);
+            ?>
+        </div>
+        <div class="col-sm-3">
+            <?php
+            echo  $form->field($model, 'bill01_img_add') ;
+            ?>
+        </div>
+    </fieldset>
     <?php
 
     echo Form::widget([
         'model'=>$model,
         'form'=>$form,
         'columns'=>2,
-    'contentBefore'=>'<legend class="text-info"><h3>4.要素信息</h3> <a href="http://hs.bianmachaxun.com" target="_blank">官网地址:http://hs.bianmachaxun.com</a></legend><a href="https://hts.usitc.gov/?query=401699" target="_blank">美国清关hscode查询地址:http://hs.bianmachaxun.com</a></legend>',
+    'contentBefore'=>'<legend class="text-info"><h3>5.要素信息</h3> <a href="http://hs.bianmachaxun.com" target="_blank">官网地址:http://hs.bianmachaxun.com</a></legend><a href="https://hts.usitc.gov/?query=401699" target="_blank">美国清关hscode查询地址:http://hs.bianmachaxun.com</a></legend>',
         'attributes'=>[       // 6 column layout
             'declaration_item_key1'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'declaration_item_value1'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
@@ -176,13 +202,14 @@ use yii\helpers\Url;
 
     ?>
 
+
 <?php
 
      echo Form::widget([
         'model'=>$model,
         'form'=>$form,
         'columns'=>1,
-         'contentBefore'=>'<legend class="text-info"><h3>5.备注信息</h3></legend>',
+         'contentBefore'=>'<legend class="text-info"><h3>6.备注信息</h3></legend>',
         'attributes'=>[       // 3 column layout
             'sku_mark'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'']],
 
@@ -200,6 +227,20 @@ use yii\helpers\Url;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$tupian_address = <<<JS
+    $(function(){
+        var bill_img1;  //发票照片
+        bill_img1 = $('#goodssku-bill_img1').val();
+        $('#goodssku-bill01_img_add').val('http://yaemart.com.cn/'+bill_img1);
+       
+       
+    })
+JS;
+$this->registerJs($tupian_address);
+
+?>
 
 <?php
 /*Yii2给必填项加星，样式如下：*/
