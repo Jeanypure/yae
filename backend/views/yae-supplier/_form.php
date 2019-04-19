@@ -165,12 +165,12 @@ use kartik\datetime\DateTimePicker;
             <?= $form->field($model, 'bank_img_add') ?>
         </div>
     </div>
-    <fieldset id="w5">
+   <!-- <fieldset id="w5">
     <legend class="text-info"><h3>4.发票相关</h3></legend>
     <div class="col-sm-3">
 
         <?php
-        echo Form::widget([
+/*        echo Form::widget([
             'model'=>$model,
             'form'=>$form,
             'attributes'=>[       // 3 column layout
@@ -178,19 +178,19 @@ use kartik\datetime\DateTimePicker;
             ],
 
         ]);
-        ?>
+        */?>
     </div>
     <div class="col-sm-3">
         <?php
-        echo $form->field($model, 'bill_img1')->widget('manks\FileInput', []);
-        ?>
+/*        echo $form->field($model, 'bill_img1')->widget('manks\FileInput', []);
+        */?>
     </div>
     <div class="col-sm-3">
        <?php
-       echo  $form->field($model, 'bill01_img_add') ;
-       ?>
+/*       echo  $form->field($model, 'bill01_img_add') ;
+       */?>
     </div>
-</fieldset>
+</fieldset>-->
     <?php
     echo Form::widget([
         'model'=>$supplier_contact,
