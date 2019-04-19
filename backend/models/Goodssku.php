@@ -71,7 +71,7 @@ class Goodssku extends yii\db\ActiveRecord
                 'pd_length','pd_width','pd_height','pd_weight','sale_company','hs_code',
                 'declaration_item_key1','declaration_item_key2','declaration_item_key3','declaration_item_key4','declaration_item_key5',
                 'declaration_item_value1','declaration_item_value2','declaration_item_value3','declaration_item_value4','declaration_item_value5',
-                'material','use','bill_img1_name_unit','bill_img1'
+                'material','use',
             ], 'required'],
 
 
@@ -145,7 +145,7 @@ class Goodssku extends yii\db\ActiveRecord
             'declaration_item_value9' => '要素值8',
             'material' => '材质',
             'use' => '用途',
-            'bill_img1_name_unit' => '发票01的开票品名和单位',
+            'bill_img1_name_unit' => 'SKU(已传发票SKU或老供应商SKU)',
             'bill_img1' => '发票照片',
             'bill01_img_add' => '发票照片地址',
         ];

@@ -109,6 +109,32 @@ use kartik\select2\Select2;
 
     ]);
     ?>
+    <fieldset id="w5">
+        <legend class="text-info"><h3>4.发票相关</h3></legend>
+        <div class="col-sm-3">
+
+            <?php
+            echo Form::widget([
+                'model'=>$model,
+                'form'=>$form,
+                'attributes'=>[       // 3 column layout
+                    'bill_img1_name_unit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                ],
+
+            ]);
+            ?>
+        </div>
+        <div class="col-sm-3">
+            <?php
+            echo $form->field($model, 'bill_img1')->widget('manks\FileInput', []);
+            ?>
+        </div>
+        <div class="col-sm-3">
+            <?php
+            echo  $form->field($model, 'bill01_img_add') ;
+            ?>
+        </div>
+    </fieldset>
     <?php
 
     echo Form::widget([
