@@ -116,7 +116,7 @@ class AuditSupplierController extends Controller
 
         $pay_cycleTime_type = [1 => '日结', 2 => '周结',3 => '半月结',4 => '月结',5 => '隔月结',6 => '其它',];
         $account_type = [1 => '货到付款', 2 => '款到发货',3 => '周期结算',4 => '售后付款',5 => '默认方式',6 => '其它'];
-        $bill_type = [ '16%专票','增值税普通发票','3%专票'];
+        $bill_type = [ '13%专票','增值税普通发票','3%专票'];
 
 
         $company = [
@@ -211,7 +211,7 @@ class AuditSupplierController extends Controller
         $data = $query->Where('r.id IN('.$id.')')->orderBy('r.id desc')->asArray()->all();
         $pay_cycleTime_type = [1 => '日结', 2 => '周结',3 => '半月结',4 => '月结',5 => '隔月结',6 => '其它',];
         $account_type = [1 => '货到付款', 2 => '款到发货',3 => '周期结算',4 => '售后付款',5 => '默认方式',6 => '其它'];
-        $bill_type = [ '16%专票','增值税普通发票','3%专票'];
+        $bill_type = [ '13%专票','增值税普通发票','3%专票'];
         $supplier_pay_methon = [ 1=>'票到付款',2=>'先预付再开票最后付尾款',3=>'先款后票'];
         $company = [
             '2'=>'上海商舟船舶用品有限公司',
@@ -249,7 +249,7 @@ class AuditSupplierController extends Controller
         $query->from(YaeSupplier::tableName() . 'r');
         $query->leftJoin('supplier_contact t', 't.supplier_id=r.id');
         $data = $query->Where('r.id ='.$id)->orderBy('r.id desc')->asArray()->all();
-        $bill_type = [ '16%专票','增值税普通发票','3%专票'];
+        $bill_type = [ '13%专票','增值税普通发票','3%专票'];
         $pay_cycleTime_type = [ 1=> 1,2=>3,3=>5,4=>4,5=>2]; //1 日结,2 周结,3 半月结,4 月结,5 隔月结
         $account_type = [1=>'货到付款',2=>'款到发货',3=>'周期结算',4=>'售后付款',5=>'默认方式'];
         $vendor_arr = [

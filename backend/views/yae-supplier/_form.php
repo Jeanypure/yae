@@ -90,7 +90,7 @@ use kartik\datetime\DateTimePicker;
             'bill_unit'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'bill_type'=>['type'=>Form::INPUT_RADIO_LIST,
                 'label'=>"<span style = 'color:red'><big>*</big></span>开票类型",
-                'items'=>['0'=>'16%专票','1'=>'增值税普通普票', '2'=>'3%专票'],
+                'items'=>['0'=>'13%专票','1'=>'增值税普通普票', '2'=>'3%专票'],
                 ],
         ],
 
