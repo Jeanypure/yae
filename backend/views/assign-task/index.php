@@ -74,6 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
+            'purchaser',
             [
                 'attribute'=>'is_assign',
                 'value' => function($model) {
