@@ -35,8 +35,8 @@ class Preview extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['result','content'], 'required'],
-            [['priview_time'], 'safe'],
+            [['result','content','ref_url1','ref_url3','bottom_price'], 'required'],
+            [['priview_time','bottom_price'], 'safe'],
             [['member_id'], 'integer'],
             [['member2', 'content', 'result'], 'string', 'max' => 500],
             [['product_id'], 'string', 'max' => 20],
@@ -58,14 +58,15 @@ class Preview extends \yii\db\ActiveRecord
             'result' => '评审结果',
             'priview_time' => '评审时间',
             'member_id' => 'Member ID',
-            'ref_url1' => 'Amazon低价链接',
+            'ref_url1' => 'Amazon低价链接或其他链接',
             'ref_url12' => 'Amazon链接2',
             'ref_url13' => 'Amazon链接3',
             'ref_url2' => 'eBay低价链接',
             'ref_url22' => 'eBay链接2',
             'ref_url23' => 'eBay链接3',
-            'ref_url3' => '1688低价链接',
+            'ref_url3' => '1688低价链接或其他链接',
             'ref_url4' => '其他链接',
+            'bottom_price' => '1688最低价格',
         ];
     }
 }

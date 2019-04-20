@@ -60,6 +60,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                 'ref_url22'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'ref_url23'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'ref_url3'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+                'bottom_price'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
                 'ref_url4'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             ]
         ]);
