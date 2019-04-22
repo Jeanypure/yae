@@ -49,6 +49,7 @@ use yii\widgets\DetailView;
             ['attribute'=>'ref_url22','format'=>['url',['target'=>'_blank']]],
             ['attribute'=>'ref_url23','format'=>['url',['target'=>'_blank']]],
             ['attribute'=>'ref_url3','format'=>['url',['target'=>'_blank']]],
+            'bottom_price',
             ['attribute'=>'ref_url4','format'=>['url',['target'=>'_blank']]],
             'priview_time',
         ],
