@@ -46,7 +46,7 @@ class PurchaserSearch extends Purchaser
         if($cat == 'grade'){
             $query = Purchaser::find()
                 ->andWhere(['has_used'=>1])
-                ->andWhere(['in','code',[1,2,3]])
+                ->andWhere(['in','code',[1,2,3,6]])
             ;
         }
         // add conditions that should always apply here
