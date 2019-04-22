@@ -14,11 +14,11 @@ use dmstr\widgets\Alert;
                     echo \yii\helpers\Html::encode($this->title);
                 } else {
                     echo '产品开发管理';
-
-//                    echo \yii\helpers\Inflector::camel2words(
-//                        \yii\helpers\Inflector::id2camel($this->context->module->id)
-//                    );
-//                    echo ($this->context->module->id !== \Yii::$app->id) ? '<small>Module</small>' : '';
+/*
+                    echo \yii\helpers\Inflector::camel2words(
+                        \yii\helpers\Inflector::id2camel($this->context->module->id)
+                    );
+                    echo ($this->context->module->id !== \Yii::$app->id) ? '<small>Module</small>' : '';*/
                 } ?>
             </h1>
         <?php } ?>
@@ -37,7 +37,7 @@ use dmstr\widgets\Alert;
 
 
        <h3>
-           <strong>1 生成图片地址: <a href="https://postimages.org/" target="_blank">https:postimages.org/</a>.</strong>
+<!--           <strong>1 生成图片地址: <a href="https://postimages.org/" target="_blank">https:postimages.org/</a>.</strong>-->
 
     </section>
 </div>
