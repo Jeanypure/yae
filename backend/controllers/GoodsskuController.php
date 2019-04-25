@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\YaeExchangeRate;
 use Yii;
 use backend\models\Goodssku;
 use backend\models\SkuVendor;
@@ -9,7 +10,6 @@ use backend\models\GoodsskuSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\data\ActiveDataProvider;
 
 /**
  * GoodsskuController implements the CRUD actions for Goodssku model.
@@ -65,6 +65,7 @@ class GoodsskuController extends Controller
     {
         $goodssku = new Goodssku();
         $sku_vendor = new  SkuVendor();
+        $rate = YaeExchangeRate::findOne(1);
         $post = Yii::$app->request->post();
         if (isset($post['Goodssku']) && isset($post['SkuVendor'])) {
             $goodssku->attributes = $post['Goodssku'];
@@ -72,6 +73,7 @@ class GoodsskuController extends Controller
             $goodssku->pd_creator = Yii::$app->user->identity->username;
             $goodssku->sale_company = implode(",", $post['Goodssku']['sale_company']);
             $goodssku->vendor_code = $post['SkuVendor']['vendor_code'];
+            $goodssku->declared_value = round($post['Goodssku']['pd_costprice']/($rate->exchange_rate),2);
             $goodssku->save(false);
             $sku_vendor->sku_id = $goodssku->primaryKey;
             $sku_vendor->save(false);
@@ -94,6 +96,7 @@ class GoodsskuController extends Controller
     {
         $goodssku = $this->findModel($id);
         $sku_vendor = SkuVendor::find()->where(['sku_id' => $id])->one();
+        $rate = YaeExchangeRate::findOne(1);
         $goodssku->sale_company = explode(',', $goodssku->sale_company); //ActiveForm 指定已存的销售公司
         $post = Yii::$app->request->post();
         if (isset($post['Goodssku']) && isset($post['SkuVendor'])) {
@@ -101,6 +104,7 @@ class GoodsskuController extends Controller
             $sku_vendor->attributes = $post['SkuVendor'];
             $goodssku->sale_company = implode(",", $post['Goodssku']['sale_company']);
             $goodssku->vendor_code = $post['SkuVendor']['vendor_code'];
+            $goodssku->declared_value = round($post['Goodssku']['pd_costprice']/($rate->exchange_rate),2);
             $goodssku->save(false);
             $sku_vendor->save(false);
             return $this->redirect(['index']);
