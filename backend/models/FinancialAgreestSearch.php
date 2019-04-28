@@ -54,7 +54,7 @@ class FinancialAgreestSearch extends PurInfo
                     `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
                     `pur_info`.payer,`pur_info`.pay_at,`pur_info`.has_pay,`pur_info`.sample_return,
                     `pur_info`.submit1_at,`pur_info`.submit2_at,`pur_info`.sure_purchase_time,
-                    `sample`.pay_amount,`sample`.pd_sku,`sample`.for_free,`sample`.pay_way'
+                    `sample`.pay_amount,`sample`.sample_sku,`sample`.pd_sku,`sample`.for_free,`sample`.pay_way'
                 ])
                 ->joinWith('sample')
                 ->andWhere(['sample_submit1'=>1])
@@ -78,7 +78,7 @@ class FinancialAgreestSearch extends PurInfo
                     `pur_info`.master_result,`pur_info`.master_mark,
                     `pur_info`.payer,`pur_info`.pay_at,`pur_info`.has_pay,`pur_info`.sample_return, 
                     `pur_info`.submit1_at,`pur_info`.submit2_at,`pur_info`.sure_purchase_time,
-                    `sample`.pay_amount,`sample`.pd_sku,`sample`.for_free,`sample`.pay_way'
+                    `sample`.pay_amount,`sample`.pd_sku,`sample`.sample_sku,`sample`.for_free,`sample`.pay_way'
                 ])
                 ->joinWith('sample')
                 ->andWhere(['sample_submit1'=>1])

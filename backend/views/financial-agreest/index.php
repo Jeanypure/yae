@@ -96,13 +96,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'部门'],
-                'group'=>true,  // enable grouping
+//                'group'=>true,  // enable grouping
 
             ],
             [
                 'attribute'=>'pd_sku',
                 'value' => function($model) { return $model->pd_sku;},
                 'label'=>'SKU',
+            ],
+            [
+                'attribute'=>'sample_sku',
+                'value' => function($model) { return $model->sample_sku;},
+                'label'=>'拿样SKU',
             ],
             [
                 'attribute'=>'pd_title',
