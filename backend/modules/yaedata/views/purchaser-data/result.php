@@ -37,7 +37,7 @@ echo '</div></div>';
 </div></br></br>
 <?php ActiveForm::end(); ?>
 <?php
-$dataArr = ['自主开发+销售推荐' => $dataProvider,'自主开发'=> $dataProvider3];
+$dataArr = ['自主开发+销售推荐' => $dataProvider,'自主开发' => $dataProvider3];
 foreach ($dataArr as $key=>$value){
     echo GridView::widget([
         'dataProvider' => $value,
@@ -291,7 +291,6 @@ echo GridView::widget([
         ],
     ],
 ]);
-
 ?>
 <?php
     $submit = Url::toRoute('compute');
