@@ -37,114 +37,118 @@ echo '</div></div>';
 </div></br></br>
 <?php ActiveForm::end(); ?>
 <?php
-echo GridView::widget([
-    'dataProvider' => $dataProvider,
-    'showPageSummary'=>true,
-    'pjax'=>true,
-    'export' => false,
-    'striped'=>true,
-    'hover'=>true,
-    'panel'=>['type'=>'primary', 'heading'=>'采购开发产品统计--来源 自主开发+销售推荐'],
-    'columns'=>[
-        ['class'=>'kartik\grid\SerialColumn'],
+$dataArr = ['自主开发+销售推荐' => $dataProvider,'自主开发' => $dataProvider3];
+foreach ($dataArr as $key=>$value){
+    echo GridView::widget([
+        'dataProvider' => $value,
+        'showPageSummary'=>true,
+        'pjax'=>true,
+        'export' => false,
+        'striped'=>true,
+        'hover'=>true,
+        'panel'=>['type'=>'primary', 'heading'=>'采购开发产品统计--来源'.$key],
+        'columns'=>[
+            ['class'=>'kartik\grid\SerialColumn'],
 
-        [
-            'attribute'=>'purchaser',
-            'pageSummary'=>'Page Summary',
-            'pageSummaryOptions'=>['class'=>'text-right text-warning'],
-        ],
-       [
-            'attribute'=>'reject',
-            'label'=>'拒绝',
-            'width'=>'150px',
-            'hAlign'=>'right',
-            'format'=>['decimal', 0],
-            'pageSummary'=>true
-        ],
-        [
-            'attribute'=>'get',
-            'label'=>'拿样',
-            'width'=>'150px',
-            'hAlign'=>'right',
-            'format'=>['decimal', 0],
-            'pageSummary'=>true
-        ],
-        [
-            'attribute'=>'need',
-            'label'=>'需议价或谈其他条件',
-            'width'=>'150px',
-            'hAlign'=>'right',
-            'format'=>['decimal', 0],
-            'pageSummary'=>true
-        ],
-        [
-            'attribute'=>'undo',
-            'label'=>'未评审',
-            'width'=>'150px',
-            'hAlign'=>'right',
-            'format'=>['decimal', 0],
-            'pageSummary'=>true
-        ],
-        [
-            'attribute'=>'direct',
-            'label'=>'直接下单',
-            'width'=>'150px',
-            'hAlign'=>'right',
-            'format'=>['decimal', 0],
-            'pageSummary'=>true
-        ],[
-            'attribute'=>'season',
-            'label'=>'季节产品推迟',
-            'width'=>'150px',
-            'hAlign'=>'right',
-            'format'=>['decimal', 0],
-            'pageSummary'=>true
-        ],
-        [
-            'class'=>'kartik\grid\FormulaColumn',
-            'header'=>'产品总数',
-            'value'=>function ($model, $key, $index, $widget) {
-                $p = compact('model', 'key', 'index');
-                return $widget->col(2, $p) + $widget->col(3, $p)+
-                    $widget->col(4, $p)+ $widget->col(5, $p)+ $widget->col(6, $p)+ $widget->col(7, $p);
-            },
-            'mergeHeader'=>true,
-            'width'=>'150px',
-            'hAlign'=>'right',
-            'format'=>['decimal', 0],
-            'pageSummary'=>true
-        ],
-        [
-            'class'=>'kartik\grid\FormulaColumn',
-            'header'=>'拒绝率%',
-            'value'=>function ($model, $key, $index, $widget) {
-                $p = compact('model', 'key', 'index');
-                return $widget->col(2, $p) / $widget->col(8, $p) *100;
-            },
-            'mergeHeader'=>true,
-            'width'=>'150px',
-            'hAlign'=>'right',
-            'format'=>['decimal', 2],
+            [
+                'attribute'=>'purchaser',
+                'pageSummary'=>'Page Summary',
+                'pageSummaryOptions'=>['class'=>'text-right text-warning'],
+            ],
+            [
+                'attribute'=>'reject',
+                'label'=>'拒绝',
+                'width'=>'150px',
+                'hAlign'=>'right',
+                'format'=>['decimal', 0],
+                'pageSummary'=>true
+            ],
+            [
+                'attribute'=>'get',
+                'label'=>'拿样',
+                'width'=>'150px',
+                'hAlign'=>'right',
+                'format'=>['decimal', 0],
+                'pageSummary'=>true
+            ],
+            [
+                'attribute'=>'need',
+                'label'=>'需议价或谈其他条件',
+                'width'=>'150px',
+                'hAlign'=>'right',
+                'format'=>['decimal', 0],
+                'pageSummary'=>true
+            ],
+            [
+                'attribute'=>'undo',
+                'label'=>'未评审',
+                'width'=>'150px',
+                'hAlign'=>'right',
+                'format'=>['decimal', 0],
+                'pageSummary'=>true
+            ],
+            [
+                'attribute'=>'direct',
+                'label'=>'直接下单',
+                'width'=>'150px',
+                'hAlign'=>'right',
+                'format'=>['decimal', 0],
+                'pageSummary'=>true
+            ],[
+                'attribute'=>'season',
+                'label'=>'季节产品推迟',
+                'width'=>'150px',
+                'hAlign'=>'right',
+                'format'=>['decimal', 0],
+                'pageSummary'=>true
+            ],
+            [
+                'class'=>'kartik\grid\FormulaColumn',
+                'header'=>'产品总数',
+                'value'=>function ($model, $key, $index, $widget) {
+                    $p = compact('model', 'key', 'index');
+                    return $widget->col(2, $p) + $widget->col(3, $p)+
+                        $widget->col(4, $p)+ $widget->col(5, $p)+ $widget->col(6, $p)+ $widget->col(7, $p);
+                },
+                'mergeHeader'=>true,
+                'width'=>'150px',
+                'hAlign'=>'right',
+                'format'=>['decimal', 0],
+                'pageSummary'=>true
+            ],
+            [
+                'class'=>'kartik\grid\FormulaColumn',
+                'header'=>'拒绝率%',
+                'value'=>function ($model, $key, $index, $widget) {
+                    $p = compact('model', 'key', 'index');
+                    return $widget->col(2, $p) / $widget->col(8, $p) *100;
+                },
+                'mergeHeader'=>true,
+                'width'=>'150px',
+                'hAlign'=>'right',
+                'format'=>['decimal', 2],
 //            'pageSummary'=>true,
-            'pageSummaryFunc'=>GridView::F_AVG,
-        ],
-        [
-            'class'=>'kartik\grid\FormulaColumn',
-            'header'=>'成功率%',
-            'value'=>function ($model, $key, $index, $widget) {
-                $p = compact('model', 'key', 'index');
-                return ($widget->col(3, $p)+ $widget->col(6, $p))/ $widget->col(8, $p) *100;
-            },
-            'mergeHeader'=>true,
-            'width'=>'150px',
-            'hAlign'=>'right',
-            'format'=>['decimal', 2],
+                'pageSummaryFunc'=>GridView::F_AVG,
+            ],
+            [
+                'class'=>'kartik\grid\FormulaColumn',
+                'header'=>'成功率%',
+                'value'=>function ($model, $key, $index, $widget) {
+                    $p = compact('model', 'key', 'index');
+                    return ($widget->col(3, $p)+ $widget->col(6, $p))/ $widget->col(8, $p) *100;
+                },
+                'mergeHeader'=>true,
+                'width'=>'150px',
+                'hAlign'=>'right',
+                'format'=>['decimal', 2],
 //            'pageSummary'=>true,
-            'pageSummaryFunc'=>GridView::F_AVG,
+                'pageSummaryFunc'=>GridView::F_AVG,
 
+            ],
         ],
-    ],
-]);
+    ]);
+}
+
 echo GridView::widget([
     'dataProvider' => $dataProvider2,
     'showPageSummary'=>true,
