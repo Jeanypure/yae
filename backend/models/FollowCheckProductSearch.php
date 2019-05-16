@@ -63,7 +63,7 @@ class FollowCheckProductSearch extends Goodssku
         }else{
             $val = $user_dict[$username];
             $query = Goodssku::find()
-                ->Where('pur_group IN('.$val.')')
+                ->Where('short_group IN('.$val.')')
                 ->orderBy('sku_id desc')
 
             ;

@@ -60,13 +60,15 @@ class GetWriteDateController extends \yii\web\Controller
                $record[] = $value['custcol_invoice_item_name'];
                $record[] = $value['subsidiary'];
                $record[] = $value['department'];
+               $record[] = $value['formulanumeric'];
                $record_set[] = $record;
                unset($record);
            }
        }
+       echo json_encode($record_set);
        $table = 'tb_purchase_detail';
        $column = ['purchase_date','purchase_order_no','sku','receipt_quantity','requisition_quantity',
-           'purchase_quantity','purchaser','subsidiary','department'];
+           'purchase_quantity','purchaser','subsidiary','department','formulanumeric'];
        Yii::$app->db->createCommand('truncate table tb_purchase_detail')->execute();
        $res = Yii::$app->db->createCommand()->batchInsert($table,$column,$record_set)->execute();
        return json_encode($res,true);
