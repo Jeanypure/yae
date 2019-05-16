@@ -100,9 +100,17 @@ echo GridView::widget([
             'label'=>'含税价格(￥)',
             'width'=>'150px',
             'hAlign'=>'right',
-            'format'=>['decimal', 3],
+            'format'=>['decimal',3],
+
         ],
         [
+            'attribute'=>'formulanumeric',
+            'label'=>'采购单含税价格(￥)',
+            'width'=>'150px',
+            'hAlign'=>'right',
+            'format'=>['decimal', 3],
+        ],
+       /* [
             'attribute'=>'has_arrival',
             'label'=>'是否到货',
             'value' => function($model) {
@@ -119,7 +127,7 @@ echo GridView::widget([
                 'pluginOptions'=>['allowClear'=>true],
             ],
             'filterInputOptions'=>['placeholder'=>'到货?']
-        ],
+        ],*/
         [
             'attribute'=>'write_date',
             'label'=>'到货日期',
