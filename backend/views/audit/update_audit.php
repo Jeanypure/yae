@@ -188,7 +188,7 @@ $require_js = <<<JS
             });
             
             //只读
-             $("#purinfo-pd_pur_costprice").attr("readonly","readonly");
+            //  $("#purinfo-pd_pur_costprice").attr("readonly","readonly");
              $("#purinfo-bill_tax_rebate").attr("readonly","readonly");
              $("#purinfo-shipping_fee").attr("readonly","readonly");
              $("#purinfo-oversea_shipping_fee").attr("readonly","readonly");
