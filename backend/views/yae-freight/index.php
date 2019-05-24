@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'bill_to',
                 'value' => function($model) {
-                    $suffix = [ '1' => '商舟', '2' => '雅耶', '3' => '朗探', '4' => '域聪', '5' => '鹏侯', '6' => '客尊'];
+                    $suffix = [ '1' => '商舟', '2' => '雅耶', '3' => '朗探', '4' => '域聪', '5' => '鹏侯', '6' => '客尊',9=>'杭州雅耶'];
                     return $suffix[$model->bill_to];
                 },
                 'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
                 'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>[ '1' => '商舟', '2' => '雅耶', '3' => '朗探', '4' => '域聪', '5' => '鹏侯', '6' => '客尊'],
+                'filter'=>[ '1' => '商舟', '2' => '雅耶', '3' => '朗探', '4' => '域聪', '5' => '鹏侯', '6' => '客尊',9=>'杭州雅耶'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'receiver',
                 'value' => function($model) {
                     $company = [ '1' => '大森林', '2' => '珑瑗', '3' => '昊宏', '4' => '安泰克', '5' => '文鼎','6'=>'龙辕',
-                        '7'=>'瀚明','8'=>'德威','9'=>'世纪卓越'];
+                        '7'=>'瀚明','8'=>'德威','9'=>'世纪卓越',10=>'优备艾佳'];
                         return $company[$model->receiver];
 
                     },
@@ -89,7 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'filterType'=>GridView::FILTER_SELECT2,
                 'filter'=>[ '1' => '大森林', '2' => '珑瑗', '3' => '昊宏', '4' => '安泰克', '5' => '文鼎','6'=>'龙辕',
-                    '7'=>'瀚明','8'=>'德威','9'=>'世纪卓越'],
+                    '7'=>'瀚明','8'=>'德威','9'=>'世纪卓越',10=>'优备艾佳'],
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
@@ -131,6 +131,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         14 => '客尊美国销售组-F1',
                         15 => '客尊加拿大销售组-F2',
                         16 => '朵邦美国销售组-G1',
+                        17 => '杭州雅耶加拿大组-HA2'
                     ];
                    return $group[$model->group_id];
                 },
