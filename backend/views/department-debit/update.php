@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = 'Update';
                     'attribute'=>'bill_to',
                     'format'=>'raw',
                     'value' => function ($model) {
-                        $suffix = [ '1' => '商舟', '2' => '雅耶', '3' => '朗探', '4' => '域聪', '5' => '鹏侯', '6' => '客尊'];
+                        $suffix = [ '1' => '商舟', '2' => '雅耶', '3' => '朗探', '4' => '域聪', '5' => '鹏侯', '6' => '客尊','9'=>'杭州雅耶'];
                         return $suffix[$model->bill_to];
                     },
                 ],
@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = 'Update';
                     'format'=>'raw',
                     'value' => function ($model) {
                         $company = [ '1' => '大森林', '2' => '珑瑗', '3' => '昊宏', '4' => '安泰克', '5' => '文鼎','6'=>'龙辕',
-                            '7'=>'瀚明','8'=>'德威','9'=>'世纪卓越'];
+                            '7'=>'瀚明','8'=>'德威','9'=>'世纪卓越','10'=>'优备艾佳'];
                         return $company[$model->receiver];
                     },
                 ],
