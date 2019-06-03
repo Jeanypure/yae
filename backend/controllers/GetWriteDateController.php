@@ -65,7 +65,6 @@ class GetWriteDateController extends \yii\web\Controller
                unset($record);
            }
        }
-       echo json_encode($record_set);
        $table = 'tb_purchase_detail';
        $column = ['purchase_date','purchase_order_no','sku','receipt_quantity','requisition_quantity',
            'purchase_quantity','purchaser','subsidiary','department','formulanumeric'];
