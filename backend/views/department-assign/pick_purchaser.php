@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="product-form">
 
         <?php $form = ActiveForm::begin(); ?>
-        <?php echo $form->field($model, 'purchaser_leader',
+        <?php echo $form->field($model, 'purchaser',
 
                 [
                     'options'=>['class' => 'form-group form-md-radios'],

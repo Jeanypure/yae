@@ -19,7 +19,8 @@ class DepartmentSearch extends Product
     {
         return [
             [['product_id', 'creator_id'], 'integer'],
-            [['accept_status','product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4', 'product_add_time', 'product_update_time', 'purchaser', 'creator', 'product_status', 'pd_pic_url', 'preview_time', 'preview_mark', 'sub_company', 'group_mark', 'group_time', 'group_update_time', 'group_status', 'brocast_status','complete_status'], 'safe'],
+            [['accept_status','product_title_en', 'product_title', 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4',
+                'product_add_time', 'product_update_time', 'purchaser_leader','purchaser', 'creator', 'product_status', 'pd_pic_url', 'preview_time', 'preview_mark', 'sub_company', 'group_mark', 'group_time', 'group_update_time', 'group_status', 'brocast_status','complete_status'], 'safe'],
             [['product_purchase_value'], 'number'],
         ];
     }
@@ -40,13 +41,31 @@ class DepartmentSearch extends Product
      *
      * @return ActiveDataProvider
      */
-    public function search($params,$sub_company)
+    public function search($params)
     {
-        $this->sub_company = $sub_company;
+        $username = Yii::$app->user->identity->username;
+        $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
+        if(array_key_exists('销售部长',$role)){
+            //销售主管推荐 看自己名下推荐的产品
+            $res = Company::find()->select('id,sub_company')
+                ->where("leader_id=".Yii::$app->user->identity->getId())->asArray()->one();
+            $sub_company = $res['sub_company']??'';
+            $this->sub_company = $sub_company;
 
-        $query = Product::find()
-            ->andWhere(['brocast_status'=>2])
-            ->orderBy('product_id desc');
+            $query = Product::find()
+                ->andWhere(['brocast_status'=>2])
+                ->orderBy('product_id desc');
+        }elseif (array_key_exists('采购A',$role)||array_key_exists('采购B',$role)
+            ||array_key_exists('采购主管',$role)){
+            $query = Product::find()
+                ->andWhere(['purchaser_leader'=>$username])
+                ->orderBy('product_id desc');
+        }else{
+            $query = Product::find()
+                ->andWhere(['brocast_status'=>2])
+                ->orderBy('product_id desc');
+        }
+
 
         // add conditions that should always apply here
 
@@ -86,6 +105,7 @@ class DepartmentSearch extends Product
             ->andFilterWhere(['like', 'ref_url3', $this->ref_url3])
             ->andFilterWhere(['like', 'ref_url4', $this->ref_url4])
             ->andFilterWhere(['like', 'purchaser', $this->purchaser])
+            ->andFilterWhere(['like', 'purchaser_leader', $this->purchaser_leader])
             ->andFilterWhere(['like', 'creator', $this->creator])
             ->andFilterWhere(['like', 'product_status', $this->product_status])
             ->andFilterWhere(['like', 'pd_pic_url', $this->pd_pic_url])

@@ -13,7 +13,7 @@ use backend\models\Company;
 /**
  * DepartmentController implements the CRUD actions for Product model.
  */
-class DepartmentController extends Controller
+class DepartmentAssignController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -203,7 +203,7 @@ class DepartmentController extends Controller
             return $this->redirect('index');
         }
 
-        $pur_set= $this->actionWhichPurchaser($model->purchaser);
+        $pur_set= $this->actionWhichMember($model->purchaser);
 
 
         return  $this->renderAjax('pick_purchaser', [
@@ -215,13 +215,18 @@ class DepartmentController extends Controller
 
     }
 
-    public function actionWhichPurchaser2($purchaser)
+    public function actionWhichMember($purchaser_leader)
     {
+        //跟据采购主管找到code  再根据code找到组员集合
+        $codeRet = Yii::$app->db->createCommand("select code from purchaser where  purchaser='$purchaser_leader'")->queryOne();
+        $code = $codeRet['code'];
         $pur_has = Yii::$app->db->createCommand(" 
                             SELECT 
                             p.`purchaser`,
                             count(*) as num         
-                         from `product` p  WHERE  p.`complete_status`= 0 and p.`purchaser` is not null 
+                         from `product` p  left  join `purchaser` pu on  pu.purchaser=p.purchaser_leader
+                          WHERE  
+                           pu.`code`= $code AND has_used=1
                          GROUP BY p.`purchaser` 
                          ")->queryAll();
         $pur_non = Yii::$app->db->createCommand(" 
@@ -229,7 +234,7 @@ class DepartmentController extends Controller
                             p.`purchaser`,
                             0 as num         
                          from `purchaser` p 
-                         where (p.`code`=1 or p.`code`=2 or p.`code`=3 or p.`code`=4 or p.`code`=6) AND has_used=1
+                         where p.`code`= $code AND has_used=1
                          GROUP BY p.`purchaser` 
                          ")->queryAll();
 
@@ -246,7 +251,7 @@ class DepartmentController extends Controller
         $meg = array_merge($non_arr,$has_arr);
 
         foreach($meg as $k=>$val){
-            if($val==10)   unset($meg[$k]) ; //任务数满 不可选
+            if($val==22)   unset($meg[$k]) ; //任务数满 不可选
         }
         foreach($meg as $k=>$val){
             $pur_set[$k] = $k;
@@ -260,26 +265,6 @@ class DepartmentController extends Controller
         return $pur_set;
     }
 
-    public function actionWhichPurchaser($purchaser)
-    {
-        $pur_has = Yii::$app->db->createCommand(" 
-                            SELECT
-	p.`purchaser`,
-	count(*) AS num
-FROM
-	`product` p
-LEFT JOIN purchaser pu ON pu.purchaser = p.purchaser
-WHERE
-	pu.real_role = 1
-AND p.`complete_status` = 0
-AND p.`purchaser` IS NOT NULL
-GROUP BY
-	p.`purchaser`; 
-                         ")->queryAll();
-        foreach ($pur_has as $key=>$val){
-            $pur_set[$val["purchaser"]] = $val['purchaser'];
-        }
-        return $pur_set;
-    }
+
 
 }
