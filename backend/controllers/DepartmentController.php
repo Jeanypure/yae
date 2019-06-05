@@ -271,8 +271,6 @@ FROM
 LEFT JOIN purchaser pu ON pu.purchaser = p.purchaser
 WHERE
 	pu.real_role = 1
-AND p.`complete_status` = 0
-AND p.`purchaser` IS NOT NULL
 GROUP BY
 	p.`purchaser`; 
                          ")->queryAll();
