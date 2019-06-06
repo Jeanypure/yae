@@ -164,24 +164,7 @@ class DepartmentAssignController extends Controller
 
     }
 
-    /**
-     * @desciption 销售推荐产品给采购主管
-     */
 
-    public function actionPickPurchaserLeader($id){
-        $model = $this->findModel($id);
-        if($model->load(Yii::$app->request->post())&& $model->save(false)){
-            return $this->redirect('index');
-        }
-        $pur_set= $this->actionWhichPurchaser($model->purchaser);
-
-
-        return  $this->renderAjax('pick_purchaser', [
-            'model' => $model,
-            'id' =>$id,
-            'purset' =>$pur_set,
-        ]);
-    }
 
     /**
      * can pick purchaser which hasn't full tasks
@@ -203,7 +186,7 @@ class DepartmentAssignController extends Controller
             return $this->redirect('index');
         }
 
-        $pur_set= $this->actionWhichMember($model->purchaser);
+        $pur_set= $this->actionWhichMember($model->purchaser_leader);
 
 
         return  $this->renderAjax('pick_purchaser', [
