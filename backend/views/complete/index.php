@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
 use kartik\grid\GridView;
+use kartik\daterange\DateRangePicker;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CompleteSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -92,6 +93,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'filterInputOptions'=>['placeholder'=>'是否提交'],
 //                'group'=>true,  // enable grouping
+            ],
+            [
+                'attribute' => 'pd_create_time',
+                'headerOptions' => ['width' => '12%'],
+                'filter' => DateRangePicker::widget([
+                    'name' => 'PurInfoSearch[pd_create_time]',
+                    'value' => Yii::$app->request->get('PurInfoSearch')['pd_create_time'],
+                    'convertFormat' => true,
+                    'pluginOptions' => [
+                        'locale' => [
+                            'format' => 'Y-m-d H:i:s',
+                            'separator' => '/',
+                        ]
+                    ]
+                ])
             ],
             [
                 'attribute'=>'pur_complete_status',

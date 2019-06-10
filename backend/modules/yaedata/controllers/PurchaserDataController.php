@@ -51,7 +51,7 @@ class PurchaserDataController extends Controller
             FROM
             pur_info
             WHERE   
-            is_submit = 1 and purchaser_send_time between '$date_arr[0]' and '$date_arr[1]'
+            is_submit = 1 and pd_create_time between '$date_arr[0]' and '$date_arr[1]'
             GROUP BY
             master_result,purchaser
             ) bb
@@ -74,7 +74,7 @@ class PurchaserDataController extends Controller
             FROM
             pur_info
             WHERE   
-            is_submit = 1 and purchaser_send_time between '$date_arr[0]' and '$date_arr[1]' 
+            is_submit = 1 and pd_create_time between '$date_arr[0]' and '$date_arr[1]' 
             and source = 1
             GROUP BY
             master_result,purchaser
@@ -85,7 +85,7 @@ class PurchaserDataController extends Controller
               SELECT o.purchaser ,count(*) as commit_num ,IFNULL(uncommit_num,0) as uncommit_num ,p.reject, p.get , p.need , p.undo , p.direct , p.season  
                 FROM pur_info o 
                 LEFT JOIN 
-                (SELECT purchaser ,count(*) as uncommit_num  FROM pur_info o WHERE source=0 AND is_submit=0 and purchaser_send_time between '$date_arr[0]' and '$date_arr[1]'  GROUP BY purchaser ) u
+                (SELECT purchaser ,count(*) as uncommit_num  FROM pur_info o WHERE source=0 AND is_submit=0 and pd_create_time between '$date_arr[0]' and '$date_arr[1]'  GROUP BY purchaser ) u
                 ON u.purchaser = o.purchaser
                 LEFT JOIN 
                 ( 
@@ -104,14 +104,14 @@ class PurchaserDataController extends Controller
                     FROM
                     pur_info
                     WHERE 
-                     source=0 and purchaser_send_time between '$date_arr[0]' and '$date_arr[1]'
+                     source=0 and pd_create_time between '$date_arr[0]' and '$date_arr[1]'
                     GROUP BY 
                     master_result,purchaser
                     ) bb
                     GROUP BY purchaser 
                 ) p ON p.purchaser=o.purchaser
                 
-                WHERE o.source=0 and (purchaser_send_time between '$date_arr[0]' and '$date_arr[1]') GROUP BY  o.purchaser  ORDER BY uncommit_num desc";
+                WHERE o.source=0 and (pd_create_time between '$date_arr[0]' and '$date_arr[1]') GROUP BY  o.purchaser  ORDER BY uncommit_num desc";
         } else {
             // -- 产品拒绝率 采样率 采购率统计
             $sql = "
