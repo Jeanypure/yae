@@ -44,9 +44,10 @@ class GroupSearch extends Product
      */
     public function search($params)
     {
-        $this->sale_submit = 1;
+
         $query = Product::find()
             ->andWhere(['not',['sub_company'=>'null']])
+            ->andWhere(['sale_submit'=>1])
             ->orderBy('product_id desc');
         $this->group_status=0;
         // add conditions that should always apply here

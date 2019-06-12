@@ -174,7 +174,7 @@ class ProductController extends Controller
 
         if(isset($ids)&&!empty($ids)){
            $res = Yii::$app->db->createCommand("
-            update `product` set `is_submit`= 1 ,`commit_at`='$commit_at'
+            update `product` set `sale_submit`= 1 ,`commit_at`='$commit_at'
             where `product_id` in ($ids_str)
             ")->execute();
            if($res){
@@ -202,7 +202,7 @@ class ProductController extends Controller
 
         if(isset($ids)&&!empty($ids)){
             $res = Yii::$app->db->createCommand("
-            update `product` set `is_submit`= 0 where `product_id` in ($ids_str)
+            update `product` set `sale_submit`= 0 where `product_id` in ($ids_str)
             ")->execute();
             if($res){
                 echo 'success';
