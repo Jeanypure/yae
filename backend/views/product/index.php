@@ -160,11 +160,30 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'is_submit',
                 'width'=>'50px',
                 'value'=>function ($model, $key, $index, $widget) {
-                        if($model->is_submit=='0'){
-                            return '否';
+                    if($model->is_submit==1){
+                        return '是';
+
+                    }else{
+                        return '否';
+                    }
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '是', '0' => '否'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'采购提交'],
+//                'group'=>true,  // enable grouping
+            ],
+            [
+                'attribute'=>'sale_submit',
+                'width'=>'50px',
+                'value'=>function ($model, $key, $index, $widget) {
+                        if($model->sale_submit==1){
+                            return '是';
 
                         }else{
-                            return '是';
+                            return '否';
                         }
                 },
                 'filterType'=>GridView::FILTER_SELECT2,
@@ -172,7 +191,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                'filterInputOptions'=>['placeholder'=>'是否提交'],
+                'filterInputOptions'=>['placeholder'=>'销售提交'],
 //                'group'=>true,  // enable grouping
             ],
 

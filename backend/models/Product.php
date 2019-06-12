@@ -22,6 +22,7 @@ use Yii;
  */
 class Product extends \yii\db\ActiveRecord
 {
+    public $is_submit;
     /**
      * @inheritdoc
      */
@@ -37,7 +38,7 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             [['product_purchase_value'], 'number'],
-            [['is_submit','accept_status','group_status','brocast_status','sub_company',], 'integer'],
+            [['sale_submit','accept_status','group_status','brocast_status','sub_company',], 'integer'],
             [['product_add_time', 'product_update_time'], 'safe'],
             [['product_title_en','product_title','pd_pic_url'], 'required'],
             [['group_mark','preview_mark','product_title_en', 'product_title'], 'string', 'max' => 255],
@@ -79,9 +80,18 @@ class Product extends \yii\db\ActiveRecord
             'purchaser_leader' => '采购主管',
             'group_status' => '分部状态',
             'accept_status' => '接受状态',
-            'is_submit' => '是否提交',
+            'sale_submit' => '是否提交',
             'commit_at' => '提交时间',
+            'is_submit' => '采购提交'
 
         ];
+    }
+
+    /**
+     * @description推荐产品表和产品表关联 product pur_info
+     *
+     */
+    public function getPurinfo(){
+        return $this->hasOne(PurInfo::className(),['parent_product_id' => 'product_id']);
     }
 }
