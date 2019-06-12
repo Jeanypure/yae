@@ -82,7 +82,7 @@ class Product extends \yii\db\ActiveRecord
             'accept_status' => '接受状态',
             'sale_submit' => '是否提交',
             'commit_at' => '提交时间',
-            'is_submit' => '采购提交'
+            'is_submit' => '采购完成提交'
 
         ];
     }

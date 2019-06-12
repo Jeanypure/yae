@@ -172,7 +172,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterWidgetOptions'=>[
                     'pluginOptions'=>['allowClear'=>true],
                 ],
-                'filterInputOptions'=>['placeholder'=>'采购提交'],
+                'filterInputOptions'=>['placeholder'=>'是否完成'],
 //                'group'=>true,  // enable grouping
             ],
             [
@@ -256,8 +256,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]
                 ])
             ],
-//            'product_update_time:date',
-            [
+          /*  [
                 'attribute'=>'complete_status',
                 'width'=>'100px',
                 'value'=>function ($model, $key, $index, $widget) {
@@ -275,7 +274,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'filterInputOptions'=>['placeholder'=>'是否完成'],
 //                'group'=>true,  // enable grouping
-            ],
+            ],*/
 
         ],
     ]); ?>
