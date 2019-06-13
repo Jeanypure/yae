@@ -35,6 +35,7 @@ use Yii;
  */
 class YaeFreight extends \yii\db\ActiveRecord
 {
+    public $group_name,$forwarders,$company_suffix;
     /**
      * {@inheritdoc}
      */
@@ -90,6 +91,8 @@ class YaeFreight extends \yii\db\ActiveRecord
             'contract_no' => 'Contract No',
             'debit_no' => 'Debit No',
             'minister' => 'Minister',
+            'forwarders' => '货代简称',
+            'company_suffix' => '公司简称'
         ];
     }
 
@@ -102,4 +105,24 @@ class YaeFreight extends \yii\db\ActiveRecord
 
     }
 
+    /**
+     * @description 关联组别 yae_group
+     */
+     public function getYaegroup(){
+         return $this->hasOne(YaeGroup::className(),['group_id'=>'group_id']);
+     }
+
+     /**
+      * @description 关联货代公司 freight_forwarders  freight_forwarders
+      */
+     public function  getFreightforwarders(){
+         return $this->hasOne(FreightForwarders::className(),['id'=>'receiver']);
+     }
+
+     /**
+      * @description 关联公司 company
+      */
+     public function getCompany(){
+         return $this->hasOne(Company::className(),['id'=>'bill_to']);
+     }
 }

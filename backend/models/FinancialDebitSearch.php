@@ -19,7 +19,7 @@ class FinancialDebitSearch extends YaeFreight
     {
         return [
             [['group_id','id', 'to_minister', 'to_financial', 'mini_deal', 'fina_deal'], 'integer'],
-            [['builder','minister','contract_no','debit_no','bill_to', 'receiver', 'shipment_id', 'pod', 'pol', 'etd', 'eta', 'remark', 'image', 'mini_res', 'fina_res'], 'safe'],
+            [['company_suffix','forwarders','group_name','builder','minister','contract_no','debit_no','bill_to', 'receiver', 'shipment_id', 'pod', 'pol', 'etd', 'eta', 'remark', 'image', 'mini_res', 'fina_res'], 'safe'],
         ];
     }
 
@@ -42,6 +42,10 @@ class FinancialDebitSearch extends YaeFreight
     public function search($params)
     {
         $query = YaeFreight::find()
+            ->select(['`yae_freight`.*,`yae_group`.group_name,`freight_forwarders`.forwarders ,`company`.company_suffix'])
+            ->joinWith('yaegroup')
+            ->joinWith('freightforwarders')
+            ->joinWith('company')
             ->andWhere(['to_financial'=>1])
             ->orderBy('id desc')
         ;
@@ -86,6 +90,9 @@ class FinancialDebitSearch extends YaeFreight
             ->andFilterWhere(['like', 'debit_no', $this->debit_no])
             ->andFilterWhere(['like', 'minister', $this->minister])
             ->andFilterWhere(['like', 'builder', $this->builder])
+            ->andFilterWhere(['like', 'group_name', $this->group_name])
+            ->andFilterWhere(['like', 'forwarders', $this->forwarders])
+            ->andFilterWhere(['like', 'company_suffix', $this->company_suffix])
         ;
 
         return $dataProvider;

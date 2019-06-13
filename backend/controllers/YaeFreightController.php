@@ -269,7 +269,7 @@ class YaeFreightController extends Controller
 
         $fee_cate = FeeCategory::find()->select('id,name_zn')->asArray()->All();
         $cur = YaeExchangeRate::find()->select('id,currency')->asArray()->All();
-        $forwarders = FreightForwarders::find()->select('id,receiver,memo')->asArray()->All();
+        $forwarders = FreightForwarders::find()->select('id,receiver,forwarders')->asArray()->All();
         $saler = Purchaser::find()->select('id,purchaser')->asArray()->where(['code'=>'freight_contact'])->All();
         $company = Company::find()->select('id,full_name')->asArray()->andWhere(['NOT', ['full_name' => null]])->All();
         $group = YaeGroup::find()->select('group_id,group_name')->asArray()->orderBy('group_id asc')->All();
@@ -288,7 +288,7 @@ class YaeFreightController extends Controller
         }
         foreach ($forwarders as $key => $value) {
             $freight_for[$value['id']] = $value['receiver'];
-            $memo[$value['id']] = $value['memo'];
+            $memo[$value['id']] = $value['forwarders'];
         }
         foreach ($saler as $key => $value) {
             $minister[$value['purchaser']] = $value['purchaser'];
@@ -469,10 +469,10 @@ SELECT t.bill_to,
         ";
 
         $data = Yii::$app->db->createCommand($sql)->queryAll();
-        $company = Yii::$app->db->createCommand("select sub_company,memo from company")->queryAll();
+        $company = Yii::$app->db->createCommand("select sub_company,company_suffix from company")->queryAll();
         $company_arr = [];
         foreach ($company as $key => $val) {
-            $company_arr[$val['sub_company']] = $val['memo'];
+            $company_arr[$val['sub_company']] = $val['company_suffix'];
         }
 
         //设置表格头的输出

@@ -27,7 +27,7 @@ class FreightForwarders extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['receiver', 'memo'], 'string', 'max' => 100],
+            [['receiver', 'forwarders'], 'string', 'max' => 100],
         ];
     }
 
@@ -39,7 +39,7 @@ class FreightForwarders extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'receiver' => 'Receiver',
-            'memo' => 'Memo',
+            'forwarders' => 'Forwarders',
         ];
     }
 }

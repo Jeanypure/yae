@@ -82,45 +82,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions'=>['placeholder'=>'提交财务?'],
 
             ],
-            [
-                'attribute'=>'bill_to',
-                'value' => function($model) {
-                    $suffix = [ '1' => '商舟', '2' => '雅耶', '3' => '朗探', '4' => '域聪', '5' => '鹏侯', '6' => '客尊',9=>'杭州雅耶'];
-                    return $suffix[$model->bill_to];
-                },
-                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
-                'format'=>'html',
-                'headerOptions' => [
-                    'width'=>'80%'
-                ],
-                'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>[ '1' => '商舟', '2' => '雅耶', '3' => '朗探', '4' => '域聪', '5' => '鹏侯', '6' => '客尊',9=>'杭州雅耶'],
-                'filterWidgetOptions'=>[
-                    'pluginOptions'=>['allowClear'=>true],
-                ],
-                'filterInputOptions'=>['placeholder'=>'付款人'],
-            ],
-            [
-                'attribute'=>'receiver',
-                'value' => function($model) {
-                    $company = [ '1' => '大森林', '2' => '珑瑗', '3' => '昊宏', '4' => '安泰克', '5' => '文鼎','6'=>'龙辕',
-                        '7'=>'瀚明','8'=>'德威','9'=>'世纪卓越',10=>'优备艾佳'];
-                    return $company[$model->receiver];
-
-                },
-                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
-                'format'=>'html',
-                'headerOptions' => [
-                    'width'=>'80%'
-                ],
-                'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>[ '1' => '大森林', '2' => '珑瑗', '3' => '昊宏', '4' => '安泰克', '5' => '文鼎','6'=>'龙辕',
-                    '7'=>'瀚明','8'=>'德威','9'=>'世纪卓越',10=>'优备艾佳'],
-                'filterWidgetOptions'=>[
-                    'pluginOptions'=>['allowClear'=>true],
-                ],
-                'filterInputOptions'=>['placeholder'=>'货代公司'],
-            ],
+            'company_suffix',
+            'forwarders',
             'contract_no',
             'debit_no',
             'shipment_id',
@@ -137,42 +100,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
-            [
-                'attribute'=>'group_id',
-                'value' => function($model) {
-                    $group = [0 => '无',
-                        1 => '商舟美国销售组-A1',
-                        2 => '商舟加拿大销售组-A2',
-                        3 => '商舟澳洲销售组-A5',
-                        4 => '商舟日本销售组-A6',
-                        5 => '商舟朵邦销售组-A7',
-                        6 => '雅耶美国销售组-B1',
-                        7 => '雅耶加拿大销售组-B2',
-                        8 => '雅耶欧洲销售组-B4',
-                        9 => '雅耶澳洲销售组-B5',
-                        10 => '朗探美国销售组-C1',
-                        11 => '朗探加拿大销售组-C2',
-                        12 => '域聪美国销售组-D1',
-                        13 => '鹏侯美国销售组-E1',
-                        14 => '客尊美国销售组-F1',
-                        15 => '客尊加拿大销售组-F2',
-                        16 => '朵邦美国销售组-G1',
-                        17 => '杭州雅耶加拿大组-HA2'
-                    ];
-                    return $group[$model->group_id];
-                },
-                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
-                'format'=>'html',
-                'headerOptions' => [
-                    'width'=>'80%'
-                ],
-                'filterType'=>GridView::FILTER_SELECT2,
-                'filter'=>$paramData['group_name'],
-                'filterWidgetOptions'=>[
-                    'pluginOptions'=>['allowClear'=>true],
-                ],
-                'filterInputOptions'=>['placeholder'=>'销售组别'],
-            ],
+            'group_name',
+
             [
                 'attribute'=>'fina_deal',
                 'value' => function($model) {

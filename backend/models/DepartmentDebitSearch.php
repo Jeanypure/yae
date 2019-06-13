@@ -19,7 +19,7 @@ class DepartmentDebitSearch extends YaeFreight
     {
         return [
             [['group_id','id', 'to_minister', 'to_financial', 'mini_deal', 'fina_deal'], 'integer'],
-            [['minister','contract_no','debit_no','bill_to', 'receiver', 'shipment_id', 'pod', 'pol', 'etd', 'eta', 'remark', 'image', 'mini_res', 'fina_res'], 'safe'],
+            [['company_suffix','forwarders','group_name','minister','contract_no','debit_no','bill_to', 'receiver', 'shipment_id', 'pod', 'pol', 'etd', 'eta', 'remark', 'image', 'mini_res', 'fina_res'], 'safe'],
         ];
     }
 
@@ -44,10 +44,20 @@ class DepartmentDebitSearch extends YaeFreight
         $username = Yii::$app->user->identity->username;
         $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
         if(array_key_exists('超级管理员',$role)||array_key_exists('审核组',$role)){
-            $query = YaeFreight::find()->where(['to_minister'=> 1])->orderBy('id desc');
+            $query = YaeFreight::find()
+                ->select(['`yae_freight`.*,`yae_group`.group_name,`freight_forwarders`.forwarders ,`company`.company_suffix'])
+                ->joinWith('yaegroup')
+                ->joinWith('freightforwarders')
+                ->joinWith('company')
+                ->where(['to_minister'=> 1])
+                ->orderBy('id desc');
 
         }else{
             $query = YaeFreight::find()
+                ->select(['`yae_freight`.*,`yae_group`.group_name,`freight_forwarders`.forwarders ,`company`.company_suffix'])
+                ->joinWith('yaegroup')
+                ->joinWith('freightforwarders')
+                ->joinWith('company')
                 ->where(['to_minister'=> 1])
                 ->andWhere(['minister'=>$username])
                 ->orderBy('id desc')
@@ -93,6 +103,9 @@ class DepartmentDebitSearch extends YaeFreight
             ->andFilterWhere(['like', 'contract_no', $this->contract_no])
             ->andFilterWhere(['like', 'debit_no', $this->debit_no])
             ->andFilterWhere(['like', 'minister', $this->minister])
+            ->andFilterWhere(['like', 'group_name', $this->group_name])
+            ->andFilterWhere(['like', 'forwarders', $this->forwarders])
+            ->andFilterWhere(['like', 'company_suffix', $this->company_suffix])
         ;
 
         return $dataProvider;
