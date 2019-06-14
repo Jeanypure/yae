@@ -27,7 +27,7 @@ use kartik\select2\Select2;
             'supplier_name'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'credit_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'supplier_address'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
-
+            'origin_product_source'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
         ],
 
     ]);

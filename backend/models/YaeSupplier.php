@@ -34,6 +34,7 @@ use Yii;
  * @property int $bank_data_pass 银行信息审核通过0 否 1 是 2未审核
  * @property string $supplier_address 供应商地址
  * @property int $check_status 审核结果 0不通过 1通过 2半通过 3未处理
+ * @property string $origin_product_source 境内货源地
  */
 class YaeSupplier extends \yii\db\ActiveRecord
 {
@@ -59,7 +60,7 @@ class YaeSupplier extends \yii\db\ActiveRecord
     {
         return [
             [['sale_company','into_eccang_status','check_status','is_submit_vendor','bill_type', 'pay_cycleTime_type', 'account_type', 'has_cooperate', 'licence_pass', 'bill_pass', 'bank_data_pass'], 'integer'],
-            [['credit_code','supplier_code', 'bill_unit', 'submitter'], 'string', 'max' => 32],
+            [['credit_code','supplier_code', 'bill_unit', 'submitter','origin_product_source'], 'string', 'max' => 32],
             [['supplier_name', 'pd_bill_name'], 'string', 'max' => 64],
             [['business_licence', 'bank_account_data', 'bill_img1', 'bill_img2'], 'string', 'max' => 200],
             [['pay_name', 'pay_bank', 'bill_img1_name_unit', 'bill_img2_name_unit'], 'string', 'max' => 128],
@@ -73,6 +74,7 @@ class YaeSupplier extends \yii\db\ActiveRecord
                 'has_cooperate','submitter','pay_bank','pay_card','pay_name','pd_bill_name','bill_unit','bill_type',
                 'business_licence','bank_account_data','check_status','complete_num','bill_pass', 'bank_data_pass',
                 'licence_pass','supplier_pay_methon','commitment_date','promise_sign_right'
+                ,'origin_product_source'
             ], 'required'],
             [['into_eccang_date','create_date','update_date','update_date','check_date' ], 'safe'],
             [['bill_img1_name_unit','bill_img2_name_unit'], function ($attribute, $param) {//至少要一个
@@ -135,7 +137,8 @@ class YaeSupplier extends \yii\db\ActiveRecord
             'commitment_date' => '承诺到票日期',
             'promise_sign_right' =>'供应商是否答应签署侵犯知识产权责任书',
             'sign_right_pic_location' => '侵犯知识产权责任书的图片',
-            'credit_code' => '统一社会信用代码'
+            'credit_code' => '统一社会信用代码',
+            'origin_product_source' => '境内货源地'
         ];
 
     }

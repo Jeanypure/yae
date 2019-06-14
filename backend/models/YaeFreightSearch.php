@@ -93,6 +93,7 @@ class YaeFreightSearch extends YaeFreight
             ->andFilterWhere(['like', 'contract_no', $this->contract_no])
             ->andFilterWhere(['like', 'debit_no', $this->debit_no])
             ->andFilterWhere(['like', 'minister', $this->minister])
+            ->andFilterWhere(['like', 'builder', $this->builder])
             ->andFilterWhere(['like', 'group_name', $this->group_name])
             ->andFilterWhere(['like', 'forwarders', $this->forwarders])
             ->andFilterWhere(['like', 'company_suffix', $this->company_suffix])

@@ -42,7 +42,8 @@ class YaeSupplierSearch extends YaeSupplier
     public function search($params)
     {
         $username = Yii::$app->user->identity->username;
-        if($username=='Jenny'||$username=='David'||$username=='Mark'){
+        $roleName = Yii::$app->authManager->getRolesByUser(Yii::$app->user->identity->getId());
+        if(array_key_exists('超级管理员',$roleName)||array_key_exists('审核组',$roleName)){
             $query = YaeSupplier::find()->orderBy('id desc')
             ;
 

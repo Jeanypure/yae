@@ -25,6 +25,7 @@ use kartik\datetime\DateTimePicker;
             'supplier_name'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'credit_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'supplier_address'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'origin_product_source'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
         ],
 
@@ -361,6 +362,7 @@ $this->registerJs("
 $JS =<<<JS
     $(function(){
         var  requirelabels = [
+            'yaesupplier-origin_product_source',
            'yaesupplier-supplier_code','yaesupplier-supplier_name','yaesupplier-supplier_address' ,'yaesupplier-business_licence' ,
            'yaesupplier-pd_bill_name' ,'yaesupplier-bill_unit' ,'yaesupplier-pay_card' ,'yaesupplier-pay_name' ,'yaesupplier-pay_bank' ,'yaesupplier-sale_company',
            'yaesupplier-account_proportion' ,'yaesupplier-pay_cycletime_type' ,'yaesupplier-account_type' ,'yaesupplier-bank_account_data' ,'yaesupplier-supplier_pay_methon',
