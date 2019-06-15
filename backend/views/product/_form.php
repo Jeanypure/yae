@@ -68,7 +68,6 @@ $this->registerJs("
 
 $require_js = <<<JS
     $(function(){
-         $("label[for='product-product_title'] ").addClass("label-require");
          $("label[for='product-product_title_en'] ").addClass("label-require");
          $("label[for='product-pd_pic_url'] ").addClass("label-require");
             

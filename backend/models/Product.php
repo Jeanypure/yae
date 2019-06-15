@@ -40,7 +40,7 @@ class Product extends \yii\db\ActiveRecord
             [['product_purchase_value'], 'number'],
             [['sale_submit','accept_status','group_status','brocast_status','sub_company',], 'integer'],
             [['product_add_time', 'product_update_time'], 'safe'],
-            [['product_title_en','product_title','pd_pic_url'], 'required'],
+            [['product_title_en','pd_pic_url'], 'required'],
             [['group_mark','preview_mark','product_title_en', 'product_title'], 'string', 'max' => 255],
             [[ 'ref_url1', 'ref_url2', 'ref_url3', 'ref_url4','pd_pic_url',], 'string', 'max' => 5000],
             [['complete_status','purchaser_leader','purchaser'], 'string', 'max' => 32],
