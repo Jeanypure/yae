@@ -49,7 +49,6 @@ class GroupSearch extends Product
             ->andWhere(['not',['sub_company'=>'null']])
             ->andWhere(['sale_submit'=>1])
             ->orderBy('product_id desc');
-        $this->group_status=0;
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
