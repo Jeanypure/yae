@@ -183,7 +183,7 @@ class FinancialDebitController extends Controller
             'K1' => 'shipmentID',
         ];
         $sql = "
-                   SELECT bill_to,memo,receiver ,contract_no , debit_no,shipment_id,remark,fina_deal,
+                   SELECT bill_to,company_suffix,receiver ,contract_no , debit_no,shipment_id,remark,fina_deal,
 								MAX(CASE aa.currency WHEN 5 THEN aa.amount ELSE 0 END ) RMB,
                 MAX(CASE aa.currency WHEN 3 THEN aa.amount ELSE 0 END ) CAD,
                 MAX(CASE aa.currency WHEN 1 THEN aa.amount ELSE 0 END ) USD,
@@ -192,7 +192,7 @@ class FinancialDebitController extends Controller
 FROM (
 SELECT 
   t.bill_to,
-  y.memo,
+  y.company_suffix,
   s.receiver,
   t.contract_no,
   t.debit_no,
@@ -223,7 +223,7 @@ GROUP BY aa.contract_no;
             $num = $num+$k;
             $objPHPExcel->setActiveSheetIndex(0)
                 //Excel的第A列，uid是你查出数组的键值，下面以此类推
-                ->setCellValue('A'.$num, $v['memo'])
+                ->setCellValue('A'.$num, $v['company_suffix'])
                 ->setCellValue('B'.$num, $v['receiver'])
                 ->setCellValue('C'.$num, $v['contract_no'])
                 ->setCellValue('D'.$num, $v['debit_no'])
