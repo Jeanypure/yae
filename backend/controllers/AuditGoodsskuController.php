@@ -198,6 +198,7 @@ class AuditGoodsskuController extends Controller
            'custitemm_purpose' => $result[0]['use'],
            'salesdescription' => $result[0]['pd_title'],
            'custitem_cs_1688linkurl' => $result[0]['url_1688'],
+           'custitem_this_sku_cantpurchase' => TRUE,
        ];
         $recordtype = ['recordtype' => 'LotNumberedInventoryItem'];
         $item_arr =  array_merge($item_min,$recordtype);
