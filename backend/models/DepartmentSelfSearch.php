@@ -50,8 +50,16 @@ class DepartmentSelfSearch extends PurInfo
                 ->andWhere(['in','pur_group',[1,4,5,7,8]])
                 ->joinWith('sample')
                 ->andWhere(['is_submit'=>1])
-                ->orderBy('pur_info_id   desc');
-        }else{
+                ->orderBy('pur_info_id  desc');
+        }elseif ($username=='吴明放(Frank)'){
+            $query = PurInfo::find()
+                ->select(['`pur_info`.*,`sample`.pd_sku'])
+                ->andWhere(['in','pur_group',[1,3,4,5,7,8]])
+                ->joinWith('sample')
+                ->andWhere(['is_submit'=>1])
+                ->orderBy('pur_info_id  desc');
+        }
+        else{
             $query = PurInfo::find()
                 ->select(['`pur_info`.*,`sample`.pd_sku'])
                 ->where('pur_group like \'%'.$pur_group.'%\'')
@@ -97,6 +105,7 @@ class DepartmentSelfSearch extends PurInfo
             'preview_status' => $this->preview_status,
             'brocast_status' => $this->brocast_status,
             'pd_sku' => $this->pd_sku,
+            'is_purchase' => $this->is_purchase,
         ]);
 
         $query->andFilterWhere(['like', 'purchaser', $this->purchaser])
