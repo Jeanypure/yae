@@ -65,8 +65,8 @@ class FinancialAgreestSearch extends PurInfo
         }else{
             $username = Yii::$app->user->identity->username;
             $groupPayer = [
-                'Michael' => [2,3,5],
-                '赵志星' => [1,7,8],
+                'Michael' => [2,3,5,6],
+                '赵志星' => [1,4,7,8],
                 '刘胜男' => [4,6],
                 'Xiexiaolong' => [1,2,3,4,5,6,7,8]
             ];
