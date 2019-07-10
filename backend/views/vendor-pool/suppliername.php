@@ -10,7 +10,8 @@ use yii\helpers\Url;
 <div class="suppliername">
 
     <?php $form = ActiveForm::begin(); ?>
-
+    <h1>供应商池</h1>
+    <p><font color="red">创建新供应商前 按供应商名字搜下 如果已存在则不需创建 使用已存在的供应商代码等信息</font></p>
         <?= $form->field($model, 'supplier_name')->hint('完整的供应商名称  搜索结果才准确') ?>
     
         <div class="form-group">
@@ -20,7 +21,7 @@ use yii\helpers\Url;
 
 </div><!-- suppliername -->
 <?php
-$find = Url::toRoute(['likename']);
+$find = Url::toRoute(['index']);
 $submit = <<<JS
 //根据传过去的supplier_name 模糊查找 code
     $('#supplier-name').on('click',function() {

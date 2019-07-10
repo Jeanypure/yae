@@ -15,17 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
 
 
-    <?php
-//        echo GridView::widget([
-//        'dataProvider' => $dataProvider,
-//        'filterModel' => $searchModel,
-//        'columns' => [
-//            ['class' => 'yii\grid\SerialColumn'],
-//            'supplier_code',
-//            'supplier_name',
-//        ],
-//    ]);
-    ?>
+
 </div>
 
 <?php
