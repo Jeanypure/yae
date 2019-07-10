@@ -41,7 +41,8 @@ class VendorPoolSearch extends VendorPool
      */
     public function search($params)
     {
-        $query = VendorPool::find();
+        $query = VendorPool::find()
+        ;
 
         // add conditions that should always apply here
 

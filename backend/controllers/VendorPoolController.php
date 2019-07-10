@@ -42,6 +42,7 @@ class VendorPoolController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+
     }
 
     /**
@@ -124,4 +125,30 @@ class VendorPoolController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
+
+
+    public function actionLikename()
+    {
+        $model = new VendorPool();
+        if(Yii::$app->request->post()) {
+            $post = Yii::$app->request->post();
+            $name = $post['supplier_name'];
+            if (!empty($name) && isset($name)) {
+                $sql = "select supplier_code,supplier_name from vendor_pool where supplier_name like '%" . $name . "%'";
+                $ret = Yii::$app->db->createCommand($sql)->queryAll();
+                if(empty($ret)){
+                    return 'empty!';
+                }
+                return  json_encode($ret,true);
+            }
+        }else{
+            return $this->render('suppliername', [
+                'model' => $model,
+            ]);
+        }
+
+    }
+
 }
