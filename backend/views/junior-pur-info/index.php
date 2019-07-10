@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="pur-info-index">
 
     <p>
-        <?= Html::a(Yii::t('app', '创建新品'), ['create'], ['class' => 'btn btn-success']) ?>
+<!--        --><?php //echo  Html::a(Yii::t('app', '创建新品'), ['create'], ['class' => 'btn btn-success']) ?>
         <?php echo Html::button('确认提交',['class' => 'btn btn-info' ,'id'=>'is_submit'])?>
         <?php echo Html::button('取消提交',['class' => 'btn btn-primary' ,'id'=>'un_submit'])?>
 
