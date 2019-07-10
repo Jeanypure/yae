@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="yae-freight-index">
 
-        <?= Html::a('Create', ['create'], ['class' => 'btn btn-success']) ?>
+<!--        --><?php //echo  Html::a('Create', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::button('提交部长核对', ['id' => 'to_mini', 'class' => 'btn btn-primary']) ;?>
         <?=  Html::button('取消提交', ['id' => 'cancel', 'class' => 'btn btn-info']) ?>
         <?php echo Html::button('导出选中项',['class' => 'btn btn-warning' ,'id'=>'export-freight-fee'])?>
