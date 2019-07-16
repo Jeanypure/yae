@@ -140,6 +140,7 @@ class PurInfoTrackSearch extends PurInfo
             'is_assign' => $this->is_assign,
             'commit_date' => $this->commit_date,
             'is_purchase' => $this->is_purchase,
+            'is_quality' => $this->is_quality,
             'purchaser_result' => $this->purchaser_result,
             'pd_sku' => $this->pd_sku,
             'sure_purchase_time' => $this->sure_purchase_time,
